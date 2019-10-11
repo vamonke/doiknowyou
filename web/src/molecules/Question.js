@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Flex, Box, Text, Button } from "rebass";
 import { Textarea, Input } from "@rebass/forms";
+import { Field, FieldArray } from 'formik';
 
 const placeholderMapping = [
   'Write a question to get to know other players (Hint: press "Random")',
@@ -9,7 +10,9 @@ const placeholderMapping = [
 ];
 
 // Lobby question and options component
-const Question = ({ questionNo, prev, next }) => {
+const Question = (props) => {
+  const { options, questionNo, prev, next } = props;
+  // console.log(props);
   const firstQuestion = questionNo === 0;
   const lastQuestion = questionNo === 2;
   // constructor(props) {
@@ -180,12 +183,14 @@ const Question = ({ questionNo, prev, next }) => {
         </Box>
       </Flex>
 
-      <Textarea
-        variant="input"
-        sx={{ resize: "vertical" }}
-        placeholder={placeholderMapping[questionNo]}
-        name="question"
-      />
+      <Field name={`questions[${questionNo}].text`} render={({ field }) =>
+        <Textarea
+          {...field}
+          variant="input"
+          sx={{ resize: "vertical" }}
+          placeholder={placeholderMapping[questionNo]}
+        />
+      } />
 
       <Flex mt={3}>
         <Box width={1 / 2} px={1} variant="bold">
@@ -195,11 +200,41 @@ const Question = ({ questionNo, prev, next }) => {
           +
         </Box>
       </Flex>
-      <Input placeholder="Option 1" name="0" />
-      <Input placeholder="Option 2" name="1" />
-      <Button variant="dotted" width={1}>
-        Add option
-      </Button>
+      
+      <FieldArray
+        name={`questions[${questionNo}].options`}
+        render={arrayHelpers =>
+          <>
+            {options.map((_, index) => {
+              const showDel = options.length > 2;
+              return (
+                <Box key={index} sx={{ position: "relative" }}>
+                  <Field
+                    name={`questions[${questionNo}].options[${index}]`}
+                    render={({ field }) =>
+                      <Input
+                        {...field}
+                        sx={showDel && { paddingRight: "48px" }}
+                        placeholder={`Option ${index + 1}`}
+                      />
+                    }
+                  />
+                  {showDel &&
+                    <Button variant="inField" onClick={() => arrayHelpers.remove(index)}>
+                      X
+                    </Button>
+                  }
+                </Box>
+              );
+            })}
+            <Button variant="dotted" onClick={() => arrayHelpers.push('')} width={1}>
+              Add option
+            </Button>
+          </>
+        }
+      />
+
+
       <Flex mx={-1} mt={3}>
         {firstQuestion ? (
           <Box width={1} px={1}>

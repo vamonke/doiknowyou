@@ -36,14 +36,12 @@ export const leaveRoom = () => {
 
 export const playerReady = () => {
   return dispatch => {
-    console.log("Ready");
     socket.emit("ready");
   };
 };
 
 export const playerNotReady = () => {
   return dispatch => {
-    console.log("Not ready");
     socket.emit("notReady");
   };
 };

@@ -119,14 +119,27 @@ export default {
       borderRadius: 0,
       p: 12,
       outline: "none"
+    },
+    inField: {
+      cursor: "pointer",
+      color: "white",
+      bg: "black",
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "black",
+      borderRadius: 0,
+      p: 2,
+      outline: "none",
+      position: "absolute",
+      right: 1,
+      top: 1,
     }
   },
   input: {},
   forms: {
     input: {
       // borderRadius: 7,
-      px: 12,
-      py: 12,
+      p: 12,
       my: 8
     },
     error: {
