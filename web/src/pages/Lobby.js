@@ -2,12 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Heading } from "rebass";
 import { joinRoom, playerReady, playerNotReady } from "../redux/socket";
+// import { fetchQuestionBank } from "../redux/actions";
 
 import QuestionsForm from "../organisms/QuestionsForm";
 import PlayerList from "../organisms/PlayerList";
 
-const Lobby = ({ room, viewer, players, dispatch }) => {
+const Lobby = ({ room, viewer, players, questionBank, dispatch }) => {
   joinRoom(viewer);
+  document.title = `Do I know you? #${room.number}`;
 
   const onReady = () => {
     dispatch(playerReady());
@@ -23,7 +25,11 @@ const Lobby = ({ room, viewer, players, dispatch }) => {
         <Heading fontSize={4} m={-3} mb={0} variant="black">
           Room {room.number}
         </Heading>
-        <QuestionsForm onReady={onReady} onNotReady={onNotReady} />
+        <QuestionsForm
+          onReady={onReady}
+          onNotReady={onNotReady}
+          questionBank={questionBank}
+        />
       </Card>
 
       <PlayerList players={players} viewer={viewer} />

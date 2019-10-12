@@ -19,7 +19,7 @@ const JoinGame = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box sx={{ position: "relative" }}>
+      <Box variant="relative">
         <Input
           name="name"
           type="text"
@@ -32,7 +32,7 @@ const JoinGame = props => {
         {errors.name && <Text variant="error">{errors.name}</Text>}
       </Box>
 
-      <Box sx={{ position: "relative" }}>
+      <Box variant="relative">
         <Input
           name="roomNo"
           type="text"

@@ -19,7 +19,7 @@ const CreateGame = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box sx={{ position: "relative" }}>
+      <Box variant="relative">
         <Input
           name="name"
           type="text"

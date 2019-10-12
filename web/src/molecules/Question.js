@@ -1,239 +1,148 @@
 import React from "react";
 import { Flex, Box, Text, Button } from "rebass";
-import { Textarea, Input } from "@rebass/forms";
-import { Field, FieldArray } from 'formik';
+import { Textarea, Input, Select } from "@rebass/forms";
+import { Field, FieldArray } from "formik";
 
 const placeholderMapping = [
   'Write a question to get to know other players (Hint: press "Random")',
   "You can choose different types of answers for your question",
-  "You may leave a question blank too!"
+  "You can leave a question blank too!"
 ];
 
 // Lobby question and options component
-const Question = (props) => {
-  const { options, questionNo, prev, next } = props;
-  // console.log(props);
+const Question = props => {
+  const {
+    type,
+    options,
+    questionNo,
+    prev,
+    next,
+    questionBank,
+    handleChange,
+    setFieldValue
+  } = props;
   const firstQuestion = questionNo === 0;
   const lastQuestion = questionNo === 2;
-  // constructor(props) {
-  //   super(props);
-  //   this.handleChange = this.handleChange.bind(this);
-  //   this.nextQuestion = this.nextQuestion.bind(this);
-  //   this.prevQuestion = this.prevQuestion.bind(this);
-  //   this.addOption = this.addOption.bind(this);
-  //   this.removeOption = this.removeOption.bind(this);
-  //   this.optionField = this.optionField.bind(this);
-  //   this.renderButtons = this.renderButtons.bind(this);
-  //   this.setOptionType = this.setOptionType.bind(this);
-  //   this.generateQuestion = this.generateQuestion.bind(this);
-  //   this.state = {
-  //     question: '',
-  //     format: 'mcq',
-  //     options: ['', '']
-  //   };
-  // }
 
-  // const setOptionType = type => {
-  //   let options = [];
-  //   let format;
-  //   if (type === 0) { // Custom
-  //     format = 'mcq';
-  //     options = ['', ''];
-  //   } else if (type === 1) { // Yes/No
-  //     format = 'mcq';
-  //     options = ['Yes', 'No'];
-  //   } else if (type === 2) { // True/False
-  //     format = 'mcq';
-  //     options = ['True', 'False'];
-  //   } else if (type === 3) { // Players
-  //     format = 'players';
-  //     options = [];
-  //   } else if (type === 4) { // Open-Ended
-  //     format = 'open';
-  //     options = [];
-  //   }
-  //   this.setState({ format, options });
-  // }
+  const setOptionType = event => {
+    const type = event.target.value;
+    let options = ["", ""];
 
-  // const optionField = (_, optionNo) => {
-  //   return (
-  //     <div key={optionNo} className="paddingBottom">
-  //       <input
-  //         type="text"
-  //         placeholder={`Option  ${optionNo + 1}`}
-  //         value={this.state.options[optionNo]}
-  //         name={optionNo.toString()}
-  //         onChange={this.handleChange}
-  //       />
-  //     </div>
-  //   );
-  // }
+    if (type === "custom") {
+      options = ["", ""];
+    } else if (type === "yesno") {
+      options = ["Yes", "No"];
+    } else if (type === "players" || type === "open") {
+      options = undefined;
+    }
 
-  // prevQuestion() {
-  //   this.props.changeQuestion(this.props.questionNo, this.state, false);
-  // }
+    setFieldValue(`questions[${questionNo}].options`, options);
+    handleChange(event);
+  };
 
-  // nextQuestion() {
-  //   const qna = {
-  //     question: this.state.question,
-  //     format: this.state.format,
-  //     options: this.state.options.filter(String)
-  //   };
-  //   this.props.changeQuestion(this.props.questionNo, qna, true);
-  // }
-
-  // handleChange(event) {
-  //   const field = event.target.name;
-  //   const { value } = event.target;
-  //   if (field === 'question') {
-  //     this.setState({ question: value });
-  //   } else {
-  //     const { options } = this.state;
-  //     options[field] = value;
-  //     this.setState({ options: options });
-  //   }
-  // }
-
-  // addOption() {
-  //   this.setState({
-  //     options: this.state.options.concat([''])
-  //   });
-  // }
-
-  // removeOption() {
-  //   this.state.options.pop();
-  //   this.setState({
-  //     options: this.state.options
-  //   });
-  // }
-
-  // generateQuestion() {
-  //   const qna = questionBank[Math.floor(Math.random() * questionBank.length)];
-  //   if (Array.isArray(qna.options)) {
-  //     qna.format = 'mcq';
-  //     this.setState(qna);
-  //   } else if (qna.options === 'players') {
-  //     this.setState({
-  //       question: qna.question,
-  //       format: 'players',
-  //       options: []
-  //     });
-  //   } else if (qna.options === 'open') {
-  //     this.setState({
-  //       question: qna.question,
-  //       format: 'open',
-  //       options: []
-  //     });
-  //   }
-  // }
-
-  // renderButtons() {
-  //   const { questionNo } = this.props;
-  //   if (questionNo === 0) {
-  //     return (
-  //       <button type="button" className="greenButton" onClick={this.nextQuestion}>
-  //         {'Next '}
-  //         <Glyph icon="chevron-right" />
-  //       </button>
-  //     );
-  //   } else if (questionNo === 2) {
-  //     return (
-  //       <Row>
-  //         <Col xs="1/2">
-  //           <button type="button" className="whiteButton" onClick={this.prevQuestion}>
-  //             <Glyph icon="chevron-left" />
-  //             {' Previous'}
-  //           </button>
-  //         </Col>
-  //         <Col xs="1/2">
-  //           <button type="button" className="greenButton" onClick={this.nextQuestion}>
-  //             {'Ready ' }
-  //             <Glyph icon="check" />
-  //           </button>
-  //         </Col>
-  //       </Row>
-  //     );
-  //   }
-  //   return (
-  //     <Row>
-  //       <Col xs="1/2">
-  //         <button type="button" className="whiteButton" onClick={this.prevQuestion}>
-  //           <Glyph icon="chevron-left" />
-  //           {' Previous'}
-  //         </button>
-  //       </Col>
-  //       <Col xs="1/2">
-  //         <button type="button" className="greenButton" onClick={this.nextQuestion}>
-  //           {'Next '}
-  //           <Glyph icon="chevron-right" />
-  //         </button>
-  //       </Col>
-  //     </Row>
-  //   );
-  // }
+  const generateQuestion = () => {
+    const randomQuestion = questionBank[Math.floor(Math.random() * questionBank.length)];
+    if (randomQuestion.type === "yesno") {
+      randomQuestion.options = ["Yes", "No"];
+    }
+    setFieldValue(`questions[${questionNo}]`, randomQuestion);
+  };
 
   return (
     <>
-      <Flex mt={3}>
-        <Box width={1 / 2} px={1} variant="bold">
+      <Flex justifyContent="space-between" mt={3}>
+        <Text px={1} variant="bold">
           {`Question ${questionNo + 1} of 3`}
-        </Box>
-        <Box width={1 / 2} px={1} textAlign="right">
+        </Text>
+        <Button variant="link" onClick={generateQuestion}>
           Random
-        </Box>
+        </Button>
       </Flex>
 
-      <Field name={`questions[${questionNo}].text`} render={({ field }) =>
-        <Textarea
-          {...field}
-          variant="input"
-          sx={{ resize: "vertical" }}
-          placeholder={placeholderMapping[questionNo]}
-        />
-      } />
-
-      <Flex mt={3}>
-        <Box width={1 / 2} px={1} variant="bold">
-          Options
-        </Box>
-        <Box width={1 / 2} px={1} textAlign="right">
-          +
-        </Box>
-      </Flex>
-      
-      <FieldArray
-        name={`questions[${questionNo}].options`}
-        render={arrayHelpers =>
-          <>
-            {options.map((_, index) => {
-              const showDel = options.length > 2;
-              return (
-                <Box key={index} sx={{ position: "relative" }}>
-                  <Field
-                    name={`questions[${questionNo}].options[${index}]`}
-                    render={({ field }) =>
-                      <Input
-                        {...field}
-                        sx={showDel && { paddingRight: "48px" }}
-                        placeholder={`Option ${index + 1}`}
-                      />
-                    }
-                  />
-                  {showDel &&
-                    <Button variant="inField" onClick={() => arrayHelpers.remove(index)}>
-                      X
-                    </Button>
-                  }
-                </Box>
-              );
-            })}
-            <Button variant="dotted" onClick={() => arrayHelpers.push('')} width={1}>
-              Add option
-            </Button>
-          </>
-        }
+      <Field
+        name={`questions[${questionNo}].text`}
+        render={({ field }) => (
+          <Textarea
+            {...field}
+            variant="input"
+            sx={{ resize: "vertical" }}
+            placeholder={placeholderMapping[questionNo]}
+          />
+        )}
       />
 
+      <Flex justifyContent="space-between">
+        <Box variant="bold" py={2}>
+          Options
+        </Box>
+        <Field
+          name={`questions[${questionNo}].type`}
+          render={({ field }) => {
+            // const { field } = props;
+            return (
+              <Box width={150}>
+                <Select
+                  {...field}
+                  name={`questions[${questionNo}].type`}
+                  onChange={setOptionType}
+                >
+                  <option value="custom">Custom</option>
+                  <option value="yesno">Yes/No</option>
+                  <option value="players">Players</option>
+                  <option value="open">Open-ended</option>
+                </Select>
+              </Box>
+        )}}
+        />
+      </Flex>
+
+      {options && (
+        <FieldArray
+          name={`questions[${questionNo}].options`}
+          render={arrayHelpers => (
+            <>
+              {options.map((_, index) => {
+                const showDel = options.length > 2;
+                return (
+                  <Box key={index} variant="relative">
+                    <Field
+                      name={`questions[${questionNo}].options[${index}]`}
+                      render={({ field }) => (
+                        <Input
+                          {...field}
+                          sx={showDel && { paddingRight: "48px" }}
+                          placeholder={`Option ${index + 1}`}
+                        />
+                      )}
+                    />
+                    {showDel && (
+                      <Button
+                        variant="inField"
+                        onClick={() => arrayHelpers.remove(index)}
+                      >
+                        X
+                      </Button>
+                    )}
+                  </Box>
+                );
+              })}
+              <Button
+                variant="dotted"
+                onClick={() => arrayHelpers.push("")}
+                width={1}
+              >
+                + Add option
+              </Button>
+            </>
+          )}
+        />
+      )}
+
+      {type === "players" && <Input placeholder="Players" disabled />}
+
+      {type === "open" && (
+        <Input placeholder="Open-ended (best answer selected)" disabled />
+      )}
 
       <Flex mx={-1} mt={3}>
         {firstQuestion ? (

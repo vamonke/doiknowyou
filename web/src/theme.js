@@ -59,7 +59,13 @@ export default {
       "&:last-child": {
         borderRight: "1px solid black"
       }
-    }
+    },
+    relative: {
+      position: "relative"
+    },
+    bold: {
+      fontWeight: 700
+    },
   },
   text: {
     error: {
@@ -133,14 +139,23 @@ export default {
       position: "absolute",
       right: 1,
       top: 1,
+    },
+    link: {
+      cursor: "pointer",
+      color: "black",
+      border: "none",
+      borderRadius: 0,
+      p: 0,
     }
   },
   input: {},
   forms: {
     input: {
-      // borderRadius: 7,
       p: 12,
-      my: 8
+      my: 8,
+      "&:disabled": {
+        bg: "#DDD"
+      }
     },
     error: {
       borderColor: "red",
@@ -149,7 +164,8 @@ export default {
       my: 8
     },
     select: {
-      borderRadius: 9999
+      borderRadius: 0,
+      display: "inline-block"
     },
     textarea: {},
     label: {},

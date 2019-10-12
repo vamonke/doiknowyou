@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Box, Text, Button } from "rebass";
-import { connect } from "react-redux";
 import { withFormik } from 'formik';
 
 import Question from "../molecules/Question";
 
 const QuestionsForm = props => {
-  const { handleSubmit, onNotReady, values } = props;
+  const {
+    handleSubmit,
+    onNotReady,
+    values,
+    questionBank,
+    handleChange,
+    setFieldValue
+  } = props;
   const { questions } = values;
   const [currentQn, setCurrentQn] = useState(0);
 
@@ -36,6 +42,9 @@ const QuestionsForm = props => {
             questionNo={questionNo}
             prev={prev}
             next={next}
+            questionBank={questionBank}
+            handleChange={handleChange}
+            setFieldValue={setFieldValue}
           />
         )
       )}
@@ -64,23 +73,29 @@ const trim = questions =>
   }))
 ;
 
+const initialValues = {
+  questions: [
+    {
+      text: "",
+      type: "custom",
+      options: ["", ""]
+    },
+    {
+      text: "",
+      type: "custom",
+      options: ["", ""]
+    },
+    {
+      text: "",
+      type: "custom",
+      options: ["", ""]
+    },
+  ],
+};
 
 const formOptions = {
   mapPropsToValues: props => ({
-    questions: [
-      {
-        text: "",
-        options: ["", ""]
-      },
-      {
-        text: "",
-        options: ["", ""]
-      },
-      {
-        text: "",
-        options: ["", ""]
-      },
-    ],
+    ...initialValues,
     ...props,
   }),
   handleSubmit: async values => {
@@ -92,13 +107,4 @@ const formOptions = {
   displayName: "QuestionsForm"
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    // createGame: name => dispatch(createGame(name))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(withFormik(formOptions)(QuestionsForm));
+export default withFormik(formOptions)(QuestionsForm);
