@@ -12,9 +12,12 @@ export const createGame = async playerName => {
 
 export const joinGame = async (playerName, roomNo) => {
   const room = await Room.findByNumber(roomNo);
-  const viewer = await Player.create(room._id, playerName);
-  const res = { room, viewer };
-  return res;
+  if (room) {
+    const viewer = await Player.create(room._id, playerName);
+    const res = { room, viewer };
+    return res;
+  }
+  return false;
 };
 
 export const populateQuestionBank = RandomQuestion.populate;

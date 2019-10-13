@@ -41,12 +41,17 @@ const Question = props => {
   };
 
   const generateQuestion = () => {
-    const randomQuestion = questionBank[Math.floor(Math.random() * questionBank.length)];
-    if (randomQuestion.type === "yesno") {
-      randomQuestion.options = ["Yes", "No"];
-    }
-    randomQuestion['randomQuestionId'] = randomQuestion['_id'];
-    delete randomQuestion['_id'];
+    const { _id, text, type, options } = questionBank[
+      Math.floor(Math.random() * questionBank.length)
+    ];
+
+    const randomQuestion = {
+      text,
+      type,
+      options: (type === "yesno") ? ["Yes", "No"] : options,
+      randomQuestionId: _id
+    };
+
     setFieldValue(`questions[${questionNo}]`, randomQuestion);
   };
 
@@ -94,7 +99,8 @@ const Question = props => {
                   <option value="open">Open-ended</option>
                 </Select>
               </Box>
-        )}}
+            );
+          }}
         />
       </Flex>
 
@@ -161,7 +167,11 @@ const Question = props => {
               </Button>
             </Box>
             <Box width={1 / 2} px={1}>
-              <Button width={1} onClick={next} type={lastQuestion ? "submit" : "button"}>
+              <Button
+                width={1}
+                onClick={next}
+                type={lastQuestion ? "submit" : "button"}
+              >
                 {lastQuestion ? "Ready" : "Next >"}
               </Button>
             </Box>

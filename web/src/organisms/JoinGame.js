@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { withFormik } from "formik";
-import { Flex, Box, Button, Text } from "rebass";
+import { withFormik, Field } from "formik";
+import { Card, Flex, Box, Heading, Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
 import { joinGame } from "../redux/actions";
@@ -14,11 +14,18 @@ const JoinGame = props => {
     handleBlur,
     handleSubmit,
     isSubmitting,
-    cancel
+    cancel,
+    lobby,
+    values
   } = props;
 
   return (
     <form onSubmit={handleSubmit}>
+      {lobby &&
+        <Heading fontSize={4}>
+          Room {values.roomNo}
+        </Heading>
+      }
       <Box variant="relative">
         <Input
           name="name"
@@ -32,25 +39,27 @@ const JoinGame = props => {
         {errors.name && <Text variant="error">{errors.name}</Text>}
       </Box>
 
-      <Box variant="relative">
-        <Input
-          name="roomNo"
-          type="text"
-          placeholder="Room number"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          variant={errors.roomNo ? "error" : "input"}
-        />
+      <Box variant={lobby ? "hidden" : "relative"}>
+        <Field name="roomNo" render={({ field }) => 
+          <Input
+            {...field}
+            type="text"
+            placeholder="Room number"
+            variant={errors.roomNo ? "error" : "input"}
+          />
+        } />
         {errors.roomNo && <Text variant="error">{errors.roomNo}</Text>}
       </Box>
 
       <Flex mx={-1}>
-        <Box width={1 / 2} px={1}>
-          <Button variant="secondary" type="button" width={1} onClick={cancel}>
-            Cancel
-          </Button>
-        </Box>
-        <Box width={1 / 2} px={1}>
+        {cancel &&
+          <Box width={1 / 2} px={1}>
+            <Button variant="secondary" type="button" width={1} onClick={cancel}>
+              Cancel
+            </Button>
+          </Box>
+        }
+        <Box width={cancel ? 1 / 2 : 1} px={1}>
           <Button type="submit" width={1}>
             {isSubmitting ? "-" : "Join Game"}
           </Button>
@@ -72,15 +81,32 @@ const validate = values => {
 };
 
 const formOptions = {
-  mapPropsToValues: props => props,
+  mapPropsToValues: props => {
+    const { match, history } = props;
+    let roomNo = "";
+
+    if (match.isExact && match.path === "/lobby/:roomNo") {
+      roomNo = match.params.roomNo;
+      const validRoomNo = roomNo.match(/^\d{4}$/) !== null;
+      if (!validRoomNo) {
+        console.error("Invalid room number in URL");
+        return history.push("/");
+      }
+    }
+    
+    return { ...props, roomNo };
+  },
   validate,
   validateOnBlur: false,
   validateOnChange: false,
-  handleSubmit: async (values, { setSubmitting }) => {
-    const { joinGame, name, roomNo, history } = values;
-    await joinGame(roomNo, name);
+  handleSubmit: async (values, { setSubmitting, setFieldError }) => {
+    const { joinGame, name, roomNo } = values;
+    try {
+      await joinGame(roomNo, name);
+    } catch (error) {
+      setFieldError("roomNo", error.response.data.error);
+    }
     setSubmitting(false);
-    history.push("/lobby/" + roomNo);
   },
   displayName: "JoinGame"
 };

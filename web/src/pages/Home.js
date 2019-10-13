@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Card, Flex, Box, Text, Button } from "rebass";
+import { Card, Flex, Box, Heading, Text, Button } from "rebass";
 
 import CreateGame from "../organisms/CreateGame";
 import JoinGame from "../organisms/JoinGame";
@@ -8,22 +8,23 @@ import JoinGame from "../organisms/JoinGame";
 import { reset } from "../redux/actions";
 
 const Home = () => {
+  document.title = 'Do I know you?';
   const [mode, setMode] = useState("home");
   const cancel = () => setMode("home");
   return (
     <Card>
-      <Text fontSize={4} fontWeight="bold" textAlign="center" mb={3}>
+      <Heading fontSize={5} m={-3} mb={3} variant="black">
         Do I know you?
-      </Text>
+      </Heading>
 
       {mode === "home" && (
-        <Flex mx={-1}>
-          <Box width={1 / 2} px={1}>
+        <Flex mx={-2}>
+          <Box width={1 / 2} px={2}>
             <Button width={1} onClick={() => setMode("create")}>
               Create Game
             </Button>
           </Box>
-          <Box width={1 / 2} px={1}>
+          <Box width={1 / 2} px={2}>
             <Button width={1} onClick={() => setMode("join")}>
               Join Game
             </Button>

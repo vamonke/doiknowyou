@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Box, Text, Button } from "rebass";
-import { withFormik } from 'formik';
+import { withFormik } from "formik";
 
 import Question from "../molecules/Question";
+import Waiting from "../molecules/Waiting";
+
+const QUESTIONS_COUNT = 3;
 
 const QuestionsForm = props => {
   const {
+    isReady,
     handleSubmit,
     onNotReady,
     values,
@@ -14,7 +17,7 @@ const QuestionsForm = props => {
     setFieldValue
   } = props;
   const { questions } = values;
-  const [currentQn, setCurrentQn] = useState(0);
+  const [currentQn, setCurrentQn] = useState(isReady ? QUESTIONS_COUNT : 0);
 
   const prev = () => {
     setCurrentQn(Math.max(currentQn - 1, 0));
@@ -26,78 +29,57 @@ const QuestionsForm = props => {
   };
 
   const next = () => {
-    if (currentQn === 2) {
+    if (currentQn === QUESTIONS_COUNT - 1) {
       handleSubmit();
     }
-    setCurrentQn((currentQn + 1) % 4);
+    setCurrentQn((currentQn + 1) % (QUESTIONS_COUNT + 1));
   };
 
   return (
     <>
-      {questions.map((question, questionNo) =>
-        currentQn === questionNo && (
-          <Question
-            {...question}
-            key={questionNo}
-            questionNo={questionNo}
-            prev={prev}
-            next={next}
-            questionBank={questionBank}
-            handleChange={handleChange}
-            setFieldValue={setFieldValue}
-          />
-        )
+      {questions.map(
+        (question, questionNo) =>
+          currentQn === questionNo && (
+            <Question
+              {...question}
+              key={questionNo}
+              questionNo={questionNo}
+              prev={prev}
+              next={next}
+              questionBank={questionBank}
+              handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+          )
       )}
 
-      {currentQn === 3 && (
-        <Box py={5} textAlign="center">
-          <Text mb={3}>Waiting for other players</Text>
-          <Button variant="secondary" onClick={edit}>
-            Edit questions
-          </Button>
-        </Box>
-      )}
+      {currentQn === QUESTIONS_COUNT && <Waiting edit={edit} />}
     </>
   );
 };
 
-const trim = questions =>
-  questions
-  .filter(question =>
-    question.text && (
-      question.type === "players" ||
-      question.type === "open" || 
-      question.options.filter(Boolean).length > 1
-    )
-  );
-;
-
-const initialValues = {
-  questions: [
-    {
-      text: "",
-      type: "mcq",
-      options: ["", ""]
-    },
-    {
-      text: "",
-      type: "mcq",
-      options: ["", ""]
-    },
-    {
-      text: "",
-      type: "mcq",
-      options: ["", ""]
-    },
-  ],
+const defaultQuestion = {
+  text: "",
+  type: "mcq",
+  options: ["", ""]
 };
 
+const trim = questions =>
+  questions.filter(
+    question =>
+      question.text &&
+      (question.type === "players" ||
+        question.type === "open" ||
+        question.options.filter(Boolean).length > 1)
+  );
 const formOptions = {
-  mapPropsToValues: props => ({
-    ...initialValues,
-    ...props,
-  }),
-  // enableReinitialize: true,
+  mapPropsToValues: props => {
+    while (props.questions.length < QUESTIONS_COUNT) {
+      props.questions.push(defaultQuestion);
+    }
+    return props;
+  },
+  enableReinitialize: true,
   handleSubmit: async values => {
     const { onReady, questions } = values;
     onReady(trim(questions));

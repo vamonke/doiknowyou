@@ -2,13 +2,31 @@ import { CREATE_GAME, JOIN_GAME, GET_QUESTION_BANK, RESET } from "./actions";
 import {
   SOCKET_PLAYER_JOINED,
   SOCKET_PLAYER_READY,
-  SOCKET_PLAYER_NOT_READY
+  SOCKET_PLAYER_NOT_READY,
+  VIEWER_READY
 } from "./events";
 
 const defaultState = {
   room: {},
   players: {},
-  viewer: {}
+  viewer: {},
+  questions: [
+    {
+      text: "",
+      type: "mcq",
+      options: ["", ""]
+    },
+    {
+      text: "",
+      type: "mcq",
+      options: ["", ""]
+    },
+    {
+      text: "",
+      type: "mcq",
+      options: ["", ""]
+    },
+  ],
 };
 
 const reducers = (state = defaultState, { type, payload }) => {
@@ -16,6 +34,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case CREATE_GAME:
     case JOIN_GAME:
     case GET_QUESTION_BANK:
+    case VIEWER_READY:
       return { ...state, ...payload };
     case SOCKET_PLAYER_READY:
       state.players[payload].isReady = true;

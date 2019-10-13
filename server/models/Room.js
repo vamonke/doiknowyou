@@ -37,8 +37,12 @@ export const create = () => {
 export const findByNumber = (roomNo) => {
   return Room.findOne({ number: roomNo }).exec()
     .then(room => {
-      console.log("MongoDB: Room found - " + room.number);
-      return room;
+      if (room) {
+        console.log("MongoDB: Room found - " + room.number);
+        return room;
+      }
+      console.log("MongoDB: Room not found - " + roomNo);
+      return false;
     })
     .catch(error => {
         console.error(error);

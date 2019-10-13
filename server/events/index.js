@@ -8,8 +8,7 @@ const getSocketPlayerIds = io => {
   const sockets = io.sockets.sockets;
   for (const key in sockets) {
     const player = sockets[key].player;
-    if (player && player._id)
-      ids.push(player._id);
+    if (player && player._id) ids.push(player._id);
   }
   return ids;
 };
@@ -17,27 +16,31 @@ const getSocketPlayerIds = io => {
 const socketEvents = (io, socket) => {
   // console.log("Socket: " + socket.id + " [CONNECTED]");
 
-  const gameLog = (msg) => {
+  const gameLog = msg => {
     if (socket.player && socket.player.roomId)
       Log.gameLog(socket.player.roomId, msg);
-  }
+  };
 
-  const playerLog = (msg) => {
-    if (socket.player)
-      Log.playerLog(socket.player, msg);
-  }
+  const playerLog = msg => {
+    if (socket.player) Log.playerLog(socket.player, msg);
+  };
+
+  let players;
+  const updatePlayers = async roomId => {
+    players = await Player.findByRoom(roomId);
+  };
 
   // Emit
   const emitPlayers = async roomId => {
-    const players = await Player.findByRoom(roomId);
+    await updatePlayers(roomId);
     gameLog("Update players");
     io.to(roomId).emit("updatePlayers", { players });
   };
 
   // On
-  socket.on("join", viewer => {
-    socket.player = viewer;
-    const { roomId } = viewer;
+  socket.on("join", player => {
+    socket.player = player;
+    const { roomId } = player;
     if (!socket.rooms.hasOwnProperty(roomId)) {
       socket.join(roomId, () => {
         emitPlayers(roomId);
@@ -45,19 +48,54 @@ const socketEvents = (io, socket) => {
     }
   });
 
+  const socketMissingPlayer = () => {
+    if (!socket.player) {
+      console.error(
+        "\x1b[31mMissing player from socket:",
+        socket.id,
+        "\x1b[0m"
+      );
+      socket.emit("refresh");
+      // socket.emit("disconnected");
+      return true;
+    }
+    if (
+      !players.map(player => player._id.toString()).includes(socket.player._id)
+    ) {
+      console.log(players);
+      console.log(socket.player);
+      console.error(
+        "\x1b[31mSocket player not in player list:",
+        socket.player.name,
+        "\x1b[0m"
+      );
+      socket.emit("disconnected");
+      return true;
+    }
+    return false;
+  };
+
   socket.on("ready", async questions => {
-    await Question.createMany(questions, socket.player._id, socket.player.roomId);
+    if (socketMissingPlayer()) return;
+
+    await Question.createMany(
+      questions,
+      socket.player._id,
+      socket.player.roomId
+    );
     const player = await Player.ready(socket.player._id);
     playerLog("is ready");
-    gameLog("Update player ready");
+    // gameLog("Update player ready");
     io.to(player.roomId).emit("playerReady", player._id);
   });
 
   socket.on("notReady", async () => {
+    if (socketMissingPlayer()) return;
+
     await Question.removeByPlayerId(socket.player._id);
     const player = await Player.notReady(socket.player._id);
     playerLog("is not ready");
-    gameLog("Update player not ready");
+    // gameLog("Update player not ready");
     io.to(player.roomId).emit("playerNotReady", player._id);
   });
 

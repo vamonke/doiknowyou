@@ -1,4 +1,5 @@
 import axios from "axios";
+import { push } from "react-router-redux";
 import { joinRoom, leaveRoom } from "./socket";
 
 axios.defaults.baseURL = "http://localhost:3001";
@@ -13,17 +14,19 @@ export const RESET = "RESET";
 
 const createGameSuccess = payload => {
   joinRoom(payload.viewer);
+  delete payload.viewer.isReady;
   return { type: CREATE_GAME, payload };
 };
 
 const joinGameSuccess = payload => {
   joinRoom(payload.viewer);
+  delete payload.viewer.isReady;
   return { type: JOIN_GAME, payload };
 };
 
 const loadQuestionBankSuccess = payload => {
   return { type: GET_QUESTION_BANK, payload };
-}
+};
 
 export const createGame = playerName => {
   const params = { playerName };
@@ -51,22 +54,18 @@ export const fetchQuestionBank = () => {
       // handle fail
       console.error(error);
     }
-  }
-}
+  };
+};
 
 export const joinGame = (roomNo, playerName) => {
   const params = { roomNo, playerName };
   // dispatch fetch
   return async dispatch => {
-    try {
-      dispatch(fetchQuestionBank());
-      const response = await axios.post(JOIN_GAME_API, params);
-      dispatch(joinGameSuccess({ ...response.data }));
-      return response.data.room.number;
-    } catch (error) {
-      // handle fail
-      console.error(error);
-    }
+    dispatch(fetchQuestionBank());
+    const response = await axios.post(JOIN_GAME_API, params);
+    dispatch(joinGameSuccess({ ...response.data }));
+    dispatch(push(`/lobby/${response.data.room.number}`));
+    // return response.data.room.number;
   };
 };
 

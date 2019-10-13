@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import Layout from "./atoms/Layout";
 
 import { ThemeProvider } from "emotion-theming";
 import theme from "./theme";
+import history from './redux/history';
 
 import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
@@ -12,7 +13,7 @@ import Lobby from "./pages/Lobby";
 const App = () => (
   <ThemeProvider theme={theme}>
     <Layout>
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/lobby/:roomNo" component={Lobby} />

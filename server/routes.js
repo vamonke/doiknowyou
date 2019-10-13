@@ -16,7 +16,10 @@ router.post("/api/game/create", async (req, res) => {
 router.post("/api/game/join", async (req, res) => {
   const { playerName, roomNo } = req.body;
   const result = await joinGame(playerName, roomNo);
-  res.json(result);
+  if (result) {
+    return res.json(result);
+  }
+  return res.status(404).json({ error: "Room not found" });
 });
 
 // Question Bank

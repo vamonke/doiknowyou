@@ -13,7 +13,7 @@ export default {
   },
   fontWeights: {
     body: 400,
-    heading: 700,
+    medium: 500,
     bold: 700
   },
   lineHeights: {
@@ -63,9 +63,26 @@ export default {
     relative: {
       position: "relative"
     },
-    bold: {
-      fontWeight: 700
+    hidden: {
+      display: "none"
     },
+    bold: {
+      fontWeight: 500
+    },
+    button: {
+      textDecoration: "none",
+      cursor: "pointer",
+      color: "black",
+      bg: "transparent",
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "black",
+      borderRadius: 0,
+      py: 2,
+      px: 3,
+      outline: "none",
+      display: "inline-block"
+    }
   },
   text: {
     error: {
@@ -81,7 +98,7 @@ export default {
       lineHeight: 1.6
     },
     bold: {
-      fontWeight: 700
+      fontWeight: 500
     },
     underline: {
       borderBottom: "1px solid black"

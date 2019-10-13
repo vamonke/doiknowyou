@@ -12,7 +12,7 @@ const PlayerList = ({ players, viewer }) => {
           const isViewer = player._id === viewer._id;
           return (
             <Flex key={index} variant="row">
-              <Box width={3 / 4}>
+              <Box width={3 / 4} variant={isViewer ? "bold" : ""}>
                 {player.name}
                 {isViewer && " (you)"}
               </Box>
