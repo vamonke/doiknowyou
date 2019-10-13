@@ -34,6 +34,6 @@ export const populate = async () => {
 
 // export const getOne = RandomQuestion.aggregate.sample(1);
 
-export const getAll = () => RandomQuestion.find();
+export const getAll = () => RandomQuestion.find().select({ usage: 0 });
 
 export const deleteById = id => RandomQuestion.findByIdAndDelete(id);

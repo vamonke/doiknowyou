@@ -19,7 +19,6 @@ router.post("/api/game/join", async (req, res) => {
   res.json(result);
 });
 
-
 // Question Bank
 // router.get("/api/populate", (_, res) => {
 //   populateQuestionBank();

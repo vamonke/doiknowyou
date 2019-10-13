@@ -1,5 +1,6 @@
 // import * as Room from "../models/Room";
 import * as Player from "../models/Player";
+import * as Question from "../models/Question";
 import * as Log from "../logger";
 
 const getSocketPlayerIds = io => {
@@ -44,7 +45,8 @@ const socketEvents = (io, socket) => {
     }
   });
 
-  socket.on("ready", async () => {
+  socket.on("ready", async questions => {
+    await Question.createMany(questions, socket.player._id, socket.player.roomId);
     const player = await Player.ready(socket.player._id);
     playerLog("is ready");
     gameLog("Update player ready");
@@ -52,6 +54,7 @@ const socketEvents = (io, socket) => {
   });
 
   socket.on("notReady", async () => {
+    await Question.removeByPlayerId(socket.player._id);
     const player = await Player.notReady(socket.player._id);
     playerLog("is not ready");
     gameLog("Update player not ready");

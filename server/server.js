@@ -18,7 +18,8 @@ app.use("/", routes);
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/doiknowyou2", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 });
 mongoose.set("useCreateIndex", true);
 

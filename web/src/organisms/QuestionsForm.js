@@ -64,30 +64,29 @@ const QuestionsForm = props => {
 const trim = questions =>
   questions
   .filter(question =>
-    question.text &&
-    question.options.filter(Boolean).length > 1
-  )
-  .map(question => ({
-    text: question.text,
-    options: question.options.filter(Boolean)
-  }))
+    question.text && (
+      question.type === "players" ||
+      question.type === "open" || 
+      question.options.filter(Boolean).length > 1
+    )
+  );
 ;
 
 const initialValues = {
   questions: [
     {
       text: "",
-      type: "custom",
+      type: "mcq",
       options: ["", ""]
     },
     {
       text: "",
-      type: "custom",
+      type: "mcq",
       options: ["", ""]
     },
     {
       text: "",
-      type: "custom",
+      type: "mcq",
       options: ["", ""]
     },
   ],
@@ -98,11 +97,10 @@ const formOptions = {
     ...initialValues,
     ...props,
   }),
+  // enableReinitialize: true,
   handleSubmit: async values => {
     const { onReady, questions } = values;
-    console.log(questions);
-    console.log(trim(questions));
-    onReady();
+    onReady(trim(questions));
   },
   displayName: "QuestionsForm"
 };

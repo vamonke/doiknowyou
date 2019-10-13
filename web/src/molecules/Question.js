@@ -28,7 +28,7 @@ const Question = props => {
     const type = event.target.value;
     let options = ["", ""];
 
-    if (type === "custom") {
+    if (type === "mcq") {
       options = ["", ""];
     } else if (type === "yesno") {
       options = ["Yes", "No"];
@@ -45,6 +45,8 @@ const Question = props => {
     if (randomQuestion.type === "yesno") {
       randomQuestion.options = ["Yes", "No"];
     }
+    randomQuestion['randomQuestionId'] = randomQuestion['_id'];
+    delete randomQuestion['_id'];
     setFieldValue(`questions[${questionNo}]`, randomQuestion);
   };
 
@@ -86,7 +88,7 @@ const Question = props => {
                   name={`questions[${questionNo}].type`}
                   onChange={setOptionType}
                 >
-                  <option value="custom">Custom</option>
+                  <option value="mcq">Custom</option>
                   <option value="yesno">Yes/No</option>
                   <option value="players">Players</option>
                   <option value="open">Open-ended</option>
@@ -159,7 +161,7 @@ const Question = props => {
               </Button>
             </Box>
             <Box width={1 / 2} px={1}>
-              <Button width={1} onClick={next}>
+              <Button width={1} onClick={next} type={lastQuestion ? "submit" : "button"}>
                 {lastQuestion ? "Ready" : "Next >"}
               </Button>
             </Box>

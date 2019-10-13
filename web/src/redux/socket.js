@@ -34,9 +34,9 @@ export const leaveRoom = () => {
   socket.player = null;
 };
 
-export const playerReady = () => {
+export const playerReady = questions => {
   return dispatch => {
-    socket.emit("ready");
+    socket.emit("ready", questions);
   };
 };
 

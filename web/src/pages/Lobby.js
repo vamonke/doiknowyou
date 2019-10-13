@@ -11,8 +11,8 @@ const Lobby = ({ room, viewer, players, questionBank, dispatch }) => {
   joinRoom(viewer);
   document.title = `Do I know you? #${room.number}`;
 
-  const onReady = () => {
-    dispatch(playerReady());
+  const onReady = questions => {
+    dispatch(playerReady(questions));
   };
 
   const onNotReady = () => {
