@@ -7,7 +7,7 @@ import history from './history';
 // import { createLogger } from "redux-logger";
 import storage from "redux-persist/lib/storage";
 import reducers from "./reducers";
-import { serverEvents } from "./socket";
+import { serverEvents } from "./client";
 
 const persistConfig = {
   key: "root",

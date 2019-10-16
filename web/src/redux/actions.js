@@ -1,6 +1,6 @@
 import axios from "axios";
 import { push } from "react-router-redux";
-import { joinRoom, leaveRoom } from "./socket";
+import { joinRoom, leaveRoom } from "./client";
 
 axios.defaults.baseURL = "http://localhost:3001";
 const CREATE_GAME_API = "/api/game/create";

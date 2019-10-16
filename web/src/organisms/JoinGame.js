@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { withFormik, Field } from "formik";
-import { Card, Flex, Box, Heading, Button, Text } from "rebass";
+import { Flex, Box, Heading, Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
 import { joinGame } from "../redux/actions";

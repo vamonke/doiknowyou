@@ -41,6 +41,7 @@ export const leaveRoom = () => {
 };
 
 export const playerReady = questions => {
+  questions = JSON.parse(JSON.stringify(questions));
   return dispatch => {
     dispatch(viewerReady({ questions }));
     socket.emit("ready", questions);

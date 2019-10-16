@@ -34,7 +34,6 @@ export const notReady = id => {
   return Player.findByIdAndUpdate(id, { isReady: false });
 }
 
-
 export const leave = id => {
   return Player.findByIdAndDelete(id);
 };

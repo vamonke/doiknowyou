@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Heading, Box, Button, Link } from "rebass";
-import { joinRoom, playerReady, playerNotReady } from "../redux/socket";
+import { joinRoom, playerReady, playerNotReady } from "../redux/client";
 
 import { reset } from "../redux/actions";
 

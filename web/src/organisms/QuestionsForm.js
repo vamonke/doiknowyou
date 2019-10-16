@@ -35,6 +35,10 @@ const QuestionsForm = props => {
     setCurrentQn((currentQn + 1) % (QUESTIONS_COUNT + 1));
   };
 
+  while (questions.length < QUESTIONS_COUNT) {
+    questions.push(defaultQuestion);
+  }
+
   return (
     <>
       {questions.map(
@@ -73,16 +77,11 @@ const trim = questions =>
         question.options.filter(Boolean).length > 1)
   );
 const formOptions = {
-  mapPropsToValues: props => {
-    while (props.questions.length < QUESTIONS_COUNT) {
-      props.questions.push(defaultQuestion);
-    }
-    return props;
-  },
-  enableReinitialize: true,
-  handleSubmit: async values => {
+  mapPropsToValues: props => props,
+  enableReinitialize: false,
+  handleSubmit: values => {
     const { onReady, questions } = values;
-    onReady(trim(questions));
+    onReady(trim((questions)));
   },
   displayName: "QuestionsForm"
 };
