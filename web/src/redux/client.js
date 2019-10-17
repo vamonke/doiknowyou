@@ -75,7 +75,7 @@ export const serverEvents = store => {
 
   socket.on("start", res => {
     store.dispatch(startEvent(res));
-    store.dispatch(push(`/game/${res.room.number}`));
+    // store.dispatch(push(`/game/${res.room.number}`));
   });
 
   socket.on("refresh", () => {

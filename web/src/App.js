@@ -8,6 +8,7 @@ import history from './redux/history';
 
 import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
+import Game from "./pages/Game";
 // import theme from "./theme";
 
 const App = () => (
@@ -17,7 +18,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/lobby/:roomNo" component={Lobby} />
-          {/* <Route exact path="/game/:roomNo" component={Game} /> */}
+          <Route exact path="/game/:roomNo" component={Game} />
           <Route path="/" component={Home} />
         </Switch>
       </Router>

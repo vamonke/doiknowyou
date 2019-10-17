@@ -18,7 +18,6 @@ const lobbyEvents = (io, socket) => {
     if (!ready) return false;
     
     const questionId = await Question.draw(roomId, 1, null);
-    console.log(questionId);
     const room = await Room.start(roomId, questionId);
     io.to(roomId).emit("start", { room });
   }
