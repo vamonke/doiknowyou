@@ -17,16 +17,16 @@ const lobbyEvents = (io, socket) => {
     const ready = await Room.isEveryPlayerReady(roomId);
     if (!ready) return false;
     
-    await Question.draw(roomId, 1);
-    await Room.start(roomId);
+    const questionId = await Question.draw(roomId, 1, null);
+    console.log(questionId);
+    const room = await Room.start(roomId, questionId);
+    io.to(roomId).emit("start", { room });
   }
 
 
   // Lobby: Player ready
   socket.on("ready", async questions => {
     if (socket.missingPlayer()) return;
-
-    console.log(questions);
     const trimmedQuestions = trim(questions);
     if (trimmedQuestions.length > 0) {  
       await Question.createMany(

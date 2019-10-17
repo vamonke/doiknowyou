@@ -14,6 +14,10 @@ const schema = new Schema(
       enum: ["created", "started", "ended"],
       default: "created"
     },
+    currentQuestion: {
+      type: String,
+      default: null
+    },
   },
   { versionKey: false }
 );
@@ -57,12 +61,10 @@ export const findByNumber = (roomNo) => {
 export const getPlayers = Player.findByRoom;
 
 export const isEveryPlayerReady = async id => {
-  const players = await Player.findByRoom(id);
+  const players = await Player.findByRoom(id).lean();
   return players.length > 1 && players.every(player => player.isReady);
 };
 
-export const start = async id => {
-  await Room.findByIdAndUpdate(id, { status: 'started' })
-  // Meteor.call('questions.setPlayersAsOptions', id);
-  // Meteor.call('questions.select', id, 1, null);
+export const start = (id, currentQuestion) => {
+  return Room.findByIdAndUpdate(id, { status: 'started', currentQuestion }, { lean: true });
 };

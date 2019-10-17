@@ -31,6 +31,8 @@ const connectionEvents = (io, socket) => {
       socket.join(roomId, () => {
         emitPlayers(roomId);
       });
+    } else {
+      console.log("Whats going on");
     }
   });
 
@@ -71,10 +73,12 @@ const connectionEvents = (io, socket) => {
         if (socketPlayerIds.includes(_id)) {
           // Another socket has been created with the same player id
           console.log("Socket: " + name + " [RECONNECTED]");
+          emitPlayers(roomId);
         } else {
           // No socket has been created with the same player id
           await Player.leave(_id);
           socket.playerLog("left the room");
+          socket.player = undefined;
           emitPlayers(roomId);
         }
       }, 1000);

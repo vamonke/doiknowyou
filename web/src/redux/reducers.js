@@ -3,7 +3,8 @@ import {
   SOCKET_PLAYER_JOINED,
   SOCKET_PLAYER_READY,
   SOCKET_PLAYER_NOT_READY,
-  VIEWER_READY
+  VIEWER_READY,
+  SOCKET_GAME_START
 } from "./events";
 
 const defaultState = {
@@ -35,6 +36,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case JOIN_GAME:
     case GET_QUESTION_BANK:
     case VIEWER_READY:
+    case SOCKET_GAME_START:
       return { ...state, ...payload };
     case SOCKET_PLAYER_READY:
       state.players[payload].isReady = true;

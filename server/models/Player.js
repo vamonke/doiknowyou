@@ -37,3 +37,20 @@ export const notReady = id => {
 export const leave = id => {
   return Player.findByIdAndDelete(id);
 };
+
+export const getNextRecipient = async (roomId, currentRecipientId) => {
+  let next;
+
+  // if (currentRecipientId) {
+  //   next = Player.findOne({
+  //     roomId,
+  //     _id: { $gt: currentRecipientId }
+  //   }, "_id", { sort: { _id: 1 } }).lean();
+  // }
+
+  if (!next) {
+    next = await Player.findOne({ roomId }, "_id" ).lean();
+  }
+
+  return next._id;
+}

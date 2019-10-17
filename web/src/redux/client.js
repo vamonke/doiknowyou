@@ -4,6 +4,7 @@ import {
   SOCKET_PLAYER_JOINED,
   SOCKET_PLAYER_READY,
   SOCKET_PLAYER_NOT_READY,
+  SOCKET_GAME_START,
   VIEWER_READY
 } from "./events";
 import { arrayToObject } from "../utils";
@@ -17,6 +18,10 @@ const updatePlayersEvent = payload => {
 
 const playerReadyEvent = payload => {
   return { type: SOCKET_PLAYER_READY, payload };
+};
+
+const startEvent = payload => {
+  return { type: SOCKET_GAME_START, payload };
 };
 
 const playerNotReadyEvent = payload => {
@@ -68,6 +73,11 @@ export const serverEvents = store => {
     store.dispatch(playerNotReadyEvent(res));
   });
 
+  socket.on("start", res => {
+    store.dispatch(startEvent(res));
+    store.dispatch(push(`/game/${res.room.number}`));
+  });
+
   socket.on("refresh", () => {
     console.log("Attemping to reconnect to server");
     window.location.reload();
@@ -75,7 +85,7 @@ export const serverEvents = store => {
 
   socket.on("disconnected", () => {
     console.log("Kicked from room");
-    store.dispatch(push("/"));
-    // window.location.href = "/";
+    // store.dispatch(push("/"));
+    window.location.href = "/";
   });
 };

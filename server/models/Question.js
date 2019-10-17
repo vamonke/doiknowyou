@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import * as Player from "./Player";
 
 const schema = new Schema(
   {
@@ -59,24 +60,31 @@ export const createMany = (questions, authorId, roomId) => {
 
 export const removeByPlayerId = authorId => Question.deleteMany({ authorId });
 
-export const draw = async (roomId, round) => {
+export const draw = async (roomId, round, currentRecipientId) => {
   // randomly get unasked
-  console.log(roomId);
   let question = await Question.aggregate([
     [
       { $match: { roomId, asked: false } },
       { $sample: { size: 1 } }
     ]
   ]);
-  console.log('QN:', question);
   // if has unasked
   if (question.length > 0) {
-    question = question[0];
-    //   get next recipient
-    //   set qn status, recipient, round
-    //   set room current qn
-    // else
+    const id = question[0]._id;
+    // get next recipient
+    const recipientId = await Player.getNextRecipient(roomId, currentRecipientId);
+    // set question status, recipient, round
+    const drawn = await Question.findByIdAndUpdate(id, {
+      asked: true,
+      recipientId,
+      round
+    }, {
+      select: "_id",
+      lean: true
+    });
+    return drawn._id;
   }
+  // else
   //   end game
 };
 
