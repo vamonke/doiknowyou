@@ -17,12 +17,13 @@ const schema = new Schema(
     roomId: String,
     authorId: String,
     round: Number,
-    asked: {
-      type: Boolean,
-      default: false
+    status: {
+      type: String,
+      enum: ["unasked", "asking", "asked"],
+      default: "unasked"
     },
     recipientId: String,
-    correctAnswer: String,
+    correctAnswer: Number,
     answeredAt: Date,
     randomQuestionId: String
   },
@@ -41,18 +42,12 @@ export const createMany = (questions, authorId, roomId) => {
         number,
         roomId,
         authorId,
-        asked: false
+        status: "unasked"
       };
       if (randomQuestionId) Object.assign(question, { randomQuestionId });
-      return Question.findOneAndUpdate(
-        {
-          number,
-          roomId,
-          authorId
-        },
-        question,
-        { upsert: true }
-      );
+      return Question.findOneAndUpdate({ number, roomId, authorId }, question, {
+        upsert: true
+      });
     }
   );
   return Promise.all(promises);
@@ -62,32 +57,59 @@ export const removeByPlayerId = authorId => Question.deleteMany({ authorId });
 
 export const draw = async (roomId, round, currentRecipientId) => {
   // randomly get unasked
-  let question = await Question.aggregate([
-    [
-      { $match: { roomId, asked: false } },
-      { $sample: { size: 1 } }
-    ]
+  const unasked = await Question.aggregate([
+    [{ $match: { roomId, status: "unasked" } }, { $sample: { size: 1 } }]
   ]);
   // if has unasked
-  if (question.length > 0) {
-    const id = question[0]._id;
+  if (unasked && unasked.length > 0) {
+    const id = unasked[0]._id;
     // get next recipient
-    const recipientId = await Player.getNextRecipient(roomId, currentRecipientId);
+    const recipientId = await Player.getNextRecipientId(
+      roomId,
+      currentRecipientId
+    );
     // set question status, recipient, round
-    const drawn = await Question.findByIdAndUpdate(id, {
-      asked: true,
-      recipientId,
-      round
-    }, {
-      select: "_id",
-      lean: true
-    });
-    return drawn._id;
+    const drawn = await Question.findByIdAndUpdate(
+      id,
+      { status: "asking", recipientId, round },
+      { new: true }
+    );
+    return drawn;
+  } else {
+    //   end game
+    return false;
   }
-  // else
-  //   end game
 };
 
-// export const getAll = () => Question.find().select({ usage: 0 });
+export const getCurrentQuestionInRoom = roomId =>
+  Question.findOne(
+    { roomId, status: "asking" },
+    { correctAnswer: 1, recipientId: 1 }
+  ).lean();
+
+export const setAnswer = (id, correctAnswer) =>
+  Question.findByIdAndUpdate(
+    id,
+    { correctAnswer },
+    {
+      new: true,
+      select: { correctAnswer: 1, recipientId: 1 }
+    }
+  ).lean();
+
+export const complete = id =>
+  Question.findByIdAndUpdate(
+    id,
+    { status: "asking" },
+    {
+      new: true,
+      select: {
+        correctAnswer: 1,
+        options: 1,
+        status: 1,
+        round: 1
+      }
+    }
+  ).lean();
 
 // export const deleteById = id => Question.findByIdAndDelete(id);

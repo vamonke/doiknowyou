@@ -82,7 +82,12 @@ export default {
       px: 3,
       outline: "none",
       display: "inline-block"
-    }
+    },
+    line: {
+      width: 100,
+      display: "inline-block",
+      borderBottom: "2px solid black"
+    },
   },
   text: {
     error: {
@@ -107,6 +112,17 @@ export default {
       bg: "black",
       color: "white",
       p: 3
+    },
+    "black-small": {
+      fontWeight: 400,
+      bg: "black",
+      color: "white",
+      py: 2,
+      px: 3
+    },
+    subtitle: {
+      fontStyle: "italic",
+      fontSize: 2
     }
   },
   buttons: {
@@ -158,6 +174,7 @@ export default {
       top: 1,
     },
     link: {
+      textDecoration: "underline",
       cursor: "pointer",
       color: "black",
       border: "none",

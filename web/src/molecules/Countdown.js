@@ -15,9 +15,7 @@ const Countdown = ({ roomNo, history }) => {
       history.push(`/game/${roomNo}`);
     }
     return () => clearInterval(interval);
-  }, [seconds]);
-
-  // const interval = setInterval(countDown, 1000);
+  }, [seconds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Text py={5} textAlign="center">

@@ -3,13 +3,19 @@ import { connect } from "react-redux";
 import { Card, Heading, Box, Button, Link } from "rebass";
 
 import { reset } from "../redux/actions";
+import { joinRoom, playerAnswer } from "../redux/client";
 
-import PlayerList from "../organisms/PlayerList";
+import GamePlayerList from "../organisms/GamePlayerList";
 import JoinGame from "../organisms/JoinGame";
+import CurrentQuestion from "../organisms/CurrentQuestion";
 
 const Game = (props) => {
   const {
     room,
+    answer,
+    currentQuestion,
+    // questionList,
+    recipient,
     viewer,
     players,
     dispatch
@@ -19,6 +25,7 @@ const Game = (props) => {
     return <JoinGame lobby />;
   }
 
+  joinRoom(viewer);
   document.title = `Do I know you? #${room.number}`;
 
   if (
@@ -43,26 +50,40 @@ const Game = (props) => {
     );
   }
 
+  const handleClick = index => {
+    dispatch(playerAnswer(index));
+  }
+
   return (
     <>
       <Card>
-        <Heading fontSize={4} m={-3} mb={3} variant="black">
-          Game
+        <Heading fontSize={2} m={-3} mb={3} variant="black-small" textAlign="">
+          Round {currentQuestion.round}
         </Heading>
 
-        QUESTION GOES HERE
+        <CurrentQuestion
+          currentQuestion={currentQuestion}
+          recipient={recipient}
+          isRecipient={recipient._id === viewer._id}
+          handleClick={handleClick}
+          answer={answer}
+        />
 
       </Card>
 
-      {players.length > 0 && <PlayerList players={players} viewer={viewer} />}
+      {players.length > 0 && <GamePlayerList players={players} viewer={viewer} recipientId={recipient._id} />}
     </>
   );
 };
 
 const mapStateToProps = (state = {}) => {
   const players = Object.values(state.players);
-  const viewer = { ...state.viewer, ...state.players[state.viewer._id] };
-  return { ...state, players, viewer };
+  const recipient = state.players[state.currentQuestion.recipientId] || {};
+  const viewer = {
+    ...state.viewer,
+    ...state.players[state.viewer._id],
+  };
+  return { ...state, players, viewer, recipient };
 };
 
 export default connect(mapStateToProps)(Game);

@@ -13,11 +13,7 @@ const schema = new Schema(
       type: String,
       enum: ["created", "started", "ended"],
       default: "created"
-    },
-    currentQuestion: {
-      type: String,
-      default: null
-    },
+    }
   },
   { versionKey: false }
 );
@@ -43,8 +39,9 @@ export const create = () => {
     });
 };
 
-export const findByNumber = (roomNo) => {
-  return Room.findOne({ number: roomNo }).exec()
+export const findByNumber = roomNo => {
+  return Room.findOne({ number: roomNo })
+    .exec()
     .then(room => {
       if (room) {
         console.log("MongoDB: Room found - " + room.number);
@@ -54,17 +51,21 @@ export const findByNumber = (roomNo) => {
       return false;
     })
     .catch(error => {
-        console.error(error);
+      console.error(error);
     });
 };
 
 export const getPlayers = Player.findByRoom;
 
 export const isEveryPlayerReady = async id => {
-  const players = await Player.findByRoom(id).lean();
+  const players = await Player.findByRoom(id);
   return players.length > 1 && players.every(player => player.isReady);
 };
 
-export const start = (id, currentQuestion) => {
-  return Room.findByIdAndUpdate(id, { status: 'started', currentQuestion }, { lean: true });
+export const start = id => {
+  return Room.findByIdAndUpdate(
+    id,
+    { status: "started" },
+    { new: true }
+  );
 };

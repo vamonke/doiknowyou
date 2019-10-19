@@ -7,6 +7,10 @@ const schema = new Schema(
     isReady: {
       type: Boolean,
       default: false
+    },
+    score: {
+      type: Number,
+      default: 0
     }
   },
   { versionKey: false }
@@ -23,34 +27,40 @@ export const create = (roomId, name) => {
 };
 
 export const findByRoom = roomId => {
-  return Player.find({ roomId }).select({ name: 1, isReady: 1 });
+  return Player.find({ roomId }).select({ name: 1, isReady: 1, score: 1 });
 };
 
-export const ready = id => {
-  return Player.findByIdAndUpdate(id, { isReady: true });
-}
-
-export const notReady = id => {
-  return Player.findByIdAndUpdate(id, { isReady: false });
-}
-
-export const leave = id => {
-  return Player.findByIdAndDelete(id);
+export const findIdsByRoom = roomId => {
+  return Player.find({ roomId })
+    .select({ _id: 1 })
+    .sort({ _id: 1 });
 };
 
-export const getNextRecipient = async (roomId, currentRecipientId) => {
+export const ready = id => Player.findByIdAndUpdate(id, { isReady: true });
+
+export const notReady = id => Player.findByIdAndUpdate(id, { isReady: false });
+
+export const leave = id => Player.findByIdAndDelete(id);
+
+export const getNextRecipientId = async (roomId, currentRecipientId) => {
   let next;
-
-  // if (currentRecipientId) {
-  //   next = Player.findOne({
-  //     roomId,
-  //     _id: { $gt: currentRecipientId }
-  //   }, "_id", { sort: { _id: 1 } }).lean();
-  // }
-
-  if (!next) {
-    next = await Player.findOne({ roomId }, "_id" ).lean();
+  if (currentRecipientId) {
+    next = Player.findOne({
+      roomId,
+      _id: { $gt: currentRecipientId }
+    }, "_id", { sort: { _id: 1 } });
   }
-
+  console.log(next);
+  if (!next) {
+    next = await Player.findOne({ roomId }, "_id");
+  }
+  console.log(next);
   return next._id;
-}
+};
+
+export const addScore = id =>
+  Player.findByIdAndUpdate(
+    id,
+    { $inc: { score: 1 } },
+    { new: true, select: { name: 1, roomId: 1, score: 1 } }
+  );

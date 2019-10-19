@@ -23,6 +23,14 @@ mongoose.connect("mongodb://localhost:27017/doiknowyou2", {
 });
 mongoose.set("useCreateIndex", true);
 
+// TODO: Lean
+// const __setOptions = mongoose.Query.prototype.setOptions;
+// mongoose.Query.prototype.setOptions = (options, overwrite) => {
+//   __setOptions.apply(this, arguments);
+//   if (this.mongooseOptions().lean == null) { this.mongooseOptions({ lean: true }); }
+//   return this;
+// };
+
 io.on("connection", socket => {
   socketEvents(io, socket);
 });

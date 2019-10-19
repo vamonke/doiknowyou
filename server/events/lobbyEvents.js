@@ -17,9 +17,9 @@ const lobbyEvents = (io, socket) => {
     const ready = await Room.isEveryPlayerReady(roomId);
     if (!ready) return false;
     
-    const questionId = await Question.draw(roomId, 1, null);
-    const room = await Room.start(roomId, questionId);
-    io.to(roomId).emit("start", { room });
+    const currentQuestion = await Question.draw(roomId, 1, null);
+    const room = await Room.start(roomId);
+    io.to(roomId).emit("start", { room, currentQuestion });
   }
 
 

@@ -13,16 +13,16 @@ import Game from "./pages/Game";
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <Layout>
-      <Router history={history}>
+    <Router history={history}>
+      <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/lobby/:roomNo" component={Lobby} />
           <Route exact path="/game/:roomNo" component={Game} />
           <Route path="/" component={Home} />
         </Switch>
-      </Router>
-    </Layout>
+      </Layout>
+    </Router>
   </ThemeProvider>
 );
 
