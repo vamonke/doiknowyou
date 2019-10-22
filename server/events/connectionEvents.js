@@ -1,4 +1,7 @@
+import * as Room from "../models/Room";
 import * as Player from "../models/Player";
+import * as Question from "../models/Question";
+import * as Answer from "../models/Answer";
 
 const getSocketPlayerIds = io => {
   const ids = [];
@@ -24,12 +27,31 @@ const connectionEvents = (io, socket) => {
     io.to(roomId).emit("updatePlayers", { players });
   };
 
+  const emitAnswers = async roomId => {
+    const currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
+    const answers = await Answer.findByQuestion(currentQuestion._id);
+    const answeredPlayers = answers.map(answer => answer.playerId);
+    socket.gameLog("Update answers - " + answeredPlayers.length);
+    io.to(roomId).emit("updateAnswers", answeredPlayers);
+  };
+
+  const emitQuestions = async roomId => {
+    const answeredQuestions = await Question.findAsked(roomId);
+    socket.gameLog("Update answered questions - " + answeredQuestions.length);
+    socket.emit("updateQuestions", answeredQuestions);
+  };
+
   socket.on("join", player => {
     socket.player = player;
     const { roomId } = player;
     if (!socket.rooms.hasOwnProperty(roomId)) {
-      socket.join(roomId, () => {
+      socket.join(roomId, async () => {
         emitPlayers(roomId);
+        const room = await Room.findById(roomId);
+        if (room.status !== "created") {
+          emitAnswers(roomId);
+          emitQuestions(roomId);
+        }
       });
     } else {
       console.log("Whats going on");
@@ -73,10 +95,10 @@ const connectionEvents = (io, socket) => {
         if (socketPlayerIds.includes(_id)) {
           // Another socket has been created with the same player id
           console.log("Socket: " + name + " [RECONNECTED]");
-          emitPlayers(roomId);
         } else {
           // No socket has been created with the same player id
           await Player.leave(_id);
+          // TODO: Remove question if lobby
           socket.playerLog("left the room");
           socket.player = undefined;
           emitPlayers(roomId);

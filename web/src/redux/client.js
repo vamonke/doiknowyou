@@ -9,7 +9,11 @@ import {
   VIEWER_ANSWER,
   SOCKET_PLAYER_ANSWERED,
   SOCKET_QUESTION_COMPLETE,
-  SOCKET_QUESTION_RESULTS
+  SOCKET_QUESTION_RESULTS,
+  SOCKET_NEXT_QUESTION,
+  SOCKET_GAME_OVER,
+  SOCKET_ANSWERED_QUESTIONS,
+  SOCKET_ANSWERED_PLAYERS
 } from "./events";
 import { arrayToObject } from "../utils";
 
@@ -18,6 +22,10 @@ const socket = io(serverUrl);
 
 const updatePlayersEvent = payload => {
   return { type: SOCKET_PLAYER_JOINED, payload };
+};
+
+const updateQuestionsEvent = payload => {
+  return { type: SOCKET_ANSWERED_QUESTIONS, payload };
 };
 
 const viewerReady = payload => {
@@ -44,12 +52,20 @@ const playerAnsweredEvent = payload => {
   return { type: SOCKET_PLAYER_ANSWERED, payload };
 };
 
-const questionCompleteEvent = payload => {
-  return { type: SOCKET_QUESTION_COMPLETE, payload };
+const questionCompleteEvent = () => {
+  return { type: SOCKET_QUESTION_COMPLETE };
 };
 
 const questionResultsEvent = payload => {
   return { type: SOCKET_QUESTION_RESULTS, payload };
+};
+
+const nextQuestionEvent = payload => {
+  return { type: SOCKET_NEXT_QUESTION, payload };
+};
+
+const gameOverEvent = payload => {
+  return { type: SOCKET_GAME_OVER, payload };
 };
 
 // Connection actions
@@ -57,7 +73,7 @@ export const joinRoom = viewer => {
   const { roomId } = viewer;
   if (roomId && !socket.player) {
     socket.player = viewer;
-    console.log("Joining room");
+    console.log("Joining room", roomId);
     socket.emit("join", viewer);
   }
 };
@@ -93,6 +109,18 @@ export const serverEvents = store => {
     const playersObj = arrayToObject(res.players);
     store.dispatch(updatePlayersEvent(playersObj));
   });
+  
+  socket.on("updateQuestions", answeredQuestions => {
+    store.dispatch(updateQuestionsEvent({ answeredQuestions }));
+  });
+
+  socket.on("updateAnswers", answeredPlayers => {
+    store.dispatch({
+      type: SOCKET_ANSWERED_PLAYERS,
+      payload: answeredPlayers
+    });
+  });
+  
   socket.on("refresh", () => {
     console.log("Attemping to reconnect to server");
     window.location.reload();
@@ -111,8 +139,8 @@ export const serverEvents = store => {
   socket.on("playerNotReady", playerId => {
     store.dispatch(playerNotReadyEvent(playerId));
   });
-  socket.on("start", res => {
-    store.dispatch(startEvent(res));
+  socket.on("start", ({ room, currentQuestion }) => {
+    store.dispatch(startEvent({ room, currentQuestion }));
   });
 
   // Game events
@@ -120,15 +148,22 @@ export const serverEvents = store => {
     store.dispatch(playerAnsweredEvent(playerId));
   });
   socket.on("completed", () => {
-    store.dispatch(questionCompleteEvent({ completed: true }));
+    store.dispatch(questionCompleteEvent());
   });
-  socket.on("results", ({ question, players }) => {
-    store.dispatch(
-      questionResultsEvent({ question, players: arrayToObject(players) })
-    );
+  socket.on("results", res => {
+    let { question, players } = res;
+    players = arrayToObject(players);
+    store.dispatch(questionResultsEvent({ question, players }));
   });
-  socket.on("newQuestion", ({ currentQuestion }) => {
-    console.log(currentQuestion);
-    // store.dispatch(questionResultsEvent({ answers, players }));
+  socket.on("nextQuestion", ({ currentQuestion }) => {
+    const payload = {
+      currentQuestion,
+      completed: false,
+      answer: null
+    };
+    store.dispatch(nextQuestionEvent(payload));
+  });
+  socket.on("gameOver", room => {
+    store.dispatch(gameOverEvent({ room }));
   });
 };

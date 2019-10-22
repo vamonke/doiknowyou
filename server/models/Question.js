@@ -23,9 +23,18 @@ const schema = new Schema(
       default: "unasked"
     },
     recipientId: String,
-    correctAnswer: Number,
+    correctAnswer: {
+      type: [Number],
+      default: []
+    },
     answeredAt: Date,
-    randomQuestionId: String
+    randomQuestionId: String,
+    answers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Answer"
+      }
+    ]
   },
   { versionKey: false }
 );
@@ -87,7 +96,7 @@ export const getCurrentQuestionInRoom = roomId =>
     { correctAnswer: 1, recipientId: 1 }
   ).lean();
 
-export const setAnswer = (id, correctAnswer) =>
+export const setCorrectAnswer = (id, correctAnswer) =>
   Question.findByIdAndUpdate(
     id,
     { correctAnswer },
@@ -97,19 +106,27 @@ export const setAnswer = (id, correctAnswer) =>
     }
   ).lean();
 
-export const complete = id =>
+export const complete = (id, answers) =>
   Question.findByIdAndUpdate(
     id,
-    { status: "asking" },
+    { status: "asked", answers },
     {
       new: true,
       select: {
         correctAnswer: 1,
         options: 1,
         status: 1,
-        round: 1
+        round: 1,
+        answers: 1
       }
     }
-  ).lean();
+  )
+    .populate("answers", { option: 1, playerId: 1 })
+    .lean();
+
+export const findAsked = roomId =>
+  Question.find({ roomId, status: "asked" })
+    .populate("answers", { option: 1, playerId: 1 })
+    .lean();
 
 // export const deleteById = id => Question.findByIdAndDelete(id);

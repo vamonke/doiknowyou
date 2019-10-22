@@ -13,7 +13,10 @@ const schema = new Schema(
       type: String,
       enum: ["created", "started", "ended"],
       default: "created"
-    }
+    },
+    nextRoomNo: Number,
+    createdAt: Date,
+    endedAt: Date
   },
   { versionKey: false }
 );
@@ -38,6 +41,9 @@ export const create = () => {
       }
     });
 };
+
+
+export const findById = id => Room.findById(id).lean();
 
 export const findByNumber = roomNo => {
   return Room.findOne({ number: roomNo })
@@ -69,3 +75,11 @@ export const start = id => {
     { new: true }
   );
 };
+
+export const gameOver = async (id, nextRoomNo) => {
+  return Room.findByIdAndUpdate(
+    id,
+    { status: "ended", nextRoomNo, endedAt: Date.now() },
+    { new: true }
+  );
+}

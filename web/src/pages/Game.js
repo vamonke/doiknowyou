@@ -1,77 +1,104 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Card, Heading, Box, Button, Link } from "rebass";
+import { Card, Heading } from "rebass";
 
-import { reset } from "../redux/actions";
 import { joinRoom, playerAnswer } from "../redux/client";
 
-import GamePlayerList from "../organisms/GamePlayerList";
+import GamePlayerList from "../molecules/GamePlayerList";
+import Disconnected from "../molecules/Disconnected";
 import JoinGame from "../organisms/JoinGame";
 import CurrentQuestion from "../organisms/CurrentQuestion";
+import QuestionResults from "../organisms/QuestionResults";
 
 const Game = (props) => {
   const {
     room,
     answer,
     currentQuestion,
-    // questionList,
+    answeredQuestions,
     recipient,
     viewer,
     players,
     dispatch
   } = props;
-  
+
+  const lastQuestion = answeredQuestions.slice(-1).pop() || {};
+
+  useEffect(() => {
+    console.log("useEffect");
+    joinRoom(viewer);
+  }, [viewer._id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const [showResults, setShowResults] = useState(true);
+
+  useEffect(() => {
+    console.log("useEffect");
+    setShowResults(true);
+  }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
   if (!viewer._id || !room._id) {
     return <JoinGame lobby />;
   }
 
-  joinRoom(viewer);
   document.title = `Do I know you? #${room.number}`;
 
   if (
     players.length > 0 &&
     !players.find(player => player._id === viewer._id)
   ) {
-    return (
-      <Box textAlign="center">
-        <Heading fontSize={4}>Disconnected</Heading>
-        <Button
-          variant="primary"
-          my={3}
-          onClick={() => dispatch(reset())}
-          width={1}
-        >
-          Join back into game
-        </Button>
-        <Link variant="secondary" href="/">
-          Home
-        </Link>
-      </Box>
-    );
+    return <Disconnected />;
   }
 
   const handleClick = index => {
     dispatch(playerAnswer(index));
   }
 
+  const showCurrentQuestion =
+    room.status === "started" &&
+    Object.keys(currentQuestion).length > 1;
+
   return (
     <>
-      <Card>
-        <Heading fontSize={2} m={-3} mb={3} variant="black-small" textAlign="">
-          Round {currentQuestion.round}
-        </Heading>
+      {room.status === "ended" &&
+        "Game over"
+      }
 
-        <CurrentQuestion
-          currentQuestion={currentQuestion}
-          recipient={recipient}
-          isRecipient={recipient._id === viewer._id}
-          handleClick={handleClick}
-          answer={answer}
+      {showCurrentQuestion &&
+        <Card>
+          <Heading variant="blackSmall">
+            Round {currentQuestion.round}
+          </Heading>
+          <CurrentQuestion
+            currentQuestion={currentQuestion}
+            recipient={recipient}
+            isRecipient={recipient._id === viewer._id}
+            handleClick={handleClick}
+            answer={answer}
+          />
+        </Card>
+      }
+
+      {players.length > 0 &&
+        <GamePlayerList
+          players={players}
+          viewer={viewer}
+          recipientId={recipient._id}
         />
+      }
 
-      </Card>
 
-      {players.length > 0 && <GamePlayerList players={players} viewer={viewer} recipientId={recipient._id} />}
+      {answeredQuestions.length > 0 &&
+        answeredQuestions.map(q => q.text)
+      }
+
+      {showResults && answeredQuestions.length > 0 &&
+        <QuestionResults
+          question={lastQuestion}
+          players={players}
+          hide={() => setShowResults(false)}
+        />
+      }
     </>
   );
 };

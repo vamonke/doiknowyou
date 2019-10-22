@@ -1,13 +1,16 @@
+import * as Room from "../models/Room";
 import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
 const gameEvents = (io, socket) => {
   // Game: Over
-  const gameOver = (roomId) => {
+  const gameOver = async roomId => {
+    const newRoom = await Room.create();
+    const room = await Room.gameOver(roomId, newRoom.number);
     socket.gameLog("Game Over");
-    io.to(roomId).emit("gameover");
-  }
+    io.to(roomId).emit("gameOver", room);
+  };
 
   // Game: End question if all players have answered
   const completeIfAllAnswered = async (roomId, question) => {
@@ -19,31 +22,34 @@ const gameEvents = (io, socket) => {
     io.to(roomId).emit("completed");
 
     // Tabulate scores
-    const answers = await Answer.getAnswersByQuestion(questionId);
+    const answers = await Answer.findByQuestion(questionId);
     const correctAnswers = answers.filter(
       answer =>
-        answer.option === correctAnswer &&
+        correctAnswer.includes(answer.option) &&
         answer.playerId !== recipientId
     );
-    const promises = correctAnswers.map(answer => {
-      return Player.addScore(answer.playerId);
-    });
+    const promises = correctAnswers.map(answer =>
+      Player.addScore(answer.playerId)
+    );
+
     const players = await Promise.all(promises);
-    const completedQuestion = await Question.complete(questionId);
+    const answerIds = answers.map(answer => answer._id);
+    const completedQuestion = await Question.complete(questionId, answerIds);
+    console.log("completedQuestion", completedQuestion);
 
     // Send results
     socket.gameLog("Question results");
     io.to(roomId).emit("results", {
-      question: { ...completedQuestion, answers },
+      question: completedQuestion,
       players
     });
 
-    // Draw next question
+    // Draw next question OR end the game
     const { round } = completedQuestion;
     const currentQuestion = await Question.draw(roomId, round + 1, recipientId);
     if (currentQuestion) {
       socket.gameLog("Next question");
-      io.to(roomId).emit("start", { currentQuestion });
+      io.to(roomId).emit("nextQuestion", { currentQuestion });
     } else {
       gameOver(roomId);
     }
@@ -55,11 +61,12 @@ const gameEvents = (io, socket) => {
 
     const { _id: playerId, roomId } = socket.player;
     let currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
-    // console.log(currentQuestion);
     await Answer.create(answer, currentQuestion._id, playerId);
 
     if (playerId === currentQuestion.recipientId) {
-      currentQuestion = await Question.setAnswer(currentQuestion._id, answer);
+      let answerArray = Array.isArray(answer) ? answer : [answer];
+      answerArray = answerArray.map(Number);
+      currentQuestion = await Question.setCorrectAnswer(currentQuestion._id, answerArray);
     }
 
     socket.playerLog("answer", answer);

@@ -1,13 +1,13 @@
 import React from "react";
 import { Card, Box, Flex, Heading } from "rebass";
 
-const PlayerList = ({ players, viewer }) => {
+const LobbyPlayerList = ({ players, viewer }) => {
   return (
     <Card mt={3}>
-      <Heading fontSize={3} m={-3} mb={0} variant="black">
+      <Heading fontSize={2} m={-3} mb={0} variant="black">
         Players
       </Heading>
-      <Box width={1}>
+      <Box width={1} mb={-3}>
         {players.map((player, index) => {
           const isViewer = player._id === viewer._id;
           return (
@@ -27,4 +27,4 @@ const PlayerList = ({ players, viewer }) => {
   );
 };
 
-export default PlayerList;
+export default LobbyPlayerList;

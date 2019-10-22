@@ -7,7 +7,7 @@ import HomeLink from "./HomeLink";
 const Layout = props => {
   const matchHome = useRouteMatch("/");
   return (
-    <Box maxWidth={540} mx="auto" p={3}>
+    <Box maxWidth={540} mx="auto" p={3} variant="relative">
       {props.children}
       {!matchHome.isExact &&
         <HomeLink />

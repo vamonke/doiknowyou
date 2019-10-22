@@ -6,7 +6,7 @@ import { joinRoom, playerReady, playerNotReady } from "../redux/client";
 import { reset } from "../redux/actions";
 
 import QuestionsForm from "../organisms/QuestionsForm";
-import PlayerList from "../organisms/PlayerList";
+import LobbyPlayerList from "../molecules/LobbyPlayerList";
 import JoinGame from "../organisms/JoinGame";
 import Countdown from "../molecules/Countdown";
 
@@ -60,7 +60,7 @@ const Lobby = (props) => {
   return (
     <>
       <Card>
-        <Heading fontSize={4} m={-3} mb={0} variant="black">
+        <Heading fontSize={3} m={-3} mb={0} variant="black">
           Room {room.number}
         </Heading>
         {room.status === "started" && viewer.isReady ?
@@ -76,7 +76,7 @@ const Lobby = (props) => {
         }
       </Card>
 
-      {players.length > 0 && <PlayerList players={players} viewer={viewer} />}
+      {players.length > 0 && <LobbyPlayerList players={players} viewer={viewer} />}
     </>
   );
 };

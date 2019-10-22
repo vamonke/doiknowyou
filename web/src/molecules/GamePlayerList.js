@@ -4,10 +4,10 @@ import { Card, Box, Flex, Heading, Text } from "rebass";
 const GamePlayerList = ({ players, viewer, recipientId }) => {
   return (
     <Card mt={3}>
-      <Heading fontSize={2} m={-3} mb={0} variant="black-small">
+      <Heading variant="blackSmall" mb={0}>
         Players
       </Heading>
-      <Box width={1}>
+      <Box width={1} mb={-3}>
         {players.map((player, index) => {
           const { _id, score, name, hasAnswered } = player;
           const isViewer = _id === viewer._id;

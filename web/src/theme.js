@@ -34,6 +34,33 @@ export default {
       // boxShadow: "0 0 24px rgba(0, 0, 0, .125)",
       // borderRadius: 3,
     },
+    modal: {
+      position: "absolute",
+      right: 3,
+      left: 3,
+      top: 3,
+      maxWidth: 540,
+      zIndex: 10,
+      "&::before": {
+        content: "''",
+        backgroundColor: "rgba(255, 255, 255, 0.85)",
+        borderColor: "black",
+        position: "fixed",
+        right: 0,
+        left: 0,
+        top: 0,
+        bottom: 0,
+        zIndex: -1,
+      }
+    },
+    modalBody: {
+      zIndex: 1,
+      bg: "white",
+      p: 3,
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "black",
+    },
     row: {
       // borderWidth: 1,
       // borderStyle: "solid",
@@ -45,9 +72,9 @@ export default {
       },
       "&:last-child": {
         border: "none",
-        "> *": {
-          pb: 0
-        }
+        // "> *": {
+        //   pb: 0
+        // }
       }
     },
     cell: {
@@ -88,6 +115,14 @@ export default {
       display: "inline-block",
       borderBottom: "2px solid black"
     },
+    whiteOverlay: {
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      backgroundColor: "rgba(255, 255, 255, 0.8)"
+    },
   },
   text: {
     error: {
@@ -111,18 +146,34 @@ export default {
     black: {
       bg: "black",
       color: "white",
-      p: 3
+      p: 3,
+      fontSize: 3,
+      m: -3,
+      mb: 3,
     },
-    "black-small": {
+    blackSmall: {
       fontWeight: 400,
       bg: "black",
       color: "white",
       py: 2,
-      px: 3
+      px: 3,
+      fontSize: 2,
+      m: -3,
+      mb: 3,
     },
     subtitle: {
       fontStyle: "italic",
       fontSize: 2
+    },
+    correct: {
+      fontSize: 1,
+      letterSpacing: 1,
+      backgroundColor: "black",
+      color: "white",
+      display: "inline-block",
+      px: 1,
+      py: 1,
+      mx: 1
     }
   },
   buttons: {

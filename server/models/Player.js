@@ -45,16 +45,14 @@ export const leave = id => Player.findByIdAndDelete(id);
 export const getNextRecipientId = async (roomId, currentRecipientId) => {
   let next;
   if (currentRecipientId) {
-    next = Player.findOne({
+    next = await Player.findOne({
       roomId,
       _id: { $gt: currentRecipientId }
     }, "_id", { sort: { _id: 1 } });
   }
-  console.log(next);
   if (!next) {
     next = await Player.findOne({ roomId }, "_id");
   }
-  console.log(next);
   return next._id;
 };
 

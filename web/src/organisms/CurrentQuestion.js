@@ -19,6 +19,7 @@ const CreateGame = props => {
     // type,
   } = currentQuestion;
 
+  const disabled = currentQuestion.status !== "asking";
   const getVariant = (index) => index === answer ? "primary" : "secondary";
 
   return (
@@ -33,42 +34,46 @@ const CreateGame = props => {
         </Text>
       </Box>
 
-      {!isRecipient &&
-        <Text mb={3} variant="subtitle">
-          Guess {recipient.name}'s answer
-        </Text>
-      }
+      <Box variant="relative">
+        {disabled &&
+          <Box variant="whiteOverlay" />
+        }
 
-      {options.length === 2 ? (
-        <Flex mt={2} mx={-2}>
-          <Box width={1 / 2} px={2}>
-            <Button variant={getVariant(0)} width={1} onClick={() => handleClick(0)}>
-              {options[0]}
-            </Button>
-          </Box>
-          <Box width={1 / 2} px={2}>
-            <Button variant={getVariant(1)} width={1} onClick={() => handleClick(1)}>
-              {options[1]}
-            </Button>
-          </Box>
-        </Flex>
-      ) : 
-        options.map((option, index) => (
-          <Box key={index}>
-            <Button variant={getVariant(index)} width={1} my={1} onClick={() => handleClick(index)}>
-              {option}
-            </Button>
-          </Box>
-        ))
-      }
+        {!isRecipient &&
+          <Text mb={3} variant="subtitle">
+            Guess {recipient.name}'s answer
+          </Text>
+        }
 
+        {options.length === 2 ? (
+          <Flex mt={2} mx={-2}>
+            <Box width={1 / 2} px={2}>
+              <Button variant={getVariant(0)} width={1} onClick={() => handleClick(0)}>
+                {options[0]}
+              </Button>
+            </Box>
+            <Box width={1 / 2} px={2}>
+              <Button variant={getVariant(1)} width={1} onClick={() => handleClick(1)}>
+                {options[1]}
+              </Button>
+            </Box>
+          </Flex>
+        ) : 
+          options.map((option, index) => (
+            <Box key={index}>
+              <Button variant={getVariant(index)} width={1} my={1} onClick={() => handleClick(index)}>
+                {option}
+              </Button>
+            </Box>
+          ))
+        }
 
-      {isRecipient &&
-        <Text mt={3} variant="subtitle">
-          Answer honestly and let the other players guess your answer
-        </Text>
-      }
-
+        {isRecipient &&
+          <Text mt={3} variant="subtitle">
+            Answer honestly and let the other players guess your answer
+          </Text>
+        }
+      </Box>
     </Box>
   );
 };

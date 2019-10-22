@@ -45,8 +45,8 @@ export const hasEveryPlayerAnswered = async (roomId, questionId) => {
   return allAnswered;
 };
 
-export const getAnswersByQuestion = questionId =>
-  Answer.find({ questionId }).select({ _id: 0, option: 1, playerId: 1 });
+export const findByQuestion = questionId =>
+  Answer.find({ questionId }).select({ option: 1, playerId: 1 });
 
 // export const getCorrectAnswers = (questionId, option, recipientId) => {
 //   return Answer.find(
