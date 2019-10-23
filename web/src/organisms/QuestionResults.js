@@ -24,14 +24,12 @@ const QuestionResults = ({ question, players, hide }) => {
     if (correctAnswers.length === 1) {
       return correctAnswers[0];
     }
-    return correctAnswers.map((answer, index) => {
-      return (
-        <div>
-          {answer}
-          {correctAnswers.length - 1 !== index && (<hr />)}
-        </div>
-      );
-    });
+    return correctAnswers.map((answer, index) =>
+      <div key={index}>
+        {answer}
+        {correctAnswers.length - 1 !== index && (<hr />)}
+      </div>
+    );
   }
 
   return (
@@ -67,6 +65,7 @@ const QuestionResults = ({ question, players, hide }) => {
           answers={answers}
           correctAnswer={correctAnswer}
           players={players}
+          recipientId={recipientId}
         />
         <Button onClick={hide} width={1} mt={3}>
           Continue

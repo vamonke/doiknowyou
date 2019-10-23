@@ -3,7 +3,7 @@ import { Card, Box, Flex, Heading, Text } from "rebass";
 
 const GamePlayerList = ({ players, viewer, recipientId }) => {
   return (
-    <Card mt={3}>
+    <Card>
       <Heading variant="blackSmall" mb={0}>
         Players
       </Heading>

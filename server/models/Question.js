@@ -113,11 +113,14 @@ export const complete = (id, answers) =>
     {
       new: true,
       select: {
-        correctAnswer: 1,
+        text: 1,
+        type: 1,
         options: 1,
-        status: 1,
         round: 1,
-        answers: 1
+        status: 1,
+        recipientId: 1,
+        correctAnswer: 1,
+        answers: 1,
       }
     }
   )
@@ -126,6 +129,16 @@ export const complete = (id, answers) =>
 
 export const findAsked = roomId =>
   Question.find({ roomId, status: "asked" })
+    .select({
+      text: 1,
+      type: 1,
+      options: 1,
+      round: 1,
+      status: 1,
+      recipientId: 1,
+      correctAnswer: 1,
+      answers: 1,
+    })
     .populate("answers", { option: 1, playerId: 1 })
     .lean();
 

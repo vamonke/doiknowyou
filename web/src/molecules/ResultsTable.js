@@ -7,17 +7,26 @@ const correct = (
   </Text>
 );
 
-const ResultsTable = ({ players, options, answers, correctAnswer }) => {
-  // const recipientIndex = answers.findIndex(answer => (answer.playerId === question.recipientId));
-  // if (recipientIndex > -1) {
-  //   answers.splice(recipientIndex, 1);
-  // }
+const parseAnswers = (answers, recipientId) => {
+  let results = {};
+  answers.forEach(({ playerId, option }) => {
+    if (playerId !== recipientId) {
+      if (results.hasOwnProperty(option)) {
+        results[option].push(playerId);
+      } else {
+        results[option] = [playerId];
+      }
+    }
+  });
+  return results;
+}
+
+const ResultsTable = ({ players, options, answers, correctAnswer, recipientId }) => {
+  const parsedAnswers = parseAnswers(answers, recipientId);
   const playersWhoSelected = option => {
-    // console.log(option);
-    const answerSet = answers.filter(answer => answer.option === option);
-    // console.log(answerSet);
+    const answerSet = parsedAnswers[option];
     if (answerSet) {
-      return answerSet.map(({ playerId }) => {
+      return answerSet.map(playerId => {
         const { name } = players.find(({ _id }) => _id === playerId);
         return (
           <div key={name}>

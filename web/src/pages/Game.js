@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Card, Heading } from "rebass";
+import { Card, Heading, Box } from "rebass";
 
 import { joinRoom, playerAnswer } from "../redux/client";
 
@@ -9,6 +9,7 @@ import Disconnected from "../molecules/Disconnected";
 import JoinGame from "../organisms/JoinGame";
 import CurrentQuestion from "../organisms/CurrentQuestion";
 import QuestionResults from "../organisms/QuestionResults";
+import AnsweredQuestion from "../organisms/AnsweredQuestion";
 
 const Game = (props) => {
   const {
@@ -79,6 +80,8 @@ const Game = (props) => {
         </Card>
       }
 
+      <Box mt={4} />
+
       {players.length > 0 &&
         <GamePlayerList
           players={players}
@@ -86,10 +89,18 @@ const Game = (props) => {
           recipientId={recipient._id}
         />
       }
-
+      
+      <Box mt={4} />
 
       {answeredQuestions.length > 0 &&
-        answeredQuestions.map(q => q.text)
+        <Card pb={0}>
+          <Heading variant="blackSmall" mb={0}>
+            Questions
+          </Heading>
+          {answeredQuestions.map((question, index) => 
+            <AnsweredQuestion question={question} players={players} key={index} />
+          )}
+        </Card>
       }
 
       {showResults && answeredQuestions.length > 0 &&

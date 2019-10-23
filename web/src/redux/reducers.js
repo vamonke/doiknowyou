@@ -87,7 +87,6 @@ const reducers = (state = defaultState, { type, payload }) => {
       return { ...state };
 
     case SOCKET_GAME_OVER:
-      state.answeredQuestions.push(state.currentQuestion);
       state.currentQuestion = {};
       return { ...state, ...payload };
 
