@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Card, Heading, Box, Button, Link } from "rebass";
+import { Card, Heading } from "rebass";
 import { joinRoom, playerReady, playerNotReady } from "../redux/client";
-
-import { reset } from "../redux/actions";
 
 import QuestionsForm from "../organisms/QuestionsForm";
 import LobbyPlayerList from "../molecules/LobbyPlayerList";
 import JoinGame from "../organisms/JoinGame";
+
+import Disconnected from "../molecules/Disconnected";
 import Countdown from "../molecules/Countdown";
 
 const Lobby = (props) => {
@@ -20,34 +20,24 @@ const Lobby = (props) => {
     dispatch
   } = props;
   
+  useEffect(() => {
+    console.log("useEffect: Joining game");
+    joinRoom(viewer);
+  }, [viewer._id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  document.title = `Do I know you? #${room.number}`;
+
   if (!viewer._id || !room._id) {
     return <JoinGame lobby />;
   }
-
-  joinRoom(viewer);
-  document.title = `Do I know you? #${room.number}`;
 
   if (
     players.length > 0 &&
     !players.find(player => player._id === viewer._id)
   ) {
-    return (
-      <Box textAlign="center">
-        <Heading fontSize={4}>Disconnected</Heading>
-        <Button
-          variant="primary"
-          my={3}
-          onClick={() => dispatch(reset())}
-          width={1}
-        >
-          Join back into game
-        </Button>
-        <Link variant="secondary" href="/">
-          Home
-        </Link>
-      </Box>
-    );
+    return <Disconnected />;
   }
+
 
   const onReady = questions => {
     dispatch(playerReady(questions));

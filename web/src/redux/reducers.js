@@ -77,7 +77,7 @@ const reducers = (state = defaultState, { type, payload }) => {
       for (const id in players) {
         players[id].hasAnswered = false;
       }
-      state.answeredQuestions.push(payload.question);
+      state.answeredQuestions.unshift(payload.question);
       return { ...state, players };
     
     case SOCKET_ANSWERED_PLAYERS:
@@ -92,6 +92,7 @@ const reducers = (state = defaultState, { type, payload }) => {
 
     case RESET:
       return defaultState;
+
     default:
       return state;
   }

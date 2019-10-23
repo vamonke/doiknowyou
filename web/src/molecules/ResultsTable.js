@@ -27,7 +27,7 @@ const ResultsTable = ({ players, options, answers, correctAnswer, recipientId })
     const answerSet = parsedAnswers[option];
     if (answerSet) {
       return answerSet.map(playerId => {
-        const { name } = players.find(({ _id }) => _id === playerId);
+        const { name } = players.find(({ _id }) => _id === playerId) || {};
         return (
           <div key={name}>
             {name}
@@ -51,7 +51,7 @@ const ResultsTable = ({ players, options, answers, correctAnswer, recipientId })
         <Flex key={option} variant="row">
           <Box width={1/2} sx={{ borderRight: "1px solid black" }} p={2}>
             {option}
-            {correctAnswer.includes(index) && correct}
+            {correctAnswer && correctAnswer.includes(index) && correct}
           </Box>
           <Box width={1/2} p={2}>
             {playersWhoSelected(index)}

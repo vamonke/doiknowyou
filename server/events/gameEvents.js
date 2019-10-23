@@ -23,19 +23,21 @@ const gameEvents = (io, socket) => {
 
     // Tabulate scores
     const answers = await Answer.findByQuestion(questionId);
-    const correctAnswers = answers.filter(
-      answer =>
+    let players = [];
+    if (correctAnswer && correctAnswer.length > 0) {
+      const correctAnswers = answers.filter(
+        answer =>
         correctAnswer.includes(answer.option) &&
         answer.playerId !== recipientId
-    );
-    const promises = correctAnswers.map(answer =>
-      Player.addScore(answer.playerId)
-    );
+      );
+      const promises = correctAnswers.map(answer =>
+        Player.addScore(answer.playerId)
+      );
+      players = await Promise.all(promises);
+    }
 
-    const players = await Promise.all(promises);
     const answerIds = answers.map(answer => answer._id);
     const completedQuestion = await Question.complete(questionId, answerIds);
-    console.log("completedQuestion", completedQuestion);
 
     // Send results
     socket.gameLog("Question results");

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Card, Heading, Box } from "rebass";
+import { Card, Heading, Box, Text } from "rebass";
 
 import { joinRoom, playerAnswer } from "../redux/client";
 
 import GamePlayerList from "../molecules/GamePlayerList";
 import Disconnected from "../molecules/Disconnected";
+import Restart from "../molecules/Restart";
+
 import JoinGame from "../organisms/JoinGame";
 import CurrentQuestion from "../organisms/CurrentQuestion";
 import QuestionResults from "../organisms/QuestionResults";
@@ -23,20 +25,18 @@ const Game = (props) => {
     dispatch
   } = props;
 
-  const lastQuestion = answeredQuestions.slice(-1).pop() || {};
-
   useEffect(() => {
-    console.log("useEffect");
+    console.log("useEffect: Join room");
     joinRoom(viewer);
   }, [viewer._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [showResults, setShowResults] = useState(true);
+  const lastQuestion = answeredQuestions[0] || {};
 
   useEffect(() => {
-    console.log("useEffect");
+    console.log("useEffect: Show last question");
     setShowResults(true);
   }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
-
 
   if (!viewer._id || !room._id) {
     return <JoinGame lobby />;
@@ -62,7 +62,9 @@ const Game = (props) => {
   return (
     <>
       {room.status === "ended" &&
-        "Game over"
+        <Text textAlign="center" fontSize={4} fontWeight="medium" mt={3} mb={-2}>
+          Game over
+        </Text>
       }
 
       {showCurrentQuestion &&
@@ -101,6 +103,12 @@ const Game = (props) => {
             <AnsweredQuestion question={question} players={players} key={index} />
           )}
         </Card>
+      }
+
+      {room.status === "ended" && room.nextRoomNo && 
+        <Box mt={4}>
+          <Restart nextRoomNo={room.nextRoomNo} viewerName={viewer.name} />
+        </Box>
       }
 
       {showResults && answeredQuestions.length > 0 &&

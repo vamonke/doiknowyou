@@ -139,6 +139,7 @@ export const findAsked = roomId =>
       correctAnswer: 1,
       answers: 1,
     })
+    .sort({ round: "desc" })
     .populate("answers", { option: 1, playerId: 1 })
     .lean();
 

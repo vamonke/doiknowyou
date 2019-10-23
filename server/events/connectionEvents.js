@@ -29,6 +29,7 @@ const connectionEvents = (io, socket) => {
 
   const emitAnswers = async roomId => {
     const currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
+    if (!currentQuestion) return;
     const answers = await Answer.findByQuestion(currentQuestion._id);
     const answeredPlayers = answers.map(answer => answer.playerId);
     socket.gameLog("Update answers - " + answeredPlayers.length);
@@ -41,11 +42,12 @@ const connectionEvents = (io, socket) => {
     socket.emit("updateQuestions", answeredQuestions);
   };
 
-  socket.on("join", player => {
+  socket.on("join", async player => {
     socket.player = player;
     const { roomId } = player;
     if (!socket.rooms.hasOwnProperty(roomId)) {
       socket.join(roomId, async () => {
+        socket.playerLog("joined");
         emitPlayers(roomId);
         const room = await Room.findById(roomId);
         if (room.status !== "created") {
@@ -54,7 +56,12 @@ const connectionEvents = (io, socket) => {
         }
       });
     } else {
-      console.log("Whats going on");
+      emitPlayers(roomId);
+      const room = await Room.findById(roomId);
+      if (room.status !== "created") {
+        emitAnswers(roomId);
+        emitQuestions(roomId);
+      }
     }
   });
 

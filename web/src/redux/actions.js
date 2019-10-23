@@ -11,6 +11,7 @@ export const CREATE_GAME = "CREATE_GAME";
 export const JOIN_GAME = "JOIN_GAME";
 export const GET_QUESTION_BANK = "GET_QUESTION_BANK";
 export const RESET = "RESET";
+export const RESTART = "RESTART";
 
 const createGameSuccess = payload => {
   joinRoom(payload.viewer);
@@ -57,6 +58,8 @@ export const fetchQuestionBank = () => {
   };
 };
 
+export const reset = () => async dispatch => await dispatch({ type: RESET });
+
 export const joinGame = (roomNo, playerName) => {
   const params = { roomNo, playerName };
   // dispatch fetch
@@ -69,12 +72,9 @@ export const joinGame = (roomNo, playerName) => {
   };
 };
 
-export const reset = () => {
-  const resetSuccess = () => {
-    return { type: RESET };
-  };
+export const leave = () => {
   return async dispatch => {
     leaveRoom();
-    dispatch(resetSuccess());
+    dispatch({ type: RESET });
   };
 };

@@ -9,7 +9,7 @@ import history from './redux/history';
 import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
 import Game from "./pages/Game";
-// import theme from "./theme";
+import Join from "./pages/Join";
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -19,6 +19,7 @@ const App = () => (
           <Route exact path="/" component={Home} />
           <Route exact path="/lobby/:roomNo" component={Lobby} />
           <Route exact path="/game/:roomNo" component={Game} />
+          <Route exact path="/join/:roomNo" component={Join} />
           <Route path="/" component={Home} />
         </Switch>
       </Layout>

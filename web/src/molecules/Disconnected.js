@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { Heading, Box, Button, Link } from "rebass";
-import { reset } from "../redux/actions";
+import { Heading, Box, Button } from "rebass";
+import { leave } from "../redux/actions";
 
 const Disconnected = ({ dispatch }) => {
-  return (
+  const [loading, setLoading] = useState(true);
+  console.log(loading);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return loading ? null : (
     <Box textAlign="center">
       <Heading fontSize={4}>Disconnected</Heading>
       <Button
         variant="primary"
-        my={3}
-        onClick={() => dispatch(reset())}
+        mt={3}
+        onClick={() => dispatch(leave())}
         width={1}
       >
         Join back into game
       </Button>
-      <Link variant="secondary" href="/">
-        Home
-      </Link>
     </Box>
   );
 };

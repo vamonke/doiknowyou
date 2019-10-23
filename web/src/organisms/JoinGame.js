@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { withFormik, Field } from "formik";
@@ -19,7 +19,16 @@ const JoinGame = props => {
     values
   } = props;
 
-  return (
+  const [loading, setLoading] = useState(lobby);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return loading ? null : (
     <form onSubmit={handleSubmit}>
       {lobby &&
         <Heading fontSize={4}>

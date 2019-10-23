@@ -5,7 +5,7 @@ import { Card, Flex, Box, Heading, Text, Button } from "rebass";
 import CreateGame from "../organisms/CreateGame";
 import JoinGame from "../organisms/JoinGame";
 
-import { reset } from "../redux/actions";
+import { leave } from "../redux/actions";
 
 const Home = () => {
   document.title = 'Do I know you?';
@@ -53,7 +53,7 @@ const Home = () => {
 };
 
 const mapDispatchToProps = dispatch => {
-  dispatch(reset());
+  dispatch(leave());
   return {};
 };
 
