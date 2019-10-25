@@ -12,6 +12,7 @@ import JoinGame from "../organisms/JoinGame";
 import CurrentQuestion from "../organisms/CurrentQuestion";
 import QuestionResults from "../organisms/QuestionResults";
 import AnsweredQuestion from "../organisms/AnsweredQuestion";
+import OpenEndedQuestion from "../organisms/OpenEndedQuestion";
 
 const Game = (props) => {
   const {
@@ -72,13 +73,23 @@ const Game = (props) => {
           <Heading variant="blackSmall">
             Round {currentQuestion.round}
           </Heading>
-          <CurrentQuestion
-            currentQuestion={currentQuestion}
-            recipient={recipient}
-            isRecipient={recipient._id === viewer._id}
-            handleClick={handleClick}
-            answer={answer}
-          />
+          {currentQuestion.type === "open" ? 
+            <OpenEndedQuestion
+              question={currentQuestion}
+              recipient={recipient}
+              isRecipient={recipient._id === viewer._id}
+              handleSubmit={handleClick}
+              answer={answer}
+            />
+          :
+            <CurrentQuestion
+              question={currentQuestion}
+              recipient={recipient}
+              isRecipient={recipient._id === viewer._id}
+              handleClick={handleClick}
+              answer={answer}
+            />
+          }
         </Card>
       }
 

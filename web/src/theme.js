@@ -186,7 +186,11 @@ export default {
       borderColor: "black",
       borderRadius: 0,
       p: 12,
-      outline: "none"
+      outline: "none",
+      // "&:disabled": {
+      //   bg: "grey",
+      //   borderColor: "grey",
+      // }
     },
     secondary: {
       cursor: "pointer",

@@ -1,29 +1,20 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Flex, Box, Button, Text } from "rebass";
-// import { Input } from "@rebass/forms";
-// import { withFormik } from "formik";
 
-const CreateGame = props => {
+const CurrentQuestion = props => {
   const {
-    currentQuestion,
+    question,
     recipient,
     isRecipient,
     answer,
     handleClick
   } = props;
-
-  const {
-    text,
-    options,
-    // type,
-  } = currentQuestion;
-
-  const disabled = currentQuestion.status !== "asking";
+  const { text, options, status } = question;
+  const disabled = status !== "asking";
   const getVariant = (index) => index === answer ? "primary" : "secondary";
 
   return (
-      <Box variant="relative" textAlign="center">
+    <Box variant="relative" textAlign="center">
 
       <Box fontSize={4} mb={3} mx={-3} p={4} pt={2} sx={{ borderBottom: "1px solid black" }}>
         <Text mb={3}>
@@ -78,27 +69,4 @@ const CreateGame = props => {
   );
 };
 
-// const formOptions = {
-//   mapPropsToValues: props => props,
-//   validate,
-//   validateOnBlur: false,
-//   validateOnChange: false,
-//   handleSubmit: async (values, { setSubmitting }) => {
-//     const { createGame, name, history } = values;
-//     const roomNo = await createGame(name);
-//     setSubmitting(false);
-//     history.push("/lobby/" + roomNo);
-//   },
-//   displayName: "CreateGame"
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     createGame: name => dispatch(createGame(name))
-//   };
-// };
-
-export default connect(
-  null,
-  null
-)(CreateGame);
+export default CurrentQuestion;

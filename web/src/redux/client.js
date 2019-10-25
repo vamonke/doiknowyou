@@ -89,10 +89,8 @@ export const playerReady = questions => {
     socket.emit("ready", questions);
   };
 };
-export const playerNotReady = () => {
-  return dispatch => {
-    socket.emit("notReady");
-  };
+export const playerNotReady = () => dispatch => {
+  socket.emit("notReady");
 };
 
 // Game actions
@@ -101,6 +99,11 @@ export const playerAnswer = answer => {
     dispatch(viewerAnswer({ answer }));
     socket.emit("answer", answer);
   };
+};
+
+export const playerAnswerOpen = answer => dispatch => {
+  // dispatch({ type: VIEWER_ANSWER, answer });
+  socket.emit("answer", answer);
 };
 
 export const serverEvents = store => {

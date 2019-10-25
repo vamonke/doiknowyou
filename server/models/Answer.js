@@ -30,23 +30,40 @@ export const create = (option, questionId, playerId) => {
   );
 };
 
-export const hasEveryPlayerAnswered = async (roomId, questionId) => {
+export const hasEveryPlayerAnswered = async (
+  roomId,
+  questionId,
+  recipientId
+) => {
   const playerIds = await Player.findIdsByRoom(roomId);
   const answeredPlayerIds = await Answer.find(
     { questionId },
     { playerId: 1, _id: 0 },
     { sort: { playerId: 1 } }
   );
-  const allAnswered =
-    answeredPlayerIds.length === playerIds.length && // number of answers and players match
-    playerIds.every(
-      ({ _id }, i) => _id.toString() === answeredPlayerIds[i].playerId // every id matches
-    );
+
+  if (answeredPlayerIds.length < playerIds.length - 1) {
+    // number of answers and players match
+    return false;
+  }
+
+  const allAnswered = playerIds
+    .map(({ _id }) => _id.toString())
+    .filter(id => id !== recipientId)
+    .every((id, i) => id === answeredPlayerIds[i].playerId);
   return allAnswered;
 };
 
 export const findByQuestion = questionId =>
   Answer.find({ questionId }).select({ option: 1, playerId: 1 });
+
+export const insertOpen = async (submission, questionId, playerId) => {
+  // Add option to question
+  const option = await Question.addOption(questionId, submission);
+  // Insert answer
+  await create(option, questionId, playerId);
+  return option;
+};
 
 // export const getCorrectAnswers = (questionId, option, recipientId) => {
 //   return Answer.find(

@@ -77,17 +77,30 @@ export const draw = async (roomId, round, currentRecipientId) => {
       roomId,
       currentRecipientId
     );
+
+    const update = { status: "asking", recipientId, round };
+    if (unasked[0].type === "players") {
+      const players = await Player.findByRoom(roomId);
+      update.options = players.map(player => player.name);
+    }
+
     // set question status, recipient, round
     const drawn = await Question.findByIdAndUpdate(
-      id,
-      { status: "asking", recipientId, round },
-      { new: true }
+      id, update, { new: true }
     );
     return drawn;
   } else {
-    //   end game
+    // end game
     return false;
   }
+};
+
+export const addOption = async (id, answer) => { // insert open-ended option
+  const question = await Questions.findByIdAndUpdate(
+    id, { $push: { options: answer } }, { new: true, lean: true }
+  );
+  const optionIndex = question.options.findIndex(option => option === answer); // get answer index
+  return optionIndex;
 };
 
 export const getCurrentQuestionInRoom = roomId =>

@@ -15,7 +15,9 @@ const gameEvents = (io, socket) => {
   // Game: End question if all players have answered
   const completeIfAllAnswered = async (roomId, question) => {
     const { _id: questionId, correctAnswer, recipientId } = question;
-    const completed = await Answer.hasEveryPlayerAnswered(roomId, questionId);
+    if (!correctAnswer) return false;
+
+    const completed = await Answer.hasEveryPlayerAnswered(roomId, questionId, recipientId);
     if (!completed) return false;
 
     socket.gameLog("Question completed");
@@ -24,11 +26,9 @@ const gameEvents = (io, socket) => {
     // Tabulate scores
     const answers = await Answer.findByQuestion(questionId);
     let players = [];
-    if (correctAnswer && correctAnswer.length > 0) {
+    if (correctAnswer.length > 0) {
       const correctAnswers = answers.filter(
-        answer =>
-        correctAnswer.includes(answer.option) &&
-        answer.playerId !== recipientId
+        answer => correctAnswer.includes(answer.option)
       );
       const promises = correctAnswers.map(answer =>
         Player.addScore(answer.playerId)
@@ -63,12 +63,18 @@ const gameEvents = (io, socket) => {
 
     const { _id: playerId, roomId } = socket.player;
     let currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
-    await Answer.create(answer, currentQuestion._id, playerId);
-
-    if (playerId === currentQuestion.recipientId) {
+    const isRecipient = playerId === currentQuestion.recipientId;
+    
+    if (isRecipient) {
       let answerArray = Array.isArray(answer) ? answer : [answer];
       answerArray = answerArray.map(Number);
       currentQuestion = await Question.setCorrectAnswer(currentQuestion._id, answerArray);
+    } else {
+      if (currentQuestion.type === "open" && !isRecipient) {
+        await Answer.insertOpen(answer, currentQuestion._id, playerId);
+      } else {
+        await Answer.create(answer, currentQuestion._id, playerId);
+      }
     }
 
     socket.playerLog("answer", answer);
