@@ -8,6 +8,8 @@ import {
   VIEWER_READY,
   VIEWER_ANSWER,
   SOCKET_PLAYER_ANSWERED,
+  SOCKET_PLAYER_ANSWERED_OPEN,
+  SOCKET_OPEN_TO_RECIPIENT,
   SOCKET_QUESTION_COMPLETE,
   SOCKET_QUESTION_RESULTS,
   SOCKET_NEXT_QUESTION,
@@ -149,6 +151,14 @@ export const serverEvents = store => {
   // Game events
   socket.on("playerAnswer", playerId => {
     store.dispatch(playerAnsweredEvent(playerId));
+  })
+  socket.on("openAnswer", ({ playerId, answer }) => {
+    const payload = { playerId, answer };
+    store.dispatch({ type: SOCKET_PLAYER_ANSWERED_OPEN, payload });
+  });
+  socket.on("openQuestion", ({ currentQuestion }) => {
+    const payload = { currentQuestion };
+    store.dispatch({ type: SOCKET_OPEN_TO_RECIPIENT, payload });
   });
   socket.on("completed", () => {
     store.dispatch(questionCompleteEvent());

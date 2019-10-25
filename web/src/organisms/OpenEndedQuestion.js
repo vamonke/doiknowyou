@@ -1,13 +1,15 @@
 import React from "react";
 import { Box, Text } from "rebass";
 import OpenEndedAnswer from "../molecules/OpenEndedAnswer";
+import OpenEndedAnswerRecipient from "../molecules/OpenEndedAnswerRecipient";
 
 const OpenEndedQuestion = props => {
   const {
     question,
     recipient,
     isRecipient,
-    handleSubmit
+    handleSubmit,
+    answer
   } = props;
   const { text, status } = question;
   const disabled = status !== "asking";
@@ -28,12 +30,20 @@ const OpenEndedQuestion = props => {
         {disabled &&
           <Box variant="whiteOverlay" />
         }
-        <OpenEndedAnswer
-          question={question}
-          isRecipient={isRecipient}
-          recipientName={recipient.name}
-          handleSubmit={handleSubmit}
-        />
+        {isRecipient ?
+          <OpenEndedAnswerRecipient
+            question={question}
+            handleSubmit={handleSubmit}
+            answer={answer}
+          />
+        :
+          <OpenEndedAnswer
+            question={question}
+            recipientName={recipient.name}
+            handleSubmit={handleSubmit}
+            answer={answer}
+          />
+        }
       </Box>
     </Box>
   );

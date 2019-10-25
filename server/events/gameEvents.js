@@ -14,7 +14,7 @@ const gameEvents = (io, socket) => {
 
   // Game: End question if all players have answered
   const completeIfAllAnswered = async (roomId, question) => {
-    const { _id: questionId, correctAnswer, recipientId } = question;
+    const { _id: questionId, correctAnswer, recipientId, type } = question;
     if (!correctAnswer) return false;
 
     const completed = await Answer.hasEveryPlayerAnswered(roomId, questionId, recipientId);
@@ -57,30 +57,47 @@ const gameEvents = (io, socket) => {
     }
   };
 
+  // Game: Update open-ended answers
+  const openIfAllAnswered = async (roomId, question) => {
+    const { _id: questionId, recipientId } = question;
+    const allAnswered = await Answer.hasEveryPlayerAnswered(roomId, questionId, recipientId);
+    if (!allAnswered) return false;
+
+    const questionWithOptions = await Question.getOptions(questionId);
+    socket.gameLog("Recipient to answer open-ended question");
+    io.to(roomId).emit("openQuestion", { currentQuestion: questionWithOptions });
+  };
+
   // Game: Player answer
   socket.on("answer", async answer => {
     if (socket.missingPlayer()) return;
 
     const { _id: playerId, roomId } = socket.player;
     let currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
-    const isRecipient = playerId === currentQuestion.recipientId;
+    const { _id: questionId, recipientId, type } = currentQuestion;
+    const isRecipient = playerId === recipientId;
     
     if (isRecipient) {
       let answerArray = Array.isArray(answer) ? answer : [answer];
       answerArray = answerArray.map(Number);
-      currentQuestion = await Question.setCorrectAnswer(currentQuestion._id, answerArray);
+      currentQuestion = await Question.setCorrectAnswer(questionId, answerArray);
     } else {
-      if (currentQuestion.type === "open" && !isRecipient) {
-        await Answer.insertOpen(answer, currentQuestion._id, playerId);
+      if (type === "open" && !isRecipient) {
+        await Answer.insertOpen(answer, questionId, playerId);
       } else {
-        await Answer.create(answer, currentQuestion._id, playerId);
+        await Answer.create(answer, questionId, playerId);
       }
     }
 
     socket.playerLog("answer", answer);
-    io.to(roomId).emit("playerAnswer", playerId);
 
-    completeIfAllAnswered(roomId, currentQuestion);
+    if (type === "open" && !isRecipient) {
+      io.to(roomId).emit("openAnswer", { playerId, answer });
+      openIfAllAnswered(roomId, currentQuestion);
+    } else { 
+      io.to(roomId).emit("playerAnswer", playerId);
+      completeIfAllAnswered(roomId, currentQuestion);
+    }
   });
 };
 

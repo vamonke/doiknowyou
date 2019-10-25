@@ -1,16 +1,7 @@
-import React, { useState } from "react";
-import { Text, Button } from "rebass";
+import React from "react";
+import { Box, Text, Button } from "rebass";
 import { Input } from "@rebass/forms";
 import { Formik } from "formik";
-
-// function addOrRemove(array, value) {
-//   const index = array.indexOf(value);
-//   if (index === -1) {
-//     array.push(value);
-//   } else {
-//     array.splice(index, 1);
-//   }
-// }
 
 const AnswerForm = ({ onSubmit }) => (
   <Formik
@@ -28,11 +19,11 @@ const AnswerForm = ({ onSubmit }) => (
             name="guess"
             placeholder="Your guess"
           />
-          {dirty &&
+          {dirty && (
             <Button type="submit" width={1}>
               Submit
             </Button>
-          }
+          )}
         </form>
       );
     }}
@@ -40,83 +31,39 @@ const AnswerForm = ({ onSubmit }) => (
 );
 
 const OpenEndedAnswer = props => {
-  const { question, isRecipient, recipientName, handleSubmit } = props;
-
-  const [correntAnswers, setCorrectAnswers] = useState([]);
+  const { question, recipientName, handleSubmit, answer } = props;
+  const { recipientAnswering, options } = question;
 
   const onSubmit = ({ guess }) => {
-    console.log(guess);
     handleSubmit(guess);
-    // setState({ submitted: true });
   };
 
-  // const handleSelect = event => {
-  //   const selected = event.target.name;
-  //   addOrRemove(correntAnswers, selected);
-  //   setState({ correntAnswers });
-  // }
-
-  const guesser = () => {
-    if (false) {
-      let waitingMsg = "Waiting for other players";
-      if (false) {
-        // Waiting for options
-        waitingMsg = "Waiting for " + recipientName;
-      }
-      return (
-        <div>
-          <i>{waitingMsg}</i>
-          <hr />
-          {"Answers: "}
-          {question.options.map(option => (
-            <div className="openEndedGuess">{option}</div>
-          ))}
-        </div>
-      );
-    }
+  if (!answer) {
     return (
       <>
         <Text mb={3}>{`Guess ${recipientName}'s answer`}</Text>
         <AnswerForm onSubmit={onSubmit} />
       </>
     );
-  };
-
-  const renderOptions = (option, index) => {
-    // const className = correntAnswers.includes(index + '') ? ' selected' : '';
-    return (
-      <Button
-        type="button"
-        key={index}
-        // onClick={handleSelect}
-      >
-        {option}
-      </Button>
-    );
-  };
-
-  if (!isRecipient) {
-    // Guessing
-    return guesser();
-  }
-  if (true) {
-    // Waiting for options
-    return <i>Waiting for other players to guess</i>;
   }
 
-  // Options available
+  const waitingMsg =
+    "Waiting for " +
+    (recipientAnswering
+      ? recipientName + " to choose"
+      : "Waiting for other players");
+
   return (
     <div>
-      <div>Pick the best guess(es)</div>
-      {question.options.map(renderOptions)}
-      <hr />
-      <button
-        type="button"
-        className="blueButton"
-        disabled={correntAnswers.length === 0}
-      >
-        Submit
-      </button>
+      <Box fontStyle="italic" mb={3}>
+        {waitingMsg}
+      </Box>
+      {/* {"Guesses: "} */}
+      {options.map((option, i) => (
+        <Text variant="tag" key={i}>
+          {option}
+        </Text>
+      ))}
     </div>
   );
 };

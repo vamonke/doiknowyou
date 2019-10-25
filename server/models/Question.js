@@ -11,7 +11,7 @@ const schema = new Schema(
     },
     options: {
       type: [String],
-      default: undefined
+      default: []
     },
     number: Number,
     roomId: String,
@@ -43,7 +43,7 @@ const Question = model("Question", schema);
 
 export const createMany = (questions, authorId, roomId) => {
   const promises = questions.map(
-    ({ randomQuestionId, text, type, options }, number) => {
+    ({ randomQuestionId, text, type, options = [] }, number) => {
       const question = {
         text,
         type,
@@ -95,8 +95,8 @@ export const draw = async (roomId, round, currentRecipientId) => {
   }
 };
 
-export const addOption = async (id, answer) => { // insert open-ended option
-  const question = await Questions.findByIdAndUpdate(
+export const addOption = async (answer, id) => { // insert open-ended option
+  const question = await Question.findByIdAndUpdate(
     id, { $push: { options: answer } }, { new: true, lean: true }
   );
   const optionIndex = question.options.findIndex(option => option === answer); // get answer index
@@ -106,7 +106,7 @@ export const addOption = async (id, answer) => { // insert open-ended option
 export const getCurrentQuestionInRoom = roomId =>
   Question.findOne(
     { roomId, status: "asking" },
-    { correctAnswer: 1, recipientId: 1 }
+    { correctAnswer: 1, recipientId: 1, type: 1 }
   ).lean();
 
 export const setCorrectAnswer = (id, correctAnswer) =>
@@ -115,9 +115,13 @@ export const setCorrectAnswer = (id, correctAnswer) =>
     { correctAnswer },
     {
       new: true,
-      select: { correctAnswer: 1, recipientId: 1 }
+      select: { correctAnswer: 1, recipientId: 1, type: 1 }
     }
   ).lean();
+
+
+export const getOptions = id =>
+  Question.findById(id, { options: 1 }).lean();
 
 export const complete = (id, answers) =>
   Question.findByIdAndUpdate(

@@ -43,7 +43,7 @@ export default {
       zIndex: 10,
       "&::before": {
         content: "''",
-        backgroundColor: "rgba(255, 255, 255, 0.85)",
+        backgroundColor: "rgba(0, 0, 0, 0.75)",
         borderColor: "black",
         position: "fixed",
         right: 0,
@@ -174,6 +174,42 @@ export default {
       px: 1,
       py: 1,
       mx: 1
+    },
+    tag: {
+      display: "inline-block",
+      border: "1px solid black",
+      px: 2,
+      py: 1,
+      mt: 1,
+      mx: 1,
+      mb: 1,
+    },
+    tagLarge: {
+      display: "inline-block",
+      border: "1px solid black",
+      p: 2,
+      mt: 1,
+      mx: 2,
+      mb: 2,
+      "&::before": {
+        content: "'✔'",
+        display: "inline-block",
+        backgroundColor: "white",
+        border: "1px solid black",
+        color: "white",
+        width: 16,
+        height: 16,
+        fontSize: 0,
+        textAlign: "center",
+        verticalAlign: "text-bottom",
+        mr: 2,
+      },
+      "input:checked + &": {
+        "&::before": {
+          backgroundColor: "black",
+          color: "white",
+        }
+      }
     }
   },
   buttons: {
@@ -187,10 +223,10 @@ export default {
       borderRadius: 0,
       p: 12,
       outline: "none",
-      // "&:disabled": {
-      //   bg: "grey",
-      //   borderColor: "grey",
-      // }
+      "&:disabled": {
+        bg: "grey",
+        borderColor: "grey",
+      }
     },
     secondary: {
       cursor: "pointer",
@@ -257,7 +293,12 @@ export default {
       display: "inline-block"
     },
     textarea: {},
-    label: {},
+    label: {
+      width: "auto",
+      "& input": {
+        display: "none"
+      },
+    },
     radio: {},
     checkbox: {}
   }

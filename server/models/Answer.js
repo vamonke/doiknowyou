@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import * as Player from "./Player";
+import * as Question from "./Question";
 
 const schema = new Schema(
   {
@@ -57,9 +58,9 @@ export const hasEveryPlayerAnswered = async (
 export const findByQuestion = questionId =>
   Answer.find({ questionId }).select({ option: 1, playerId: 1 });
 
-export const insertOpen = async (submission, questionId, playerId) => {
+export const insertOpen = async (answer, questionId, playerId) => {
   // Add option to question
-  const option = await Question.addOption(questionId, submission);
+  const option = await Question.addOption(answer, questionId);
   // Insert answer
   await create(option, questionId, playerId);
   return option;

@@ -8,6 +8,8 @@ import {
   SOCKET_PLAYER_ANSWERED,
   VIEWER_ANSWER,
   SOCKET_QUESTION_COMPLETE,
+  SOCKET_PLAYER_ANSWERED_OPEN,
+  SOCKET_OPEN_TO_RECIPIENT,
   SOCKET_QUESTION_RESULTS,
   SOCKET_NEXT_QUESTION,
   SOCKET_GAME_OVER,
@@ -38,7 +40,7 @@ const defaultState = {
   ],
   currentQuestion: {},
   answeredQuestions: [],
-  answer: null,
+  answer: null
 };
 
 const reducers = (state = defaultState, { type, payload }) => {
@@ -65,6 +67,20 @@ const reducers = (state = defaultState, { type, payload }) => {
       state.players[payload].hasAnswered = true;
       return { ...state };
 
+    case SOCKET_PLAYER_ANSWERED_OPEN:
+      const { playerId, answer } = payload;
+      state.currentQuestion.options.push(answer);
+      state.players[playerId].hasAnswered = true;
+      return { ...state };
+
+    case SOCKET_OPEN_TO_RECIPIENT:
+      const currentQuestion = {
+        ...state.currentQuestion,
+        ...payload.currentQuestion,
+        recipientAnswering: true
+      };
+      return { ...state, currentQuestion };
+
     case SOCKET_PLAYER_JOINED:
       return { ...state, players: { ...payload } };
 
@@ -79,10 +95,11 @@ const reducers = (state = defaultState, { type, payload }) => {
       }
       state.answeredQuestions.unshift(payload.question);
       return { ...state, players };
-    
+
     case SOCKET_ANSWERED_PLAYERS:
       payload.forEach(playerId => {
-        state.players[playerId].hasAnswered = true;
+        if (state.players[playerId])
+          state.players[playerId].hasAnswered = true;
       });
       return { ...state };
 
