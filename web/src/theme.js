@@ -1,5 +1,5 @@
 export default {
-  breakpoints: ["40em", "52em", "64em"],
+  breakpoints: ["21em", "24em", "32em", "52em", "64em"],
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64],
   colors: {
     blue: "#07c",
@@ -187,7 +187,8 @@ export default {
         border: "1px solid black",
         p: 1,
         mx: 2,
-        fontSize: "10pt"
+        fontSize: "10pt",
+        verticalAlign: 1,
       }
     },
     tagLarge: {
@@ -271,7 +272,6 @@ export default {
       top: 1,
     },
     link: {
-      textDecoration: "underline",
       cursor: "pointer",
       color: "black",
       border: "none",

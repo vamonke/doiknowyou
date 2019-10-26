@@ -53,6 +53,7 @@ const Lobby = props => {
                 type="button"
                 fontSize={2}
                 p={0}
+                textDecoration="underline"
                 onClick={() => setShowSettings(true)}
               >
                 Settings

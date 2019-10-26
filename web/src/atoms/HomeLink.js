@@ -2,15 +2,20 @@ import React from "react";
 import { Box, Button } from "rebass";
 import { useHistory } from "react-router-dom";
 
-const HomeLink = () => {  
+const HomeLink = () => {
   const history = useHistory();
   const handleClick = () => {
-    if (window.confirm("Exit game?"))
-      history.push("/");
-  }
+    if (window.confirm("Exit game?")) history.push("/");
+  };
   return (
     <Box mt={4} textAlign="center">
-      <Button variant="link" onClick={handleClick}>Home</Button>
+      <Button
+        variant="link"
+        onClick={handleClick}
+        sx={{ textDecoration: "underline" }}
+      >
+        Home
+      </Button>
     </Box>
   );
 };
