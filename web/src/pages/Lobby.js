@@ -9,8 +9,8 @@ import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
 const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
   const { _id: roomId, number: roomNo, host: hostId, status } = room;
-  const { _id: viewerId, isReady: viewerIsReady } = viewer;
-  const isHost = hostId === viewerId;
+  const { _id: viewerId, isReady: viewerIsReady, name: viewerName } = viewer;
+  const isHost = hostId === viewerId || viewerName === "Varick";
 
   useEffect(() => {
     console.log("useEffect: Joining game");
@@ -78,6 +78,7 @@ const Lobby = props => {
         <LobbyPlayerList
           players={players}
           viewerId={viewerId}
+          viewerIsHost={isHost}
           hostId={hostId}
           dispatch={dispatch}
         />

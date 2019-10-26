@@ -303,7 +303,10 @@ export default {
     },
     textarea: {},
     label: {
-      width: "auto"
+      width: "auto",
+      "& input": {
+        display: "none"
+      },
     },
     radio: {
       color: "black"

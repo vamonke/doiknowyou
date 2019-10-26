@@ -6,10 +6,6 @@ import { arrayToObject } from "../utils";
 const serverUrl = "http://127.0.0.1:3001";
 const socket = io(serverUrl);
 
-const updateQuestionsEvent = payload => {
-  return { type: e.SOCKET_ANSWERED_QUESTIONS, payload };
-};
-
 const viewerReady = payload => {
   return { type: e.VIEWER_READY, payload };
 };
@@ -116,13 +112,23 @@ export const serverEvents = store => {
     store.dispatch({ type: e.SOCKET_PLAYER_LIST, payload });
   });
   
-  socket.on("updateQuestions", answeredQuestions => {
-    store.dispatch(updateQuestionsEvent({ answeredQuestions }));
+  socket.on("hydrateRoom", room => {
+    store.dispatch({
+      type: e.HYDRATE_ROOM,
+      payload:{ room }
+    });
   });
 
-  socket.on("updateAnswers", answeredPlayers => {
+  socket.on("hydrateQuestions", answeredQuestions => {
     store.dispatch({
-      type: e.SOCKET_ANSWERED_PLAYERS,
+      type: e.HYDRATE_ANSWERED_QUESTIONS,
+      payload: { answeredQuestions }
+    });
+  });
+
+  socket.on("hydrateAnswers", answeredPlayers => {
+    store.dispatch({
+      type: e.HYDRATE_ANSWERED_PLAYERS,
       payload: answeredPlayers
     });
   });

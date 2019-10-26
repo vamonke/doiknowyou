@@ -4,8 +4,7 @@ import { Select } from "@rebass/forms";
 
 import { kick, makeHost } from "../redux/client";
 
-const LobbyPlayerList = ({ players, viewerId, hostId, dispatch }) => {
-  const viewerIsHost = viewerId === hostId;
+const LobbyPlayerList = ({ players, viewerId, hostId, viewerIsHost, dispatch }) => {
   const [managing, setManaging] = useState(false);
   const onChange = playerId => e => {
     const action = e.target.value;

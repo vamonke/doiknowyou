@@ -22,19 +22,33 @@ const connectionEvents = (io, socket) => {
     players = await Player.findByRoom(roomId);
   };
 
+  const hydrateRoom = async roomId => {
+    const room = await Room.findById(roomId);
+    socket.playerLog("Hydrate room");
+    socket.emit("hydrateRoom", room);
+  };
+
   const emitPlayers = async roomId => {
     await updatePlayers(roomId);
     socket.gameLog("Update players - " + players.length);
     io.to(roomId).emit("updatePlayers", players);
   };
 
-  const emitAnswers = async roomId => {
+  const hydrateAnswers = async roomId => {
     const currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
     if (!currentQuestion) return;
     const answers = await Answer.findByQuestion(currentQuestion._id);
     const answeredPlayers = answers.map(answer => answer.playerId);
-    socket.gameLog("Update answers - " + answeredPlayers.length);
-    io.to(roomId).emit("updateAnswers", answeredPlayers);
+    if (currentQuestion.correctAnswer)
+      answeredPlayers.push(currentQuestion.recipientId);
+    socket.playerLog("Hydrate answers - " + answeredPlayers.length);
+    socket.emit("hydrateAnswers", answeredPlayers);
+  };
+
+  const hydrateQuestions = async roomId => {
+    const answeredQuestions = await Question.findAsked(roomId);
+    socket.playerLog("Hydrate answered questions - " + answeredQuestions.length);
+    socket.emit("hydrateQuestions", answeredQuestions);
   };
 
   const leaveRoom = async () => {
@@ -66,19 +80,21 @@ const connectionEvents = (io, socket) => {
     if (!socket.rooms.hasOwnProperty(roomId)) {
       socket.join(roomId, async () => {
         socket.playerLog("joined");
+        hydrateRoom(roomId);
         emitPlayers(roomId);
         const room = await Room.findById(roomId);
         if (room.status !== "created") {
-          emitAnswers(roomId);
-          emitQuestions(roomId);
+          hydrateAnswers(roomId);
+          hydrateQuestions(roomId);
         }
       });
     } else {
+      hydrateRoom(roomId);
       emitPlayers(roomId);
       const room = await Room.findById(roomId);
       if (room.status !== "created") {
-        emitAnswers(roomId);
-        emitQuestions(roomId);
+        hydrateAnswers(roomId);
+        hydrateQuestions(roomId);
       }
     }
   });

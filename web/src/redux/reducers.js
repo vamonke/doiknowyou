@@ -36,7 +36,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case e.SOCKET_GAME_START:
     case e.VIEWER_ANSWER:
     case e.SOCKET_NEXT_QUESTION:
-    case e.SOCKET_ANSWERED_QUESTIONS:
+    case e.HYDRATE_ANSWERED_QUESTIONS:
     case e.SOCKET_GAME_SETTINGS:
     case e.SOCKET_PLAYER_LIST:
       return { ...state, ...payload };
@@ -83,7 +83,7 @@ const reducers = (state = defaultState, { type, payload }) => {
       state.answeredQuestions.unshift(payload.question);
       return { ...state, players };
 
-    case e.SOCKET_ANSWERED_PLAYERS:
+    case e.HYDRATE_ANSWERED_PLAYERS:
       payload.forEach(playerId => {
         if (state.players[playerId])
           state.players[playerId].hasAnswered = true;
