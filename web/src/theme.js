@@ -146,10 +146,11 @@ export default {
     black: {
       bg: "black",
       color: "white",
-      p: 3,
       fontSize: 3,
+      py: 2,
+      px: 3,
       m: -3,
-      mb: 3,
+      mb: 0,
     },
     blackSmall: {
       fontWeight: 400,
@@ -180,9 +181,14 @@ export default {
       border: "1px solid black",
       px: 2,
       py: 1,
-      mt: 1,
-      mx: 1,
-      mb: 1,
+      m: 1,
+      small: {
+        display: "inline",
+        border: "1px solid black",
+        p: 1,
+        mx: 2,
+        fontSize: "10pt",
+      }
     },
     tagLarge: {
       display: "inline-block",

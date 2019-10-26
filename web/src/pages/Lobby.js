@@ -6,16 +6,9 @@ import { joinRoom, playerReady, playerNotReady } from "../redux/client";
 import { QuestionsForm, JoinGame } from "../organisms";
 import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
 
-const Lobby = (props) => {
-  const {
-    room,
-    viewer,
-    players,
-    questions,
-    questionBank,
-    dispatch
-  } = props;
-  
+const Lobby = props => {
+  const { room, viewer, players, questions, questionBank, dispatch } = props;
+
   useEffect(() => {
     console.log("useEffect: Joining game");
     joinRoom(viewer);
@@ -38,7 +31,6 @@ const Lobby = (props) => {
     return <Disconnected />;
   }
 
-
   const onReady = questions => {
     dispatch(playerReady(questions));
   };
@@ -50,12 +42,12 @@ const Lobby = (props) => {
   return (
     <>
       <Card>
-        <Heading fontSize={3} m={-3} mb={0} variant="black">
+        <Heading variant="black">
           Room {room.number}
         </Heading>
-        {room.status === "started" && viewer.isReady ?
+        {room.status === "started" && viewer.isReady ? (
           <Countdown roomNo={room.number} />
-          :
+        ) : (
           <QuestionsForm
             isReady={viewer.isReady}
             onReady={onReady}
@@ -63,10 +55,12 @@ const Lobby = (props) => {
             questionBank={questionBank}
             questions={questions}
           />
-        }
+        )}
       </Card>
 
-      {players.length > 0 && <LobbyPlayerList players={players} viewer={viewer} />}
+      {players.length > 0 && (
+        <LobbyPlayerList players={players} viewerId={viewer._id} hostId={room.host} />
+      )}
     </>
   );
 };

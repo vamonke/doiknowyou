@@ -1,30 +1,36 @@
 import React from "react";
-import { Card, Box, Flex, Heading } from "rebass";
+import { Card, Box, Flex, Heading, Text } from "rebass";
 
-const LobbyPlayerList = ({ players, viewer }) => {
-  return (
-    <Card mt={3}>
-      <Heading fontSize={2} m={-3} mb={0} variant="black">
-        Players
-      </Heading>
-      <Box width={1} mb={-3}>
-        {players.map((player, index) => {
-          const isViewer = player._id === viewer._id;
-          return (
-            <Flex key={index} variant="row">
-              <Box width={3 / 4} variant={isViewer ? "bold" : ""}>
+const LobbyPlayerList = ({ players, viewerId, hostId }) => 
+  <Card mt={3}>
+    <Heading variant="black">
+      Players
+    </Heading>
+    <Box width={1} mb={-3}>
+      {players.map((player, index) => {
+        const isViewer = player._id === viewerId;
+        const isHost = player._id === hostId;
+        return (
+          <Flex key={index} variant="row">
+            <Box width={3 / 4}>
+              <Text variant={isViewer ? "bold" : ""} display="inline">
                 {player.name}
-                {isViewer && " (you)"}
-              </Box>
-              <Box width={1 / 4} textAlign="right">
-                {player.isReady ? "Ready" : "Not Ready"}
-              </Box>
-            </Flex>
-          );
-        })}
-      </Box>
-    </Card>
-  );
-};
+              </Text>
+              {/* {isViewer && " (you)"*} */}
+              {isHost && 
+                <Text variant="tag.small">
+                  Host
+                </Text>
+              }
+            </Box>
+            <Box width={1 / 4} textAlign="right">
+              {player.isReady ? "Ready" : "Not Ready"}
+            </Box>
+          </Flex>
+        );
+      })}
+    </Box>
+  </Card>
+;
 
 export default LobbyPlayerList;

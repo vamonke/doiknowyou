@@ -12,7 +12,7 @@ const Home = () => {
   const cancel = () => setMode("home");
   return (
     <Card>
-      <Heading fontSize={5} m={-3} mb={3} variant="black">
+      <Heading fontSize={5} variant="black">
         Do I know you?
       </Heading>
 

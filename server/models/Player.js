@@ -11,7 +11,8 @@ const schema = new Schema(
     score: {
       type: Number,
       default: 0
-    }
+    },
+    createdAt: Date,
   },
   { versionKey: false }
 );

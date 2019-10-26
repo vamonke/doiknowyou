@@ -14,6 +14,7 @@ const schema = new Schema(
       enum: ["created", "started", "ended"],
       default: "created"
     },
+    host: String,
     nextRoomNo: Number,
     createdAt: Date,
     endedAt: Date
@@ -26,7 +27,7 @@ const Room = model("Room", schema);
 export const create = () => {
   // console.log("MongoDB: Creating room");
   const number = generateRoomNo();
-  return Room.create({ number })
+  return Room.create({ number, createdAt: Date.now() })
     .then(room => {
       console.log("MongoDB: Room created - " + room.number);
       return room;
