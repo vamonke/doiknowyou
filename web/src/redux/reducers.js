@@ -38,6 +38,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case e.SOCKET_NEXT_QUESTION:
     case e.SOCKET_ANSWERED_QUESTIONS:
     case e.SOCKET_GAME_SETTINGS:
+    case e.SOCKET_PLAYER_LIST:
       return { ...state, ...payload };
 
     case e.SOCKET_PLAYER_READY:
@@ -70,9 +71,6 @@ const reducers = (state = defaultState, { type, payload }) => {
       };
       return { ...state, currentQuestion };
 
-    case e.SOCKET_PLAYER_JOINED:
-      return { ...state, players: { ...payload } };
-
     case e.SOCKET_QUESTION_COMPLETE:
       state.currentQuestion.status = "asked";
       return { ...state };
@@ -97,9 +95,13 @@ const reducers = (state = defaultState, { type, payload }) => {
       return { ...state, ...payload };
 
     case e.HOST_KICK_PLAYER:
-    case e.HOST_MAKE_HOST:
-      console.log(payload);
-      return state;
+      delete state.players[payload];
+      return { ...state };
+
+    case e.HOST_TRANSFER:
+    case e.SOCKET_NEW_HOST:
+      state.room.host = payload;
+      return { ...state };
 
     case RESET:
       return defaultState;

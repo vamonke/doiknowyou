@@ -2,6 +2,7 @@ import * as Log from "../logger";
 
 import connectionEvents from "./connectionEvents";
 import lobbyEvents from "./lobbyEvents";
+import hostEvents from "./hostEvents";
 import gameEvents from "./gameEvents";
 
 const socketEvents = (io, socket) => {
@@ -18,6 +19,7 @@ const socketEvents = (io, socket) => {
 
   connectionEvents(io, socket);
   lobbyEvents(io, socket);
+  hostEvents(io, socket);
   gameEvents(io, socket);
 };
 

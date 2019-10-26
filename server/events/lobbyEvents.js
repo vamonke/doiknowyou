@@ -11,18 +11,18 @@ const trim = questions =>
         question.options.filter(Boolean).length > 1)
   );
 
+
+// Lobby: Start if all players are ready
+export const startIfAllReady = async (io, roomId) => {
+  const ready = await Room.isEveryPlayerReady(roomId);
+  if (!ready) return false;
+  
+  const currentQuestion = await Question.draw(roomId, 1, null);
+  const room = await Room.start(roomId);
+  io.to(roomId).emit("start", { room, currentQuestion });
+}
+
 const lobbyEvents = (io, socket) => {
-  // Lobby: Start if all players are ready
-  const startIfAllReady = async (roomId) => {
-    const ready = await Room.isEveryPlayerReady(roomId);
-    if (!ready) return false;
-    
-    const currentQuestion = await Question.draw(roomId, 1, null);
-    const room = await Room.start(roomId);
-    io.to(roomId).emit("start", { room, currentQuestion });
-  }
-
-
   // Lobby: Player ready
   socket.on("ready", async questions => {
     if (socket.missingPlayer()) return;
@@ -40,7 +40,7 @@ const lobbyEvents = (io, socket) => {
     // socket.gameLog("Update player ready");
     io.to(player.roomId).emit("playerReady", player._id);
 
-    startIfAllReady(player.roomId);
+    startIfAllReady(io, player.roomId);
   });
 
   // Lobby: Player not ready
@@ -53,21 +53,7 @@ const lobbyEvents = (io, socket) => {
     // socket.gameLog("Update player not ready");
     io.to(player.roomId).emit("playerNotReady", player._id);
 
-    startIfAllReady(player.roomId);
-  });
-
-  // Lobby: Update settings
-  socket.on("updateSettings", async settings => {
-    if (socket.missingPlayer()) return;
-
-    const { timeLimit } = settings;
-    const { player: { roomId } } = socket;
-
-    if (settings.hasOwnProperty("timeLimit")) {
-      const room = await Room.updateTimeLimit(roomId, timeLimit);
-      socket.gameLog("Updated question time limit: " + timeLimit);
-      io.to(roomId).emit("newSettings", { room });
-    }
+    startIfAllReady(io, player.roomId);
   });
 }
 

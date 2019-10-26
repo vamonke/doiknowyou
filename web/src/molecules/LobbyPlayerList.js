@@ -14,6 +14,7 @@ const LobbyPlayerList = ({ players, viewerId, hostId, dispatch }) => {
     } else if (action === "host") {
       dispatch(makeHost(playerId));
     }
+    setManaging(false);
   };
 
   return (

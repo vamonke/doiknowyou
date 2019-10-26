@@ -6,10 +6,6 @@ import { arrayToObject } from "../utils";
 const serverUrl = "http://127.0.0.1:3001";
 const socket = io(serverUrl);
 
-const updatePlayersEvent = payload => {
-  return { type: e.SOCKET_PLAYER_JOINED, payload };
-};
-
 const updateQuestionsEvent = payload => {
   return { type: e.SOCKET_ANSWERED_QUESTIONS, payload };
 };
@@ -79,11 +75,23 @@ export const playerReady = questions => {
 export const playerNotReady = () => dispatch => {
   socket.emit("notReady");
 };
+
+// Host actions
 export const hostSettings = settings => dispatch => {
   socket.emit("updateSettings", settings);
   const { timeLimit } = settings;
   const payload = { timeLimit };
   dispatch({ type: e.HOST_SETTING, payload });
+};
+export const kick = playerId => dispatch => {
+  socket.emit("kickPlayer", playerId);
+  const payload = playerId;
+  dispatch({ type: e.HOST_KICK_PLAYER, payload });
+};
+export const makeHost = playerId => dispatch => {
+  socket.emit("makeHost", playerId);
+  const payload = playerId;
+  dispatch({ type: e.HOST_TRANSFER, payload });
 };
 
 // Game actions
@@ -102,9 +110,10 @@ export const playerAnswerOpen = answer => dispatch => {
 // Server events
 export const serverEvents = store => {
   // Connection events
-  socket.on("updatePlayers", res => {
-    const playersObj = arrayToObject(res.players);
-    store.dispatch(updatePlayersEvent(playersObj));
+  socket.on("updatePlayers", ({ room, players }) => {
+    const playersObj = arrayToObject(players);
+    const payload = { players: playersObj, ...(room && { room }) };
+    store.dispatch({ type: e.SOCKET_PLAYER_LIST, payload });
   });
   
   socket.on("updateQuestions", answeredQuestions => {
@@ -138,9 +147,15 @@ export const serverEvents = store => {
   socket.on("start", ({ room, currentQuestion }) => {
     store.dispatch(startEvent({ room, currentQuestion }));
   });
+
+  // Host events
   socket.on("newSettings", ({ room }) => {
     const payload = { room };
     store.dispatch({ type: e.SOCKET_GAME_SETTINGS, payload });
+  });
+  socket.on("newHost", host => {
+    const payload = host;
+    store.dispatch({ type: e.SOCKET_NEW_HOST, payload });
   });
 
   // Game events

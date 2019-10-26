@@ -85,3 +85,6 @@ export const gameOver = (id, nextRoomNo) =>
 
 export const updateTimeLimit = (id, timeLimit) =>
   Room.findByIdAndUpdate(id, { timeLimit }, { new: true });
+
+export const updateHost = (id, host) =>
+  Room.findByIdAndUpdate(id, { host }, { new: true });
