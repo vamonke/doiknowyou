@@ -19,23 +19,17 @@ const schema = new Schema(
 
 const Player = model("Player", schema);
 
-export const create = (roomId, name) => {
-  // console.log("MongoDB: Creating player");
-  return Player.create({ name, roomId }).then(player => {
-    console.log("MongoDB: Player created - " + player.name);
-    return player;
-  });
+export const create = async (roomId, name) => {
+  const player = await Player.create({ name, roomId });
+  console.log("MongoDB: Player created - " + player.name);
+  return player;
 };
 
-export const findByRoom = roomId => {
-  return Player.find({ roomId }).select({ name: 1, isReady: 1, score: 1 });
-};
+export const findByRoom = roomId =>
+  Player.find({ roomId }).select({ name: 1, isReady: 1, score: 1 });
 
-export const findIdsByRoom = roomId => {
-  return Player.find({ roomId })
-    .select({ _id: 1 })
-    .sort({ _id: 1 });
-};
+export const findIdsByRoom = roomId =>
+  Player.find({ roomId }).select({ _id: 1 }).sort({ _id: 1 });
 
 export const ready = id => Player.findByIdAndUpdate(id, { isReady: true });
 
@@ -54,7 +48,7 @@ export const getNextRecipientId = async (roomId, currentRecipientId) => {
   if (!next) {
     next = await Player.findOne({ roomId }, "_id");
   }
-  return next._id;
+  return next ? next._id : null;
 };
 
 export const addScore = id =>

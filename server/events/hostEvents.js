@@ -4,11 +4,20 @@ import * as Question from "../models/Question";
 
 import { startIfAllReady } from "./lobbyEvents";
 
+export const newHost = async (io, socket, roomId, playerId) => {
+  if (!playerId) {
+    playerId = await Player.getNextRecipientId(roomId);
+  }
+  const room = await Room.updateHost(roomId, playerId);
+  socket.gameLog("New host: " + playerId);
+  io.to(roomId).emit("newHost", room.host);
+};
+
 const hostEvents = (io, socket) => {
   const emitPlayers = async roomId => {
     const players = await Player.findByRoom(roomId);
     socket.gameLog("Update players - " + players.length);
-    io.to(roomId).emit("updatePlayers", { players });
+    io.to(roomId).emit("updatePlayers", players);
   };
 
   // Host: Update settings
@@ -30,9 +39,7 @@ const hostEvents = (io, socket) => {
     if (socket.missingPlayer()) return;
 
     const { player: { roomId } } = socket;
-    const room = await Room.updateHost(roomId, playerId);
-    socket.gameLog("New host: " + playerId);
-    io.to(roomId).emit("newHost", room.host);
+    newHost(io, socket, roomId, playerId);
   });
 
   // Host: Kick player
@@ -45,6 +52,9 @@ const hostEvents = (io, socket) => {
     const room = await Room.findById(roomId);
     if (room.status === "created") {
       await Question.removeByPlayerId(playerId);
+      if (room.host === playerId) {
+        newHost(io, socket, roomId);
+      }
     }
 
     socket.gameLog("Kicked: " + playerId);

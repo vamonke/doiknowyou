@@ -4,6 +4,7 @@ import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
 import { startIfAllReady } from "./lobbyEvents";
+import { newHost } from "./hostEvents";
 
 const getSocketPlayerIds = io => {
   const ids = [];
@@ -23,9 +24,8 @@ const connectionEvents = (io, socket) => {
 
   const emitPlayers = async roomId => {
     await updatePlayers(roomId);
-    const room = await Room.findById(roomId);
     socket.gameLog("Update players - " + players.length);
-    io.to(roomId).emit("updatePlayers", { room, players });
+    io.to(roomId).emit("updatePlayers", players);
   };
 
   const emitAnswers = async roomId => {
@@ -46,6 +46,9 @@ const connectionEvents = (io, socket) => {
     const room = await Room.findById(roomId);
     if (room.status === "created") {
       await Question.removeByPlayerId(_id);
+      if (room.host === _id) {
+        newHost(io, socket, roomId);
+      }
     }
 
     socket.playerLog("left the room");

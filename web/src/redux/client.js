@@ -110,9 +110,9 @@ export const playerAnswerOpen = answer => dispatch => {
 // Server events
 export const serverEvents = store => {
   // Connection events
-  socket.on("updatePlayers", ({ room, players }) => {
+  socket.on("updatePlayers", players => {
     const playersObj = arrayToObject(players);
-    const payload = { players: playersObj, ...(room && { room }) };
+    const payload = { players: playersObj };
     store.dispatch({ type: e.SOCKET_PLAYER_LIST, payload });
   });
   

@@ -15,6 +15,10 @@ export const joinGame = async (playerName, roomNo) => {
   const room = await Room.findByNumber(roomNo);
   if (room) {
     const viewer = await Player.create(room._id, playerName);
+    if (!room.host) {
+      room.host = viewer._id;
+      await room.save();
+    }
     const res = { room, viewer };
     return res;
   }
