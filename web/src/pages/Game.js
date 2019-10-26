@@ -140,7 +140,7 @@ const Game = props => {
 };
 
 const mapStateToProps = (state = {}) => {
-  const players = Object.values(state.players);
+  const players = Object.values(state.players).sort((a, b) => b.score - a.score);
   const recipient = state.players[state.currentQuestion.recipientId] || {};
   const viewer = {
     ...state.viewer,
