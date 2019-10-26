@@ -23,6 +23,10 @@ const Lobby = (props) => {
 
   document.title = `Do I know you? #${room.number}`;
 
+  // window.onbeforeunload = () => {
+  //   return 'Exit game?';
+  // };
+
   if (!viewer._id || !room._id) {
     return <JoinGame lobby />;
   }

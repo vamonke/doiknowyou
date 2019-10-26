@@ -80,6 +80,7 @@ export const joinRoom = viewer => {
   }
 };
 export const leaveRoom = () => {
+  socket.emit("leave");
   socket.player = null;
 };
 

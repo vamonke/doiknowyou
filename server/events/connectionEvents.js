@@ -21,8 +21,6 @@ const connectionEvents = (io, socket) => {
 
   const emitPlayers = async roomId => {
     await updatePlayers(roomId);
-    // const clients = io.sockets.sockets;
-    // const clientCount = Object.keys(clients).length;
     socket.gameLog("Update players - " + players.length);
     io.to(roomId).emit("updatePlayers", { players });
   };
@@ -36,10 +34,20 @@ const connectionEvents = (io, socket) => {
     io.to(roomId).emit("updateAnswers", answeredPlayers);
   };
 
-  const emitQuestions = async roomId => {
-    const answeredQuestions = await Question.findAsked(roomId);
-    socket.gameLog("Update answered questions - " + answeredQuestions.length);
-    socket.emit("updateQuestions", answeredQuestions);
+  const leaveRoom = async () => {
+    if (!socket.player) return;
+
+    const { _id, roomId } = socket.player;
+    await Player.remove(_id);
+
+    const room = await Room.findById(roomId);
+    if (room.status === "created") {
+      await Question.removeByPlayerId(_id);
+    }
+
+    socket.playerLog("left the room");
+    socket.player = undefined;
+    emitPlayers(roomId);
   };
 
   socket.on("join", async player => {
@@ -92,28 +100,26 @@ const connectionEvents = (io, socket) => {
     return false;
   };
 
+  socket.on("leave", leaveRoom);
+
   socket.on("disconnect", () => {
     // Check if socket has a player attached
-    if (socket.player) {
-      const { _id, name, roomId } = socket.player;
-      console.log("Socket: " + name + " [DISCONNECTED]");
-      setTimeout(async () => {
-        const socketPlayerIds = getSocketPlayerIds(io);
-        if (socketPlayerIds.includes(_id)) {
-          // Another socket has been created with the same player id
-          console.log("Socket: " + name + " [RECONNECTED]");
-        } else {
-          // No socket has been created with the same player id
-          await Player.leave(_id);
-          // TODO: Remove question if lobby
-          socket.playerLog("left the room");
-          socket.player = undefined;
-          emitPlayers(roomId);
-        }
-      }, 1000);
-    } else {
-      // console.log("Socket: " + socket.id + " [DISCONNECTED]");
-    }
+    if (!socket.player) return;
+    // console.log("Socket: " + socket.id + " [DISCONNECTED]");
+
+    const { _id, name } = socket.player;
+    console.log("Socket: " + name + " [DISCONNECTED]");
+
+    setTimeout(() => {
+      const socketPlayerIds = getSocketPlayerIds(io);
+      if (socketPlayerIds.includes(_id)) {
+        // Another socket has been created with the same player id
+        console.log("Socket: " + name + " [RECONNECTED]");
+      } else {
+        // No socket has been created with the same player id
+        leaveRoom();
+      }
+    }, 1000);
   });
 }
 

@@ -40,7 +40,7 @@ export const ready = id => Player.findByIdAndUpdate(id, { isReady: true });
 
 export const notReady = id => Player.findByIdAndUpdate(id, { isReady: false });
 
-export const leave = id => Player.findByIdAndDelete(id);
+export const remove = id => Player.findByIdAndDelete(id);
 
 export const getNextRecipientId = async (roomId, currentRecipientId) => {
   let next;
