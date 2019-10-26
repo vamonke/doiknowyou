@@ -150,7 +150,7 @@ export default {
       py: 2,
       px: 3,
       m: -3,
-      mb: 0,
+      mb: 3,
     },
     blackSmall: {
       fontWeight: 400,
@@ -286,7 +286,10 @@ export default {
       my: 8,
       "&:disabled": {
         bg: "#DDD"
-      }
+      },
+      "&[type=radio]": {
+        border: "none"
+      },
     },
     error: {
       borderColor: "red",
@@ -300,12 +303,11 @@ export default {
     },
     textarea: {},
     label: {
-      width: "auto",
-      "& input": {
-        display: "none"
-      },
+      width: "auto"
     },
-    radio: {},
+    radio: {
+      color: "black"
+    },
     checkbox: {}
   }
 };

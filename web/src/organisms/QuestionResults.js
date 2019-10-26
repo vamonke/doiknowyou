@@ -39,7 +39,7 @@ const QuestionResults = ({ question, players, hide }) => {
           <Flex justifyContent="space-between">
             <Text>{"Round " + round + " results"}</Text>
             <Button type="button" p={0} onClick={hide}>
-              X
+              ✕
             </Button>
           </Flex>
         </Heading>

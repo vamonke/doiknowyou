@@ -3,7 +3,9 @@ import {
   SOCKET_PLAYER_JOINED,
   SOCKET_PLAYER_READY,
   SOCKET_PLAYER_NOT_READY,
+  SOCKET_GAME_SETTINGS,
   VIEWER_READY,
+  VIEWER_SETTING,
   SOCKET_GAME_START,
   SOCKET_PLAYER_ANSWERED,
   VIEWER_ANSWER,
@@ -53,6 +55,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case VIEWER_ANSWER:
     case SOCKET_NEXT_QUESTION:
     case SOCKET_ANSWERED_QUESTIONS:
+    case SOCKET_GAME_SETTINGS:
       return { ...state, ...payload };
 
     case SOCKET_PLAYER_READY:
@@ -62,6 +65,10 @@ const reducers = (state = defaultState, { type, payload }) => {
     case SOCKET_PLAYER_NOT_READY:
       state.players[payload].isReady = false;
       return { ...state };
+
+    case VIEWER_SETTING:
+      const room = { ...state.room, ...payload };
+      return { ...state, room };
 
     case SOCKET_PLAYER_ANSWERED:
       state.players[payload].hasAnswered = true;

@@ -3,7 +3,7 @@ import { Card, Box, Flex, Heading, Text } from "rebass";
 
 const LobbyPlayerList = ({ players, viewerId, hostId }) => 
   <Card mt={3}>
-    <Heading variant="black">
+    <Heading variant="black" mb={0}>
       Players
     </Heading>
     <Box width={1} mb={-3}>

@@ -65,7 +65,7 @@ const LobbyQuestion = props => {
   return (
     <>
       <Flex justifyContent="space-between" mt={3}>
-        <Text px={1} variant="bold">
+        <Text variant="bold">
           {`Question ${questionNo + 1} of 3`}
         </Text>
         <Button variant="link" onClick={generateQuestion}>

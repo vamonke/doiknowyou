@@ -37,7 +37,7 @@ const lobbyEvents = (io, socket) => {
 
     const player = await Player.ready(socket.player._id);
     socket.playerLog("is ready");
-    // gameLog("Update player ready");
+    // socket.gameLog("Update player ready");
     io.to(player.roomId).emit("playerReady", player._id);
 
     startIfAllReady(player.roomId);
@@ -50,10 +50,24 @@ const lobbyEvents = (io, socket) => {
     await Question.removeByPlayerId(socket.player._id);
     const player = await Player.notReady(socket.player._id);
     socket.playerLog("is not ready");
-    // gameLog("Update player not ready");
+    // socket.gameLog("Update player not ready");
     io.to(player.roomId).emit("playerNotReady", player._id);
 
     startIfAllReady(player.roomId);
+  });
+
+  // Lobby: Update settings
+  socket.on("updateSettings", async settings => {
+    if (socket.missingPlayer()) return;
+
+    const { timeLimit } = settings;
+    const { player: { roomId } } = socket;
+
+    if (settings.hasOwnProperty("timeLimit")) {
+      const room = await Room.updateTimeLimit(roomId, timeLimit);
+      socket.gameLog("Updated question time limit: " + timeLimit);
+      io.to(roomId).emit("newSettings", { room });
+    }
   });
 }
 

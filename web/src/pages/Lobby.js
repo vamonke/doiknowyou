@@ -8,30 +8,31 @@ import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
 
 const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
+  const { _id: roomId, number: roomNo, host: hostId, status } = room;
+  const { _id: viewerId, isReady: viewerIsReady } = viewer;
+  const isHost = hostId === viewerId;
 
   useEffect(() => {
     console.log("useEffect: Joining game");
     joinRoom(viewer);
-  }, [viewer._id]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  document.title = `Do I know you? #${room.number}`;
+  }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // window.onbeforeunload = () => {
   //   return 'Exit game?';
   // };
 
-  const [showSettings, setShowSettings] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
 
-  if (!viewer._id || !room._id) {
+  if (!viewerId || !roomId) {
     return <JoinGame lobby />;
   }
 
-  if (
-    players.length > 0 &&
-    !players.find(player => player._id === viewer._id)
-  ) {
+  if (players.length > 0 && !players.find(player => player._id === viewerId)) {
+    // Viewer not in player list
     return <Disconnected />;
   }
+
+  document.title = `Do I know you? #${roomNo}`;
 
   const onReady = questions => {
     dispatch(playerReady(questions));
@@ -46,23 +47,25 @@ const Lobby = props => {
       <Card>
         <Heading variant="black">
           <Flex justifyContent="space-between">
-            Room {room.number}
-            <Button
-              type="button"
-              fontSize={2}
-              p={0}
-              onClick={() => setShowSettings(true)}
-            >
-              Settings
-            </Button>
+            Room {roomNo}
+            {isHost && (
+              <Button
+                type="button"
+                fontSize={2}
+                p={0}
+                onClick={() => setShowSettings(true)}
+              >
+                Settings
+              </Button>
+            )}
           </Flex>
         </Heading>
 
-        {room.status === "started" && viewer.isReady ? (
-          <Countdown roomNo={room.number} />
+        {status === "started" && viewerIsReady ? (
+          <Countdown roomNo={roomNo} />
         ) : (
           <QuestionsForm
-            isReady={viewer.isReady}
+            isReady={viewerIsReady}
             onReady={onReady}
             onNotReady={onNotReady}
             questionBank={questionBank}
@@ -72,12 +75,20 @@ const Lobby = props => {
       </Card>
 
       {players.length > 0 && (
-        <LobbyPlayerList players={players} viewerId={viewer._id} hostId={room.host} />
+        <LobbyPlayerList
+          players={players}
+          viewerId={viewerId}
+          hostId={hostId}
+        />
       )}
 
-      {showSettings &&
-        <Settings room={room} hide={() => setShowSettings(false)} />
-      }
+      {isHost && showSettings && (
+        <Settings
+          room={room}
+          hide={() => setShowSettings(false)}
+          dispatch={dispatch}
+        />
+      )}
     </>
   );
 };

@@ -4,9 +4,11 @@ import {
   SOCKET_PLAYER_JOINED,
   SOCKET_PLAYER_READY,
   SOCKET_PLAYER_NOT_READY,
+  SOCKET_GAME_SETTINGS,
   SOCKET_GAME_START,
   VIEWER_READY,
   VIEWER_ANSWER,
+  VIEWER_SETTING,
   SOCKET_PLAYER_ANSWERED,
   SOCKET_PLAYER_ANSWERED_OPEN,
   SOCKET_OPEN_TO_RECIPIENT,
@@ -95,6 +97,12 @@ export const playerReady = questions => {
 export const playerNotReady = () => dispatch => {
   socket.emit("notReady");
 };
+export const hostSettings = settings => dispatch => {
+  socket.emit("updateSettings", settings);
+  const { timeLimit } = settings;
+  const payload = { timeLimit };
+  dispatch({ type: VIEWER_SETTING, payload });
+};
 
 // Game actions
 export const playerAnswer = answer => {
@@ -109,6 +117,7 @@ export const playerAnswerOpen = answer => dispatch => {
   socket.emit("answer", answer);
 };
 
+// Server events
 export const serverEvents = store => {
   // Connection events
   socket.on("updatePlayers", res => {
@@ -135,7 +144,6 @@ export const serverEvents = store => {
   socket.on("disconnected", () => {
     console.log("Kicked from room");
     store.dispatch(push("/"));
-    // window.location.href = "/";
   });
 
   // Lobby events
@@ -147,6 +155,10 @@ export const serverEvents = store => {
   });
   socket.on("start", ({ room, currentQuestion }) => {
     store.dispatch(startEvent({ room, currentQuestion }));
+  });
+  socket.on("newSettings", ({ room }) => {
+    const payload = { room };
+    store.dispatch({ type: SOCKET_GAME_SETTINGS, payload });
   });
 
   // Game events

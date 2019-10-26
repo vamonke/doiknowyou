@@ -15,6 +15,10 @@ const schema = new Schema(
       default: "created"
     },
     host: String,
+    timeLimit: {
+      type: Number,
+      default: 0
+    },
     nextRoomNo: Number,
     createdAt: Date,
     endedAt: Date
@@ -43,7 +47,6 @@ export const create = () => {
     });
 };
 
-
 export const findById = id => Room.findById(id).lean();
 
 export const findByNumber = roomNo => {
@@ -70,17 +73,15 @@ export const isEveryPlayerReady = async id => {
 };
 
 export const start = id => {
-  return Room.findByIdAndUpdate(
-    id,
-    { status: "started" },
-    { new: true }
-  );
+  return Room.findByIdAndUpdate(id, { status: "started" }, { new: true });
 };
 
-export const gameOver = async (id, nextRoomNo) => {
-  return Room.findByIdAndUpdate(
+export const gameOver = (id, nextRoomNo) =>
+  Room.findByIdAndUpdate(
     id,
     { status: "ended", nextRoomNo, endedAt: Date.now() },
     { new: true }
   );
-}
+
+export const updateTimeLimit = (id, timeLimit) =>
+  Room.findByIdAndUpdate(id, { timeLimit }, { new: true });
