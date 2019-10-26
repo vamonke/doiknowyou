@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Card, Heading } from "rebass";
+import { Card, Flex, Heading, Button } from "rebass";
 import { joinRoom, playerReady, playerNotReady } from "../redux/client";
 
-import { QuestionsForm, JoinGame } from "../organisms";
+import { QuestionsForm, JoinGame, Settings } from "../organisms";
 import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
 
 const Lobby = props => {
@@ -19,6 +19,8 @@ const Lobby = props => {
   // window.onbeforeunload = () => {
   //   return 'Exit game?';
   // };
+
+  const [showSettings, setShowSettings] = useState(true);
 
   if (!viewer._id || !room._id) {
     return <JoinGame lobby />;
@@ -43,8 +45,19 @@ const Lobby = props => {
     <>
       <Card>
         <Heading variant="black">
-          Room {room.number}
+          <Flex justifyContent="space-between">
+            Room {room.number}
+            <Button
+              type="button"
+              fontSize={2}
+              p={0}
+              onClick={() => setShowSettings(true)}
+            >
+              Settings
+            </Button>
+          </Flex>
         </Heading>
+
         {room.status === "started" && viewer.isReady ? (
           <Countdown roomNo={room.number} />
         ) : (
@@ -61,6 +74,10 @@ const Lobby = props => {
       {players.length > 0 && (
         <LobbyPlayerList players={players} viewerId={viewer._id} hostId={room.host} />
       )}
+
+      {showSettings &&
+        <Settings room={room} hide={() => setShowSettings(false)} />
+      }
     </>
   );
 };
