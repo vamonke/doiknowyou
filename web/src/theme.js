@@ -187,7 +187,7 @@ export default {
         border: "1px solid black",
         p: 1,
         mx: 2,
-        fontSize: "10pt",
+        fontSize: "10pt"
       }
     },
     tagLarge: {

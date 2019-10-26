@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withFormik } from "formik";
 
-import { Question, Waiting} from "../molecules";
+import { LobbyQuestion, Waiting } from "../molecules";
 
 const QUESTIONS_COUNT = 3;
 
@@ -43,7 +43,7 @@ const QuestionsForm = props => {
       {questions.map(
         (question, questionNo) =>
           currentQn === questionNo && (
-            <Question
+            <LobbyQuestion
               {...question}
               key={questionNo}
               questionNo={questionNo}

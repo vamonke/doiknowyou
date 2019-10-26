@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Box, Text, Button } from "rebass";
 import { Textarea, Input, Select } from "@rebass/forms";
 import { Field, FieldArray } from "formik";
@@ -10,7 +10,7 @@ const placeholderMapping = [
 ];
 
 // Lobby question and options component
-const Question = props => {
+const LobbyQuestion = props => {
   const {
     type,
     options,
@@ -23,6 +23,13 @@ const Question = props => {
   } = props;
   const firstQuestion = questionNo === 0;
   const lastQuestion = questionNo === 2;
+
+  const [removable, setRemovable] = useState(false);
+  
+  useEffect(() => {
+    if (options.length === 2)
+    setRemovable(false);
+  }, [options.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const setOptionType = event => {
     const type = event.target.value;
@@ -48,7 +55,7 @@ const Question = props => {
     const randomQuestion = {
       text,
       type,
-      options: (type === "yesno") ? ["Yes", "No"] : options,
+      options: type === "yesno" ? ["Yes", "No"] : options,
       randomQuestionId: _id
     };
 
@@ -110,7 +117,7 @@ const Question = props => {
           render={arrayHelpers => (
             <>
               {options.map((_, index) => {
-                const showDel = options.length > 2;
+                const showDel = options.length > 2 && removable;
                 return (
                   <Box key={index} variant="relative">
                     <Field
@@ -134,13 +141,27 @@ const Question = props => {
                   </Box>
                 );
               })}
-              <Button
-                variant="dotted"
-                onClick={() => arrayHelpers.push("")}
-                width={1}
-              >
-                + Add option
-              </Button>
+
+              <Flex justifyContent="center" mt={3}>
+                {options.length > 2 && (
+                  <Button
+                    variant="link"
+                    mx={2}
+                    onClick={() => setRemovable(!removable)}
+                  >
+                    {removable ? "Done" : "- Remove option"}
+                  </Button>
+                )}
+                {!removable && (
+                  <Button
+                    variant="link"
+                    mx={2}
+                    onClick={() => arrayHelpers.push("")}
+                  >
+                    + Add option
+                  </Button>
+                )}
+              </Flex>
             </>
           )}
         />
@@ -182,4 +203,4 @@ const Question = props => {
   );
 };
 
-export default Question;
+export default LobbyQuestion;
