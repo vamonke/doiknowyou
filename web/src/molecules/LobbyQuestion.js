@@ -27,9 +27,9 @@ const LobbyQuestion = props => {
   const [removable, setRemovable] = useState(false);
   
   useEffect(() => {
-    if (options.length === 2)
-    setRemovable(false);
-  }, [options.length]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!options || options.length === 2)
+      setRemovable(false);
+  }, [options]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const setOptionType = event => {
     const type = event.target.value;
