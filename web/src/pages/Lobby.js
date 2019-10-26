@@ -79,6 +79,7 @@ const Lobby = props => {
           players={players}
           viewerId={viewerId}
           hostId={hostId}
+          dispatch={dispatch}
         />
       )}
 
