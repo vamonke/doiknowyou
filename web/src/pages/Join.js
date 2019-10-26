@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { joinRoom } from "../redux/client";
 import { useHistory } from "react-router-dom";
-import JoinGame from "../organisms/JoinGame";
+
+import { JoinGame } from "../organisms";
 
 const Join = ({ room, viewer }) => {  
   joinRoom(viewer);

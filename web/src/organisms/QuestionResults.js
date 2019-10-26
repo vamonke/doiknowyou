@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Box, Card, Heading, Text, Button } from "rebass";
 
-import ResultsTable from "../molecules/ResultsTable";
+import { ResultsTable } from "../molecules";
 
 const QuestionResults = ({ question, players, hide }) => {
   const {
@@ -16,7 +16,7 @@ const QuestionResults = ({ question, players, hide }) => {
 
   const displayCorrect = () => {
     if (!correctAnswer || correctAnswer.length === 0) {
-      return '-';
+      return "-";
     }
     const correctAnswers = correctAnswer
       .map(correct => options[correct])
@@ -24,22 +24,20 @@ const QuestionResults = ({ question, players, hide }) => {
     if (correctAnswers.length === 1) {
       return correctAnswers[0];
     }
-    return correctAnswers.map((answer, index) =>
+    return correctAnswers.map((answer, index) => (
       <div key={index}>
         {answer}
-        {correctAnswers.length - 1 !== index && (<hr />)}
+        {correctAnswers.length - 1 !== index && <hr />}
       </div>
-    );
-  }
+    ));
+  };
 
   return (
     <Card variant="modal">
       <Box variant="modalBody">
         <Heading variant="blackSmall">
           <Flex justifyContent="space-between">
-            <Text>
-              {'Round ' + round + ' results'}
-            </Text>
+            <Text>{"Round " + round + " results"}</Text>
             <Button type="button" p={0} onClick={hide}>
               X
             </Button>
@@ -52,12 +50,12 @@ const QuestionResults = ({ question, players, hide }) => {
           <Card display="inline-block">
             <Text variant="blackSmall">
               {recipient.name}
-              {'\'s '}
-              {correctAnswer && correctAnswer.length > 1 ? 'answers:' : 'answer:'}
+              {"'s "}
+              {correctAnswer && correctAnswer.length > 1
+                ? "answers:"
+                : "answer:"}
             </Text>
-            <Box fontSize={4}>
-              {displayCorrect()}
-            </Box>
+            <Box fontSize={4}>{displayCorrect()}</Box>
           </Card>
         </Box>
         <ResultsTable

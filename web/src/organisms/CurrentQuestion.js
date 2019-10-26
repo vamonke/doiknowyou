@@ -1,6 +1,8 @@
 import React from "react";
 import { Flex, Box, Button, Text } from "rebass";
 
+import { QuestionText } from "../molecules";
+
 const CurrentQuestion = props => {
   const {
     question,
@@ -12,18 +14,11 @@ const CurrentQuestion = props => {
   const { text, options, status } = question;
   const disabled = status !== "asking";
   const getVariant = (index) => index === answer ? "primary" : "secondary";
-
+  const multiline = options.length === 2 && options.every(option => option.length < 10);
+  
   return (
     <Box variant="relative" textAlign="center">
-
-      <Box fontSize={4} mb={3} mx={-3} p={4} pt={2} sx={{ borderBottom: "1px solid black" }}>
-        <Text mb={3}>
-          {text}
-        </Text>
-        <Text>
-          {recipient.name}: <Box variant="line"></Box>
-        </Text>
-      </Box>
+      <QuestionText text={text} recipientName={recipient.name} />
 
       <Box variant="relative">
         {disabled &&
@@ -36,7 +31,7 @@ const CurrentQuestion = props => {
           </Text>
         }
 
-        {options.length === 2 ? (
+        {multiline ? (
           <Flex mt={2} mx={-2}>
             <Box width={1 / 2} px={2}>
               <Button variant={getVariant(0)} width={1} onClick={() => handleClick(0)}>

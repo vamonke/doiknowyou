@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Card, Flex, Box, Heading, Text, Button } from "rebass";
 
-import CreateGame from "../organisms/CreateGame";
-import JoinGame from "../organisms/JoinGame";
+import { CreateGame, JoinGame } from "../organisms";
 
 import { leave } from "../redux/actions";
 

@@ -3,12 +3,8 @@ import { connect } from "react-redux";
 import { Card, Heading } from "rebass";
 import { joinRoom, playerReady, playerNotReady } from "../redux/client";
 
-import QuestionsForm from "../organisms/QuestionsForm";
-import LobbyPlayerList from "../molecules/LobbyPlayerList";
-import JoinGame from "../organisms/JoinGame";
-
-import Disconnected from "../molecules/Disconnected";
-import Countdown from "../molecules/Countdown";
+import { QuestionsForm, JoinGame } from "../organisms";
+import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
 
 const Lobby = (props) => {
   const {

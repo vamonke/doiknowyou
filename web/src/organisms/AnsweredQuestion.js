@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Flex, Box, Text } from "rebass";
 
-import ResultsTable from "../molecules/ResultsTable";
+import { ResultsTable } from "../molecules";
 
 const AnsweredQuestion = ({ question, players }) => {
   const {
@@ -19,7 +19,7 @@ const AnsweredQuestion = ({ question, players }) => {
 
   const displayCorrect = () => {
     if (!correctAnswer || correctAnswer.length === 0) {
-      return '-';
+      return "-";
     }
     const correctAnswers = correctAnswer
       .map(correct => options[correct])
@@ -27,30 +27,32 @@ const AnsweredQuestion = ({ question, players }) => {
     if (correctAnswers.length === 1) {
       return correctAnswers[0];
     }
-    return correctAnswers.map((answer, index) => 
+    return correctAnswers.map((answer, index) => (
       <div key={index}>
         {answer}
-        {correctAnswers.length - 1 !== index && (<hr />)}
+        {correctAnswers.length - 1 !== index && <hr />}
       </div>
-    );
-  }
+    ));
+  };
 
   return (
     <>
-      <Box sx={{ borderTop: "1px solid black", cursor: "pointer" }} mx={-3} p={3} onClick={() => setExpanded(!expanded)}>
+      <Box
+        sx={{ borderTop: "1px solid black", cursor: "pointer" }}
+        mx={-3}
+        p={3}
+        onClick={() => setExpanded(!expanded)}
+      >
         <Flex>
-          <Box width={1/12}>
-            Q{round}
-          </Box>
-          <Box width={10/12} flexGrow={2}>
+          <Box width={1 / 12}>Q{round}</Box>
+          <Box width={10 / 12} flexGrow={2}>
             {text}
           </Box>
-          <Text pl={2}>
-            {expanded ? "▲" : "►"}
-          </Text>
+          <Text pl={2}>{expanded ? "▲" : "►"}</Text>
         </Flex>
       </Box>
-      {expanded &&
+      
+      {expanded && (
         <Box sx={{ borderTop: "1px solid black" }} pt={2} pb={4}>
           <Box textAlign="center">
             <Box pt={3} mb={3}>
@@ -69,7 +71,7 @@ const AnsweredQuestion = ({ question, players }) => {
             recipientId={recipientId}
           />
         </Box>
-      }
+      )}
     </>
   );
 };
