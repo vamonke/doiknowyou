@@ -85,9 +85,7 @@ export const draw = async (roomId, round, currentRecipientId) => {
     }
 
     // set question status, recipient, round
-    const drawn = await Question.findByIdAndUpdate(
-      id, update, { new: true }
-    );
+    const drawn = await Question.findByIdAndUpdate(id, update, { new: true });
     return drawn;
   } else {
     // end game
@@ -95,9 +93,12 @@ export const draw = async (roomId, round, currentRecipientId) => {
   }
 };
 
-export const addOption = async (answer, id) => { // insert open-ended option
+export const addOption = async (answer, id) => {
+  // insert open-ended option
   const question = await Question.findByIdAndUpdate(
-    id, { $push: { options: answer } }, { new: true, lean: true }
+    id,
+    { $push: { options: answer } },
+    { new: true, lean: true }
   );
   const optionIndex = question.options.findIndex(option => option === answer); // get answer index
   return optionIndex;
@@ -119,9 +120,7 @@ export const setCorrectAnswer = (id, correctAnswer) =>
     }
   ).lean();
 
-
-export const getOptions = id =>
-  Question.findById(id, { options: 1 }).lean();
+export const getOptions = id => Question.findById(id, { options: 1 }).lean();
 
 export const complete = (id, answers) =>
   Question.findByIdAndUpdate(
@@ -137,7 +136,7 @@ export const complete = (id, answers) =>
         status: 1,
         recipientId: 1,
         correctAnswer: 1,
-        answers: 1,
+        answers: 1
       }
     }
   )
@@ -154,10 +153,12 @@ export const findAsked = roomId =>
       status: 1,
       recipientId: 1,
       correctAnswer: 1,
-      answers: 1,
+      answers: 1
     })
     .sort({ round: "desc" })
     .populate("answers", { option: 1, playerId: 1 })
     .lean();
+
+export const findById = id => Question.findById(id);
 
 // export const deleteById = id => Question.findByIdAndDelete(id);

@@ -20,7 +20,6 @@ const socketEvents = (io, socket) => {
   connectionEvents(io, socket);
   lobbyEvents(io, socket);
   hostEvents(io, socket);
-  gameEvents(io, socket);
 };
 
 export default socketEvents;

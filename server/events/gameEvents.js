@@ -3,22 +3,24 @@ import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
-const gameEvents = (io, socket) => {
-  // Game: Over
-  const gameOver = async roomId => {
-    const newRoom = await Room.create();
-    const room = await Room.gameOver(roomId, newRoom.number);
-    socket.gameLog("Game Over");
-    io.to(roomId).emit("gameOver", room);
-  };
+const gameEvents = (io, socket, timeLimit) => {
+  const startTimer = async question => {
+    if (timeLimit !== 0) {
+      if (question.type !== "open") {
+        setTimeout(async () => {
+          const timedOutQuestion = await Question.findById(question._id);
+          if (timedOutQuestion.status === "asking") {
+            socket.gameLog("Times up for question");
+            endQuestion(question);
+          }
+        }, timeLimit*1000);
+      }
+    }
+  }
 
-  // Game: End question if all players have answered
-  const completeIfAllAnswered = async (roomId, question) => {
-    const { _id: questionId, correctAnswer, recipientId, type } = question;
-    if (!correctAnswer) return false;
-
-    const completed = await Answer.hasEveryPlayerAnswered(roomId, questionId, recipientId);
-    if (!completed) return false;
+  // Game: End question
+  const endQuestion = async question => {
+    const { _id: questionId, roomId, correctAnswer, recipientId } = question;
 
     socket.gameLog("Question completed");
     io.to(roomId).emit("completed");
@@ -26,14 +28,13 @@ const gameEvents = (io, socket) => {
     // Tabulate scores
     const answers = await Answer.findByQuestion(questionId);
     let players = [];
-    if (correctAnswer.length > 0) {
-      const correctAnswers = answers.filter(
-        answer => correctAnswer.includes(answer.option)
-      );
-      const promises = correctAnswers.map(answer =>
-        Player.addScore(answer.playerId)
-      );
+    if (correctAnswer && correctAnswer.length > 0) {
+      const promises = answers
+        .filter(answer => correctAnswer.includes(answer.option))
+        .map(answer => Player.addScore(answer.playerId));
       players = await Promise.all(promises);
+    } else {
+      // TODO: Deduct recipient score
     }
 
     const answerIds = answers.map(answer => answer._id);
@@ -48,18 +49,38 @@ const gameEvents = (io, socket) => {
 
     // Draw next question OR end the game
     const { round } = completedQuestion;
-    const currentQuestion = await Question.draw(roomId, round + 1, recipientId);
-    if (currentQuestion) {
+    const nextQuestion = await Question.draw(roomId, round + 1, recipientId);
+    if (nextQuestion) {
       socket.gameLog("Next question");
-      io.to(roomId).emit("nextQuestion", { currentQuestion });
+      io.to(roomId).emit("nextQuestion", { currentQuestion: nextQuestion });
+      startTimer(nextQuestion);
     } else {
       gameOver(roomId);
     }
+  }
+  
+  // Game: Over
+  const gameOver = async roomId => {
+    const newRoom = await Room.create();
+    const room = await Room.gameOver(roomId, newRoom.number);
+    socket.gameLog("Game Over");
+    io.to(roomId).emit("gameOver", room);
+  };
+
+  // Game: End question if all players have answered
+  const completeIfAllAnswered = async question => {
+    const { _id: questionId, roomId, correctAnswer, recipientId } = question;
+    if (!correctAnswer) return false;
+
+    const completed = await Answer.hasEveryPlayerAnswered(roomId, questionId, recipientId);
+    if (!completed) return false;
+
+    endQuestion(question);
   };
 
   // Game: Update open-ended answers
-  const openIfAllAnswered = async (roomId, question) => {
-    const { _id: questionId, recipientId } = question;
+  const openIfAllAnswered = async question => {
+    const { _id: questionId, roomId, recipientId } = question;
     const allAnswered = await Answer.hasEveryPlayerAnswered(roomId, questionId, recipientId);
     if (!allAnswered) return false;
 
@@ -89,16 +110,18 @@ const gameEvents = (io, socket) => {
       }
     }
 
+    currentQuestion.roomId = roomId;
     socket.playerLog("answer", answer);
 
     if (type === "open" && !isRecipient) {
       io.to(roomId).emit("openAnswer", { playerId, answer });
-      openIfAllAnswered(roomId, currentQuestion);
+      openIfAllAnswered(currentQuestion);
     } else { 
       io.to(roomId).emit("playerAnswer", playerId);
-      completeIfAllAnswered(roomId, currentQuestion);
+      completeIfAllAnswered(currentQuestion);
     }
   });
+  return { startTimer };
 };
 
 export default gameEvents;

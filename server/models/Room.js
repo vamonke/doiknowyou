@@ -88,3 +88,6 @@ export const updateTimeLimit = (id, timeLimit) =>
 
 export const updateHost = (id, host) =>
   Room.findByIdAndUpdate(id, { host }, { new: true });
+
+export const getTimeLimit = id =>
+  Room.findById(id).select({ timeLimit: 1 }).lean();

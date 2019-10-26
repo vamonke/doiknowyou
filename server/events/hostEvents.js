@@ -61,7 +61,7 @@ const hostEvents = (io, socket) => {
     emitPlayers(roomId);
 
     if (room.status === "created") {
-      startIfAllReady(io, roomId);
+      startIfAllReady(io, socket, roomId);
     }
   });
 }
