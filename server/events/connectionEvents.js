@@ -65,6 +65,10 @@ const connectionEvents = (io, socket, common) => {
 
     if (room.status === "created") {
       common.startIfAllReady(roomId);
+    } else if (room.status === "started") {
+      const currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
+      currentQuestion.roomId = roomId;
+      common.completeIfAllAnswered(currentQuestion);
     }
   };
 
@@ -108,9 +112,9 @@ const connectionEvents = (io, socket, common) => {
       // socket.emit("disconnected");
       return true;
     }
-    const playerInRoom = common.players
-      .map(player => player._id.toString())
-      .includes(socket.player._id);
+    const playerInRoom = common.players.some(
+      player => player._id.toString() === socket.player._id
+    );
 
     if (!playerInRoom) {
       console.error(
@@ -129,19 +133,19 @@ const connectionEvents = (io, socket, common) => {
   socket.on("disconnect", async () => {
     // Check if socket has a player attached
     if (!socket.player) return;
-    // console.log("Socket: " + socket.id + " [DISCONNECTED]");
+    // console.info("Socket: " + socket.id + " [DISCONNECTED]");
 
     const { _id, name, roomId } = socket.player;
     const room = await Room.findById(roomId);
     if (room.status === "ended") return;
 
-    console.log("Socket: " + name + " [DISCONNECTED]");
+    console.info("Socket: " + name + " [DISCONNECTED]");
 
     setTimeout(() => {
       const socketPlayerIds = getSocketPlayerIds(io);
       if (socketPlayerIds.includes(_id)) {
         // Another socket has been created with the same player id
-        console.log("Socket: " + name + " [RECONNECTED]");
+        console.info("Socket: " + name + " [RECONNECTED]");
       } else {
         // No socket has been created with the same player id
         leaveRoom();

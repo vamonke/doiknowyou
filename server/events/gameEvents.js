@@ -82,7 +82,12 @@ const gameEvents = async (io, socket, common) => {
   // Game: End question if all players have answered
   const completeIfAllAnswered = async question => {
     const { _id: questionId, roomId, correctAnswer, recipientId } = question;
-    if (!correctAnswer) return false;
+    if (!correctAnswer) {
+      const recipientInGame = common.players.some(
+        player => player._id.toString() === recipientId
+      );
+      if (recipientInGame) return;
+    }
 
     const completed = await Answer.hasEveryPlayerAnswered(
       roomId,
@@ -147,7 +152,7 @@ const gameEvents = async (io, socket, common) => {
     }
   });
 
-  Object.assign(common, { startTimer });
+  Object.assign(common, { startTimer, completeIfAllAnswered });
 };
 
 export default gameEvents;
