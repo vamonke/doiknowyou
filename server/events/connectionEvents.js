@@ -47,9 +47,11 @@ const connectionEvents = (io, socket, common) => {
     if (!socket.player) return;
 
     const { _id, roomId } = socket.player;
+    const room = await Room.findById(roomId);
+    if (room.status === "ended") return;
+
     await Player.remove(_id);
 
-    const room = await Room.findById(roomId);
     if (room.status === "created") {
       await Question.removeByPlayerId(_id);
       if (room.hostId === _id) {
@@ -124,12 +126,15 @@ const connectionEvents = (io, socket, common) => {
 
   socket.on("leave", leaveRoom);
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     // Check if socket has a player attached
     if (!socket.player) return;
     // console.log("Socket: " + socket.id + " [DISCONNECTED]");
 
-    const { _id, name } = socket.player;
+    const { _id, name, roomId } = socket.player;
+    const room = await Room.findById(roomId);
+    if (room.status === "ended") return;
+
     console.log("Socket: " + name + " [DISCONNECTED]");
 
     setTimeout(() => {

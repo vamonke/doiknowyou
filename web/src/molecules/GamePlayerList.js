@@ -48,7 +48,7 @@ GamePlayerList.propTypes = {
   viewer: PropTypes.shape({
     _id: PropTypes.string.isRequired
   }),
-  recipientId: PropTypes.string.isRequired
+  recipientId: PropTypes.string
 };
 
 export default GamePlayerList;

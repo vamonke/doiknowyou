@@ -47,13 +47,9 @@ const QuestionResults = ({ question, players, hide }) => {
           <Box fontSize={2} mt={1} mb={3}>
             {text}
           </Box>
-          <Card display="inline-block">
+          <Card display="inline-block" minWidth={150}>
             <Text variant="blackSmall">
-              {recipient.name}
-              {"'s "}
-              {correctAnswer && correctAnswer.length > 1
-                ? "answers:"
-                : "answer:"}
+              {recipient.name}:
             </Text>
             <Box fontSize={4}>{displayCorrect()}</Box>
           </Card>
