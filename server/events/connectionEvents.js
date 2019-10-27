@@ -13,22 +13,17 @@ const getSocketPlayerIds = io => {
   return ids;
 };
 
-const connectionEvents = (io, socket) => {
-  let players;
-  const updatePlayers = async roomId => {
-    players = await Player.findByRoom(roomId);
+const connectionEvents = (io, socket, common) => {
+  const emitPlayers = async roomId => {
+    common.players = await Player.findByRoom(roomId);
+    common.gameLog("Update players - " + common.players.length);
+    io.to(roomId).emit("updatePlayers", common.players);
   };
 
   const hydrateRoom = async roomId => {
     const room = await Room.findById(roomId);
-    socket.playerLog("Hydrate room");
+    common.playerLog("room hydrated");
     socket.emit("hydrateRoom", room);
-  };
-
-  const emitPlayers = async roomId => {
-    await updatePlayers(roomId);
-    socket.gameLog("Update players - " + players.length);
-    io.to(roomId).emit("updatePlayers", players);
   };
 
   const hydrateAnswers = async roomId => {
@@ -38,13 +33,13 @@ const connectionEvents = (io, socket) => {
     const answeredPlayers = answers.map(answer => answer.playerId);
     if (currentQuestion.correctAnswer)
       answeredPlayers.push(currentQuestion.recipientId);
-    socket.playerLog("Hydrate answers - " + answeredPlayers.length);
+    common.playerLog("answered hydrated - " + answeredPlayers.length);
     socket.emit("hydrateAnswers", answeredPlayers);
   };
 
   const hydrateQuestions = async roomId => {
     const answeredQuestions = await Question.findAsked(roomId);
-    socket.playerLog("Hydrate questions - " + answeredQuestions.length);
+    common.playerLog("questions hydrated - " + answeredQuestions.length);
     socket.emit("hydrateQuestions", answeredQuestions);
   };
 
@@ -57,29 +52,30 @@ const connectionEvents = (io, socket) => {
     const room = await Room.findById(roomId);
     if (room.status === "created") {
       await Question.removeByPlayerId(_id);
-      if (room.host === _id) {
-        // eslint-disable-next-line no-undef
-        newHost(io, socket, roomId);
+      if (room.hostId === _id) {
+        common.newHost(roomId, null);
       }
     }
 
-    socket.playerLog("left the room");
+    common.playerLog("left the room");
     delete socket.player;
     emitPlayers(roomId);
 
     if (room.status === "created") {
-      // eslint-disable-next-line no-undef
-      startIfAllReady(io, socket, roomId);
+      common.startIfAllReady(roomId);
     }
   };
 
   socket.on("join", async player => {
     socket.player = player;
     const { roomId } = player;
-    const socketInRoom = Object.prototype.hasOwnProperty.call(socket.rooms, roomId);
+    const socketInRoom = Object.prototype.hasOwnProperty.call(
+      socket.rooms,
+      roomId
+    );
     if (!socketInRoom) {
       socket.join(roomId, async () => {
-        socket.playerLog("joined");
+        common.playerLog("joined");
         hydrateRoom(roomId);
         emitPlayers(roomId);
         const room = await Room.findById(roomId);
@@ -110,11 +106,11 @@ const connectionEvents = (io, socket) => {
       // socket.emit("disconnected");
       return true;
     }
-    if (
-      !players.map(player => player._id.toString()).includes(socket.player._id)
-    ) {
-      console.log(players);
-      console.log(socket.player);
+    const playerInRoom = common.players
+      .map(player => player._id.toString())
+      .includes(socket.player._id);
+
+    if (!playerInRoom) {
       console.error(
         "\x1b[31mSocket player not in player list:",
         socket.player.name,
@@ -147,6 +143,8 @@ const connectionEvents = (io, socket) => {
       }
     }, 1000);
   });
+
+  Object.assign(common, { emitPlayers });
 };
 
 export default connectionEvents;

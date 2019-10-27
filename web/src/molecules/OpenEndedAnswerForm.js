@@ -4,9 +4,12 @@ import { Formik } from "formik";
 import { Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
+const validate = values => values.guess ? {} : { guess: true };
+
 const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) =>
   <Formik
     initialValues={{ guess: "" }}
+    validate={validate}
     onSubmit={values => handleSubmit(values.guess)}
     render={props => {
       const { handleSubmit, handleChange, handleBlur, values, dirty } = props;

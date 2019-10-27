@@ -76,7 +76,7 @@ ResultsTable.propTypes = {
   answers: PropTypes.arrayOf(
     PropTypes.shape({
       playerId: PropTypes.string,
-      option: PropTypes.string
+      option: PropTypes.number
     })
   ),
   correctAnswer: PropTypes.arrayOf(

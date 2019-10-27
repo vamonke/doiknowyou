@@ -11,7 +11,7 @@ const trim = questions =>
         question.options.filter(Boolean).length > 1)
   );
 
-const lobbyEvents = (io, socket) => {
+const lobbyEvents = (io, socket, common) => {
   // Lobby: Start if all players are ready
   const startIfAllReady = async roomId => {
     const ready = await Room.isEveryPlayerReady(roomId);
@@ -20,9 +20,8 @@ const lobbyEvents = (io, socket) => {
     const currentQuestion = await Question.draw(roomId, 1, null);
     const room = await Room.start(roomId);
     io.to(roomId).emit("start", { room, currentQuestion });
-    
-    // eslint-disable-next-line no-undef
-    startTimer(currentQuestion);
+
+    common.startTimer(currentQuestion);
   };
 
   // Lobby: Player ready
@@ -39,8 +38,8 @@ const lobbyEvents = (io, socket) => {
     }
 
     const player = await Player.ready(socket.player._id);
-    // socket.playerLog("is ready");
-    socket.gameLog("Update player ready");
+    // common.playerLog("is ready");
+    common.gameLog("Update player ready");
     io.to(player.roomId).emit("playerReady", player._id);
 
     startIfAllReady(player.roomId);
@@ -52,12 +51,14 @@ const lobbyEvents = (io, socket) => {
 
     await Question.removeByPlayerId(socket.player._id);
     const player = await Player.notReady(socket.player._id);
-    // socket.playerLog("is not ready");
-    socket.gameLog("Update player not ready");
+    // common.playerLog("is not ready");
+    common.gameLog("Update player not ready");
     io.to(player.roomId).emit("playerNotReady", player._id);
 
     startIfAllReady(player.roomId);
   });
+
+  Object.assign(common, { startIfAllReady });
 };
 
 export default lobbyEvents;

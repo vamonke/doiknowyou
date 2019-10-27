@@ -2,14 +2,14 @@ import * as Room from "../models/Room";
 import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 
-const hostEvents = (io, socket) => {
-  const newHost = async (io, socket, roomId, playerId) => {
+const hostEvents = (io, socket, common) => {
+  const newHost = async (roomId, playerId) => {
     if (!playerId) {
       playerId = await Player.getNextRecipientId(roomId);
     }
     const room = await Room.updateHost(roomId, playerId);
-    socket.gameLog("New host: " + playerId);
-    io.to(roomId).emit("newHost", room.host);
+    common.gameLog("New host - " + playerId);
+    io.to(roomId).emit("newHost", room.hostId);
   };
 
   // Host: Update settings
@@ -21,7 +21,7 @@ const hostEvents = (io, socket) => {
 
     if (settings.timeLimit || settings.timeLimit === 0) {
       const room = await Room.updateTimeLimit(roomId, timeLimit);
-      socket.gameLog("Updated question time limit: " + timeLimit);
+      common.gameLog("Updated question time limit - " + timeLimit);
       io.to(roomId).emit("newSettings", { room });
     }
   });
@@ -31,7 +31,7 @@ const hostEvents = (io, socket) => {
     if (socket.missingPlayer()) return;
 
     const { player: { roomId } } = socket;
-    newHost(io, socket, roomId, playerId);
+    newHost(roomId, playerId);
   });
 
   // Host: Kick player
@@ -44,19 +44,23 @@ const hostEvents = (io, socket) => {
     const room = await Room.findById(roomId);
     if (room.status === "created") {
       await Question.removeByPlayerId(playerId);
-      if (room.host === playerId) {
-        newHost(io, socket, roomId);
+      if (room.hostId === playerId) {
+        newHost(roomId, null);
       }
     }
 
-    socket.gameLog("Kicked: " + playerId);
-    // eslint-disable-next-line no-undef
-    emitPlayers(roomId);
+    common.gameLog("Kicked: " + playerId);
+    
+    // Emit players
+    const players = await Player.findByRoom(roomId);
+    common.gameLog("Update players - " + players.length);
+    io.to(roomId).emit("updatePlayers", players);
 
     if (room.status === "created") {
-      // eslint-disable-next-line no-undef
-      startIfAllReady(io, socket, roomId);
+      common.startIfAllReady(roomId);
     }
+
+    Object.assign(common, { newHost });
   });
 };
 

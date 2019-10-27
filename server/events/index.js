@@ -8,19 +8,21 @@ import gameEvents from "./gameEvents";
 const socketEvents = (io, socket) => {
   // console.log("Socket: " + socket.id + " [CONNECTED]");
 
-  socket.gameLog = msg => {
-    if (socket.player && socket.player.roomId)
-      Log.gameLog(socket.player.roomId, msg);
+  const common = {
+    players: [],
+    gameLog: msg => {
+      if (socket.player && socket.player.roomId)
+        Log.gameLog(socket.player.roomId, msg);
+    },
+    playerLog: msg => {
+      if (socket.player) Log.playerLog(socket.player, msg);
+    }
   };
 
-  socket.playerLog = msg => {
-    if (socket.player) Log.playerLog(socket.player, msg);
-  };
-
-  gameEvents(io, socket);
-  hostEvents(io, socket);
-  lobbyEvents(io, socket);
-  connectionEvents(io, socket);
+  gameEvents(io, socket, common);
+  lobbyEvents(io, socket, common);
+  hostEvents(io, socket, common);
+  connectionEvents(io, socket, common);
 };
 
 export default socketEvents;

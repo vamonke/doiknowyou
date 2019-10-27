@@ -14,7 +14,7 @@ const schema = new Schema(
       enum: ["created", "started", "ended"],
       default: "created"
     },
-    host: String,
+    hostId: String,
     timeLimit: {
       type: Number,
       default: 0
@@ -86,8 +86,8 @@ export const gameOver = (id, nextRoomNo) =>
 export const updateTimeLimit = (id, timeLimit) =>
   Room.findByIdAndUpdate(id, { timeLimit }, { new: true });
 
-export const updateHost = (id, host) =>
-  Room.findByIdAndUpdate(id, { host }, { new: true });
+export const updateHost = (id, hostId) =>
+  Room.findByIdAndUpdate(id, { hostId }, { new: true });
 
 export const getTimeLimit = id =>
   Room.findById(id).select({ timeLimit: 1 }).lean();

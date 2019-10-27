@@ -37,6 +37,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case e.VIEWER_ANSWER:
     case e.SOCKET_NEXT_QUESTION:
     case e.HYDRATE_ANSWERED_QUESTIONS:
+    case e.HYDRATE_ROOM:
     case e.SOCKET_GAME_SETTINGS:
     case e.SOCKET_PLAYER_LIST:
       return { ...state, ...payload };
@@ -85,8 +86,7 @@ const reducers = (state = defaultState, { type, payload }) => {
 
     case e.HYDRATE_ANSWERED_PLAYERS:
       payload.forEach(playerId => {
-        if (state.players[playerId])
-          state.players[playerId].hasAnswered = true;
+        if (state.players[playerId]) state.players[playerId].hasAnswered = true;
       });
       return { ...state };
 
@@ -100,7 +100,7 @@ const reducers = (state = defaultState, { type, payload }) => {
 
     case e.HOST_TRANSFER:
     case e.SOCKET_NEW_HOST:
-      state.room.host = payload;
+      state.room.hostId = payload;
       return { ...state };
 
     case RESET:

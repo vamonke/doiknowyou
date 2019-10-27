@@ -5,7 +5,7 @@ import * as RandomQuestion from "../models/RandomQuestion";
 export const createGame = async playerName => {
   const room = await Room.create();
   const viewer = await Player.create(room._id, playerName);
-  room.host = viewer._id;
+  room.hostId = viewer._id;
   await room.save();
   const res = { room, viewer };
   return res;
@@ -15,8 +15,8 @@ export const joinGame = async (playerName, roomNo) => {
   const room = await Room.findByNumber(roomNo);
   if (room) {
     const viewer = await Player.create(room._id, playerName);
-    if (!room.host) {
-      room.host = viewer._id;
+    if (!room.hostId) {
+      room.hostId = viewer._id;
       await room.save();
     }
     const res = { room, viewer };

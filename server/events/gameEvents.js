@@ -3,26 +3,26 @@ import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
-const gameEvents = async (io, socket) => {
+const gameEvents = async (io, socket, common) => {
   let timeLimit = null;
-  const getTimeLimit = async player => {
-    if (!player) return;
-    const room = await Room.findById(player.roomId);
+  const getTimeLimit = async roomId => {
+    const room = await Room.findById(roomId);
     timeLimit = room.timeLimit;
   };
 
+  // Game: Start timing
   const startTimer = async question => {
-    if (timeLimit === null) await getTimeLimit();
+    if (timeLimit === null) await getTimeLimit(question.roomId);
     if (timeLimit !== 0) {
       if (question.type !== "open") {
         let duration = (timeLimit + 1) * 1000;
         if (question.round === 1) duration += 4000;
 
-        socket.gameLog(duration / 1000 + "s given");
+        common.gameLog(duration / 1000 + "s given");
         setTimeout(async () => {
           const timedOutQuestion = await Question.findById(question._id);
           if (timedOutQuestion.status === "asking") {
-            socket.gameLog("Times up for question");
+            common.gameLog("Times up for question");
             endQuestion(question);
           }
         }, duration);
@@ -34,7 +34,7 @@ const gameEvents = async (io, socket) => {
   const endQuestion = async question => {
     const { _id: questionId, roomId, correctAnswer, recipientId } = question;
 
-    socket.gameLog("Question completed");
+    common.gameLog("Question completed");
     io.to(roomId).emit("completed");
 
     // Tabulate scores
@@ -53,7 +53,7 @@ const gameEvents = async (io, socket) => {
     const completedQuestion = await Question.complete(questionId, answerIds);
 
     // Send results
-    socket.gameLog("Question results");
+    common.gameLog("Question results");
     io.to(roomId).emit("results", {
       question: completedQuestion,
       players
@@ -63,7 +63,7 @@ const gameEvents = async (io, socket) => {
     const { round } = completedQuestion;
     const nextQuestion = await Question.draw(roomId, round + 1, recipientId);
     if (nextQuestion) {
-      socket.gameLog("Next question");
+      common.gameLog("Next question");
       io.to(roomId).emit("nextQuestion", { currentQuestion: nextQuestion });
       startTimer(nextQuestion);
     } else {
@@ -75,7 +75,7 @@ const gameEvents = async (io, socket) => {
   const gameOver = async roomId => {
     const newRoom = await Room.create();
     const room = await Room.gameOver(roomId, newRoom.number);
-    socket.gameLog("Game Over");
+    common.gameLog("Game Over");
     io.to(roomId).emit("gameOver", room);
   };
 
@@ -105,7 +105,7 @@ const gameEvents = async (io, socket) => {
     if (!allAnswered) return false;
 
     const questionWithOptions = await Question.getOptions(questionId);
-    socket.gameLog("Recipient to answer open-ended question");
+    common.gameLog("Recipient to answer open-ended question");
     io.to(roomId).emit("openQuestion", {
       currentQuestion: questionWithOptions
     });
@@ -136,7 +136,7 @@ const gameEvents = async (io, socket) => {
     }
 
     currentQuestion.roomId = roomId;
-    socket.playerLog("answer", answer);
+    common.playerLog("answer - " + answer);
 
     if (type === "open" && !isRecipient) {
       io.to(roomId).emit("openAnswer", { playerId, answer });
@@ -146,6 +146,8 @@ const gameEvents = async (io, socket) => {
       completeIfAllAnswered(currentQuestion);
     }
   });
+
+  Object.assign(common, { startTimer });
 };
 
 export default gameEvents;
