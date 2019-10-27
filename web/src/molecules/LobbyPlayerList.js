@@ -63,7 +63,7 @@ const LobbyPlayerList = ({ players, viewerId, hostId, viewerIsHost, dispatch }) 
                     <option value="kick">Kick</option>
                     <option value="host">Make host</option>
                   </Select>
-                :
+                  :
                   <Box>
                     {isReady ? "Ready" : "Not Ready"}
                   </Box>

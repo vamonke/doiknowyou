@@ -6,6 +6,7 @@ export { default as LobbyQuestion } from "./LobbyQuestion";
 export { default as OpenEndedAnswer } from "./OpenEndedAnswer";
 export { default as OpenEndedAnswerForm } from "./OpenEndedAnswerForm";
 export { default as OpenEndedAnswerRecipient } from "./OpenEndedAnswerRecipient";
+export { default as QuestionCountdown } from "./QuestionCountdown";
 export { default as QuestionText } from "./QuestionText";
 export { default as Restart } from "./Restart";
 export { default as ResultsTable } from "./ResultsTable";

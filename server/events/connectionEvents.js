@@ -3,9 +3,6 @@ import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
-import { startIfAllReady } from "./lobbyEvents";
-import { newHost } from "./hostEvents";
-
 const getSocketPlayerIds = io => {
   const ids = [];
   const sockets = io.sockets.sockets;
@@ -47,7 +44,7 @@ const connectionEvents = (io, socket) => {
 
   const hydrateQuestions = async roomId => {
     const answeredQuestions = await Question.findAsked(roomId);
-    socket.playerLog("Hydrate answered questions - " + answeredQuestions.length);
+    socket.playerLog("Hydrate questions - " + answeredQuestions.length);
     socket.emit("hydrateQuestions", answeredQuestions);
   };
 

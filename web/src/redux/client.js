@@ -91,18 +91,17 @@ export const makeHost = playerId => dispatch => {
 };
 
 // Game actions
-export const playerAnswer = answer => {
-  return dispatch => {
-    dispatch(viewerAnswer({ answer }));
-    socket.emit("answer", answer);
-  };
+export const playerAnswer = answer => dispatch => {
+  dispatch(viewerAnswer({ answer }));
+  socket.emit("answer", answer);
 };
-
 export const playerAnswerOpen = answer => dispatch => {
   // dispatch({ type: e.VIEWER_ANSWER, answer });
   socket.emit("answer", answer);
 };
-
+export const timesUp = () => dispatch => {
+  dispatch(questionCompleteEvent());
+};
 // Server events
 export const serverEvents = store => {
   // Connection events

@@ -17,9 +17,10 @@ const socketEvents = (io, socket) => {
     if (socket.player) Log.playerLog(socket.player, msg);
   };
 
-  connectionEvents(io, socket);
-  lobbyEvents(io, socket);
+  gameEvents(io, socket);
   hostEvents(io, socket);
+  lobbyEvents(io, socket);
+  connectionEvents(io, socket);
 };
 
 export default socketEvents;

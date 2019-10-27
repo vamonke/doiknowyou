@@ -2,8 +2,6 @@ import * as Room from "../models/Room";
 import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 
-import gameEvents from "./gameEvents";
-
 const trim = questions =>
   questions.filter(
     question =>
@@ -13,22 +11,23 @@ const trim = questions =>
         question.options.filter(Boolean).length > 1)
   );
 
-// Lobby: Start if all players are ready
-export const startIfAllReady = async (io, socket, roomId) => {
-  const ready = await Room.isEveryPlayerReady(roomId);
-  if (!ready) return false;
-  
-  const currentQuestion = await Question.draw(roomId, 1, null);
-  const room = await Room.start(roomId);
-  io.to(roomId).emit("start", { room, currentQuestion });
-  
-  gameEvents(io, socket, room.timeLimit).startTimer(currentQuestion);
-}
-
 const lobbyEvents = (io, socket) => {
+  // Lobby: Start if all players are ready
+  const startIfAllReady = async roomId => {
+    const ready = await Room.isEveryPlayerReady(roomId);
+    if (!ready) return false;
+    
+    const currentQuestion = await Question.draw(roomId, 1, null);
+    const room = await Room.start(roomId);
+    io.to(roomId).emit("start", { room, currentQuestion });
+    
+    startTimer(currentQuestion);
+  }
+
   // Lobby: Player ready
   socket.on("ready", async questions => {
     if (socket.missingPlayer()) return;
+
     const trimmedQuestions = trim(questions);
     if (trimmedQuestions.length > 0) {  
       await Question.createMany(

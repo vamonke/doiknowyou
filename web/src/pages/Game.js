@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Card, Heading, Box, Text } from "rebass";
+import { Flex, Card, Heading, Box, Text } from "rebass";
 
-import { joinRoom, playerAnswer } from "../redux/client";
+import { joinRoom, playerAnswer, timesUp } from "../redux/client";
 
-import { GamePlayerList, Disconnected, Restart } from "../molecules";
+import {
+  GamePlayerList,
+  Disconnected,
+  Restart,
+  QuestionCountdown
+} from "../molecules";
 import {
   JoinGame,
   CurrentQuestion,
@@ -55,6 +60,10 @@ const Game = props => {
     dispatch(playerAnswer(index));
   };
 
+  const handleTimesUp = () => {
+    dispatch(timesUp());
+  };
+
   const showCurrentQuestion =
     room.status === "started" && Object.keys(currentQuestion).length > 1;
 
@@ -74,7 +83,17 @@ const Game = props => {
 
       {showCurrentQuestion && (
         <Card>
-          <Heading variant="blackSmall">Round {currentQuestion.round}</Heading>
+          <Heading variant="blackSmall">
+            <Flex justifyContent="space-between">
+              <Text>Round {currentQuestion.round}</Text>
+              {room.timeLimit !== 0 &&
+                <QuestionCountdown
+                  timeLimit={room.timeLimit}
+                  timesUp={handleTimesUp}
+                />
+              }
+            </Flex>
+          </Heading>
           {currentQuestion.type === "open" ? (
             <OpenEndedQuestion
               question={currentQuestion}
@@ -140,7 +159,9 @@ const Game = props => {
 };
 
 const mapStateToProps = (state = {}) => {
-  const players = Object.values(state.players).sort((a, b) => b.score - a.score);
+  const players = Object.values(state.players).sort(
+    (a, b) => b.score - a.score
+  );
   const recipient = state.players[state.currentQuestion.recipientId] || {};
   const viewer = {
     ...state.viewer,
