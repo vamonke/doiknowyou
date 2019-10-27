@@ -1,9 +1,8 @@
 import React from "react";
 import { Box, Button } from "rebass";
-import { useHistory } from "react-router-dom";
+import history from "../redux/history";
 
 const HomeLink = () => {
-  const history = useHistory();
   const handleClick = () => {
     if (window.confirm("Exit game?")) history.push("/");
   };

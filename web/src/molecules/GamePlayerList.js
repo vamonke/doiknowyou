@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Card, Box, Flex, Heading, Text } from "rebass";
 
 const GamePlayerList = ({ players, viewer, recipientId }) => {
@@ -33,6 +34,21 @@ const GamePlayerList = ({ players, viewer, recipientId }) => {
       </Box>
     </Card>
   );
+};
+
+GamePlayerList.propTypes = {
+  players: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      score: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      hasAnswered: PropTypes.bool,
+    })
+  ),
+  viewer: PropTypes.shape({
+    _id: PropTypes.string.isRequired
+  }),
+  recipientId: PropTypes.string.isRequired
 };
 
 export default GamePlayerList;

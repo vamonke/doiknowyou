@@ -1,8 +1,8 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import thunkMiddleware from "redux-thunk";
-import { routerMiddleware } from 'react-router-redux'
-import history from './history';
+import { routerMiddleware } from "react-router-redux";
+import history from "./history";
 
 // import { createLogger } from "redux-logger";
 import storage from "redux-persist/lib/storage";

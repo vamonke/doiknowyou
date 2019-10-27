@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Card, Text, Box, Flex } from "rebass";
 
 const correct = (
@@ -11,7 +12,7 @@ const parseAnswers = (answers, recipientId) => {
   let results = {};
   answers.forEach(({ playerId, option }) => {
     if (playerId !== recipientId) {
-      if (results.hasOwnProperty(option)) {
+      if (Object.prototype.hasOwnProperty.call(results, option)) {
         results[option].push(playerId);
       } else {
         results[option] = [playerId];
@@ -19,7 +20,7 @@ const parseAnswers = (answers, recipientId) => {
     }
   });
   return results;
-}
+};
 
 const ResultsTable = ({ players, options, answers, correctAnswer, recipientId }) => {
   const parsedAnswers = parseAnswers(answers, recipientId);
@@ -35,7 +36,7 @@ const ResultsTable = ({ players, options, answers, correctAnswer, recipientId })
         );
       });
     }
-  }
+  };
 
   return (
     <Card p={0} textAlign="center">
@@ -60,6 +61,28 @@ const ResultsTable = ({ players, options, answers, correctAnswer, recipientId })
       ))}
     </Card>
   );
+};
+
+ResultsTable.propTypes = {
+  players: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.string
+  ),
+  answers: PropTypes.arrayOf(
+    PropTypes.shape({
+      playerId: PropTypes.string,
+      option: PropTypes.string
+    })
+  ),
+  correctAnswer: PropTypes.arrayOf(
+    PropTypes.number
+  ),
+  recipientId: PropTypes.string.isRequired,
 };
 
 export default ResultsTable;

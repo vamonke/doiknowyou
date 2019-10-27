@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { withFormik } from "formik";
 
-import { LobbyQuestion, Waiting } from "../molecules";
+import { Waiting } from "../molecules";
+import LobbyQuestion from "./LobbyQuestion";
 
 const QUESTIONS_COUNT = 3;
 

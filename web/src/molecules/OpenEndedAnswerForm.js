@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
-const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) => (
+const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) =>
   <Formik
     initialValues={{ guess: "" }}
     onSubmit={values => handleSubmit(values.guess)}
@@ -29,5 +30,11 @@ const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) => (
       );
     }}
   />
-);
+;
+
+OpenEndedAnswerForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  recipientName: PropTypes.string.isRequired
+};
+
 export default OpenEndedAnswerForm;

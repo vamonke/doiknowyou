@@ -1,5 +1,6 @@
 import express from "express";
-import { createGame, joinGame, populateQuestionBank, getQuestionBank } from "./controllers";
+import { createGame, joinGame, getQuestionBank } from "./controllers";
+// import { populateQuestionBank } from "./controllers";
 const router = express.Router();
 
 // Admin
@@ -31,6 +32,6 @@ router.post("/api/game/join", async (req, res) => {
 router.get("/api/questionbank", async (_, res) => {
   const questionBank = await getQuestionBank();
   res.json({ questionBank });
-})
+});
 
 export default router;

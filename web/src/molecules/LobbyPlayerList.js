@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Card, Box, Flex, Heading, Text, Button } from "rebass";
 import { Select } from "@rebass/forms";
 
@@ -75,6 +76,21 @@ const LobbyPlayerList = ({ players, viewerId, hostId, viewerIsHost, dispatch }) 
       </Box>
     </Card>
   );
-}
+};
+
+LobbyPlayerList.propTypes = {
+  players: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      score: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      hasAnswered: PropTypes.bool,
+    })
+  ),
+  viewerId: PropTypes.string.isRequired,
+  hostId: PropTypes.string.isRequired,
+  viewerIsHost: PropTypes.bool,
+  dispatch: PropTypes.func
+};
 
 export default LobbyPlayerList;

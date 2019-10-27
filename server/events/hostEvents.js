@@ -19,7 +19,7 @@ const hostEvents = (io, socket) => {
     const { timeLimit } = settings;
     const { player: { roomId } } = socket;
 
-    if (settings.hasOwnProperty("timeLimit")) {
+    if (settings.timeLimit || settings.timeLimit === 0) {
       const room = await Room.updateTimeLimit(roomId, timeLimit);
       socket.gameLog("Updated question time limit: " + timeLimit);
       io.to(roomId).emit("newSettings", { room });
@@ -50,12 +50,14 @@ const hostEvents = (io, socket) => {
     }
 
     socket.gameLog("Kicked: " + playerId);
+    // eslint-disable-next-line no-undef
     emitPlayers(roomId);
 
     if (room.status === "created") {
+      // eslint-disable-next-line no-undef
       startIfAllReady(io, socket, roomId);
     }
   });
-}
+};
 
 export default hostEvents;

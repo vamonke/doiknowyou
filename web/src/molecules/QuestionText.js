@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Box, Text } from "rebass";
 
 const QuestionText = ({ text, recipientName }) => (
@@ -16,4 +17,10 @@ const QuestionText = ({ text, recipientName }) => (
     </Text>
   </Box>
 );
+
+QuestionText.propTypes = {
+  text: PropTypes.string.isRequired,
+  recipientName: PropTypes.string.isRequired
+};
+
 export default QuestionText;

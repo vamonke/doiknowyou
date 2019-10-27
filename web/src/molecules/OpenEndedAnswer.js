@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Box, Text } from "rebass";
 
-const OpenEndedAnswer = props => {
-  const { question, recipientName } = props;
+const OpenEndedAnswer = ({ question, recipientName }) => {
   const { recipientAnswering, options } = question;
 
   const waitingMsg =
@@ -23,6 +23,16 @@ const OpenEndedAnswer = props => {
       ))}
     </>
   );
+};
+
+OpenEndedAnswer.propTypes = {
+  question: PropTypes.shape({
+    recipientAnswering: PropTypes.bool,
+    options: PropTypes.arrayOf(
+      PropTypes.string
+    ),
+  }).isRequired,
+  recipientName: PropTypes.string.isRequired
 };
 
 export default OpenEndedAnswer;

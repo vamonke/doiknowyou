@@ -58,15 +58,17 @@ const connectionEvents = (io, socket) => {
     if (room.status === "created") {
       await Question.removeByPlayerId(_id);
       if (room.host === _id) {
+        // eslint-disable-next-line no-undef
         newHost(io, socket, roomId);
       }
     }
 
     socket.playerLog("left the room");
-    socket.player = undefined;
+    delete socket.player;
     emitPlayers(roomId);
 
     if (room.status === "created") {
+      // eslint-disable-next-line no-undef
       startIfAllReady(io, socket, roomId);
     }
   };
@@ -74,7 +76,8 @@ const connectionEvents = (io, socket) => {
   socket.on("join", async player => {
     socket.player = player;
     const { roomId } = player;
-    if (!socket.rooms.hasOwnProperty(roomId)) {
+    const socketInRoom = Object.prototype.hasOwnProperty.call(socket.rooms, roomId);
+    if (!socketInRoom) {
       socket.join(roomId, async () => {
         socket.playerLog("joined");
         hydrateRoom(roomId);
@@ -144,6 +147,6 @@ const connectionEvents = (io, socket) => {
       }
     }, 1000);
   });
-}
+};
 
 export default connectionEvents;

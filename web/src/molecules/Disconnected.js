@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Heading, Box, Button } from "rebass";
@@ -6,7 +7,6 @@ import { leave } from "../redux/actions";
 
 const Disconnected = ({ dispatch }) => {
   const [loading, setLoading] = useState(true);
-  console.log(loading);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,6 +28,10 @@ const Disconnected = ({ dispatch }) => {
       </Button>
     </Box>
   );
+};
+
+Disconnected.propTypes = {
+  dispatch: PropTypes.func.isRequired
 };
 
 export default connect()(Disconnected);

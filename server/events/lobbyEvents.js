@@ -21,8 +21,9 @@ const lobbyEvents = (io, socket) => {
     const room = await Room.start(roomId);
     io.to(roomId).emit("start", { room, currentQuestion });
     
+    // eslint-disable-next-line no-undef
     startTimer(currentQuestion);
-  }
+  };
 
   // Lobby: Player ready
   socket.on("ready", async questions => {
@@ -38,11 +39,11 @@ const lobbyEvents = (io, socket) => {
     }
 
     const player = await Player.ready(socket.player._id);
-    socket.playerLog("is ready");
-    // socket.gameLog("Update player ready");
+    // socket.playerLog("is ready");
+    socket.gameLog("Update player ready");
     io.to(player.roomId).emit("playerReady", player._id);
 
-    startIfAllReady(io, socket, player.roomId);
+    startIfAllReady(player.roomId);
   });
 
   // Lobby: Player not ready
@@ -51,12 +52,12 @@ const lobbyEvents = (io, socket) => {
 
     await Question.removeByPlayerId(socket.player._id);
     const player = await Player.notReady(socket.player._id);
-    socket.playerLog("is not ready");
-    // socket.gameLog("Update player not ready");
+    // socket.playerLog("is not ready");
+    socket.gameLog("Update player not ready");
     io.to(player.roomId).emit("playerNotReady", player._id);
 
-    startIfAllReady(io, socket, player.roomId);
+    startIfAllReady(player.roomId);
   });
-}
+};
 
 export default lobbyEvents;

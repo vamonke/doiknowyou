@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router";
+import PropTypes from "prop-types";
 import { Text } from "rebass";
+import history from "../redux/history";
 
-const Countdown = ({ roomNo, history }) => {
+const Countdown = ({ roomNo }) => {
   const [seconds, setSeconds] = useState(3);
 
   useEffect(() => {
@@ -11,7 +12,7 @@ const Countdown = ({ roomNo, history }) => {
     }, 1000);
     if (seconds <= 0) {
       clearInterval(interval);
-      console.log('START');
+      console.log("START");
       history.push(`/game/${roomNo}`);
     }
     return () => clearInterval(interval);
@@ -24,4 +25,8 @@ const Countdown = ({ roomNo, history }) => {
   );
 };
 
-export default withRouter(Countdown);
+Countdown.propTypes = {
+  roomNo: PropTypes.number,
+};
+
+export default Countdown;
