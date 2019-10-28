@@ -7,10 +7,10 @@ const QuestionTimer = ({ timeLimit, timesUp, currentQuestionId, type }) => {
 
   useEffect(() => {
     setSeconds(duration);
+    console.log("useEffect:", seconds, "seconds");
   }, [currentQuestionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log("useEffect:", seconds, "seconds");
     const interval = setInterval(() => {
       setSeconds(seconds => Math.max(seconds - 1, 0));
     }, 1000);

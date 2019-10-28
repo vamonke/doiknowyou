@@ -18,6 +18,10 @@ import {
   OpenEndedQuestion
 } from "../organisms";
 
+// To enable timer for open-ended
+// Line 36: isClosed = false
+// Line 76: (type === "open" ? isRecipient === isClosed : true );
+
 const Game = props => {
   const {
     room,
@@ -29,8 +33,7 @@ const Game = props => {
     players,
     dispatch
   } = props;
-  const { _id: currentQuestionId, type, isClosed = false, round } =
-    currentQuestion || {};
+  const { _id: currentQuestionId, type, round } = currentQuestion || {};
   const { _id: roomId, number: roomNo, nextRoomNo, status, timeLimit } = room;
   const { _id: viewerId, name: viewerName } = viewer;
   const { _id: recipientId } = recipient;
@@ -70,8 +73,7 @@ const Game = props => {
   const showCurrentQuestion =
     status === "started" && Object.keys(currentQuestion).length > 1;
 
-  let showTimer =
-    timeLimit !== 0 && (type === "open" ? isRecipient === isClosed : true);
+  const showTimer = timeLimit !== 0 && type !== "open";
 
   return (
     <>
@@ -170,9 +172,9 @@ const mapStateToProps = (state = {}) => {
   const players = Object.values(state.players).sort(
     (a, b) => b.score - a.score
   );
-  const recipient = state.currentQuestion
-    ? state.players[state.currentQuestion.recipientId]
-    : {};
+  const recipientId =
+    state.currentQuestion && state.currentQuestion.recipientId;
+  const recipient = recipientId ? state.players[recipientId] : {};
   const viewer = {
     ...state.viewer,
     ...state.players[state.viewerId]

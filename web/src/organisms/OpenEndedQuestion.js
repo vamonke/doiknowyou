@@ -32,7 +32,7 @@ const OpenEndedQuestion = props => {
           ))}
 
         {!isRecipient &&
-          (answer && !isClosed ? (
+          (answer || isClosed ? (
             <OpenEndedAnswer
               question={question}
               recipientName={recipient.name}

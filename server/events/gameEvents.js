@@ -21,6 +21,7 @@ const gameEvents = async (io, socket, common) => {
       if (question.type === "open") {
         duration *= 2;
         if (!question.isClosed) callback = closeQuestion;
+        return; // Disable timeout for open-ended questions
       }
 
       if (question.round === 1) duration += 3500;
