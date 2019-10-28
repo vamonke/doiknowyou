@@ -16,7 +16,7 @@ const getSocketPlayerIds = io => {
 const connectionEvents = (io, socket, common) => {
   const emitPlayers = async roomId => {
     common.players = await Player.findByRoom(roomId);
-    common.gameLog("Update players - " + common.players.length);
+    common.gameLog("Update player list - " + common.players.length + " players");
     io.to(roomId).emit("updatePlayers", common.players);
   };
 

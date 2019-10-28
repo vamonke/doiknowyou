@@ -38,7 +38,7 @@ const lobbyEvents = (io, socket, common) => {
     }
 
     const player = await Player.ready(socket.player._id);
-    // common.playerLog("is ready");
+    common.playerLog("is ready - " + trimmedQuestions.length + " questions added");
     common.gameLog("Update player ready");
     io.to(player.roomId).emit("playerReady", player._id);
 
@@ -51,7 +51,7 @@ const lobbyEvents = (io, socket, common) => {
 
     await Question.removeByPlayerId(socket.player._id);
     const player = await Player.notReady(socket.player._id);
-    // common.playerLog("is not ready");
+    common.playerLog("is not ready");
     common.gameLog("Update player not ready");
     io.to(player.roomId).emit("playerNotReady", player._id);
 
