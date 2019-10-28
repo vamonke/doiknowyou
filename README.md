@@ -10,8 +10,8 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [x] Open ended questions
 - [x] Room host: Set time limit, kick players and transfer host
 - [x] Rejoin game
+- [x] Time limit
 
-- [ ] Time limit
 - [ ] Edit name
 - [ ] SSM
 - [ ] Room logs
