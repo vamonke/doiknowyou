@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 
-const QuestionTimer = ({ timeLimit, timesUp, currentQuestionId }) => {
-  const [seconds, setSeconds] = useState(timeLimit);
+const QuestionTimer = ({ timeLimit, timesUp, currentQuestionId, type }) => {
+  let duration = timeLimit;
+  if (type === "open") duration *= 2;
+  const [seconds, setSeconds] = useState(duration);
 
   useEffect(() => {
-    setSeconds(timeLimit);
-  }, [currentQuestionId]);
+    setSeconds(duration);
+  }, [currentQuestionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log("useEffect: " + seconds + "seconds");
+    console.log("useEffect:", seconds, "seconds");
     const interval = setInterval(() => {
       setSeconds(seconds => Math.max(seconds - 1, 0));
     }, 1000);

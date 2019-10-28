@@ -118,10 +118,10 @@ export const serverEvents = store => {
     });
   });
 
-  socket.on("hydrateQuestions", answeredQuestions => {
+  socket.on("hydrateQuestions", ({ currentQuestion, answeredQuestions }) => {
     store.dispatch({
       type: e.HYDRATE_ANSWERED_QUESTIONS,
-      payload: { answeredQuestions }
+      payload: { currentQuestion, answeredQuestions }
     });
   });
 
@@ -150,7 +150,8 @@ export const serverEvents = store => {
     store.dispatch(playerNotReadyEvent(playerId));
   });
   socket.on("start", ({ room, currentQuestion }) => {
-    store.dispatch(startEvent({ room, currentQuestion }));
+    const clear = { answeredQuestions: [], answer: null };
+    store.dispatch(startEvent({ room, currentQuestion, ...clear }));
   });
 
   // Host events

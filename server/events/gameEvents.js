@@ -4,7 +4,7 @@ import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
 const gameEvents = async (io, socket, common) => {
-  let timeLimit = null;
+  let timeLimit = false;
   const getTimeLimit = async roomId => {
     const room = await Room.findById(roomId);
     timeLimit = room.timeLimit;
@@ -12,24 +12,28 @@ const gameEvents = async (io, socket, common) => {
 
   // Game: Start timing
   const startTimer = async question => {
-    // console.log("startTimer");
-    if (timeLimit === null) await getTimeLimit(question.roomId);
-    // console.log("timeLimit", timeLimit);
-    if (timeLimit !== 0) {
-      // console.log("question.type", question.type);
-      if (question.type !== "open") {
-        let duration = (timeLimit + 1) * 1000;
-        if (question.round === 1) duration += 4000;
+    if (timeLimit === false) await getTimeLimit(question.roomId);
 
-        common.gameLog(duration / 1000 + "s given");
-        setTimeout(async () => {
-          const timedOutQuestion = await Question.findById(question._id);
-          if (timedOutQuestion.status === "asking") {
-            common.gameLog("Times up for question");
-            endQuestion(question);
-          }
-        }, duration);
+    if (timeLimit !== 0) {
+      let duration = (timeLimit + 0.5) * 1000;
+      let callback = endQuestion;
+
+      if (question.type === "open") {
+        duration *= 2;
+        if (!question.isClosed) callback = closeQuestion;
       }
+
+      if (question.round === 1) duration += 3500;
+
+      common.gameLog(duration / 1000 + "s given");
+
+      setTimeout(async () => {
+        const timedOutQuestion = await Question.findById(question._id);
+        if (timedOutQuestion.status === "asking") {
+          common.gameLog("Times up for question");
+          callback(question);
+        }
+      }, duration);
     }
   };
 
@@ -66,7 +70,7 @@ const gameEvents = async (io, socket, common) => {
     const { round } = completedQuestion;
     const nextQuestion = await Question.draw(roomId, round + 1, recipientId);
     if (nextQuestion) {
-      common.gameLog("Next question");
+      common.gameLog("Next question - " + nextQuestion.text);
       io.to(roomId).emit("nextQuestion", { currentQuestion: nextQuestion });
       startTimer(nextQuestion);
     } else {
@@ -104,20 +108,32 @@ const gameEvents = async (io, socket, common) => {
   };
 
   // Game: Update open-ended answers
-  const openIfAllAnswered = async question => {
+  const closeQuestion = async question => {
+    const { _id: questionId, roomId } = question;
+    const questionWithOptions = await Question.openToRecipient(questionId);
+    const { options } = questionWithOptions;
+
+    if (!options || options.length === 0) {
+      const skippedQuestion = await Question.findById(questionId);
+      return endQuestion(skippedQuestion);
+    }
+
+    common.gameLog("Recipient to answer open-ended question");
+    io.to(roomId).emit("openQuestion", {
+      currentQuestion: questionWithOptions
+    });
+    startTimer({ ...questionWithOptions, roomId });
+  };
+
+  // Game: Update open ended question if all answered
+  const closeIfAllAnswered = async question => {
     const { _id: questionId, roomId, recipientId } = question;
     const allAnswered = await Answer.hasEveryPlayerAnswered(
       roomId,
       questionId,
       recipientId
     );
-    if (!allAnswered) return false;
-
-    const questionWithOptions = await Question.getOptions(questionId);
-    common.gameLog("Recipient to answer open-ended question");
-    io.to(roomId).emit("openQuestion", {
-      currentQuestion: questionWithOptions
-    });
+    if (allAnswered) closeQuestion(question);
   };
 
   // Game: Player answer
@@ -149,7 +165,7 @@ const gameEvents = async (io, socket, common) => {
 
     if (type === "open" && !isRecipient) {
       io.to(roomId).emit("openAnswer", { playerId, answer });
-      openIfAllAnswered(currentQuestion);
+      closeIfAllAnswered(currentQuestion);
     } else {
       io.to(roomId).emit("playerAnswer", playerId);
       completeIfAllAnswered(currentQuestion);

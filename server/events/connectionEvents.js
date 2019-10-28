@@ -38,9 +38,13 @@ const connectionEvents = (io, socket, common) => {
   };
 
   const hydrateQuestions = async roomId => {
-    const answeredQuestions = await Question.findAsked(roomId);
-    common.playerLog("questions hydrated - " + answeredQuestions.length);
-    socket.emit("hydrateQuestions", answeredQuestions);
+    const promises = [
+      Question.getCurrentQuestionInRoomFull(roomId),
+      Question.findAsked(roomId)
+    ];
+    const [currentQuestion, answeredQuestions] = await Promise.all(promises);
+    common.playerLog("questions hydrated");
+    socket.emit("hydrateQuestions", { currentQuestion, answeredQuestions });
   };
 
   const leaveRoom = async () => {
@@ -67,7 +71,6 @@ const connectionEvents = (io, socket, common) => {
       common.startIfAllReady(roomId);
     } else if (room.status === "started") {
       const currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
-      currentQuestion.roomId = roomId;
       common.completeIfAllAnswered(currentQuestion);
     }
   };

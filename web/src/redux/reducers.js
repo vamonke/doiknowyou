@@ -69,8 +69,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case e.SOCKET_OPEN_TO_RECIPIENT: {
       const currentQuestion = {
         ...state.currentQuestion,
-        ...payload.currentQuestion,
-        recipientAnswering: true
+        ...payload.currentQuestion
       };
       return { ...state, currentQuestion };
     }

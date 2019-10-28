@@ -10,7 +10,7 @@ import {
 
 const OpenEndedQuestion = props => {
   const { question, recipient, isRecipient, handleSubmit, answer } = props;
-  const { text, status, recipientAnswering } = question;
+  const { text, status, isClosed } = question;
   const disabled = status !== "asking";
 
   return (
@@ -21,7 +21,7 @@ const OpenEndedQuestion = props => {
         {disabled && <Box variant="whiteOverlay" />}
 
         {isRecipient &&
-          (recipientAnswering ? (
+          (isClosed ? (
             <OpenEndedAnswerRecipient
               question={question}
               handleSubmit={handleSubmit}
@@ -32,7 +32,7 @@ const OpenEndedQuestion = props => {
           ))}
 
         {!isRecipient &&
-          (answer ? (
+          (answer && !isClosed ? (
             <OpenEndedAnswer
               question={question}
               recipientName={recipient.name}

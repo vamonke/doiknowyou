@@ -7,7 +7,7 @@ import { CreateGame, JoinGame } from "../organisms";
 import { leave } from "../redux/actions";
 
 const Home = () => {
-  document.title = 'Do I know you?';
+  document.title = "Do I know you?";
   const [mode, setMode] = useState("home");
   const cancel = () => setMode("home");
   return (
@@ -39,9 +39,9 @@ const Home = () => {
         to add to the question pool.
       </Text>
       <Text variant="p">
-        In each player's turn, he/she will randomly draw a question and answer
-        it in secret. Meanwhile, other players will try to guess his/her answer.
-        Whoever has the correct guess wins 1 point.
+        In each player&apos;s turn, he/she will randomly draw a question and
+        answer it in secret. Meanwhile, other players will try to guess his/her
+        answer. Whoever has the correct guess wins 1 point.
       </Text>
       <Text variant="p">
         Questions will not be repeated and the game ends when the question pool

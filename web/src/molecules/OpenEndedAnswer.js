@@ -3,34 +3,32 @@ import PropTypes from "prop-types";
 import { Box, Text } from "rebass";
 
 const OpenEndedAnswer = ({ question, recipientName }) => {
-  const { recipientAnswering, options } = question;
+  const { isClosed, options } = question;
 
   const waitingMsg =
     "Waiting for " +
-    (recipientAnswering
-      ? recipientName + " to choose"
-      : "Waiting for other players");
+    (isClosed ? recipientName + " to choose" : "Waiting for other players");
 
   return (
     <>
-      <Box fontStyle="italic" mb={3}>
-        {waitingMsg}
-      </Box>
-      {options.map((option, i) => (
-        <Text variant="tag" key={i}>
-          {option}
-        </Text>
-      ))}
+      <Box fontStyle="italic">{waitingMsg}</Box>
+      {options && options.length > 0 && (
+        <Box mt={3}>
+          {options.map((option, i) => (
+            <Text variant="tag" key={i}>
+              {option}
+            </Text>
+          ))}
+        </Box>
+      )}
     </>
   );
 };
 
 OpenEndedAnswer.propTypes = {
   question: PropTypes.shape({
-    recipientAnswering: PropTypes.bool,
-    options: PropTypes.arrayOf(
-      PropTypes.string
-    ),
+    isClosed: PropTypes.bool,
+    options: PropTypes.arrayOf(PropTypes.string.isRequired)
   }).isRequired,
   recipientName: PropTypes.string.isRequired
 };

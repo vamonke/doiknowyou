@@ -34,7 +34,8 @@ const schema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Answer"
       }
-    ]
+    ],
+    isClosed: Boolean
   },
   { versionKey: false }
 );
@@ -110,6 +111,9 @@ export const getCurrentQuestionInRoom = roomId =>
     { correctAnswer: 1, recipientId: 1, type: 1 }
   ).lean();
 
+export const getCurrentQuestionInRoomFull = roomId =>
+  Question.findOne({ roomId, status: "asking" }).lean();
+
 export const setCorrectAnswer = (id, correctAnswer) =>
   Question.findByIdAndUpdate(
     id,
@@ -120,7 +124,16 @@ export const setCorrectAnswer = (id, correctAnswer) =>
     }
   ).lean();
 
-export const getOptions = id => Question.findById(id, { options: 1 }).lean();
+export const openToRecipient = id => 
+  Question.findByIdAndUpdate(
+    id,
+    { isClosed: true },
+    {
+      new: true,
+      select: { isClosed: 1, options: 1, type: 1 },
+      lean: true
+    }
+  );
 
 export const complete = (id, answers) =>
   Question.findByIdAndUpdate(

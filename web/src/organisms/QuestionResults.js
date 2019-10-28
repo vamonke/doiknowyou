@@ -48,19 +48,19 @@ const QuestionResults = ({ question, players, hide }) => {
             {text}
           </Box>
           <Card display="inline-block" minWidth={150}>
-            <Text variant="blackSmall">
-              {recipient.name}:
-            </Text>
+            <Text variant="blackSmall">{recipient.name}:</Text>
             <Box fontSize={4}>{displayCorrect()}</Box>
           </Card>
         </Box>
-        <ResultsTable
-          options={options}
-          answers={answers}
-          correctAnswer={correctAnswer}
-          players={players}
-          recipientId={recipientId}
-        />
+        {options && options.length > 0 && (
+          <ResultsTable
+            options={options}
+            answers={answers}
+            correctAnswer={correctAnswer}
+            players={players}
+            recipientId={recipientId}
+          />
+        )}
         <Button onClick={hide} width={1} mt={3}>
           Continue
         </Button>

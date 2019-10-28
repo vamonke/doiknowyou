@@ -31,6 +31,17 @@ const OpenEndedAnswerRecipient = props => {
   const { question, handleSubmit } = props;
   const { options } = question;
 
+  if (!options || options.length === 0) {
+    return (
+      <>
+        <Box mb={3}>{"No options provided :("}</Box>
+        <Button type="button" width={1} onClick={() => handleSubmit()}>
+          Skip
+        </Button>
+      </>
+    );
+  }
+
   const onSubmit = values => {
     const answer = Object.keys(values)
       .filter(key => values[key])

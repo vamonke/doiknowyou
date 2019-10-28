@@ -58,7 +58,9 @@ export const fetchQuestionBank = () => {
   };
 };
 
-export const reset = () => async dispatch => await dispatch({ type: RESET });
+// export const reset = () => async dispatch => {
+//   await dispatch({ type: RESET });
+// };
 
 export const joinGame = (roomNo, playerName) => {
   const params = { roomNo, playerName };
@@ -75,6 +77,7 @@ export const joinGame = (roomNo, playerName) => {
 export const leave = () => {
   return async dispatch => {
     leaveRoom();
+    console.log("Reset");
     dispatch({ type: RESET });
   };
 };

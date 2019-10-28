@@ -29,11 +29,17 @@ const Game = props => {
     players,
     dispatch
   } = props;
+  const { _id: currentQuestionId, type, isClosed = false, round } =
+    currentQuestion || {};
+  const { _id: roomId, number: roomNo, nextRoomNo, status, timeLimit } = room;
+  const { _id: viewerId, name: viewerName } = viewer;
+  const { _id: recipientId } = recipient;
+  const isRecipient = recipientId === viewerId;
 
   useEffect(() => {
     console.log("useEffect: Join room");
     joinRoom(viewer);
-  }, [viewer._id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [showResults, setShowResults] = useState(true);
   const lastQuestion = answeredQuestions[0] || {};
@@ -43,16 +49,13 @@ const Game = props => {
     setShowResults(true);
   }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!viewer._id || !room._id) {
+  if (!viewerId || !roomId) {
     return <JoinGame lobby />;
   }
 
-  document.title = `Do I know you? #${room.number}`;
+  document.title = `Do I know you? #${roomNo}`;
 
-  if (
-    players.length > 0 &&
-    !players.find(player => player._id === viewer._id)
-  ) {
+  if (players.length > 0 && !players.find(player => player._id === viewerId)) {
     return <Disconnected />;
   }
 
@@ -65,11 +68,14 @@ const Game = props => {
   };
 
   const showCurrentQuestion =
-    room.status === "started" && Object.keys(currentQuestion).length > 1;
+    status === "started" && Object.keys(currentQuestion).length > 1;
+
+  let showTimer =
+    timeLimit !== 0 && (type === "open" ? isRecipient === isClosed : true);
 
   return (
     <>
-      {room.status === "ended" && (
+      {status === "ended" && (
         <Text
           textAlign="center"
           fontSize={4}
@@ -85,21 +91,22 @@ const Game = props => {
         <Card>
           <Heading variant="blackSmall">
             <Flex justifyContent="space-between">
-              <Text>Round {currentQuestion.round}</Text>
-              {room.timeLimit !== 0 && (
+              <Text>Round {round}</Text>
+              {showTimer && (
                 <QuestionTimer
-                  timeLimit={room.timeLimit}
+                  timeLimit={timeLimit}
                   timesUp={handleTimesUp}
-                  currentQuestionId={currentQuestion._id}
+                  currentQuestionId={currentQuestionId}
+                  type={type}
                 />
               )}
             </Flex>
           </Heading>
-          {currentQuestion.type === "open" ? (
+          {type === "open" ? (
             <OpenEndedQuestion
               question={currentQuestion}
               recipient={recipient}
-              isRecipient={recipient._id === viewer._id}
+              isRecipient={isRecipient}
               handleSubmit={handleClick}
               answer={answer}
             />
@@ -107,7 +114,7 @@ const Game = props => {
             <CurrentQuestion
               question={currentQuestion}
               recipient={recipient}
-              isRecipient={recipient._id === viewer._id}
+              isRecipient={isRecipient}
               handleClick={handleClick}
               answer={answer}
             />
@@ -121,7 +128,7 @@ const Game = props => {
         <GamePlayerList
           players={players}
           viewer={viewer}
-          recipientId={recipient._id}
+          recipientId={recipientId}
         />
       )}
 
@@ -142,9 +149,9 @@ const Game = props => {
         </Card>
       )}
 
-      {room.status === "ended" && room.nextRoomNo && (
+      {status === "ended" && nextRoomNo && (
         <Box mt={4}>
-          <Restart nextRoomNo={room.nextRoomNo} viewerName={viewer.name} />
+          <Restart nextRoomNo={nextRoomNo} viewerName={viewerName} />
         </Box>
       )}
 
@@ -163,10 +170,12 @@ const mapStateToProps = (state = {}) => {
   const players = Object.values(state.players).sort(
     (a, b) => b.score - a.score
   );
-  const recipient = state.players[state.currentQuestion.recipientId] || {};
+  const recipient = state.currentQuestion
+    ? state.players[state.currentQuestion.recipientId]
+    : {};
   const viewer = {
     ...state.viewer,
-    ...state.players[state.viewer._id]
+    ...state.players[state.viewerId]
   };
   return { ...state, players, viewer, recipient };
 };
