@@ -15,14 +15,14 @@
     "axios": "^0.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.7.1",
+    "mongoose": ">=5.7.5",
     "react-router-redux": "^4.0.8",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/node": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "nodemon": "^1.19.2"
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "nodemon": "^1.19.4"
   }
 }
