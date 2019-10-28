@@ -110,11 +110,11 @@ export const serverEvents = store => {
     const payload = { players: playersObj };
     store.dispatch({ type: e.SOCKET_PLAYER_LIST, payload });
   });
-  
+
   socket.on("hydrateRoom", room => {
     store.dispatch({
       type: e.HYDRATE_ROOM,
-      payload:{ room }
+      payload: { room }
     });
   });
 
@@ -131,7 +131,7 @@ export const serverEvents = store => {
       payload: answeredPlayers
     });
   });
-  
+
   socket.on("refresh", () => {
     console.log("Attemping to reconnect to server");
     window.location.reload();
@@ -166,7 +166,7 @@ export const serverEvents = store => {
   // Game events
   socket.on("playerAnswer", playerId => {
     store.dispatch(playerAnsweredEvent(playerId));
-  })
+  });
   socket.on("openAnswer", ({ playerId, answer }) => {
     const payload = { playerId, answer };
     store.dispatch({ type: e.SOCKET_PLAYER_ANSWERED_OPEN, payload });

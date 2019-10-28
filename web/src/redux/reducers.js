@@ -50,39 +50,43 @@ const reducers = (state = defaultState, { type, payload }) => {
       state.players[payload].isReady = false;
       return { ...state };
 
-    case e.HOST_SETTING:
+    case e.HOST_SETTING: {
       const room = { ...state.room, ...payload };
       return { ...state, room };
+    }
 
     case e.SOCKET_PLAYER_ANSWERED:
       state.players[payload].hasAnswered = true;
       return { ...state };
 
-    case e.SOCKET_PLAYER_ANSWERED_OPEN:
+    case e.SOCKET_PLAYER_ANSWERED_OPEN: {
       const { playerId, answer } = payload;
       state.currentQuestion.options.push(answer);
       state.players[playerId].hasAnswered = true;
       return { ...state };
+    }
 
-    case e.SOCKET_OPEN_TO_RECIPIENT:
+    case e.SOCKET_OPEN_TO_RECIPIENT: {
       const currentQuestion = {
         ...state.currentQuestion,
         ...payload.currentQuestion,
         recipientAnswering: true
       };
       return { ...state, currentQuestion };
+    }
 
     case e.SOCKET_QUESTION_COMPLETE:
       state.currentQuestion.status = "asked";
       return { ...state };
 
-    case e.SOCKET_QUESTION_RESULTS:
+    case e.SOCKET_QUESTION_RESULTS: {
       const players = { ...state.players, ...payload.players };
       for (const id in players) {
         players[id].hasAnswered = false;
       }
       state.answeredQuestions.unshift(payload.question);
       return { ...state, players };
+    }
 
     case e.HYDRATE_ANSWERED_PLAYERS:
       payload.forEach(playerId => {

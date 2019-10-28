@@ -87,6 +87,7 @@ const gameEvents = async (io, socket, common) => {
         player => player._id.toString() === recipientId
       );
       if (recipientInGame) return;
+      console.log("Recipient not in game - ", common.players);
     }
 
     const completed = await Answer.hasEveryPlayerAnswered(
