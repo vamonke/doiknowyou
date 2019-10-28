@@ -19,6 +19,7 @@ const lobbyEvents = (io, socket, common) => {
     
     const currentQuestion = await Question.draw(roomId, 1, null);
     const room = await Room.start(roomId);
+    common.gameLog("Game start");
     io.to(roomId).emit("start", { room, currentQuestion });
 
     common.startTimer(currentQuestion);

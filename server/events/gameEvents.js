@@ -12,8 +12,11 @@ const gameEvents = async (io, socket, common) => {
 
   // Game: Start timing
   const startTimer = async question => {
+    // console.log("startTimer");
     if (timeLimit === null) await getTimeLimit(question.roomId);
+    // console.log("timeLimit", timeLimit);
     if (timeLimit !== 0) {
+      // console.log("question.type", question.type);
       if (question.type !== "open") {
         let duration = (timeLimit + 1) * 1000;
         if (question.round === 1) duration += 4000;

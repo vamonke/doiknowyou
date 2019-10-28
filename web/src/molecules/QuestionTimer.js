@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 
-const QuestionCountdown = ({ timeLimit, timesUp }) => {
+const QuestionTimer = ({ timeLimit, timesUp, currentQuestionId }) => {
   const [seconds, setSeconds] = useState(timeLimit);
 
   useEffect(() => {
+    setSeconds(timeLimit);
+  }, [currentQuestionId]);
+
+  useEffect(() => {
+    console.log("useEffect: " + seconds + "seconds");
     const interval = setInterval(() => {
       setSeconds(seconds => Math.max(seconds - 1, 0));
     }, 1000);
@@ -15,7 +20,7 @@ const QuestionCountdown = ({ timeLimit, timesUp }) => {
     return () => clearInterval(interval);
   }, [seconds]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (seconds === 0 ? "Time's up" : seconds);
+  return seconds === 0 ? "Time's up" : seconds;
 };
 
-export default QuestionCountdown;
+export default QuestionTimer;

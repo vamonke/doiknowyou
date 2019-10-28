@@ -8,7 +8,7 @@ import {
   GamePlayerList,
   Disconnected,
   Restart,
-  QuestionCountdown
+  QuestionTimer
 } from "../molecules";
 import {
   JoinGame,
@@ -86,12 +86,13 @@ const Game = props => {
           <Heading variant="blackSmall">
             <Flex justifyContent="space-between">
               <Text>Round {currentQuestion.round}</Text>
-              {room.timeLimit !== 0 &&
-                <QuestionCountdown
+              {room.timeLimit !== 0 && (
+                <QuestionTimer
                   timeLimit={room.timeLimit}
                   timesUp={handleTimesUp}
+                  currentQuestionId={currentQuestion._id}
                 />
-              }
+              )}
             </Flex>
           </Heading>
           {currentQuestion.type === "open" ? (

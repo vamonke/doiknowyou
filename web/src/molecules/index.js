@@ -7,8 +7,10 @@ export { default as LobbyQuestionOptions } from "./LobbyQuestionOptions";
 export { default as LobbySelectOptions } from "./LobbySelectOptions";
 export { default as OpenEndedAnswer } from "./OpenEndedAnswer";
 export { default as OpenEndedAnswerForm } from "./OpenEndedAnswerForm";
-export { default as OpenEndedAnswerRecipient } from "./OpenEndedAnswerRecipient";
-export { default as QuestionCountdown } from "./QuestionCountdown";
+export {
+  default as OpenEndedAnswerRecipient
+} from "./OpenEndedAnswerRecipient";
+export { default as QuestionTimer } from "./QuestionTimer";
 export { default as QuestionText } from "./QuestionText";
 export { default as RandomQuestion } from "./RandomQuestion";
 export { default as Restart } from "./Restart";
