@@ -93,7 +93,7 @@ LobbyQuestion.propTypes = {
       ),
       type: PropTypes.string,
     })
-  ).isRequired,
+  ),
   handleChange: PropTypes.func.isRequired,
   setFieldValue: PropTypes.func.isRequired
 };

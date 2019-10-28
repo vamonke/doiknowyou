@@ -43,7 +43,7 @@ randomQuestion.propTypes = {
       ),
       type: PropTypes.string,
     })
-  ).isRequired,
+  ),
   setFieldValue: PropTypes.func.isRequired
 };
 

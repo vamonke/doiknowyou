@@ -59,9 +59,9 @@ const hostEvents = (io, socket, common) => {
     if (room.status === "created") {
       common.startIfAllReady(roomId);
     }
-
-    Object.assign(common, { newHost });
   });
+
+  Object.assign(common, { newHost });
 };
 
 export default hostEvents;
