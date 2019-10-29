@@ -3,6 +3,8 @@ import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
+import { error, socketLog } from "../logs";
+
 const getSocketPlayerIds = io => {
   const ids = [];
   const sockets = io.sockets.sockets;
@@ -106,11 +108,7 @@ const connectionEvents = (io, socket, common) => {
 
   socket.missingPlayer = () => {
     if (!socket.player) {
-      console.error(
-        "\x1b[31mMissing player from socket:",
-        socket.id,
-        "\x1b[0m"
-      );
+      error("Missing player from socket: " + socket.id);
       socket.emit("refresh");
       // socket.emit("disconnected");
       return true;
@@ -120,11 +118,7 @@ const connectionEvents = (io, socket, common) => {
     );
 
     if (!playerInRoom) {
-      console.error(
-        "\x1b[31mSocket player not in player list:",
-        socket.player.name,
-        "\x1b[0m"
-      );
+      error("Socket player not in player list: " + socket.player.name);
       socket.emit("disconnected");
       return true;
     }
@@ -134,21 +128,19 @@ const connectionEvents = (io, socket, common) => {
   socket.on("leave", leaveRoom);
 
   socket.on("disconnect", async () => {
-    // Check if socket has a player attached
     if (!socket.player) return;
-    // console.info("Socket: " + socket.id + " [DISCONNECTED]");
 
     const { _id, name, roomId } = socket.player;
     const room = await Room.findById(roomId);
     if (room.status === "ended") return;
 
-    console.info("Socket: " + name + " [DISCONNECTED]");
+    socketLog(name + " disconnected");
 
     setTimeout(() => {
       const socketPlayerIds = getSocketPlayerIds(io);
       if (socketPlayerIds.includes(_id)) {
         // Another socket has been created with the same player id
-        console.info("Socket: " + name + " [RECONNECTED]");
+        socketLog(name + " reconnected");
       } else {
         // No socket has been created with the same player id
         leaveRoom();

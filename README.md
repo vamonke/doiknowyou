@@ -17,3 +17,8 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [ ] Room logs
 - [ ] Admin page
 - [ ] Projection mode
+
+### To-Do
+- [x] Add logger
+- [ ] Deploy on Heroku
+- [ ] Get a custom domain name

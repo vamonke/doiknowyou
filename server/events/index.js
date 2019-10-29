@@ -1,4 +1,4 @@
-import * as Log from "../logger";
+import { gameLog, playerLog } from "../logs";
 
 import connectionEvents from "./connectionEvents";
 import lobbyEvents from "./lobbyEvents";
@@ -12,10 +12,10 @@ const socketEvents = (io, socket) => {
     players: [],
     gameLog: msg => {
       if (socket.player && socket.player.roomId)
-        Log.gameLog(socket.player.roomId, msg);
+        gameLog(socket.player.roomId, msg);
     },
     playerLog: msg => {
-      if (socket.player) Log.playerLog(socket.player, msg);
+      if (socket.player) playerLog(socket.player, msg);
     }
   };
 

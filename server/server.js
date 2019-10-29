@@ -23,7 +23,7 @@ mongoose.connect("mongodb://localhost:27017/doiknowyou2", {
 });
 mongoose.set("useCreateIndex", true);
 
-// TODO: Lean
+// TODO: Lean queries
 // const __setOptions = mongoose.Query.prototype.setOptions;
 // mongoose.Query.prototype.setOptions = (options, overwrite) => {
 //   __setOptions.apply(this, arguments);
