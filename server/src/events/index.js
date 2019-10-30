@@ -1,4 +1,4 @@
-import { gameLog, playerLog } from "../logs";
+import { gameLog, playerLog } from "../logger";
 
 import connectionEvents from "./connectionEvents";
 import lobbyEvents from "./lobbyEvents";

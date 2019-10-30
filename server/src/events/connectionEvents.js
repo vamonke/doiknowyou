@@ -3,7 +3,7 @@ import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
-import { error, socketLog } from "../logs";
+import { error, socketLog } from "../logger";
 
 const getSocketPlayerIds = io => {
   const ids = [];
