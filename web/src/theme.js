@@ -30,7 +30,9 @@ export default {
       p: 3,
       borderWidth: 1,
       borderStyle: "solid",
-      borderColor: "black"
+      borderColor: "black",
+      overflow: "hidden",
+      position: "relative"
       // boxShadow: "0 0 24px rgba(0, 0, 0, .125)",
       // borderRadius: 3,
     },
@@ -50,7 +52,7 @@ export default {
         left: 0,
         top: 0,
         bottom: 0,
-        zIndex: -1,
+        zIndex: -1
       }
     },
     modalBody: {
@@ -59,7 +61,7 @@ export default {
       p: 3,
       borderWidth: 1,
       borderStyle: "solid",
-      borderColor: "black",
+      borderColor: "black"
     },
     row: {
       // borderWidth: 1,
@@ -71,7 +73,7 @@ export default {
         py: 3
       },
       "&:last-child": {
-        border: "none",
+        border: "none"
         // "> *": {
         //   pb: 0
         // }
@@ -122,7 +124,7 @@ export default {
       right: 0,
       left: 0,
       backgroundColor: "rgba(255, 255, 255, 0.8)"
-    },
+    }
   },
   text: {
     error: {
@@ -150,7 +152,7 @@ export default {
       py: 2,
       px: 3,
       m: -3,
-      mb: 3,
+      mb: 3
     },
     blackSmall: {
       fontWeight: 400,
@@ -160,7 +162,7 @@ export default {
       px: 3,
       fontSize: 2,
       m: -3,
-      mb: 3,
+      mb: 3
     },
     subtitle: {
       fontStyle: "italic",
@@ -188,7 +190,7 @@ export default {
         p: 1,
         mx: 2,
         fontSize: "10pt",
-        verticalAlign: 1,
+        verticalAlign: 1
       }
     },
     tagLarge: {
@@ -209,12 +211,12 @@ export default {
         fontSize: 0,
         textAlign: "center",
         verticalAlign: "text-bottom",
-        mr: 2,
+        mr: 2
       },
       "input:checked + &": {
         "&::before": {
           backgroundColor: "black",
-          color: "white",
+          color: "white"
         }
       }
     }
@@ -232,7 +234,7 @@ export default {
       outline: "none",
       "&:disabled": {
         bg: "grey",
-        borderColor: "grey",
+        borderColor: "grey"
       }
     },
     secondary: {
@@ -269,14 +271,14 @@ export default {
       outline: "none",
       position: "absolute",
       right: 1,
-      top: 1,
+      top: 1
     },
     link: {
       cursor: "pointer",
       color: "black",
       border: "none",
       borderRadius: 0,
-      p: 0,
+      p: 0
     }
   },
   input: {},
@@ -289,7 +291,7 @@ export default {
       },
       "&[type=radio]": {
         border: "none"
-      },
+      }
     },
     error: {
       borderColor: "red",
@@ -306,7 +308,7 @@ export default {
       width: "auto",
       "& input": {
         display: "none"
-      },
+      }
     },
     radio: {
       color: "black"

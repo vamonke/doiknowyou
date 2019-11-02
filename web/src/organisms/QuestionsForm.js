@@ -1,10 +1,27 @@
 import React, { useState } from "react";
 import { withFormik } from "formik";
+import { motion, AnimatePresence } from "framer-motion";
+import { Box } from "rebass";
 
-import { Waiting } from "../molecules";
+import { Waiting, LobbyPrevNext } from "../molecules";
 import LobbyQuestion from "./LobbyQuestion";
 
 const QUESTIONS_COUNT = 3;
+
+const variants = {
+  enter: direction => ({
+    position: "absolute",
+    x: direction < 0 ? "-150%" : "150%"
+  }),
+  center: {
+    position: "relative",
+    x: 0
+  },
+  exit: direction => ({
+    position: "absolute",
+    x: direction < 0 ? "150%" : "-150%"
+  })
+};
 
 const QuestionsForm = props => {
   const {
@@ -17,22 +34,26 @@ const QuestionsForm = props => {
     setFieldValue
   } = props;
   const { questions } = values;
-  const [currentQn, setCurrentQn] = useState(isReady ? QUESTIONS_COUNT : 0);
 
-  const prev = () => {
-    setCurrentQn(Math.max(currentQn - 1, 0));
-  };
+  const [[currentQnNo, direction], setCurrentQnNo] = useState([
+    isReady ? QUESTIONS_COUNT : 0,
+    0
+  ]);
 
   const edit = () => {
     onNotReady();
-    setCurrentQn(0);
+    setCurrentQnNo([0, -1]);
+  };
+
+  const prev = () => {
+    setCurrentQnNo([Math.max(currentQnNo - 1, 0), -1]);
   };
 
   const next = () => {
-    if (currentQn === QUESTIONS_COUNT - 1) {
+    if (currentQnNo === QUESTIONS_COUNT - 1) {
       handleSubmit();
     }
-    setCurrentQn((currentQn + 1) % (QUESTIONS_COUNT + 1));
+    setCurrentQnNo([currentQnNo + 1, 1]);
   };
 
   while (questions.length < QUESTIONS_COUNT) {
@@ -40,25 +61,45 @@ const QuestionsForm = props => {
   }
 
   return (
-    <>
-      {questions.map(
-        (question, questionNo) =>
-          currentQn === questionNo && (
+    <Box m={-3} mt={-4}>
+      <AnimatePresence initial={false} custom={direction}>
+        <motion.div
+          style={{ width: "100%", padding: "16px", boxSizing: "border-box" }}
+          key={currentQnNo}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          custom={direction}
+          transition={{ ease: "backOut" }}
+        >
+          {currentQnNo === QUESTIONS_COUNT ? (
+            <Waiting edit={edit} />
+          ) : (
             <LobbyQuestion
-              {...question}
-              key={questionNo}
-              questionNo={questionNo}
-              prev={prev}
-              next={next}
+              {...questions[currentQnNo]}
+              key={currentQnNo}
+              questionNo={currentQnNo}
               questionBank={questionBank}
               handleChange={handleChange}
               setFieldValue={setFieldValue}
             />
-          )
-      )}
+          )}
+        </motion.div>
+      </AnimatePresence>
 
-      {currentQn === QUESTIONS_COUNT && <Waiting edit={edit} />}
-    </>
+      {currentQnNo !== QUESTIONS_COUNT && (
+        <Box
+          mt={-3}
+          p={3}
+          pt={0}
+          bg="white"
+          sx={{ position: "relative", zIndex: 1 }}
+        >
+          <LobbyPrevNext questionNo={currentQnNo} prev={prev} next={next} />
+        </Box>
+      )}
+    </Box>
   );
 };
 
@@ -81,7 +122,7 @@ const formOptions = {
   enableReinitialize: false,
   handleSubmit: values => {
     const { onReady, questions } = values;
-    onReady(trim((questions)));
+    onReady(trim(questions));
   },
   displayName: "QuestionsForm"
 };

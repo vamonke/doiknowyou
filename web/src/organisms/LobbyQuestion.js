@@ -7,12 +7,11 @@ import { Field } from "formik";
 import {
   RandomQuestion,
   LobbySelectOptions,
-  LobbyQuestionOptions,
-  LobbyPrevNext
+  LobbyQuestionOptions
 } from "../molecules";
 
 const placeholderMapping = [
-  "Write a question to get to know other players (Hint: press \"Random\")",
+  'Write a question to get to know other players (Hint: press "Random")',
   "You can choose different types of answers for your question",
   "You can leave a question blank too!"
 ];
@@ -23,8 +22,6 @@ const LobbyQuestion = props => {
     type,
     options,
     questionNo,
-    prev,
-    next,
     questionBank,
     handleChange,
     setFieldValue
@@ -34,7 +31,7 @@ const LobbyQuestion = props => {
     <>
       <Flex justifyContent="space-between" mt={3}>
         <Text variant="bold">{`Question ${questionNo + 1} of 3`}</Text>
-        <RandomQuestion 
+        <RandomQuestion
           questionNo={questionNo}
           questionBank={questionBank}
           setFieldValue={setFieldValue}
@@ -59,28 +56,22 @@ const LobbyQuestion = props => {
         setFieldValue={setFieldValue}
       />
 
-      {options &&
+      {options && (
         <LobbyQuestionOptions options={options} questionNo={questionNo} />
-      }
+      )}
 
-      {type === "players" &&
-        <Input placeholder="Players" disabled />
-      }
+      {type === "players" && <Input placeholder="Players" disabled />}
 
       {type === "open" && (
         <Input placeholder="Open-ended (best answer selected)" disabled />
       )}
-
-      <LobbyPrevNext questionNo={questionNo} prev={prev} next={next} />
     </>
   );
 };
 
 LobbyQuestion.propTypes = {
   type: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.string
-  ),
+  options: PropTypes.arrayOf(PropTypes.string),
   questionNo: PropTypes.number.isRequired,
   prev: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
@@ -88,10 +79,8 @@ LobbyQuestion.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
-      options: PropTypes.arrayOf(
-        PropTypes.string
-      ),
-      type: PropTypes.string,
+      options: PropTypes.arrayOf(PropTypes.string),
+      type: PropTypes.string
     })
   ),
   handleChange: PropTypes.func.isRequired,
