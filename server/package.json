@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start-dev": "nodemon --exec babel-node src/index.js",
-    "build": "babel src -d build",
+    "build": "babel src -d build --copy-files",
     "start": "npm run build && node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

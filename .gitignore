@@ -25,4 +25,5 @@ yarn-debug.log*
 yarn-error.log*
 
 server/logs/*.log
-# web/.env
+server/build
+web/.env
