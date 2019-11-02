@@ -22,3 +22,8 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [x] Add logger
 - [ ] Deploy on Heroku
 - [ ] Get a custom domain name
+
+### Commands
+
+git subtree push --prefix server heroku-server master
+git subtree push --prefix web heroku-web master
