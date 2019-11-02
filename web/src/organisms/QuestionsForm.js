@@ -61,17 +61,17 @@ const QuestionsForm = props => {
   }
 
   return (
-    <Box m={-3} mt={-4}>
+    <Box m={-3} style={{ position: "relative" }}>
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          style={{ width: "100%", padding: "16px", boxSizing: "border-box" }}
+          style={{ width: "100%", padding: 16, boxSizing: "border-box" }}
           key={currentQnNo}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
           custom={direction}
-          transition={{ ease: "backOut" }}
+          transition={{ ease: "backOut", duration: 0.4 }}
         >
           {currentQnNo === QUESTIONS_COUNT ? (
             <Waiting edit={edit} />

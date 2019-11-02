@@ -29,7 +29,7 @@ const LobbyQuestion = props => {
 
   return (
     <>
-      <Flex justifyContent="space-between" mt={3}>
+      <Flex justifyContent="space-between">
         <Text variant="bold">{`Question ${questionNo + 1} of 3`}</Text>
         <RandomQuestion
           questionNo={questionNo}
@@ -73,8 +73,6 @@ LobbyQuestion.propTypes = {
   type: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string),
   questionNo: PropTypes.number.isRequired,
-  prev: PropTypes.func.isRequired,
-  next: PropTypes.func.isRequired,
   questionBank: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,

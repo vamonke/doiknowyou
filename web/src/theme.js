@@ -37,23 +37,26 @@ export default {
       // borderRadius: 3,
     },
     modal: {
-      position: "absolute",
-      right: 3,
-      left: 3,
-      top: 3,
+      position: "fixed",
+      right: 0,
+      left: 0,
+      top: [0, 2, 3, 4],
+      my: 0,
+      px: [0, 2, 3, 4],
+      mx: "auto",
       maxWidth: 540,
-      zIndex: 10,
-      "&::before": {
-        content: "''",
-        backgroundColor: "rgba(0, 0, 0, 0.75)",
-        borderColor: "black",
-        position: "fixed",
-        right: 0,
-        left: 0,
-        top: 0,
-        bottom: 0,
-        zIndex: -1
-      }
+      zIndex: 10
+      // "&::before": {
+      //   content: "''",
+      //   backgroundColor: "rgba(0, 0, 0, 0.75)",
+      //   borderColor: "black",
+      //   position: "fixed",
+      //   right: 0,
+      //   left: 0,
+      //   top: 0,
+      //   bottom: 0,
+      //   zIndex: -1
+      // }
     },
     modalBody: {
       zIndex: 1,

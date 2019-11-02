@@ -85,8 +85,9 @@ const Lobby = props => {
         />
       )}
 
-      {isHost && showSettings && (
+      {isHost && (
         <Settings
+          isOpen={showSettings}
           room={room}
           hide={() => setShowSettings(false)}
           dispatch={dispatch}
