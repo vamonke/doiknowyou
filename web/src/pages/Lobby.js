@@ -5,6 +5,7 @@ import { joinRoom, playerReady, playerNotReady } from "../redux/client";
 
 import { QuestionsForm, JoinGame, Settings } from "../organisms";
 import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
+import { Modal } from "../atoms";
 
 const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
@@ -86,12 +87,13 @@ const Lobby = props => {
       )}
 
       {isHost && (
-        <Settings
-          isOpen={showSettings}
-          room={room}
-          hide={() => setShowSettings(false)}
-          dispatch={dispatch}
-        />
+        <Modal isOpen={showSettings} hide={() => setShowSettings(false)}>
+          <Settings
+            room={room}
+            dispatch={dispatch}
+            hide={() => setShowSettings(false)}
+          />
+        </Modal>
       )}
     </>
   );

@@ -33,39 +33,37 @@ const QuestionResults = ({ question, players, hide }) => {
   };
 
   return (
-    <Card variant="modal">
-      <Box variant="modalBody">
-        <Heading variant="blackSmall">
-          <Flex justifyContent="space-between">
-            <Text>{"Round " + round + " results"}</Text>
-            <Button type="button" p={0} onClick={hide}>
-              ✕
-            </Button>
-          </Flex>
-        </Heading>
-        <Box textAlign="center" mb={3}>
-          <Box fontSize={2} mt={1} mb={3}>
-            {text}
-          </Box>
-          <Card display="inline-block" minWidth={150}>
-            <Text variant="blackSmall">{recipient.name}:</Text>
-            <Box fontSize={4}>{displayCorrect()}</Box>
-          </Card>
+    <>
+      <Heading variant="blackSmall">
+        <Flex justifyContent="space-between">
+          <Text>{"Round " + round + " results"}</Text>
+          <Button type="button" p={0} onClick={hide}>
+            ✕
+          </Button>
+        </Flex>
+      </Heading>
+      <Box textAlign="center" mb={3}>
+        <Box fontSize={2} mt={1} mb={3}>
+          {text}
         </Box>
-        {options && options.length > 0 && (
-          <ResultsTable
-            options={options}
-            answers={answers}
-            correctAnswer={correctAnswer}
-            players={players}
-            recipientId={recipientId}
-          />
-        )}
-        <Button onClick={hide} width={1} mt={3}>
-          Continue
-        </Button>
+        <Card display="inline-block" minWidth={150}>
+          <Text variant="blackSmall">{recipient.name}:</Text>
+          <Box fontSize={4}>{displayCorrect()}</Box>
+        </Card>
       </Box>
-    </Card>
+      {options && options.length > 0 && (
+        <ResultsTable
+          options={options}
+          answers={answers}
+          correctAnswer={correctAnswer}
+          players={players}
+          recipientId={recipientId}
+        />
+      )}
+      <Button onClick={hide} width={1} mt={3}>
+        Continue
+      </Button>
+    </>
   );
 };
 

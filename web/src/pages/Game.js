@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Flex, Card, Heading, Box, Text } from "rebass";
 
 import { joinRoom, playerAnswer, timesUp } from "../redux/client";
+import { Modal } from "../atoms";
 
 import {
   GamePlayerList,
@@ -36,7 +37,7 @@ const Game = props => {
   const { _id: currentQuestionId, type, round } = currentQuestion || {};
   const { _id: roomId, number: roomNo, nextRoomNo, status, timeLimit } = room;
   const { _id: viewerId, name: viewerName } = viewer;
-  const { _id: recipientId } = recipient;
+  const { _id: recipientId, name: recipientName } = recipient;
   const isRecipient = recipientId === viewerId;
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const Game = props => {
 
   useEffect(() => {
     console.log("useEffect: Show last question");
-    setShowResults(true);
+    setShowResults(answeredQuestions.length > 0);
   }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!viewerId || !roomId) {
@@ -117,7 +118,7 @@ const Game = props => {
           ) : (
             <CurrentQuestion
               question={currentQuestion}
-              recipient={recipient}
+              recipientName={recipientName}
               isRecipient={isRecipient}
               handleClick={handleClick}
               answer={answer}
@@ -159,13 +160,13 @@ const Game = props => {
         </Box>
       )}
 
-      {showResults && answeredQuestions.length > 0 && (
+      <Modal isOpen={showResults} hide={() => setShowResults(false)}>
         <QuestionResults
           question={lastQuestion}
           players={players}
           hide={() => setShowResults(false)}
         />
-      )}
+      </Modal>
     </>
   );
 };

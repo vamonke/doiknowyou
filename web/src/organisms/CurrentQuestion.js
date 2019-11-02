@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Flex, Box, Button, Text } from "rebass";
 import { motion } from "framer-motion";
 
@@ -25,17 +26,18 @@ const fill = {
   }
 };
 
-const style = {
+const fillStyle = {
   position: "absolute",
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
+  opacity: 0,
   background: "black"
 };
 
 const CurrentQuestion = props => {
-  const { question, recipient, isRecipient, answer, handleClick } = props;
+  const { question, recipientName, isRecipient, answer, handleClick } = props;
   const { text, options, status } = question;
   const disabled = status !== "asking";
   const getVariant = index => (index === answer ? "selected" : "secondary");
@@ -44,14 +46,14 @@ const CurrentQuestion = props => {
 
   return (
     <Box variant="relative" textAlign="center">
-      <QuestionText text={text} recipientName={recipient.name} />
+      <QuestionText text={text} recipientName={recipientName} />
 
       <Box variant="relative">
         {disabled && <Box variant="whiteOverlay" />}
 
         {!isRecipient && (
           <Text mb={3} variant="subtitle">
-            Guess {recipient.name}&apos;s answer
+            Guess {recipientName}&apos;s answer
           </Text>
         )}
 
@@ -65,7 +67,7 @@ const CurrentQuestion = props => {
                 sx={{ position: "relative" }}
               >
                 <motion.div
-                  style={{ ...style, right: 8, left: 8 }}
+                  style={{ ...fillStyle, right: 8, left: 8 }}
                   animate={getVariant(index)}
                   variants={fill}
                 />
@@ -84,7 +86,7 @@ const CurrentQuestion = props => {
           options.map((option, index) => (
             <Box key={index} sx={{ position: "relative" }}>
               <motion.div
-                style={{ ...style, top: 4, bottom: 4 }}
+                style={{ ...fillStyle, top: 4, bottom: 4 }}
                 animate={getVariant(index)}
                 variants={fill}
               />
@@ -109,6 +111,18 @@ const CurrentQuestion = props => {
       </Box>
     </Box>
   );
+};
+
+CurrentQuestion.propTypes = {
+  question: PropTypes.shape({
+    text: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.string),
+    status: PropTypes.string
+  }).isRequired,
+  recipientName: PropTypes.string,
+  isRecipient: PropTypes.bool.isRequired,
+  answer: PropTypes.number,
+  handleClick: PropTypes.func.isRequired
 };
 
 export default CurrentQuestion;
