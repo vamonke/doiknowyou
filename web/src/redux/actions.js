@@ -2,6 +2,7 @@ import axios from "axios";
 import { push } from "react-router-redux";
 import { joinRoom, leaveRoom } from "./client";
 
+console.log("REACT_APP_SERVER_URL", process.env.REACT_APP_SERVER_URL);
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 
 const CREATE_GAME_API = "/api/game/create";

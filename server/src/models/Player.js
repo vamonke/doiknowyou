@@ -25,6 +25,8 @@ export const create = async (roomId, name) => {
   return player;
 };
 
+export const findById = id => Player.findById(id).lean();
+
 export const findByRoom = roomId =>
   Player.find({ roomId }).select({ name: 1, isReady: 1, score: 1 });
 

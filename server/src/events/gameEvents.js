@@ -3,6 +3,8 @@ import * as Player from "../models/Player";
 import * as Question from "../models/Question";
 import * as Answer from "../models/Answer";
 
+import { warn } from "../logger";
+
 const gameEvents = async (io, socket, common) => {
   let timeLimit = false;
   const getTimeLimit = async roomId => {
@@ -91,11 +93,9 @@ const gameEvents = async (io, socket, common) => {
   const completeIfAllAnswered = async question => {
     const { _id: questionId, roomId, correctAnswer, recipientId } = question;
     if (!correctAnswer) {
-      const recipientInGame = common.players.some(
-        player => player._id.toString() === recipientId
-      );
-      if (recipientInGame) return;
-      console.log("Recipient not in game - ", common.players);
+      const recipient = await Player.findById(recipientId);
+      if (recipient) return;
+      warn("Recipient not in game -", recipientId);
     }
 
     const completed = await Answer.hasEveryPlayerAnswered(

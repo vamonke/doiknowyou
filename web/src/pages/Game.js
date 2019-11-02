@@ -177,7 +177,7 @@ const mapStateToProps = (state = {}) => {
   );
   const recipientId =
     state.currentQuestion && state.currentQuestion.recipientId;
-  const recipient = recipientId ? state.players[recipientId] : {};
+  const recipient = (recipientId && state.players[recipientId]) || {};
   const viewer = {
     ...state.viewer,
     ...state.players[state.viewerId]

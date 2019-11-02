@@ -17,6 +17,7 @@ const getSocketPlayerIds = io => {
 
 const connectionEvents = (io, socket, common) => {
   const emitPlayers = async roomId => {
+    // TODO: Cache
     common.players = await Player.findByRoom(roomId);
     common.gameLog("Update player list - " + common.players.length + " players");
     io.to(roomId).emit("updatePlayers", common.players);
@@ -77,6 +78,17 @@ const connectionEvents = (io, socket, common) => {
     }
   };
 
+  const hydrate = async roomId => {
+    common.playerLog("joined");
+    hydrateRoom(roomId);
+    emitPlayers(roomId);
+    const room = await Room.findById(roomId);
+    if (room.status !== "created") {
+      hydrateAnswers(roomId);
+      hydrateQuestions(roomId);
+    }
+  };
+
   socket.on("join", async player => {
     socket.player = player;
     const { roomId } = player;
@@ -86,23 +98,10 @@ const connectionEvents = (io, socket, common) => {
     );
     if (!socketInRoom) {
       socket.join(roomId, async () => {
-        common.playerLog("joined");
-        hydrateRoom(roomId);
-        emitPlayers(roomId);
-        const room = await Room.findById(roomId);
-        if (room.status !== "created") {
-          hydrateAnswers(roomId);
-          hydrateQuestions(roomId);
-        }
+        hydrate(roomId);
       });
     } else {
-      hydrateRoom(roomId);
-      emitPlayers(roomId);
-      const room = await Room.findById(roomId);
-      if (room.status !== "created") {
-        hydrateAnswers(roomId);
-        hydrateQuestions(roomId);
-      }
+      hydrate(roomId);
     }
   });
 
