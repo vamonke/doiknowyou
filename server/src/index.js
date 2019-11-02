@@ -16,11 +16,17 @@ app.use(express.json());
 app.use("/", routes);
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/doiknowyou2", {
+const MONGO_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/doiknowyou2";
+
+console.log("MONGO_URI:", MONGO_URI);
+
+mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
 });
+
 mongoose.set("useCreateIndex", true);
 
 // TODO: Lean queries

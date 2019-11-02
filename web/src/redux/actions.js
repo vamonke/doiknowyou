@@ -2,8 +2,8 @@ import axios from "axios";
 import { push } from "react-router-redux";
 import { joinRoom, leaveRoom } from "./client";
 
-axios.defaults.baseURL = "http://localhost:3001";
-// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
+
 const CREATE_GAME_API = "/api/game/create";
 const JOIN_GAME_API = "/api/game/join";
 const GET_QUESTION_BANK_API = "/api/questionbank";

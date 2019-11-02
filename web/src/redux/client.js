@@ -3,8 +3,7 @@ import { push } from "react-router-redux";
 import * as e from "./events";
 import { arrayToObject } from "../utils";
 
-const serverUrl = "http://127.0.0.1:3001";
-// const serverUrl = "https://diky-server.herokuapp.com";
+const serverUrl = process.env.REACT_APP_SERVER_URL;
 const socket = io(serverUrl);
 
 const viewerReady = payload => {

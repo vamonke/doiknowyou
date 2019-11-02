@@ -26,7 +26,9 @@ app.use("/", _routes["default"]);
 
 var mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/doiknowyou2", {
+var MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/doiknowyou2";
+console.log("MONGO_URI:", MONGO_URI);
+mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false

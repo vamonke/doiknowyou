@@ -4,7 +4,7 @@ import Layout from "./atoms/Layout";
 
 import { ThemeProvider } from "emotion-theming";
 import theme from "./theme";
-import history from './redux/history';
+import history from "./redux/history";
 
 import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
