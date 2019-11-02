@@ -71,7 +71,9 @@ const Game = props => {
   };
 
   const showCurrentQuestion =
-    status === "started" && Object.keys(currentQuestion).length > 1;
+    status === "started" &&
+    currentQuestion &&
+    Object.keys(currentQuestion).length > 1;
 
   const showTimer = timeLimit !== 0 && type !== "open";
 

@@ -282,6 +282,17 @@ export default {
       border: "none",
       borderRadius: 0,
       p: 0
+    },
+    selected: {
+      cursor: "pointer",
+      color: "white",
+      bg: "transparent",
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "black",
+      borderRadius: 0,
+      p: 12,
+      outline: "none"
     }
   },
   input: {},
