@@ -222,6 +222,24 @@ export default {
           color: "white"
         }
       }
+    },
+    nav: {
+      cursor: "pointer",
+      display: "inline-block",
+      px: [2, 3],
+      ml: 2,
+      py: 2,
+      border: "1px solid white",
+      borderBottom: "none",
+      active: {
+        cursor: "pointer",
+        display: "inline-block",
+        px: [2, 3],
+        ml: 2,
+        py: 2,
+        backgroundColor: "white",
+        color: "black"
+      }
     }
   },
   buttons: {
