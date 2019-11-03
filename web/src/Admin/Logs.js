@@ -6,7 +6,7 @@ import { Card, Flex, Box, Heading, Text, Button } from "rebass";
 // import { fetchQuestionBank } from "../redux/actions";
 
 const QuestionBank = ({ questionBank, dispatch }) => {
-  return <Heading>Rooms go here</Heading>;
+  return <Heading>Logs go here</Heading>;
 };
 
 const mapStateToProps = (state = {}) => state;

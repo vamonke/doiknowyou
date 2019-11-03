@@ -19,11 +19,13 @@ const App = () => (
         <Route path="/admin">
           <Admin.Layout>
             <Switch>
+              <Route exact path="/admin/rooms" component={Admin.Rooms} />
               <Route
                 exact
                 path="/admin/questionbank"
                 component={Admin.QuestionBank}
               />
+              <Route exact path="/admin/logs" component={Admin.Logs} />
             </Switch>
           </Admin.Layout>
         </Route>
