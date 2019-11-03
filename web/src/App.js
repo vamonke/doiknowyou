@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
 import Game from "./pages/Game";
 import Join from "./pages/Join";
-import * as Admin from "./admin";
+import * as Admin from "./admin/index";
 
 const App = () => (
   <ThemeProvider theme={theme}>
