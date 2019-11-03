@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Card, Flex, Box, Heading, Text, Button } from "rebass";
+import { Flex, Box, Heading, Button } from "rebass";
 import { Input } from "@rebass/forms";
 
 import { fetchQuestionBank } from "../redux/actions";

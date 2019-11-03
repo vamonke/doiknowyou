@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { Card, Flex, Box, Heading, Text, Button } from "rebass";
-// import { Input } from "@rebass/forms";
+import { Heading } from "rebass";
 
-// import { fetchQuestionBank } from "../redux/actions";
-
-const QuestionBank = ({ questionBank, dispatch }) => {
+const Rooms = () => {
   return <Heading>Rooms go here</Heading>;
 };
 
 const mapStateToProps = (state = {}) => state;
 
-export default connect(mapStateToProps)(QuestionBank);
+export default connect(mapStateToProps)(Rooms);
