@@ -10,13 +10,24 @@ import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
 import Game from "./pages/Game";
 import Join from "./pages/Join";
-import Admin from "./Admin/Admin";
+import * as Admin from "./admin";
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <Router history={history}>
       <Switch>
-        <Route exact path="/admin" component={Admin} />
+        <Route path="/admin">
+          <Admin.Layout>
+            <Switch>
+              <Route
+                exact
+                path="/admin/questionbank"
+                component={Admin.QuestionBank}
+              />
+            </Switch>
+          </Admin.Layout>
+        </Route>
+
         <Layout>
           <Switch>
             <Route exact path="/lobby/:roomNo" component={Lobby} />

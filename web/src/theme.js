@@ -222,24 +222,6 @@ export default {
           color: "white"
         }
       }
-    },
-    nav: {
-      cursor: "pointer",
-      display: "inline-block",
-      px: [2, 3],
-      ml: 2,
-      py: 2,
-      border: "1px solid white",
-      borderBottom: "none",
-      active: {
-        cursor: "pointer",
-        display: "inline-block",
-        px: [2, 3],
-        ml: 2,
-        py: 2,
-        backgroundColor: "white",
-        color: "black"
-      }
     }
   },
   buttons: {
@@ -300,6 +282,31 @@ export default {
       border: "none",
       borderRadius: 0,
       p: 0
+    },
+    tab: {
+      display: "inline-block",
+      backgroundColor: "black",
+      border: "1px solid white",
+      borderBottom: "none",
+      borderRadius: 0,
+      textDecoration: "none",
+      cursor: "pointer",
+      px: [2, 3],
+      ml: 2,
+      py: 2,
+      active: {
+        display: "inline-block",
+        backgroundColor: "white",
+        color: "black",
+        border: "1px solid white",
+        borderBottom: "none",
+        borderRadius: 0,
+        textDecoration: "none",
+        cursor: "pointer",
+        px: [2, 3],
+        ml: 2,
+        py: 2
+      }
     },
     selected: {
       cursor: "pointer",
