@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Flex, Heading, Button, Text } from "rebass";
+import { Flex, Box, Button, Text } from "rebass";
 
 import { hostSettings } from "../redux/client";
 
-const durations = [0, 15, 30, 60];
+const durations = [0, 10, 20, 30];
+const borderRadius = ["21px 0 0 21px", 0, 0, "0 21px 21px 0"];
 
 const QuestionResults = ({ room, hide, dispatch }) => {
   const { timeLimit = 0 } = room;
@@ -15,35 +16,39 @@ const QuestionResults = ({ room, hide, dispatch }) => {
   const onHide = hide;
   return (
     <>
-      <Heading variant="black">Game Settings</Heading>
+      <Box variant="orange.card.small">
+        <Box variant="modal.header">Game Settings</Box>
+      </Box>
 
-      <Text fontWeight="medium" mb={3}>
-        Question time limit
-      </Text>
-
-      <Flex sx={{ borderRight: "1px solid black" }}>
-        {durations.map((duration, index) => (
-          <Button
-            key={index}
-            variant={timeLimit === duration ? "primary" : "secondary"}
-            onClick={() => onClick(duration)}
-            flexGrow={1}
-            sx={{ borderRight: "none" }}
-          >
-            {duration === 0 ? "No limit" : duration + "s"}
-          </Button>
-        ))}
-      </Flex>
-
-      {timeLimit !== 0 && (
-        <Text textAlign="center" mt={3}>
-          Excludes open-ended questions
+      <Box variant="modal.content">
+        <Text fontWeight="medium" mb={3} mt={0}>
+          Question time limit
         </Text>
-      )}
 
-      <Button onClick={onHide} width={1} mt={3}>
-        Done
-      </Button>
+        <Flex>
+          {durations.map((duration, index) => (
+            <Button
+              key={index}
+              variant={timeLimit === duration ? "black" : "secondary"}
+              onClick={() => onClick(duration)}
+              sx={{ borderRadius: borderRadius[index] }}
+              flexGrow={1}
+            >
+              {duration === 0 ? "No limit" : duration + "s"}
+            </Button>
+          ))}
+        </Flex>
+
+        {timeLimit !== 0 && (
+          <Text textAlign="center" mt={3}>
+            Excludes open-ended questions
+          </Text>
+        )}
+
+        <Button onClick={onHide} width={1} mt={24}>
+          Done
+        </Button>
+      </Box>
     </>
   );
 };

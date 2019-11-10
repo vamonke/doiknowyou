@@ -12,7 +12,8 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [x] Rejoin game
 - [x] Time limit
 
-- [ ] Admin page
+- [ ] Trial game
+- [x] Admin page
 - [ ] Edit name
 - [ ] SSM
 - [ ] Room logs
@@ -36,3 +37,9 @@ git subtree push --prefix web heroku-web master
 - [ ] View room
 - [x] View question bank
 - [ ] CRUD question bank
+
+### List of known bugs
+
+- Joining a game in progress directs user to lobby instead of game
+- Android users kicked from game due to inactivty (?)
+- Residuel options from previous question

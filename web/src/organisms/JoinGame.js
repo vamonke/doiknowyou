@@ -30,11 +30,7 @@ const JoinGame = props => {
 
   return loading ? null : (
     <form onSubmit={handleSubmit}>
-      {lobby &&
-        <Heading fontSize={4}>
-          Room {values.roomNo}
-        </Heading>
-      }
+      {lobby && <Heading fontSize={4}>Room {values.roomNo}</Heading>}
       <Box variant="relative">
         <Input
           name="name"
@@ -49,26 +45,34 @@ const JoinGame = props => {
       </Box>
 
       <Box variant={lobby ? "hidden" : "relative"}>
-        <Field name="roomNo" render={({ field }) => 
-          <Input
-            {...field}
-            type="text"
-            placeholder="Room number"
-            variant={errors.roomNo ? "error" : "input"}
-          />
-        } />
+        <Field
+          name="roomNo"
+          render={({ field }) => (
+            <Input
+              {...field}
+              type="text"
+              placeholder="Room number"
+              variant={errors.roomNo ? "error" : "input"}
+            />
+          )}
+        />
         {errors.roomNo && <Text variant="error">{errors.roomNo}</Text>}
       </Box>
 
-      <Flex mx={-1}>
-        {cancel &&
-          <Box width={1 / 2} px={1}>
-            <Button variant="secondary" type="button" width={1} onClick={cancel}>
+      <Flex mt={24} mx={[-1, -2]}>
+        {cancel && (
+          <Box width={1 / 2} px={[1, 2]}>
+            <Button
+              variant="secondary"
+              type="button"
+              width={1}
+              onClick={cancel}
+            >
               Cancel
             </Button>
           </Box>
-        }
-        <Box width={cancel ? 1 / 2 : 1} px={1}>
+        )}
+        <Box width={cancel ? 1 / 2 : 1} px={[1, 2]}>
           <Button type="submit" width={1}>
             {isSubmitting ? "-" : "Join Game"}
           </Button>
@@ -102,7 +106,7 @@ const formOptions = {
         return history.push("/");
       }
     }
-    
+
     return { ...props, roomNo };
   },
   validate,

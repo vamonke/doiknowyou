@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Flex, Text } from "rebass";
+import { Flex, Box, Text } from "rebass";
 import { Textarea, Input } from "@rebass/forms";
 import { Field } from "formik";
 
 import {
   RandomQuestion,
   LobbySelectOptions,
-  LobbyQuestionOptions
+  LobbyQuestionOptions,
+  LobbyPrevNext
 } from "../molecules";
 
 const placeholderMapping = [
@@ -24,47 +25,65 @@ const LobbyQuestion = props => {
     questionNo,
     questionBank,
     handleChange,
-    setFieldValue
+    setFieldValue,
+    prev,
+    next
   } = props;
 
   return (
     <>
-      <Flex justifyContent="space-between">
-        <Text variant="bold">{`Question ${questionNo + 1} of 3`}</Text>
-        <RandomQuestion
-          questionNo={questionNo}
-          questionBank={questionBank}
-          setFieldValue={setFieldValue}
-        />
-      </Flex>
+      <Box variant="orange">
+        <Box variant="orange.card">
+          <Flex justifyContent="space-between" pt={[1, 1, 0]}>
+            <Text fontWeight="medium" fontSize={3}>
+              {`Question ${questionNo + 1} of 3`}
+            </Text>
+            <RandomQuestion
+              questionNo={questionNo}
+              questionBank={questionBank}
+              setFieldValue={setFieldValue}
+            />
+          </Flex>
 
-      <Field
-        name={`questions[${questionNo}].text`}
-        render={({ field }) => (
-          <Textarea
-            {...field}
-            variant="input"
-            sx={{ resize: "vertical" }}
-            placeholder={placeholderMapping[questionNo]}
-          />
-        )}
-      />
+          <Box mx={-2}>
+            <Field
+              name={`questions[${questionNo}].text`}
+              render={({ field }) => (
+                <Textarea
+                  {...field}
+                  sx={{ resize: "vertical" }}
+                  placeholder={placeholderMapping[questionNo]}
+                />
+              )}
+            />
+          </Box>
+        </Box>
+      </Box>
+      <Box px={[0, 2, 3]}>
+        <Box variant="card.bottom" pt={[0, 0, 0]} pb={[3, 3, 24, 28]}>
+          <Box py={3}>
+            <LobbySelectOptions
+              questionNo={questionNo}
+              handleChange={handleChange}
+              setFieldValue={setFieldValue}
+            />
+          </Box>
 
-      <LobbySelectOptions
-        questionNo={questionNo}
-        handleChange={handleChange}
-        setFieldValue={setFieldValue}
-      />
+          {options && (
+            <LobbyQuestionOptions options={options} questionNo={questionNo} />
+          )}
 
-      {options && (
-        <LobbyQuestionOptions options={options} questionNo={questionNo} />
-      )}
+          {type === "players" && (
+            <Input placeholder="Player names as options" disabled />
+          )}
 
-      {type === "players" && <Input placeholder="Players" disabled />}
+          {type === "open" && (
+            <Input placeholder="Open-ended (best answer selected)" disabled />
+          )}
 
-      {type === "open" && (
-        <Input placeholder="Open-ended (best answer selected)" disabled />
-      )}
+          <LobbyPrevNext questionNo={questionNo} prev={prev} next={next} />
+        </Box>
+      </Box>
     </>
   );
 };

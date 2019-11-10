@@ -9,21 +9,26 @@ const LobbyPrevNext = props => {
   const lastQuestion = questionNo === 2;
 
   return (
-    <Flex mx={-1} mt={3}>
+    <Flex
+      mx={-2}
+      mt={[3, 3, 3, 24]}
+      pt={[3, 3, 20, 24]}
+      sx={{ borderTop: "1px solid #DDD" }}
+    >
       {firstQuestion ? (
-        <Box width={1} px={1}>
+        <Box width={1} px={2}>
           <Button width={1} onClick={next}>
             {"Next >"}
           </Button>
         </Box>
       ) : (
         <>
-          <Box width={1 / 2} px={1}>
+          <Box width={1 / 2} px={2}>
             <Button variant="secondary" width={1} onClick={prev}>
               {"< Prev"}
             </Button>
           </Box>
-          <Box width={1 / 2} px={1}>
+          <Box width={1 / 2} px={2}>
             <Button
               width={1}
               onClick={next}
@@ -41,7 +46,7 @@ const LobbyPrevNext = props => {
 LobbyPrevNext.propTypes = {
   questionNo: PropTypes.number.isRequired,
   prev: PropTypes.func.isRequired,
-  next: PropTypes.func.isRequired,
+  next: PropTypes.func.isRequired
 };
 
 export default LobbyPrevNext;

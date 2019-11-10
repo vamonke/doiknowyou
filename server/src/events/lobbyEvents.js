@@ -16,13 +16,17 @@ const lobbyEvents = (io, socket, common) => {
   const startIfAllReady = async roomId => {
     const ready = await Room.isEveryPlayerReady(roomId);
     if (!ready) return false;
-    
+
     const currentQuestion = await Question.draw(roomId, 1, null);
     const room = await Room.start(roomId);
     common.gameLog("Game start");
     io.to(roomId).emit("start", { room, currentQuestion });
 
-    common.startTimer(currentQuestion);
+    if (currentQuestion) {
+      common.startTimer(currentQuestion);
+    } else {
+      common.gameOver(roomId);
+    }
   };
 
   // Lobby: Player ready
@@ -30,7 +34,7 @@ const lobbyEvents = (io, socket, common) => {
     if (socket.missingPlayer()) return;
 
     const trimmedQuestions = trim(questions);
-    if (trimmedQuestions.length > 0) {  
+    if (trimmedQuestions.length > 0) {
       await Question.createMany(
         trimmedQuestions,
         socket.player._id,
@@ -39,7 +43,9 @@ const lobbyEvents = (io, socket, common) => {
     }
 
     const player = await Player.ready(socket.player._id);
-    common.playerLog("is ready - " + trimmedQuestions.length + " questions added");
+    common.playerLog(
+      "is ready - " + trimmedQuestions.length + " questions added"
+    );
     common.gameLog("Update player ready");
     io.to(player.roomId).emit("playerReady", player._id);
 

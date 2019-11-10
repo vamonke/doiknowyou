@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Box } from "rebass";
 
 const QuestionTimer = ({ timeLimit, timesUp, currentQuestionId, type }) => {
   let duration = timeLimit;
@@ -22,7 +23,8 @@ const QuestionTimer = ({ timeLimit, timesUp, currentQuestionId, type }) => {
     return () => clearInterval(interval);
   }, [seconds]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return seconds === 0 ? "Time's up" : seconds;
+  // return seconds === 0 ? "Time's up" : seconds;
+  return <Box variant="timer">{seconds}</Box>;
 };
 
 export default QuestionTimer;

@@ -1,6 +1,5 @@
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
-import Layout from "./atoms/Layout";
 
 import { ThemeProvider } from "emotion-theming";
 import theme from "./theme";
@@ -10,7 +9,7 @@ import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
 import Game from "./pages/Game";
 import Join from "./pages/Join";
-import * as Admin from "./admin/index";
+import * as Admin from "./admin";
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -30,14 +29,12 @@ const App = () => (
           </Admin.Layout>
         </Route>
 
-        <Layout>
-          <Switch>
-            <Route exact path="/lobby/:roomNo" component={Lobby} />
-            <Route exact path="/game/:roomNo" component={Game} />
-            <Route exact path="/join/:roomNo" component={Join} />
-            <Route path="/" component={Home} />
-          </Switch>
-        </Layout>
+        <Switch>
+          <Route exact path="/lobby/:roomNo" component={Lobby} />
+          <Route exact path="/game/:roomNo" component={Game} />
+          <Route exact path="/join/:roomNo" component={Join} />
+          <Route path="/" component={Home} />
+        </Switch>
       </Switch>
     </Router>
   </ThemeProvider>

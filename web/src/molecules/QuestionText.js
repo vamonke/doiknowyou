@@ -1,20 +1,42 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, Text } from "rebass";
+import { QuestionTimer } from "../molecules";
 
-const QuestionText = ({ text, recipientName }) => (
-  <Box
-    fontSize={4}
-    mb={3}
-    mx={-3}
-    p={4}
-    pt={2}
-    sx={{ borderBottom: "1px solid black" }}
-  >
-    <Text mb={3}>{text}</Text>
-    <Text>
-      {recipientName}: <Box variant="line"></Box>
-    </Text>
+const floatLeft = {
+  sx: {
+    position: "absolute",
+    pt: 2,
+    top: [24, 24, 24, 4],
+    left: 4,
+    color: "white",
+    opacity: 0.25,
+    fontSize: 2
+  }
+};
+
+const QuestionText = ({ round, text, recipientName, timer }) => (
+  <Box variant="orange">
+    <Box variant="orange.card" py={[24, 24, 4]} px={[4, 4, 4, 5]}>
+      {timer && <QuestionTimer {...timer} />}
+
+      {timer ? (
+        <Text as="span" {...floatLeft}>
+          Round {round}
+        </Text>
+      ) : (
+        <Text color="yellow" fontSize={1}>
+          Round {round}
+        </Text>
+      )}
+
+      <Text my={[3, 24, 4]} fontSize={[3, 4, 4, 5]} fontWeight="medium">
+        {text}
+      </Text>
+      <Text fontSize={[3, 4]}>
+        {recipientName}: <Box variant="line"></Box>
+      </Text>
+    </Box>
   </Box>
 );
 

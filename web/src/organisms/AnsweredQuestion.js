@@ -1,7 +1,36 @@
 import React, { useState } from "react";
 import { Flex, Box, Text } from "rebass";
+import Icon from "react-eva-icons";
 
 import { ResultsTable } from "../molecules";
+
+const recipientAnswer = (recipientName, options, correctAnswer) => {
+  let correct = "No answer selected";
+
+  if (correctAnswer && correctAnswer.length > 0) {
+    const correctAnswers = correctAnswer
+      .map(correct => options[correct])
+      .filter((v, i, a) => a.indexOf(v) === i);
+    if (correctAnswers.length === 1) {
+      correct = correctAnswers[0];
+    }
+    correct = correctAnswers.map((answer, index) => (
+      <span key={index}>
+        {answer}
+        {correctAnswers.length - 1 !== index && <hr />}
+      </span>
+    ));
+  }
+
+  return (
+    <Box pt={3} textAlign="center">
+      <Text fontWeight="medium" as="span">
+        {recipientName && `${recipientName}: `}
+      </Text>
+      {correct}
+    </Box>
+  );
+};
 
 const AnsweredQuestion = ({ question, players }) => {
   const {
@@ -15,63 +44,43 @@ const AnsweredQuestion = ({ question, players }) => {
 
   const [expanded, setExpanded] = useState(false);
 
-  const recipient = players.find(player => player._id === recipientId) || {};
-
-  const displayCorrect = () => {
-    if (!correctAnswer || correctAnswer.length === 0) {
-      return "-";
-    }
-    const correctAnswers = correctAnswer
-      .map(correct => options[correct])
-      .filter((v, i, a) => a.indexOf(v) === i);
-    if (correctAnswers.length === 1) {
-      return correctAnswers[0];
-    }
-    return correctAnswers.map((answer, index) => (
-      <div key={index}>
-        {answer}
-        {correctAnswers.length - 1 !== index && <hr />}
-      </div>
-    ));
-  };
+  const { name: recipientName } =
+    players.find(player => player._id === recipientId) || {};
 
   return (
     <>
-      <Box
-        sx={{ borderTop: "1px solid black", cursor: "pointer" }}
-        mx={-3}
-        p={3}
-        onClick={() => setExpanded(!expanded)}
-      >
-        <Flex>
-          <Box width={1 / 12}>Q{round}</Box>
-          <Box width={10 / 12} flexGrow={2}>
+      <Box variant="row">
+        <Flex sx={{ cursor: "pointer" }} onClick={() => setExpanded(!expanded)}>
+          <Box width="30px">Q{round}</Box>
+          <Box width="calc(100% - 60px)" px={2}>
             {text}
           </Box>
-          <Text pl={2}>{expanded ? "▲" : "►"}</Text>
+          <Box width="30px" height={0} mt={-1}>
+            <div key={expanded ? "icon-up" : "icon-down"}>
+              <Icon
+                fill="orange"
+                name={expanded ? "chevron-up" : "chevron-down"}
+                size="xlarge"
+              />
+            </div>
+          </Box>
         </Flex>
-      </Box>
-      
-      {expanded && (
-        <Box sx={{ borderTop: "1px solid black" }} pt={2} pb={4}>
-          <Box textAlign="center">
-            <Box pt={3} mb={3}>
-              <Text fontWeight="medium" display="inline">
-                {recipient.name}
-                {": "}
-              </Text>
-              {displayCorrect()}
+
+        {expanded && (
+          <Box pt={1} mt={2} pb={4} sx={{ borderTop: "1px solid #E2E2E2" }}>
+            {recipientAnswer(recipientName, options, correctAnswer)}
+            <Box mt={3}>
+              <ResultsTable
+                options={options}
+                answers={answers}
+                correctAnswer={correctAnswer}
+                players={players}
+                recipientId={recipientId}
+              />
             </Box>
           </Box>
-          <ResultsTable
-            options={options}
-            answers={answers}
-            correctAnswer={correctAnswer}
-            players={players}
-            recipientId={recipientId}
-          />
-        </Box>
-      )}
+        )}
+      </Box>
     </>
   );
 };

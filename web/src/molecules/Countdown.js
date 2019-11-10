@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Text } from "rebass";
+import { Box } from "rebass";
 import history from "../redux/history";
 
 const Countdown = ({ roomNo }) => {
@@ -19,14 +19,23 @@ const Countdown = ({ roomNo }) => {
   }, [seconds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Text py={5} textAlign="center">
-      Game starting in {seconds}
-    </Text>
+    <Box>
+      <Box variant="orange">
+        <Box variant="orange.card.small">Ready</Box>
+      </Box>
+      <Box px={[0, 2, 3]} fontSize={4}>
+        <Box variant="card.bottom">
+          <Box py={5} textAlign="center">
+            Game starting in {seconds}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
 Countdown.propTypes = {
-  roomNo: PropTypes.number,
+  roomNo: PropTypes.number
 };
 
 export default Countdown;

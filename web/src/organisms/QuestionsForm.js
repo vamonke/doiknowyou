@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import { withFormik } from "formik";
-import { motion, AnimatePresence } from "framer-motion";
+// import { motion, AnimatePresence } from "framer-motion";
 import { Box } from "rebass";
 
-import { Waiting, LobbyPrevNext } from "../molecules";
+import { Waiting } from "../molecules";
 import LobbyQuestion from "./LobbyQuestion";
 
 const QUESTIONS_COUNT = 3;
 
-const variants = {
-  enter: direction => ({
-    position: "absolute",
-    x: direction < 0 ? "-150%" : "150%"
-  }),
-  center: {
-    position: "relative",
-    x: 0
-  },
-  exit: direction => ({
-    position: "absolute",
-    x: direction < 0 ? "150%" : "-150%"
-  })
-};
+// const variants = {
+//   enter: direction => ({
+//     position: "absolute",
+//     x: direction < 0 ? "-100%" : "100%"
+//   }),
+//   center: {
+//     position: "relative",
+//     x: 0
+//   },
+//   exit: direction => ({
+//     position: "absolute",
+//     x: direction < 0 ? "100%" : "-100%"
+//   })
+// };
 
 const QuestionsForm = props => {
   const {
@@ -35,7 +35,8 @@ const QuestionsForm = props => {
   } = props;
   const { questions } = values;
 
-  const [[currentQnNo, direction], setCurrentQnNo] = useState([
+  // add direction to array to use animation
+  const [[currentQnNo], setCurrentQnNo] = useState([
     isReady ? QUESTIONS_COUNT : 0,
     0
   ]);
@@ -61,8 +62,8 @@ const QuestionsForm = props => {
   }
 
   return (
-    <Box m={-3} style={{ position: "relative" }}>
-      <AnimatePresence initial={false} custom={direction}>
+    <Box style={{ position: "relative" }}>
+      {/* <AnimatePresence initial={false} custom={direction}>
         <motion.div
           style={{ width: "100%", padding: 16, boxSizing: "border-box" }}
           key={currentQnNo}
@@ -72,23 +73,25 @@ const QuestionsForm = props => {
           exit="exit"
           custom={direction}
           transition={{ ease: "backOut", duration: 0.4 }}
-        >
-          {currentQnNo === QUESTIONS_COUNT ? (
-            <Waiting edit={edit} />
-          ) : (
-            <LobbyQuestion
-              {...questions[currentQnNo]}
-              key={currentQnNo}
-              questionNo={currentQnNo}
-              questionBank={questionBank}
-              handleChange={handleChange}
-              setFieldValue={setFieldValue}
-            />
-          )}
-        </motion.div>
-      </AnimatePresence>
+        > */}
+      {currentQnNo === QUESTIONS_COUNT ? (
+        <Waiting edit={edit} />
+      ) : (
+        <LobbyQuestion
+          {...questions[currentQnNo]}
+          key={currentQnNo}
+          questionNo={currentQnNo}
+          questionBank={questionBank}
+          handleChange={handleChange}
+          setFieldValue={setFieldValue}
+          prev={prev}
+          next={next}
+        />
+      )}
+      {/* </motion.div>
+      </AnimatePresence> */}
 
-      {currentQnNo !== QUESTIONS_COUNT && (
+      {/* {currentQnNo !== QUESTIONS_COUNT && (
         <Box
           mt={-3}
           p={3}
@@ -98,7 +101,7 @@ const QuestionsForm = props => {
         >
           <LobbyPrevNext questionNo={currentQnNo} prev={prev} next={next} />
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };

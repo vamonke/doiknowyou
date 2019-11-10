@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Card, Box, Flex, Heading, Text, Button } from "rebass";
+import { Box, Flex, Text, Button } from "rebass";
 import { Select } from "@rebass/forms";
 
 import { kick, makeHost } from "../redux/client";
 
-const LobbyPlayerList = ({ players, viewerId, hostId, viewerIsHost, dispatch }) => {
+const LobbyPlayerList = ({
+  players,
+  viewerId,
+  hostId,
+  viewerIsHost,
+  dispatch
+}) => {
   const [managing, setManaging] = useState(false);
   const onChange = playerId => e => {
     const action = e.target.value;
@@ -18,13 +24,15 @@ const LobbyPlayerList = ({ players, viewerId, hostId, viewerIsHost, dispatch }) 
   };
 
   return (
-    <Card mt={3}>
-      <Heading variant="black" mb={0}>
+    <Box px={[2, 2, 3]}>
+      <Box variant="orange.card.small">
         <Flex justifyContent="space-between">
-          Players
+          <Text>Players</Text>
           {viewerIsHost && (
             <Button
               type="button"
+              color="yellow"
+              variant="link"
               fontSize={2}
               p={0}
               onClick={() => setManaging(!managing)}
@@ -33,30 +41,26 @@ const LobbyPlayerList = ({ players, viewerId, hostId, viewerIsHost, dispatch }) 
             </Button>
           )}
         </Flex>
-      </Heading>
-      <Box width={1} mb={-3}>
+      </Box>
+      <Box variant="card.bottom.small" pb={[3, 3]}>
         {players.map((player, index) => {
           const { _id: playerId, name, isReady } = player;
           const isViewer = playerId === viewerId;
           const playerIsHost = playerId === hostId;
           return (
-            <Box key={index} variant="row" {...(managing && { mx: -3, px: 3 })}>
+            <Box key={index} variant="row">
               <Flex alignItems="center">
                 <Box flexGrow={2}>
                   <Text variant={isViewer ? "bold" : ""} display="inline">
                     {name}
                   </Text>
                   {/* {isViewer && " (you)"*} */}
-                  {playerIsHost && 
-                    <Text variant="tag.small">
-                      Host
-                    </Text>
-                  }
+                  {playerIsHost && <Text variant="tag.small">Host</Text>}
                 </Box>
 
-                {(viewerIsHost && managing) ?
+                {viewerIsHost && managing ? (
                   <Select
-                    width="120px"
+                    width="130px"
                     name="playerAction"
                     onChange={onChange(playerId)}
                   >
@@ -64,17 +68,15 @@ const LobbyPlayerList = ({ players, viewerId, hostId, viewerIsHost, dispatch }) 
                     <option value="kick">Kick</option>
                     <option value="host">Make host</option>
                   </Select>
-                  :
-                  <Box>
-                    {isReady ? "Ready" : "Not Ready"}
-                  </Box>
-                }
+                ) : (
+                  <Box>{isReady ? "Ready" : "Not Ready"}</Box>
+                )}
               </Flex>
             </Box>
           );
         })}
       </Box>
-    </Card>
+    </Box>
   );
 };
 
@@ -84,7 +86,7 @@ LobbyPlayerList.propTypes = {
       _id: PropTypes.string.isRequired,
       score: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      hasAnswered: PropTypes.bool,
+      hasAnswered: PropTypes.bool
     })
   ),
   viewerId: PropTypes.string.isRequired,

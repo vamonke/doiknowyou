@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import { Flex, Box, Button } from "rebass";
 import { Input } from "@rebass/forms";
 import { Field, FieldArray } from "formik";
+import Icon from "react-eva-icons";
 
 // Lobby options component
 const LobbyQuestionOptions = props => {
-  const {
-    options,
-    questionNo
-  } = props;
+  const { options, questionNo } = props;
   const [removable, setRemovable] = useState(false);
 
   useEffect(() => {
@@ -40,7 +38,11 @@ const LobbyQuestionOptions = props => {
                     variant="inField"
                     onClick={() => arrayHelpers.remove(index)}
                   >
-                    X
+                    <Icon
+                      fill="white"
+                      name="close-outline"
+                      size="large" // small, medium, large, xlarge
+                    />
                   </Button>
                 )}
               </Box>
@@ -51,19 +53,52 @@ const LobbyQuestionOptions = props => {
             {options.length > 2 && (
               <Button
                 variant="link"
+                color="darkgray"
                 mx={2}
                 onClick={() => setRemovable(!removable)}
               >
-                {removable ? "Done" : "- Remove option"}
+                {removable ? (
+                  <>
+                    <Box as="span" mb="-3px" key="icon-check">
+                      <Icon
+                        fill="#FA7F00"
+                        name="checkmark"
+                        size="large" // small, medium, large, xlarge
+                      />
+                    </Box>
+                    &nbsp;Done
+                  </>
+                ) : (
+                  <>
+                    <Box as="span" mb="-3px" key="icon-minus">
+                      <Icon
+                        fill="#FA7F00"
+                        name="minus"
+                        size="medium" // small, medium, large, xlarge
+                      />
+                    </Box>
+                    &nbsp;Remove option
+                    {/* <Text variant="plus">-</Text>&nbsp; Remove option */}
+                  </>
+                )}
               </Button>
             )}
             {!removable && (
               <Button
                 variant="link"
+                color="darkgray"
                 mx={2}
                 onClick={() => arrayHelpers.push("")}
               >
-                + Add option
+                <Box as="span" mb="-3px">
+                  <Icon
+                    fill="#FA7F00"
+                    name="plus"
+                    size="medium" // small, medium, large, xlarge
+                  />
+                </Box>
+                &nbsp;Add option
+                {/* <Text variant="plus">+</Text>&nbsp; Add option */}
               </Button>
             )}
           </Flex>
@@ -74,9 +109,7 @@ const LobbyQuestionOptions = props => {
 };
 
 LobbyQuestionOptions.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.string
-  ),
+  options: PropTypes.arrayOf(PropTypes.string),
   questionNo: PropTypes.number.isRequired
 };
 

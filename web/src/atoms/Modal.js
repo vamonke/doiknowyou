@@ -9,8 +9,8 @@ const backDrop = {
   right: 0,
   top: 0,
   bottom: 0,
-  zIndex: 1,
-  backgroundColor: "black"
+  zIndex: 10,
+  backgroundColor: "white"
 };
 
 const display = {
@@ -26,7 +26,7 @@ const display = {
 
 const backdrop = {
   open: {
-    opacity: 0.75
+    opacity: 0.9
   },
   closed: {
     opacity: 0,
@@ -58,7 +58,7 @@ const Modal = props => {
       <motion.div style={backDrop} variants={backdrop} onClick={hide} />
       <Card variant="modal">
         <motion.div variants={content}>
-          <Box variant="modalBody">{children}</Box>
+          <Box variant="modal.body">{children}</Box>
         </motion.div>
       </Card>
     </motion.div>

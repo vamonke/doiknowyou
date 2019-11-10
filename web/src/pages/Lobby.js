@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Card, Flex, Heading, Button } from "rebass";
+import { Flex, Button, Text } from "rebass";
+import Icon from "react-eva-icons";
+
 import { joinRoom, playerReady, playerNotReady } from "../redux/client";
 
-import { QuestionsForm, JoinGame, Settings } from "../organisms";
+import { QuestionsForm, JoinGameCard, Settings } from "../organisms";
 import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
-import { Modal } from "../atoms";
+import { Modal, HomeLink } from "../atoms";
 
 const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
@@ -18,14 +20,10 @@ const Lobby = props => {
     joinRoom(viewer);
   }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // window.onbeforeunload = () => {
-  //   return 'Exit game?';
-  // };
-
   const [showSettings, setShowSettings] = useState(false);
 
   if (!viewerId || !roomId) {
-    return <JoinGame lobby />;
+    return <JoinGameCard />;
   }
 
   if (players.length > 0 && !players.find(player => player._id === viewerId)) {
@@ -45,36 +43,48 @@ const Lobby = props => {
 
   return (
     <>
-      <Card>
-        <Heading variant="black">
-          <Flex justifyContent="space-between">
-            Room {roomNo}
-            {isHost && (
-              <Button
-                type="button"
-                fontSize={2}
-                p={0}
-                textDecoration="underline"
-                onClick={() => setShowSettings(true)}
-              >
-                Settings
-              </Button>
-            )}
-          </Flex>
-        </Heading>
-
-        {status === "started" && viewerIsReady ? (
-          <Countdown roomNo={roomNo} />
-        ) : (
-          <QuestionsForm
-            isReady={viewerIsReady}
-            onReady={onReady}
-            onNotReady={onNotReady}
-            questionBank={questionBank}
-            questions={questions}
-          />
+      <Flex
+        variant="orange"
+        justifyContent="center"
+        alignItems="center"
+        px={[3, 3, 3]}
+        pb={1}
+        mb={-1}
+      >
+        <Text fontWeight="medium" color="white" fontSize={3}>
+          Room {roomNo}
+        </Text>
+        {isHost && (
+          <Button
+            ml={3}
+            variant="settings"
+            fontSize={2}
+            textDecoration="underline"
+            onClick={() => setShowSettings(true)}
+          >
+            <Icon
+              fill="#F7CF00"
+              name="settings-2-outline"
+              size="large" // small, medium, large, xlarge
+            />
+            <Text as="span" ml={2} pb={1}>
+              Settings
+            </Text>
+          </Button>
         )}
-      </Card>
+      </Flex>
+
+      {status !== "created" && viewerIsReady ? (
+        <Countdown roomNo={roomNo} />
+      ) : (
+        <QuestionsForm
+          isReady={viewerIsReady}
+          onReady={onReady}
+          onNotReady={onNotReady}
+          questionBank={questionBank}
+          questions={questions}
+        />
+      )}
 
       {players.length > 0 && (
         <LobbyPlayerList
@@ -95,6 +105,8 @@ const Lobby = props => {
           />
         </Modal>
       )}
+
+      <HomeLink />
     </>
   );
 };

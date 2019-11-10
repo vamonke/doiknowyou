@@ -4,11 +4,7 @@ import { Button } from "rebass";
 
 // Lobby generate random question
 const randomQuestion = props => {
-  const {
-    questionNo,
-    questionBank,
-    setFieldValue
-  } = props;
+  const { questionNo, questionBank, setFieldValue } = props;
 
   const generateQuestion = () => {
     const { _id, text, type, options } = questionBank[
@@ -26,7 +22,7 @@ const randomQuestion = props => {
   };
 
   return (
-    <Button variant="link" onClick={generateQuestion}>
+    <Button variant="link" color="yellow" onClick={generateQuestion}>
       Random
     </Button>
   );
@@ -38,10 +34,8 @@ randomQuestion.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
-      options: PropTypes.arrayOf(
-        PropTypes.string
-      ),
-      type: PropTypes.string,
+      options: PropTypes.arrayOf(PropTypes.string),
+      type: PropTypes.string
     })
   ),
   setFieldValue: PropTypes.func.isRequired

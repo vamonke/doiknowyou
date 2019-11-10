@@ -11,7 +11,9 @@ const OpenEndedAnswer = ({ question, recipientName }) => {
 
   return (
     <>
-      <Box fontStyle="italic">{waitingMsg}</Box>
+      <Box fontStyle="italic" mt={[3, 2, 0]}>
+        {waitingMsg}
+      </Box>
       {options && options.length > 0 && (
         <Box mt={3}>
           {options.map((option, i) => (

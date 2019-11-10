@@ -32,13 +32,13 @@ const CreateGame = props => {
         {errors.name && <Text variant="error">{errors.name}</Text>}
       </Box>
 
-      <Flex mx={-1}>
-        <Box width={1 / 2} px={1}>
+      <Flex mx={[-1, -2]}>
+        <Box width={1 / 2} px={[1, 2]}>
           <Button variant="secondary" type="button" width={1} onClick={cancel}>
             Cancel
           </Button>
         </Box>
-        <Box width={1 / 2} px={1}>
+        <Box width={1 / 2} px={[1, 2]}>
           <Button type="submit" width={1}>
             {isSubmitting ? "-" : "Create Game"}
           </Button>

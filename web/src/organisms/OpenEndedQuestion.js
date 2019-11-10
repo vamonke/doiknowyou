@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "rebass";
+import { Box, Text } from "rebass";
 
 import {
   QuestionText,
@@ -9,41 +9,62 @@ import {
 } from "../molecules";
 
 const OpenEndedQuestion = props => {
-  const { question, recipient, isRecipient, handleSubmit, answer } = props;
-  const { text, status, isClosed } = question;
+  const {
+    question,
+    recipient,
+    isRecipient,
+    handleSubmit,
+    answer,
+    timer
+  } = props;
+  const { text, status, isClosed, round } = question;
   const disabled = status !== "asking";
 
   return (
-    <Box variant="relative" textAlign="center">
-      <QuestionText text={text} recipientName={recipient.name} />
+    <Box textAlign="center">
+      <QuestionText
+        round={round}
+        text={text}
+        recipientName={recipient.name}
+        timer={timer}
+      />
 
-      <Box variant="relative">
-        {disabled && <Box variant="whiteOverlay" />}
+      <Box px={[0, 2, 3]}>
+        <Box variant="card.bottom">
+          {disabled && <Box variant="whiteOverlay" />}
 
-        {isRecipient &&
-          (isClosed ? (
-            <OpenEndedAnswerRecipient
-              question={question}
-              handleSubmit={handleSubmit}
-              answer={answer}
-            />
-          ) : (
-            <i>Waiting for other players to guess</i>
-          ))}
+          {isRecipient &&
+            (isClosed ? (
+              <OpenEndedAnswerRecipient
+                question={question}
+                handleSubmit={handleSubmit}
+                answer={answer}
+              />
+            ) : (
+              <Text
+                pt={[24, 2, 2, 0]}
+                pb={[3, 2]}
+                px={[1, 1, 0]}
+                variant="subtitle"
+              >
+                Waiting for other players to guess
+              </Text>
+            ))}
 
-        {!isRecipient &&
-          (answer || isClosed ? (
-            <OpenEndedAnswer
-              question={question}
-              recipientName={recipient.name}
-            />
-          ) : (
-            <OpenEndedAnswerForm
-              question={question}
-              handleSubmit={handleSubmit}
-              recipientName={recipient.name}
-            />
-          ))}
+          {!isRecipient &&
+            (answer || isClosed ? (
+              <OpenEndedAnswer
+                question={question}
+                recipientName={recipient.name}
+              />
+            ) : (
+              <OpenEndedAnswerForm
+                question={question}
+                handleSubmit={handleSubmit}
+                recipientName={recipient.name}
+              />
+            ))}
+        </Box>
       </Box>
     </Box>
   );

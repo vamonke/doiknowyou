@@ -1,15 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Flex, Box } from "rebass";
+import { Flex, Box, Text } from "rebass";
 import { Select } from "@rebass/forms";
 import { Field } from "formik";
 
 const LobbySelectOptions = props => {
-  const {
-    questionNo,
-    handleChange,
-    setFieldValue
-  } = props;
+  const { questionNo, handleChange, setFieldValue } = props;
 
   const setOptionType = event => {
     const type = event.target.value;
@@ -29,12 +25,12 @@ const LobbySelectOptions = props => {
 
   return (
     <Flex justifyContent="space-between">
-      <Box variant="bold" py={2}>
+      <Text fontWeight="medium" py={2}>
         Options
-      </Box>
+      </Text>
       <Field
         name={`questions[${questionNo}].type`}
-        render={({ field }) =>
+        render={({ field }) => (
           <Box width={150}>
             <Select
               {...field}
@@ -47,7 +43,7 @@ const LobbySelectOptions = props => {
               <option value="open">Open-ended</option>
             </Select>
           </Box>
-        }
+        )}
       />
     </Flex>
   );

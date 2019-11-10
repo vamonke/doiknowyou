@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Box, Card, Heading, Text, Button } from "rebass";
+import { Box, Card, Text, Button } from "rebass";
 
 import { ResultsTable } from "../molecules";
 
@@ -12,7 +12,8 @@ const QuestionResults = ({ question, players, hide }) => {
     text,
     recipientId
   } = question;
-  const recipient = players.find(player => player._id === recipientId) || {};
+  const { name: recipientName } =
+    players.find(player => player._id === recipientId) || {};
 
   const displayCorrect = () => {
     if (!correctAnswer || correctAnswer.length === 0) {
@@ -34,35 +35,30 @@ const QuestionResults = ({ question, players, hide }) => {
 
   return (
     <>
-      <Heading variant="blackSmall">
-        <Flex justifyContent="space-between">
-          <Text>{"Round " + round + " results"}</Text>
-          <Button type="button" p={0} onClick={hide}>
-            ✕
-          </Button>
-        </Flex>
-      </Heading>
-      <Box textAlign="center" mb={3}>
-        <Box fontSize={2} mt={1} mb={3}>
-          {text}
-        </Box>
-        <Card display="inline-block" minWidth={150}>
-          <Text variant="blackSmall">{recipient.name}:</Text>
-          <Box fontSize={4}>{displayCorrect()}</Box>
-        </Card>
+      <Box variant="orange.card.small">
+        <Box variant="modal.header">{"Round " + round + " results"}</Box>
       </Box>
-      {options && options.length > 0 && (
-        <ResultsTable
-          options={options}
-          answers={answers}
-          correctAnswer={correctAnswer}
-          players={players}
-          recipientId={recipientId}
-        />
-      )}
-      <Button onClick={hide} width={1} mt={3}>
-        Continue
-      </Button>
+      <Box variant="modal.content" textAlign="center">
+        <Text fontSize={2} mt={1} mb={3}>
+          {text}
+        </Text>
+        <Card display="inline-block" minWidth={150} mb={3}>
+          <Text variant="blackSmall">{recipientName}:</Text>
+          <Box fontSize={3}>{displayCorrect()}</Box>
+        </Card>
+        {options && options.length > 0 && (
+          <ResultsTable
+            options={options}
+            answers={answers}
+            correctAnswer={correctAnswer}
+            players={players}
+            recipientId={recipientId}
+          />
+        )}
+        <Button onClick={hide} width={1} mt={3}>
+          Continue
+        </Button>
+      </Box>
     </>
   );
 };

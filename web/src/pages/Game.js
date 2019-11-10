@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Flex, Card, Heading, Box, Text } from "rebass";
+import { Box } from "rebass";
 
 import { joinRoom, playerAnswer, timesUp } from "../redux/client";
-import { Modal } from "../atoms";
+import { Modal, HomeLink } from "../atoms";
 
+import { GamePlayerList, Disconnected, Restart } from "../molecules";
 import {
-  GamePlayerList,
-  Disconnected,
-  Restart,
-  QuestionTimer
-} from "../molecules";
-import {
-  JoinGame,
+  JoinGameCard,
   CurrentQuestion,
   QuestionResults,
   AnsweredQuestion,
@@ -34,7 +29,7 @@ const Game = props => {
     players,
     dispatch
   } = props;
-  const { _id: currentQuestionId, type, round } = currentQuestion || {};
+  const { _id: currentQuestionId, type } = currentQuestion || {};
   const { _id: roomId, number: roomNo, nextRoomNo, status, timeLimit } = room;
   const { _id: viewerId, name: viewerName } = viewer;
   const { _id: recipientId, name: recipientName } = recipient;
@@ -54,7 +49,7 @@ const Game = props => {
   }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!viewerId || !roomId) {
-    return <JoinGame lobby />;
+    return <JoinGameCard />;
   }
 
   document.title = `Do I know you? #${roomNo}`;
@@ -78,35 +73,41 @@ const Game = props => {
 
   const showTimer = timeLimit !== 0 && type !== "open";
 
+  const timer = showTimer && {
+    timeLimit: timeLimit,
+    timesUp: handleTimesUp,
+    currentQuestionId: currentQuestionId,
+    type: type
+  };
+
   return (
     <>
       {status === "ended" && (
-        <Text
-          textAlign="center"
-          fontSize={4}
-          fontWeight="medium"
-          mt={3}
-          mb={-2}
-        >
-          Game over
-        </Text>
+        <>
+          <Box
+            textAlign="center"
+            variant="orange"
+            fontWeight="medium"
+            color="white"
+            fontSize={3}
+            pb={1}
+            mb={-1}
+          >
+            Game over
+          </Box>
+          {players.length > 0 && (
+            <GamePlayerList
+              players={players}
+              viewer={viewer}
+              recipientId={recipientId}
+              gameOver={true}
+            />
+          )}
+        </>
       )}
 
       {showCurrentQuestion && (
-        <Card>
-          <Heading variant="blackSmall">
-            <Flex justifyContent="space-between">
-              <Text>Round {round}</Text>
-              {showTimer && (
-                <QuestionTimer
-                  timeLimit={timeLimit}
-                  timesUp={handleTimesUp}
-                  currentQuestionId={currentQuestionId}
-                  type={type}
-                />
-              )}
-            </Flex>
-          </Heading>
+        <Box>
           {type === "open" ? (
             <OpenEndedQuestion
               question={currentQuestion}
@@ -114,6 +115,7 @@ const Game = props => {
               isRecipient={isRecipient}
               handleSubmit={handleClick}
               answer={answer}
+              timer={timer}
             />
           ) : (
             <CurrentQuestion
@@ -122,43 +124,46 @@ const Game = props => {
               isRecipient={isRecipient}
               handleClick={handleClick}
               answer={answer}
+              timer={timer}
             />
           )}
-        </Card>
-      )}
-
-      <Box mt={4} />
-
-      {players.length > 0 && (
-        <GamePlayerList
-          players={players}
-          viewer={viewer}
-          recipientId={recipientId}
-        />
-      )}
-
-      <Box mt={4} />
-
-      {answeredQuestions.length > 0 && (
-        <Card pb={0}>
-          <Heading variant="blackSmall" mb={0}>
-            Questions
-          </Heading>
-          {answeredQuestions.map((question, index) => (
-            <AnsweredQuestion
-              question={question}
-              players={players}
-              key={index}
-            />
-          ))}
-        </Card>
-      )}
-
-      {status === "ended" && nextRoomNo && (
-        <Box mt={4}>
-          <Restart nextRoomNo={nextRoomNo} viewerName={viewerName} />
         </Box>
       )}
+
+      <Box px={[2, 2, 3]} mt={4}>
+        {players.length > 0 && status !== "ended" && (
+          <GamePlayerList
+            players={players}
+            viewer={viewer}
+            recipientId={recipientId}
+          />
+        )}
+
+        <Box mt={4} />
+
+        {answeredQuestions.length > 0 && (
+          <Box>
+            <Box variant="orange.card.small">Questions</Box>
+            <Box variant="card.bottom.small">
+              {answeredQuestions.map((question, index) => (
+                <AnsweredQuestion
+                  question={question}
+                  players={players}
+                  key={index}
+                />
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        {status === "ended" && nextRoomNo && (
+          <Box mt={4} mx="auto" maxWidth="540px">
+            <Restart nextRoomNo={nextRoomNo} viewerName={viewerName} />
+          </Box>
+        )}
+      </Box>
+
+      <HomeLink />
 
       <Modal isOpen={showResults} hide={() => setShowResults(false)}>
         <QuestionResults

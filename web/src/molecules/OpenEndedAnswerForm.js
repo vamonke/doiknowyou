@@ -4,9 +4,9 @@ import { Formik } from "formik";
 import { Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
-const validate = values => values.guess ? {} : { guess: true };
+const validate = values => (values.guess ? {} : { guess: true });
 
-const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) =>
+const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) => (
   <Formik
     initialValues={{ guess: "" }}
     validate={validate}
@@ -15,7 +15,11 @@ const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) =>
       const { handleSubmit, handleChange, handleBlur, values, dirty } = props;
       return (
         <form onSubmit={handleSubmit}>
-          <Text mb={3}>{`Guess ${recipientName}'s answer`}</Text>
+          <Text
+            pt={[3, 0]}
+            mt={[0, 0, -2]}
+            mb={3}
+          >{`Guess ${recipientName}'s answer`}</Text>
           <Input
             type="text"
             onChange={handleChange}
@@ -23,6 +27,7 @@ const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) =>
             value={values.guess}
             name="guess"
             placeholder="Your guess"
+            {...(!dirty && { mb: 1 })}
           />
           {dirty && (
             <Button type="submit" width={1}>
@@ -33,8 +38,7 @@ const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) =>
       );
     }}
   />
-;
-
+);
 OpenEndedAnswerForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   recipientName: PropTypes.string.isRequired

@@ -7,7 +7,7 @@ const HomeLink = () => {
     if (window.confirm("Exit game?")) history.push("/");
   };
   return (
-    <Box mt={4} textAlign="center">
+    <Box my={4} textAlign="center">
       <Button
         variant="link"
         onClick={handleClick}
