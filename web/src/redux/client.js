@@ -6,6 +6,14 @@ import { arrayToObject } from "../utils";
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 const socket = io(serverUrl);
 
+socket.on("reconnecting", attemptNumber => {
+  alert(attemptNumber);
+});
+
+socket.on("disconnect", reason => {
+  alert("Disconnected", reason);
+});
+
 const viewerReady = payload => {
   return { type: e.VIEWER_READY, payload };
 };
@@ -137,7 +145,7 @@ export const serverEvents = store => {
     window.location.reload();
   });
 
-  socket.on("disconnected", () => {
+  socket.on("kick", () => {
     console.log("Kicked from room");
     store.dispatch(push("/"));
   });

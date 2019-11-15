@@ -49,7 +49,7 @@ const JoinGame = props => {
               render={({ field }) => (
                 <Input
                   {...field}
-                  type="text"
+                  type="number"
                   placeholder="Room number"
                   variant={errors.roomNo ? "error" : "input"}
                 />

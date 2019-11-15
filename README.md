@@ -41,5 +41,7 @@ git subtree push --prefix web heroku-web master
 ### List of known bugs
 
 - Joining a game in progress directs user to lobby instead of game
-- Android users kicked from game due to inactivty (?)
+- Android users kicked from game due to inactivty 
+  - Mobile browsers kills certain processes to save battery
+  - Explore use of socket.io manager
 - Residuel options from previous question
