@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Flex, Box, Heading, Text, Button } from "rebass";
 
 import { CreateGame, JoinGame } from "../organisms";
+import { Modal } from "../atoms";
 
 import { leave } from "../redux/actions";
 
@@ -30,7 +31,7 @@ const Home = () => {
       <Box px={[0, 2, 3]}>
         <Box variant="card.bottom" pt={[0, 0]}>
           <Box mb={3} py={24} sx={{ borderBottom: "1px solid #DDD" }}>
-            {mode === "home" && (
+            {
               <Flex mx={[-1, -2]}>
                 <Box width={1 / 2} px={[1, 2]}>
                   <Button width={1} onClick={() => setMode("create")}>
@@ -43,9 +44,17 @@ const Home = () => {
                   </Button>
                 </Box>
               </Flex>
-            )}
-            {mode === "create" && <CreateGame cancel={cancel} />}
-            {mode === "join" && <JoinGame cancel={cancel} />}
+            }
+            {
+              <Modal isOpen={mode === "create"} hide={() => setMode("home")}>
+                <CreateGame cancel={cancel} />
+              </Modal>
+            }
+            {
+              <Modal isOpen={mode === "join"} hide={() => setMode("home")}>
+                <JoinGame cancel={cancel} />
+              </Modal>
+            }
           </Box>
           <Text lineHeight={["1.6em", "1.8em"]} textAlign="justify" pb={3}>
             <Heading fontSize={3} pt={2} fontWeight="medium">

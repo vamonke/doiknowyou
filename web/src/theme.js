@@ -121,7 +121,8 @@ export default {
         borderRadius: 30
       },
       content: {
-        p: 3,
+        p: [3, 3, 24],
+        pt: [3, 3, 3],
         bg: "white",
         borderRadius: "0 0 30px 30px"
       }

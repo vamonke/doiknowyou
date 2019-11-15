@@ -7,7 +7,7 @@ const serverUrl = process.env.REACT_APP_SERVER_URL;
 const socket = io(serverUrl);
 
 socket.on("reconnecting", attemptNumber => {
-  alert(attemptNumber);
+  // console.log(attemptNumber);
 });
 
 socket.on("disconnect", reason => {

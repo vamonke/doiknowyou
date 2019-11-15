@@ -18,33 +18,45 @@ const CreateGame = props => {
   } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Box variant="relative">
-        <Input
-          name="name"
-          type="text"
-          placeholder="Name"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          autoFocus
-          variant={errors.name ? "error" : "input"}
-        />
-        {errors.name && <Text variant="error">{errors.name}</Text>}
+    <>
+      <Box variant="orange.card.small">
+        <Box variant="modal.header">Create Game</Box>
       </Box>
+      <Box variant="modal.content" pt={[3, 3, 24]}>
+        <form onSubmit={handleSubmit}>
+          <Box variant="relative">
+            <Input
+              name="name"
+              type="text"
+              placeholder="Name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              autoFocus
+              variant={errors.name ? "error" : "input"}
+            />
+            {errors.name && <Text variant="error">{errors.name}</Text>}
+          </Box>
 
-      <Flex mx={[-1, -2]}>
-        <Box width={1 / 2} px={[1, 2]}>
-          <Button variant="secondary" type="button" width={1} onClick={cancel}>
-            Cancel
-          </Button>
-        </Box>
-        <Box width={1 / 2} px={[1, 2]}>
-          <Button type="submit" width={1}>
-            {isSubmitting ? "-" : "Create Game"}
-          </Button>
-        </Box>
-      </Flex>
-    </form>
+          <Flex mt={[3, 3, 24]} mx={[-1, -2]}>
+            <Box width={1 / 2} px={[1, 2]}>
+              <Button
+                variant="secondary"
+                type="button"
+                width={1}
+                onClick={cancel}
+              >
+                Cancel
+              </Button>
+            </Box>
+            <Box width={1 / 2} px={[1, 2]}>
+              <Button type="submit" width={1}>
+                {isSubmitting ? "-" : "Create"}
+              </Button>
+            </Box>
+          </Flex>
+        </form>
+      </Box>
+    </>
   );
 };
 
@@ -65,7 +77,7 @@ const formOptions = {
     const { createGame, name, history } = values;
     const roomNo = await createGame(name);
     setSubmitting(false);
-    history.push("/lobby/" + roomNo);
+    history.push("/join/" + roomNo);
   },
   displayName: "CreateGame"
 };
