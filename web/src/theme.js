@@ -213,9 +213,9 @@ export default {
       borderWidth: 1,
       color: "red",
       p: 12,
+      top: 0,
       position: "absolute",
-      right: 0,
-      top: "1px"
+      right: 0
     },
     p: {
       mt: 3,
@@ -500,10 +500,11 @@ export default {
       }
     },
     error: {
+      p: [10, 15],
+      mb: 3,
       borderColor: "red",
-      px: 12,
-      py: 12,
-      my: 8
+      borderWidth: 1.5,
+      borderRadius: 10
     },
     select: {
       py: 8,

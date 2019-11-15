@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { withFormik, Field } from "formik";
 import { Flex, Box, Heading, Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
+import { Joining } from "../molecules";
 import { joinGame } from "../redux/actions";
 
 const JoinGame = props => {
@@ -14,8 +15,7 @@ const JoinGame = props => {
     handleBlur,
     handleSubmit,
     isSubmitting,
-    cancel,
-    values
+    cancel
   } = props;
 
   return (
@@ -68,7 +68,7 @@ const JoinGame = props => {
             )}
             <Box width={cancel ? 1 / 2 : 1} px={[1, 2]}>
               <Button type="submit" width={1}>
-                {isSubmitting ? "-" : "Join"}
+                {isSubmitting ? <Joining /> : "Join"}
               </Button>
             </Box>
           </Flex>
@@ -94,7 +94,7 @@ const formOptions = {
     const { match, history } = props;
     let roomNo = "";
 
-    if (match.isExact && match.path === "/join/:roomNo") {
+    if (match.isExact && match.path === "/lobby/:roomNo") {
       roomNo = match.params.roomNo;
       const validRoomNo = roomNo.match(/^\d{4}$/) !== null;
       if (!validRoomNo) {
@@ -114,8 +114,8 @@ const formOptions = {
       await joinGame(roomNo, name);
     } catch (error) {
       setFieldError("roomNo", error.response.data.error);
+      setSubmitting(false);
     }
-    setSubmitting(false);
   },
   displayName: "JoinGame"
 };

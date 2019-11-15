@@ -15,21 +15,21 @@ const Lobby = props => {
   const { _id: viewerId, isReady: viewerIsReady, name: viewerName } = viewer;
   const isHost = hostId === viewerId || viewerName === "Varick";
 
-  useEffect(() => {
-    console.log("useEffect: Joining game");
-    joinRoom(viewer);
-  }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   console.log("useEffect: Joining game");
+  //   joinRoom(viewer);
+  // }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [showSettings, setShowSettings] = useState(false);
 
-  if (!viewerId || !roomId) {
-    return <JoinGameCard />;
-  }
+  // if (!viewerId || !roomId) {
+  //   return <JoinGameCard />;
+  // }
 
-  if (players.length > 0 && !players.find(player => player._id === viewerId)) {
-    // Viewer not in player list
-    return <Disconnected />;
-  }
+  // if (players.length > 0 && !players.find(player => player._id === viewerId)) {
+  //   // Viewer not in player list
+  //   return <Disconnected />;
+  // }
 
   document.title = `Do I know you? #${roomNo}`;
 

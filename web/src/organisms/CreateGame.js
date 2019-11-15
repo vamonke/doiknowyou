@@ -5,6 +5,7 @@ import { Flex, Box, Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 import { withFormik } from "formik";
 
+import { Joining } from "../molecules";
 import { createGame } from "../redux/actions";
 
 const CreateGame = props => {
@@ -50,7 +51,7 @@ const CreateGame = props => {
             </Box>
             <Box width={1 / 2} px={[1, 2]}>
               <Button type="submit" width={1}>
-                {isSubmitting ? "-" : "Create"}
+                {isSubmitting ? <Joining /> : "Create"}
               </Button>
             </Box>
           </Flex>
@@ -76,8 +77,8 @@ const formOptions = {
   handleSubmit: async (values, { setSubmitting }) => {
     const { createGame, name, history } = values;
     const roomNo = await createGame(name);
-    setSubmitting(false);
-    history.push("/join/" + roomNo);
+    // setSubmitting(false);
+    // history.push("/join/" + roomNo);
   },
   displayName: "CreateGame"
 };

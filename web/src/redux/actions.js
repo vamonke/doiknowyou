@@ -71,7 +71,7 @@ export const joinGame = (roomNo, playerName) => {
     dispatch(fetchQuestionBank());
     const response = await axios.post(JOIN_GAME_API, params);
     dispatch(joinGameSuccess({ ...response.data }));
-    dispatch(push(`/join/${response.data.room.number}`));
+    // dispatch(push(`/join/${response.data.room.number}`));
     // return response.data.room.number;
   };
 };
