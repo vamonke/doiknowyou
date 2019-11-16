@@ -38,7 +38,7 @@ const QuestionResults = ({ question, players, hide }) => {
       <Box variant="orange.card.small">
         <Box variant="modal.header">{"Round " + round + " results"}</Box>
       </Box>
-      <Box variant="modal.content" textAlign="center">
+      <Box variant="modal.card" textAlign="center">
         <Text fontSize={2} mt={1} mb={3}>
           {text}
         </Text>

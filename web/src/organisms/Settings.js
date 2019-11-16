@@ -20,7 +20,7 @@ const QuestionResults = ({ room, hide, dispatch }) => {
         <Box variant="modal.header">Game Settings</Box>
       </Box>
 
-      <Box variant="modal.content">
+      <Box variant="modal.card">
         <Text fontWeight="medium" mb={3} mt={0}>
           Question time limit
         </Text>

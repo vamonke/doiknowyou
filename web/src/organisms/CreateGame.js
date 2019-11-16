@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { Flex, Box, Button, Text } from "rebass";
-import { Input } from "@rebass/forms";
+import { Input, Select } from "@rebass/forms";
 import { withFormik } from "formik";
 
-import { Joining } from "../molecules";
+import { RedirectToLobby } from "../molecules";
 import { createGame } from "../redux/actions";
 
 const CreateGame = props => {
@@ -23,8 +23,11 @@ const CreateGame = props => {
       <Box variant="orange.card.small">
         <Box variant="modal.header">Create Game</Box>
       </Box>
-      <Box variant="modal.content" pt={[3, 3, 24]}>
+      <Box variant="modal.card" pt={[3, 3, 24]}>
         <form onSubmit={handleSubmit}>
+          {/* <Text fontWeight="medium" pb={2}>
+            Name
+          </Text> */}
           <Box variant="relative">
             <Input
               name="name"
@@ -37,6 +40,27 @@ const CreateGame = props => {
             />
             {errors.name && <Text variant="error">{errors.name}</Text>}
           </Box>
+
+          {/* <Flex justifyContent="space-between" mx={[-1, -2]}>
+            <Box width={1 / 2} px={[1, 2]}>
+              <Text fontWeight="medium" pb={2}>
+                Time limit
+              </Text>
+              <Select name="timeLimit">
+                <option value="0">No limit</option>
+                <option value="10">10s</option>
+              </Select>
+            </Box>
+            <Box width={1 / 2} px={[1, 2]}>
+              <Text fontWeight="medium" pb={2}>
+                Game format
+              </Text>
+              <Select name="theme">
+                <option value="default">Default</option>
+                <option value="trial">Trial</option>
+              </Select>
+            </Box>
+          </Flex> */}
 
           <Flex mt={[3, 3, 24]} mx={[-1, -2]}>
             <Box width={1 / 2} px={[1, 2]}>
@@ -51,10 +75,14 @@ const CreateGame = props => {
             </Box>
             <Box width={1 / 2} px={[1, 2]}>
               <Button type="submit" width={1}>
-                {isSubmitting ? <Joining /> : "Create"}
+                {isSubmitting ? <RedirectToLobby /> : "Create"}
               </Button>
             </Box>
           </Flex>
+
+          {/* <Button mt={[3, 3, 24]} type="submit" width={1}>
+            {isSubmitting ? <RedirectToLobby /> : "Create"}
+          </Button> */}
         </form>
       </Box>
     </>
@@ -75,10 +103,13 @@ const formOptions = {
   validateOnBlur: false,
   validateOnChange: false,
   handleSubmit: async (values, { setSubmitting }) => {
-    const { createGame, name, history } = values;
-    const roomNo = await createGame(name);
-    // setSubmitting(false);
-    // history.push("/join/" + roomNo);
+    const { createGame, name } = values;
+    try {
+      await createGame(name);
+    } catch (error) {
+      console.log(error);
+      setSubmitting(false);
+    }
   },
   displayName: "CreateGame"
 };

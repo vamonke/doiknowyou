@@ -16,4 +16,4 @@ export { default as RandomQuestion } from "./RandomQuestion";
 export { default as Restart } from "./Restart";
 export { default as ResultsTable } from "./ResultsTable";
 export { default as Waiting } from "./Waiting";
-export { default as Joining } from "./Joining";
+export { default as RedirectToLobby } from "./RedirectToLobby";

@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { withFormik, Field } from "formik";
-import { Flex, Box, Heading, Button, Text } from "rebass";
+import { Flex, Box, Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
-import { Joining } from "../molecules";
+import { RedirectToLobby } from "../molecules";
 import { joinGame } from "../redux/actions";
 
 const JoinGame = props => {
@@ -23,7 +23,7 @@ const JoinGame = props => {
       <Box variant="orange.card.small">
         <Box variant="modal.header">Join Game</Box>
       </Box>
-      <Box variant="modal.content" pt={[3, 3, 24]}>
+      <Box variant="modal.card" pt={[3, 3, 24]}>
         <form onSubmit={handleSubmit}>
           <Box variant="relative">
             <Input
@@ -68,7 +68,7 @@ const JoinGame = props => {
             )}
             <Box width={cancel ? 1 / 2 : 1} px={[1, 2]}>
               <Button type="submit" width={1}>
-                {isSubmitting ? <Joining /> : "Join"}
+                {isSubmitting ? <RedirectToLobby /> : "Join"}
               </Button>
             </Box>
           </Flex>

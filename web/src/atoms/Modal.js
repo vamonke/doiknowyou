@@ -34,11 +34,11 @@ const backdrop = {
   }
 };
 
-const content = {
+const body = {
   open: {
     y: 0,
     opacity: 1,
-    transition: { delay: 0.3 }
+    transition: { delay: 0.1 }
   },
   closed: {
     y: -500,
@@ -55,9 +55,17 @@ const Modal = props => {
       animate={isOpen ? "open" : "closed"}
       variants={display}
     >
-      <motion.div style={backDrop} variants={backdrop} onClick={hide} />
       <Card variant="modal">
-        <motion.div variants={content}>
+        <motion.div
+          style={backDrop}
+          className="onClick"
+          variants={backdrop}
+          onClick={hide}
+        />
+        <motion.div
+          style={{ position: "relative", zIndex: 11 }}
+          variants={body}
+        >
           <Box variant="modal.body">{children}</Box>
         </motion.div>
       </Card>

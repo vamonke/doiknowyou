@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import history from "../redux/history";
 
-const Joining = props => {
+const RedirectToLobby = props => {
   const { room, viewer, players } = props;
   const { _id: viewerId } = viewer;
 
@@ -14,7 +14,8 @@ const Joining = props => {
     players.find(player => player._id === viewerId)
   ) {
     console.log("Redirecting to lobby");
-    // history.push(`/lobby/${room.number}`);
+    history.push(`/lobby/${room.number}`);
+    return null;
   }
 
   return <div className="loader-small" />;
@@ -26,4 +27,4 @@ const mapStateToProps = (state = {}) => {
   return { ...state, players, viewer };
 };
 
-export default connect(mapStateToProps)(Joining);
+export default connect(mapStateToProps)(RedirectToLobby);

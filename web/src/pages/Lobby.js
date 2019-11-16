@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Flex, Button, Text } from "rebass";
 import Icon from "react-eva-icons";
 
-import { joinRoom, playerReady, playerNotReady } from "../redux/client";
+import { playerReady, playerNotReady } from "../redux/client";
 
-import { QuestionsForm, JoinGameCard, Settings } from "../organisms";
+import { QuestionsForm, Settings } from "../organisms";
 import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
 import { Modal, HomeLink } from "../atoms";
 
 const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
-  const { _id: roomId, number: roomNo, hostId, status } = room;
+  const { number: roomNo, hostId, status } = room;
   const { _id: viewerId, isReady: viewerIsReady, name: viewerName } = viewer;
   const isHost = hostId === viewerId || viewerName === "Varick";
-
-  // useEffect(() => {
-  //   console.log("useEffect: Joining game");
-  //   joinRoom(viewer);
-  // }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [showSettings, setShowSettings] = useState(false);
 
@@ -26,10 +21,10 @@ const Lobby = props => {
   //   return <JoinGameCard />;
   // }
 
-  // if (players.length > 0 && !players.find(player => player._id === viewerId)) {
-  //   // Viewer not in player list
-  //   return <Disconnected />;
-  // }
+  if (players.length > 0 && !players.find(player => player._id === viewerId)) {
+    // Viewer not in player list
+    return <Disconnected />;
+  }
 
   document.title = `Do I know you? #${roomNo}`;
 

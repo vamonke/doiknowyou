@@ -120,7 +120,7 @@ export default {
         boxShadow: "heavy",
         borderRadius: 30
       },
-      content: {
+      card: {
         p: [3, 3, 24],
         pt: [3, 3, 3],
         bg: "white",
@@ -507,12 +507,19 @@ export default {
       borderRadius: 10
     },
     select: {
-      py: 8,
-      px: 12,
+      p: [10, 15],
       borderColor: "gray",
       borderWidth: 1.5,
       borderRadius: 10,
-      display: "inline-block"
+      display: "inline-block",
+      small: {
+        py: 8,
+        px: 12,
+        borderColor: "gray",
+        borderWidth: 1.5,
+        borderRadius: 10,
+        display: "inline-block"
+      }
     },
     textarea: {
       p: [10, 15],
