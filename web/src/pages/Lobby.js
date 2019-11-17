@@ -6,7 +6,7 @@ import Icon from "react-eva-icons";
 import { playerReady, playerNotReady } from "../redux/client";
 
 import { QuestionsForm, Settings } from "../organisms";
-import { LobbyPlayerList, Disconnected, Countdown } from "../molecules";
+import { LobbyPlayerList, Countdown } from "../molecules";
 import { Modal, HomeLink } from "../atoms";
 
 const Lobby = props => {
@@ -21,10 +21,10 @@ const Lobby = props => {
   //   return <JoinGameCard />;
   // }
 
-  if (players.length > 0 && !players.find(player => player._id === viewerId)) {
-    // Viewer not in player list
-    return <Disconnected />;
-  }
+  // if (players.length > 0 && !players.find(player => player._id === viewerId)) {
+  //   // Viewer not in player list
+  //   return <Disconnected />;
+  // }
 
   document.title = `Do I know you? #${roomNo}`;
 

@@ -35,18 +35,18 @@ const Game = props => {
   const { _id: recipientId, name: recipientName } = recipient;
   const isRecipient = recipientId === viewerId;
 
-  useEffect(() => {
-    console.log("useEffect: Join room");
-    joinRoom(viewer);
-  }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   console.log("useEffect: Join room");
+  //   joinRoom(viewer);
+  // }, [viewerId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [showResults, setShowResults] = useState(true);
   const lastQuestion = answeredQuestions[0] || {};
 
-  useEffect(() => {
-    console.log("useEffect: Show last question");
-    setShowResults(answeredQuestions.length > 0);
-  }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   console.log("useEffect: Show last question");
+  //   setShowResults(answeredQuestions.length > 0);
+  // }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!viewerId || !roomId) {
     return <JoinGameCard />;

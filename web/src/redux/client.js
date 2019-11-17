@@ -6,14 +6,6 @@ import { arrayToObject } from "../utils";
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 const socket = io(serverUrl);
 
-socket.on("reconnecting", attemptNumber => {
-  // console.log(attemptNumber);
-});
-
-socket.on("disconnect", reason => {
-  console.error("Disconnected", reason);
-});
-
 const viewerReady = payload => {
   return { type: e.VIEWER_READY, payload };
 };
@@ -54,14 +46,27 @@ const gameOverEvent = payload => {
   return { type: e.SOCKET_GAME_OVER, payload };
 };
 
-// Connection actions
 export const joinRoom = viewer => {
   const { roomId } = viewer;
-  if (roomId && !socket.player) {
+  if (!roomId) return;
+
+  if (!socket.player) {
     socket.player = viewer;
-    console.log("Joining room", roomId);
+    // console.log("Joining room", roomId);
     socket.emit("join", viewer);
   }
+};
+export const rejoinRoom = viewer => {
+  const { roomId } = viewer;
+  if (!roomId) return;
+
+  if (!socket.player) {
+    socket.player = viewer;
+    // console.log("Joining room", roomId);
+  }
+
+  alert("Rejoining room");
+  socket.emit("join", viewer);
 };
 export const leaveRoom = () => {
   socket.emit("leave");
@@ -110,6 +115,7 @@ export const playerAnswerOpen = answer => dispatch => {
 export const timesUp = () => dispatch => {
   dispatch(questionCompleteEvent());
 };
+
 // Server events
 export const serverEvents = store => {
   // Connection events
@@ -148,6 +154,27 @@ export const serverEvents = store => {
   socket.on("kick", () => {
     console.log("Kicked from room");
     store.dispatch(push("/"));
+  });
+
+  // Disconnection
+  socket.on("connect", () => {
+    const { viewer } = store.getState();
+    if (viewer && viewer.roomId) joinRoom(viewer);
+  });
+  socket.on("disconnect", () => {
+    alert("Disconnected");
+    const payload = { disconnected: true };
+    store.dispatch({ type: e.SOCKET_DISCONNECTED, payload });
+  });
+  socket.on("reconnect", () => {
+    const { viewer } = store.getState();
+    // alert(JSON.stringify(viewer));
+    if (viewer && viewer.roomId) {
+      rejoinRoom(viewer);
+      alert("Reconnected");
+      const payload = { disconnected: false };
+      store.dispatch({ type: e.SOCKET_RECONNECTED, payload });
+    }
   });
 
   // Lobby events

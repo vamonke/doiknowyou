@@ -1,4 +1,4 @@
-import { gameLog, playerLog } from "../logger";
+import { gameLog, playerLog, socketLog } from "../logger";
 
 import connectionEvents from "./connectionEvents";
 import lobbyEvents from "./lobbyEvents";
@@ -7,6 +7,7 @@ import gameEvents from "./gameEvents";
 
 const socketEvents = (io, socket) => {
   // console.log("Socket: " + socket.id + " [CONNECTED]");
+  // socketLog("New connection");
 
   const common = {
     players: [],

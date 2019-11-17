@@ -24,7 +24,8 @@ const defaultState = {
   ],
   currentQuestion: {},
   answeredQuestions: [],
-  answer: null
+  answer: null,
+  disconnected: false
 };
 
 const reducers = (state = defaultState, { type, payload }) => {
@@ -40,6 +41,8 @@ const reducers = (state = defaultState, { type, payload }) => {
     case e.HYDRATE_ROOM:
     case e.SOCKET_GAME_SETTINGS:
     case e.SOCKET_PLAYER_LIST:
+    case e.SOCKET_DISCONNECTED:
+    case e.SOCKET_RECONNECTED:
       return { ...state, ...payload };
 
     case e.SOCKET_PLAYER_READY:

@@ -46,9 +46,9 @@ export const populate = async () => {
 
 // export const getOne = RandomQuestion.aggregate.sample(1);
 
-export const getAll = () => RandomQuestion.find().select({ usage: 0 });
+export const getAll = () => RandomQuestion.find();
 
-export const getAllowed = () => RandomQuestion.find({ theme: "general", disabled: { $ne: true } }).select({ usage: 0 });
+export const getAllowed = () => RandomQuestion.find({ theme: "general", disabled: { $ne: true } });
 
 export const toggleDisabled = async id => {
   const randomQuestion = await RandomQuestion.findById(id);

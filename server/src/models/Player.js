@@ -12,6 +12,10 @@ const schema = new Schema(
       type: Number,
       default: 0
     },
+    disconnected: {
+      type: Boolean,
+      default: false
+    },
     createdAt: Date,
   },
   { versionKey: false }
@@ -28,7 +32,7 @@ export const create = async (roomId, name) => {
 export const findById = id => Player.findById(id).lean();
 
 export const findByRoom = roomId =>
-  Player.find({ roomId }).select({ name: 1, isReady: 1, score: 1 });
+  Player.find({ roomId }).select({ name: 1, isReady: 1, score: 1, disconnected: 1 });
 
 export const findIdsByRoom = roomId =>
   Player.find({ roomId }).select({ _id: 1 }).sort({ _id: 1 });
@@ -38,6 +42,10 @@ export const ready = id => Player.findByIdAndUpdate(id, { isReady: true });
 export const notReady = id => Player.findByIdAndUpdate(id, { isReady: false });
 
 export const remove = id => Player.findByIdAndDelete(id);
+
+export const disconnect = id => Player.findByIdAndUpdate(id, { disconnected: true });
+
+export const connected = id => Player.findByIdAndUpdate(id, { disconnected: false });
 
 export const getNextRecipientId = async (roomId, currentRecipientId) => {
   let next;

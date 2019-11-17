@@ -14,8 +14,7 @@ const RedirectToLobby = props => {
     players.find(player => player._id === viewerId)
   ) {
     console.log("Redirecting to lobby");
-    history.push(`/lobby/${room.number}`);
-    return null;
+    setTimeout(() => history.push(`/lobby/${room.number}`));
   }
 
   return <div className="loader-small" />;

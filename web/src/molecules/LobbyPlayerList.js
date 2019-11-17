@@ -44,7 +44,7 @@ const LobbyPlayerList = ({
       </Box>
       <Box variant="card.bottom.small" pb={[3, 3]}>
         {players.map((player, index) => {
-          const { _id: playerId, name, isReady } = player;
+          const { _id: playerId, name, isReady, disconnected } = player;
           const isViewer = playerId === viewerId;
           const playerIsHost = playerId === hostId;
           return (
@@ -55,6 +55,11 @@ const LobbyPlayerList = ({
                     {name}
                   </Text>
                   {/* {isViewer && " (you)"*} */}
+                  {disconnected && (
+                    <Text variant="tag.small" bg="gray">
+                      Away
+                    </Text>
+                  )}
                   {playerIsHost && <Text variant="tag.small">Host</Text>}
                 </Box>
 

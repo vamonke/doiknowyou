@@ -5,16 +5,6 @@ import * as Answer from "../models/Answer";
 
 import { error, socketLog } from "../logger";
 
-const getSocketPlayerIds = io => {
-  const ids = [];
-  const sockets = io.sockets.sockets;
-  for (const key in sockets) {
-    const player = sockets[key].player;
-    if (player && player._id) ids.push(player._id);
-  }
-  return ids;
-};
-
 const connectionEvents = (io, socket, common) => {
   const emitPlayers = async roomId => {
     // TODO: Cache
@@ -78,6 +68,25 @@ const connectionEvents = (io, socket, common) => {
     }
   };
 
+  const disconnect = async () => {
+    if (!socket.player) return;
+
+    const { _id, roomId } = socket.player;
+    const room = await Room.findById(roomId);
+    if (room.status === "ended") return;
+
+    await Player.disconnect(_id);
+    common.playerLog("disconnected");
+    emitPlayers(roomId);
+
+    if (room.status === "created") {
+      // await Question.removeByPlayerId(_id);
+      if (room.hostId === _id) {
+        common.newHost(roomId, null);
+      }
+    }
+  };
+
   const hydrate = async roomId => {
     common.playerLog("joined");
     hydrateRoom(roomId);
@@ -91,13 +100,15 @@ const connectionEvents = (io, socket, common) => {
 
   socket.on("join", async player => {
     socket.player = player;
-    const { roomId } = player;
+    const { _id, roomId } = player;
     const socketInRoom = Object.prototype.hasOwnProperty.call(
       socket.rooms,
       roomId
     );
+    await Player.connected(_id);
     if (!socketInRoom) {
       socket.join(roomId, async () => {
+        socketLog(player.name + " connected to room");
         hydrate(roomId);
       });
     } else {
@@ -118,7 +129,7 @@ const connectionEvents = (io, socket, common) => {
 
     if (!playerInRoom) {
       error("Socket player not in player list: " + socket.player.name);
-      socket.emit("disconnected");
+      socket.emit("kick");
       return true;
     }
     return false;
@@ -126,25 +137,20 @@ const connectionEvents = (io, socket, common) => {
 
   socket.on("leave", leaveRoom);
 
-  socket.on("disconnect", async () => {
+  socket.on("disconnect", async (reason) => {
+    // common.playerLog("disconnected due to " + reason);
     if (!socket.player) return;
 
-    const { _id, name, roomId } = socket.player;
+    const { name, roomId } = socket.player;
     const room = await Room.findById(roomId);
     if (room.status === "ended") return;
 
-    socketLog(name + " disconnected");
+    socketLog(name + " disconnected due to " + reason);
+    disconnect();
+  });
 
-    setTimeout(() => {
-      const socketPlayerIds = getSocketPlayerIds(io);
-      if (socketPlayerIds.includes(_id)) {
-        // Another socket has been created with the same player id
-        socketLog(name + " reconnected");
-      } else {
-        // No socket has been created with the same player id
-        leaveRoom();
-      }
-    }, 1000);
+  socket.on('reconnect', (attemptNumber) => {
+    console.log("attemptNumber", attemptNumber);
   });
 
   Object.assign(common, { emitPlayers });
