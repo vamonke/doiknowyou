@@ -13,9 +13,17 @@ const schema = new Schema(
       type: [String],
       default: undefined
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     usage: {
       type: Number,
       default: 0
+    },
+    tags: {
+      type: [String],
+      default: ["general"]
     }
   },
   { versionKey: false }
@@ -24,16 +32,29 @@ const schema = new Schema(
 const RandomQuestion = model("RandomQuestion", schema);
 
 export const populate = async () => {
-  console.log("MongoDB: Populating Question Bank");
+  console.log("MongoDB: Emptying question bank");
+  const deleted = await RandomQuestion.deleteMany({});
+  console.log("MongoDB: Removed", deleted.deletedCount , "questions");
+  
+  console.log("MongoDB: Populating question bank");
   for (const question of questionBank) {
-    console.log(question.text);
+    // console.log(question.text);
     await RandomQuestion.create(question);
   }
-  console.log("Done!");
+  console.log("MongoDB: Inserted", questionBank.length , "questions");
 };
 
 // export const getOne = RandomQuestion.aggregate.sample(1);
 
 export const getAll = () => RandomQuestion.find().select({ usage: 0 });
+
+export const getAllowed = () => RandomQuestion.find({ theme: "general", disabled: { $ne: true } }).select({ usage: 0 });
+
+export const toggleDisabled = async id => {
+  const randomQuestion = await RandomQuestion.findById(id);
+  randomQuestion.disabled = !randomQuestion.disabled;
+  await randomQuestion.save();
+  return randomQuestion;
+};
 
 export const deleteById = id => RandomQuestion.findByIdAndDelete(id);

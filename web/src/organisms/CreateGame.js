@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { Flex, Box, Button, Text } from "rebass";
-import { Input, Select } from "@rebass/forms";
+import { Input } from "@rebass/forms";
 import { withFormik } from "formik";
 
 import { RedirectToLobby } from "../molecules";

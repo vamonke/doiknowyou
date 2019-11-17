@@ -281,6 +281,17 @@ export default {
         mx: 2,
         fontSize: "10pt",
         verticalAlign: 1
+      },
+      xsmall: {
+        display: "inline",
+        bg: "darkyellow",
+        color: "white",
+        borderRadius: "5px",
+        py: "3px",
+        px: "6px",
+        ml: 2,
+        fontSize: "8pt",
+        verticalAlign: 1
       }
     },
     tagLarge: {
@@ -366,17 +377,6 @@ export default {
         borderColor: "grey"
       }
     },
-    dotted: {
-      cursor: "pointer",
-      color: "black",
-      bg: "transparent",
-      borderWidth: 1,
-      borderStyle: "dashed",
-      borderColor: "black",
-      borderRadius: 0,
-      p: 12,
-      outline: "none"
-    },
     inField: {
       cursor: "pointer",
       color: "white",
@@ -431,26 +431,26 @@ export default {
     },
     tab: {
       display: "inline-block",
-      backgroundColor: "black",
-      border: "1px solid white",
-      borderBottom: "none",
-      borderRadius: 0,
+      bg: "transparent",
+      color: "white",
+      borderRadius: "5px 5px 0 0",
+      fontWeight: "medium",
       textDecoration: "none",
       cursor: "pointer",
-      px: [2, 3],
-      ml: 2,
+      px: 0,
+      mr: 3,
       py: 2,
       active: {
         display: "inline-block",
-        backgroundColor: "white",
-        color: "black",
-        border: "1px solid white",
-        borderBottom: "none",
-        borderRadius: 0,
+        bg: "darkpurple",
+        color: "white",
+        border: "none",
+        borderRadius: "5px 5px 0 0",
+        fontWeight: "medium",
         textDecoration: "none",
         cursor: "pointer",
         px: [2, 3],
-        ml: 2,
+        mr: 3,
         py: 2
       }
     },

@@ -66,7 +66,8 @@
     },
     {
       "text": "Would you rather have AIDS or no sex forever?",
-      "options": ["AIDS", "No sex forever"]
+      "options": ["AIDS", "No sex forever"],
+      "disabled": true
     },
     {
       "text": "Have you ever done anything illegal?",
@@ -74,7 +75,8 @@
     },
     {
       "text": "Have you made someone cry before? (Excluding family members)",
-      "type": "yesno"
+      "type": "yesno",
+      "disabled": true
     },
     {
       "text": "When it comes to relationships, are you a settler or a reacher?",
@@ -246,7 +248,8 @@
     },
     {
       "text": "Have you ever kissed someone of the same sex?",
-      "type": "yesno"
+      "type": "yesno",
+      "disabled": true
     },
     {
       "text": "If you (or your partner) got pregnant before marriage, would you abort the baby?",
@@ -422,7 +425,8 @@
     },
     {
       "text": "Do you believe in abstinence? (No sex before marriage)",
-      "type": "yesno"
+      "type": "yesno",
+      "disabled": true
     },
     {
       "text": "Would you rather betray a close friend or lose your partner?",
@@ -478,7 +482,8 @@
     },
     {
       "text": "Favourite fast food?",
-      "options": ["Macs", "KFC", "LJS", "Subway", "Pizza Hut"]
+      "options": ["Macs", "KFC", "LJS", "Subway", "Pizza Hut"],
+      "tags": ["general", "food"]
     },
     {
       "text": "What is your favourite fast food?",
@@ -510,11 +515,13 @@
     },
     {
       "text": "McNuggets or McWings?",
-      "options": ["Nuggets", "Wings"]
+      "options": ["Nuggets", "Wings"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Mala spicy level?",
-      "options": ["不辣", "小辣", "中辣", "大辣", "超辣"]
+      "options": ["不辣", "小辣", "中辣", "大辣", "超辣"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Would you rather shit on someone you like or have someone you like shit on you?",
@@ -558,7 +565,8 @@
     },
     {
       "text": "Would you rather pay or get paid every time you have sex?",
-      "options": ["Pay", "Get paid"]
+      "options": ["Pay", "Get paid"],
+      "disabled": true
     },
     {
       "text": "Would you rather be a homewrecker or be home wrecked?",
@@ -642,11 +650,13 @@
     },
     {
       "text": "Are you a foodie?",
-      "type": "yesno"
+      "type": "yesno",
+      "tags": ["general", "food"]
     },
     {
       "text": "Milk tea with or without pearl?",
-      "options": ["With pearl", "No pearl"]
+      "options": ["With pearl", "No pearl"],
+      "tags": ["general", "food"]
     },
     {
       "text": "What super power would you want to have?",
@@ -666,27 +676,33 @@
     },
     {
       "text": "Ketchup or chilli?",
-      "options": ["Ketchup", "Chilli"]
+      "options": ["Ketchup", "Chilli"],
+      "tags": ["general", "food"]
     },
     {
       "text": "French fries or potato chips?",
-      "options": ["French fries", "Potato chips"]
+      "options": ["French fries", "Potato chips"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Chicken wing or chicken drumlet?",
-      "options": ["Wings", "Drums"]
+      "options": ["Wings", "Drums"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Favourite Subway cookie?",
-      "options": ["Peanut Butter", "White Chip Macadamia Nut", "Oatmeal Raisin", "Raspberry Cheesecake", "Chocolate Chip", "Double Chocolate"]
+      "options": ["Peanut Butter", "White Chip Macadamia Nut", "Oatmeal Raisin", "Raspberry Cheesecake", "Chocolate Chip", "Double Chocolate"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Pancakes or waffles?",
-      "options": ["Pancakes", "Waffles"]
+      "options": ["Pancakes", "Waffles"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Favourite McDonalds ice cream?",
-      "options": ["McFlurry", "Vanilla/Choco Cone", "Sundae"]
+      "options": ["McFlurry", "Vanilla/Choco Cone", "Sundae"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Favourite type of chocolate?",
@@ -702,7 +718,8 @@
     },
     {
       "text": "Milk tea sugar level?",
-      "options": ["0%", "25%", "50%", "75%", "100%", "125%"]
+      "options": ["0%", "25%", "50%", "75%", "100%", "125%"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Would you rather be a tree or have to live in a tree for the rest of your life?",
@@ -726,7 +743,8 @@
     },
     {
       "text": "Favourite type of meat?",
-      "options": ["Chicken", "Beef", "Pork", "Fish", "Vegetarian"]
+      "options": ["Chicken", "Beef", "Pork", "Fish", "Vegetarian"],
+      "tags": ["general", "food"]
     },
     {
       "text": "Would you rather be born with an elephant trunk or a giraffe neck?",
@@ -758,7 +776,8 @@
     },
     {
       "text": "Finish this sentence: \"I wish I had someone to share...\"",
-      "type": "open"
+      "type": "open",
+      "disabled": true
     },
     {
       "text": "What is your favourite sport?",
@@ -789,7 +808,7 @@
       "type": "open"
     },
     {
-      "text": "If you had to choose another course of study, what would you pick?",
+      "text": "If you were to choose another course of study, what would you pick?",
       "type": "open"
     },
     {
@@ -853,7 +872,7 @@
       "type": "open"
     },
     {
-      "text": "Choose a Chris from the Marvel Cinematic Universe",
+      "text": "Favourite Chris from the Marvel Cinematic Universe?",
       "options": ["Chris Evans (Captain America)", "Chris Hemsworth (Thor)", "Chris Pratt (Star-Lord, Guardians of the Galaxy)"]
     },
     {
@@ -894,15 +913,130 @@
     },
     {
       "text": "If you could only eat one thing for the rest of your life, what would it be?",
-      "type": "open"
+      "type": "open",
+      "tags": ["general", "food"]
     },
     {
       "text": "Favourite bubble tea?",
-      "type": "open"
+      "type": "open",
+      "tags": ["general", "food"]
     },
     {
       "text": "What do you usually order at Macs?",
-      "type": "open"
+      "type": "open",
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "If you could pick up any language instantly, what language would you choose?",
+      "options": "open"
+    },
+    {
+      "text": "What inscription do you want on your tombstone?",
+      "options": "open"
+    },
+    {
+      "text": "You have $100 to burn, all your friends are busy and you have the whole day to yourself, what do you do?",
+      "options": "open"
+    },
+    {
+      "text": "Netflix or YouTube?",
+      "options": ["Netflix", "YouTube"]
+    },
+    {
+      "text": "iOS or Android?",
+      "options": ["iOS", "Android"]
+    },
+    {
+      "text": "Work hard or play hard?",
+      "options": ["Work Hard", "Play Hard"]
+    },
+    {
+      "text": "What's worse: Laundry or Dishes?",
+      "options": ["Laundry", "Dishes"]
+    },
+    {
+      "text": "Money or Free Time?",
+      "options": ["Money", "Free Time"]
+    },
+    {
+      "text": "Iced Coffee or Hot Coffee?",
+      "options": ["Iced Coffee", "Hot Coffee"]
+    },
+    {
+      "text": "Would you rather know how you die or when you die?",
+      "options": ["How I die", "When I die"]
+    },
+    {
+      "text": "Would you rather have one nipple or two belly buttons?",
+      "options": ["One nipple", "Two belly buttons"]
+    },
+    {
+      "text": "Would you rather be forced to kill one innocent person or five people who committed minor crimes?",
+      "options": ["Kill one innocent person", "Kill five people who committed minor crimes"]
+    },
+    {
+      "text": "Would you rather work very hard at a rewarding job or hardly have to work at a job that isn't rewarding?",
+      "options": ["Work very hard at a rewarding job", "Hardly have to work at a job that isn't rewarding"]
+    },
+    {
+      "text": "Would you rather..?",
+      "options": ["Fight for a cause I believe in, but doubt will succeed", "Fight for a cause that I only partially believe in but have a high chance of succeeding"]
+    },
+    {
+      "text": "Would you rather know the uncomfortable truth of the world or believe a comforting lie?",
+      "options": ["Know the uncomfortable truth of the world", "Believe a comforting lie"]
+    },
+    {
+      "text": "Would you rather lose all of your memories from birth to now or lose your ability to make new long-term memories?",
+      "options": ["Lose all of my memories from birth to now", "Lose my ability to make new long-term memories"]
+    },
+    {
+      "text": "Would you rather be held in high regard by your parents or your friends?",
+      "options": ["Parents", "Friends"]
+    },
+    {
+      "text": "Would you rather never get angry or never be envious?",
+      "options": ["Never get angry", "Never be envious"]
+    },
+    {
+      "text": "If you write a law that everyone must obey, what law would you write?",
+      "options": "open"
+    },
+    {
+      "text": "Are you a morning bird or a night owl?",
+      "options": ["Morning bird", "Night owl"]
+    },
+    {
+      "text": "What job would you be terrible at?",
+      "options": "open"
+    },
+    {
+      "text": "What skill would you like to master?",
+      "options": "open"
+    },
+    {
+      "text": "What age do you wish you could permanently be?",
+      "options": "open"
+    },
+    {
+      "text": "What is the most annoying question that people ask you?",
+      "options": "open"
+    },
+    {
+      "text": "If all jobs had the same pay and hours, what job would you like to have?",
+      "options": "open"
+    },
+    {
+      "text": "When people come to you for help, what do they usually want help with?",
+      "options": "open"
+    },
+    {
+      "text": "What could you give a 30min presentation on with absolutely no preparation?",
+      "options": "open"
+    },
+    {
+      "text": "What would be your ideal date?",
+      "options": "open"
     }
   ]
 }

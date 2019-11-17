@@ -16,9 +16,9 @@ const Layout = ({ children }) => {
   document.title = "DIKY | Admin";
   return (
     <>
-      <Box backgroundColor="black" color="white">
+      <Box variant="orange">
         <Box maxWidth={1024} mx="auto">
-          <Heading fontSize={[4, 5]} pt={[2, 3]} px={2}>
+          <Heading fontSize={[4, 5]} mt={[-2, -3]} color="white">
             DIKY : Admin
           </Heading>
           <Box pt={2}>

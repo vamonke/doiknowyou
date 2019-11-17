@@ -11,7 +11,7 @@ socket.on("reconnecting", attemptNumber => {
 });
 
 socket.on("disconnect", reason => {
-  alert("Disconnected", reason);
+  console.error("Disconnected", reason);
 });
 
 const viewerReady = payload => {

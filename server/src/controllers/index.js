@@ -25,5 +25,7 @@ export const joinGame = async (playerName, roomNo) => {
   return false;
 };
 
+export const toggleQuestion = RandomQuestion.toggleDisabled;
 export const populateQuestionBank = RandomQuestion.populate;
-export const getQuestionBank = RandomQuestion.getAll;
+export const getQuestionBankAll = RandomQuestion.getAll;
+export const getQuestionBank = RandomQuestion.getAllowed;
