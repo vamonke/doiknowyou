@@ -48,7 +48,7 @@ export const populate = async () => {
 
 export const getAll = () => RandomQuestion.find();
 
-export const getAllowed = () => RandomQuestion.find({ theme: "general", disabled: { $ne: true } });
+export const getAllowed = () => RandomQuestion.find({ tags: "general", disabled: { $ne: true } });
 
 export const toggleDisabled = async id => {
   const randomQuestion = await RandomQuestion.findById(id);
