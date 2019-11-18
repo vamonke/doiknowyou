@@ -43,10 +43,10 @@ const Game = props => {
   const [showResults, setShowResults] = useState(true);
   const lastQuestion = answeredQuestions[0] || {};
 
-  // useEffect(() => {
-  //   console.log("useEffect: Show last question");
-  //   setShowResults(answeredQuestions.length > 0);
-  // }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    console.log("useEffect: Show last question");
+    setShowResults(answeredQuestions.length > 0);
+  }, [lastQuestion._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!viewerId || !roomId) {
     return <JoinGameCard />;

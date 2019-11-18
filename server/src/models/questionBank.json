@@ -67,7 +67,8 @@
     {
       "text": "Would you rather have AIDS or no sex forever?",
       "options": ["AIDS", "No sex forever"],
-      "disabled": true
+      "disabled": true,
+      "tags": ["nswf"]
     },
     {
       "text": "Have you ever done anything illegal?",
@@ -155,11 +156,11 @@
       "type": "open"
     },
     {
-      "text": "Which is your favourite TV show?",
+      "text": "Which is TV show do you like the most?",
       "options": ["Friends", "Game of Thrones", "Running Man", "Master Chef"]
     },
     {
-      "text": "Which type of TV drama do you enjoy the most?",
+      "text": "What is your favourite type of TV drama?",
       "options": ["Korean", "American", "Hong Kong", "Mediacorp"]
     },
     {
@@ -249,7 +250,8 @@
     {
       "text": "Have you ever kissed someone of the same sex?",
       "type": "yesno",
-      "disabled": true
+      "disabled": true,
+      "tags": ["nswf"]
     },
     {
       "text": "If you (or your partner) got pregnant before marriage, would you abort the baby?",
@@ -426,7 +428,8 @@
     {
       "text": "Do you believe in abstinence? (No sex before marriage)",
       "type": "yesno",
-      "disabled": true
+      "disabled": true,
+      "tags": ["nswf"]
     },
     {
       "text": "Would you rather betray a close friend or lose your partner?",
@@ -495,7 +498,8 @@
     },
     {
       "text": "Who do you think will most likely get a divorce in the future?",
-      "type": "players"
+      "type": "players",
+      "disabled": true
     },
     {
       "text": "Would you rather date a spoilt brat or an extremely lazy person?",
@@ -566,7 +570,8 @@
     {
       "text": "Would you rather pay or get paid every time you have sex?",
       "options": ["Pay", "Get paid"],
-      "disabled": true
+      "disabled": true,
+      "tags": ["nswf"]
     },
     {
       "text": "Would you rather be a homewrecker or be home wrecked?",

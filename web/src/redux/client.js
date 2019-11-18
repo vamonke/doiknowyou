@@ -65,7 +65,7 @@ export const rejoinRoom = viewer => {
     // console.log("Joining room", roomId);
   }
 
-  alert("Rejoining room");
+  // alert("Rejoining room");
   socket.emit("join", viewer);
 };
 export const leaveRoom = () => {
@@ -162,7 +162,7 @@ export const serverEvents = store => {
     if (viewer && viewer.roomId) joinRoom(viewer);
   });
   socket.on("disconnect", () => {
-    alert("Disconnected");
+    // alert("Disconnected");
     const payload = { disconnected: true };
     store.dispatch({ type: e.SOCKET_DISCONNECTED, payload });
   });
@@ -171,7 +171,7 @@ export const serverEvents = store => {
     // alert(JSON.stringify(viewer));
     if (viewer && viewer.roomId) {
       rejoinRoom(viewer);
-      alert("Reconnected");
+      // alert("Reconnected");
       const payload = { disconnected: false };
       store.dispatch({ type: e.SOCKET_RECONNECTED, payload });
     }

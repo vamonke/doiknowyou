@@ -74,7 +74,7 @@ const CreateGame = props => {
               </Button>
             </Box>
             <Box width={1 / 2} px={[1, 2]}>
-              <Button type="submit" width={1}>
+              <Button type="submit" width={1} disabled={isSubmitting}>
                 {isSubmitting ? <RedirectToLobby /> : "Create"}
               </Button>
             </Box>
@@ -102,10 +102,10 @@ const formOptions = {
   validate,
   validateOnBlur: false,
   validateOnChange: false,
-  handleSubmit: async (values, { setSubmitting }) => {
+  handleSubmit: (values, { setSubmitting }) => {
     const { createGame, name } = values;
     try {
-      await createGame(name);
+      createGame(name);
     } catch (error) {
       console.log(error);
       setSubmitting(false);

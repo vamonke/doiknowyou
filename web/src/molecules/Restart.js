@@ -4,10 +4,13 @@ import { Button } from "rebass";
 import { connect } from "react-redux";
 import { leave, joinGame } from "../redux/actions";
 
+import history from "../redux/history";
+
 const Restart = ({ nextRoomNo, viewerName, dispatch }) => {
   const onClick = () => {
     dispatch(leave());
     dispatch(joinGame(nextRoomNo, viewerName));
+    history.push(`/restart/${nextRoomNo}`);
   };
   return (
     <Button width={1} onClick={onClick}>

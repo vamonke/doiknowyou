@@ -67,7 +67,7 @@ const JoinGame = props => {
               </Box>
             )}
             <Box width={cancel ? 1 / 2 : 1} px={[1, 2]}>
-              <Button type="submit" width={1}>
+              <Button type="submit" width={1} disabled={isSubmitting}>
                 {isSubmitting ? <RedirectToLobby /> : "Join"}
               </Button>
             </Box>
@@ -108,10 +108,10 @@ const formOptions = {
   validate,
   validateOnBlur: false,
   validateOnChange: false,
-  handleSubmit: async (values, { setSubmitting, setFieldError }) => {
+  handleSubmit: (values, { setSubmitting, setFieldError }) => {
     const { joinGame, name, roomNo } = values;
     try {
-      await joinGame(roomNo, name);
+      joinGame(roomNo, name);
     } catch (error) {
       setFieldError("roomNo", error.response.data.error);
       setSubmitting(false);
