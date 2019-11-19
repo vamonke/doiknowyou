@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Box } from "rebass";
 
-import { joinRoom, playerAnswer, timesUp } from "../redux/client";
+import { playerAnswer, timesUp } from "../redux/client";
 import { Modal, HomeLink } from "../atoms";
 
 import { GamePlayerList, Disconnected, Restart } from "../molecules";

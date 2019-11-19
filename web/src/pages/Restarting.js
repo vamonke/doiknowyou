@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Box } from "rebass";
 
-// import { joinRoom } from "../redux/client";
 import history from "../redux/history";
-
-import { HomeLink } from "../atoms";
 import { RedirectToLobby } from "../molecules";
 
 const overlay = {

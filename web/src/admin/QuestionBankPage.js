@@ -9,14 +9,18 @@ import { capitalize } from "../utils";
 
 const colorMapping = {
   general: "gray",
-  food: "darkyellow"
+  food: "darkyellow",
+  NSFW: "red"
 };
 
-const tags = ["general", "food"];
+const tags = ["general", "food", "NSFW"];
 
-const QuestionBank = ({ questionBank, dispatch }) => {
+const types = ["mcq", "yesno", "players", "open"];
+
+const QuestionBankPage = ({ questionBank, dispatch }) => {
   const [keyword, setKeyword] = useState("");
   const [tagFilter, setTagFilter] = useState(null);
+  const [typeFilter, setTypeFilter] = useState(null);
 
   if (!questionBank) {
     dispatch(fetchQuestionBankAll());
@@ -45,6 +49,8 @@ const QuestionBank = ({ questionBank, dispatch }) => {
   if (tagFilter)
     results = results.filter(({ tags }) => tags.includes(tagFilter));
 
+  if (typeFilter) results = results.filter(({ type }) => typeFilter === type);
+
   return (
     <>
       <Heading>{results.length} questions</Heading>
@@ -63,14 +69,31 @@ const QuestionBank = ({ questionBank, dispatch }) => {
           variant="tag.xsmall"
           key={tag}
           mr={2}
+          mb={2}
           bg={colorMapping[tag]}
         >
           {capitalize(tag)}
         </Button>
       ))}
 
+      {types.map(type => (
+        <Button
+          onClick={() => setTypeFilter(type)}
+          variant="tag.xsmall"
+          key={type}
+          mr={2}
+          mb={2}
+          bg="blue"
+        >
+          {type === "yesno" ? "Yes/No" : capitalize(type)}
+        </Button>
+      ))}
+
       <Button
-        onClick={() => setTagFilter(null)}
+        onClick={() => {
+          setTagFilter(null);
+          setTypeFilter(null);
+        }}
         variant="tag.xsmall"
         bg="darkpurple"
       >
@@ -113,4 +136,4 @@ const QuestionBank = ({ questionBank, dispatch }) => {
 
 const mapStateToProps = (state = {}) => state;
 
-export default connect(mapStateToProps)(QuestionBank);
+export default connect(mapStateToProps)(QuestionBankPage);

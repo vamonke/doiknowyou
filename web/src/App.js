@@ -22,7 +22,7 @@ const App = () => (
               <Route
                 exact
                 path="/admin/questionbank"
-                component={Admin.QuestionBank}
+                component={Admin.QuestionBankPage}
               />
               <Route exact path="/admin/logs" component={Admin.Logs} />
             </Switch>

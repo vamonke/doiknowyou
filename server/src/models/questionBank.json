@@ -68,7 +68,7 @@
       "text": "Would you rather have AIDS or no sex forever?",
       "options": ["AIDS", "No sex forever"],
       "disabled": true,
-      "tags": ["nswf"]
+      "tags": ["NSFW"]
     },
     {
       "text": "Have you ever done anything illegal?",
@@ -251,7 +251,7 @@
       "text": "Have you ever kissed someone of the same sex?",
       "type": "yesno",
       "disabled": true,
-      "tags": ["nswf"]
+      "tags": ["NSFW"]
     },
     {
       "text": "If you (or your partner) got pregnant before marriage, would you abort the baby?",
@@ -429,7 +429,7 @@
       "text": "Do you believe in abstinence? (No sex before marriage)",
       "type": "yesno",
       "disabled": true,
-      "tags": ["nswf"]
+      "tags": ["NSFW"]
     },
     {
       "text": "Would you rather betray a close friend or lose your partner?",
@@ -571,7 +571,7 @@
       "text": "Would you rather pay or get paid every time you have sex?",
       "options": ["Pay", "Get paid"],
       "disabled": true,
-      "tags": ["nswf"]
+      "tags": ["NSFW"]
     },
     {
       "text": "Would you rather be a homewrecker or be home wrecked?",
