@@ -46,7 +46,7 @@ const QuestionTags = props => {
       {tags.map(({ name, value }) => (
         <Button
           key={name}
-          variant="black"
+          variant="blackTag"
           onClick={() => generateQuestion(value)}
         >
           {name}

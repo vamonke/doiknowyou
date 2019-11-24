@@ -24,7 +24,7 @@ const LobbySelectOptions = props => {
   };
 
   return (
-    <Flex justifyContent="space-between">
+    <Flex justifyContent="space-between" alignItems="center">
       <Text fontWeight="medium" py={2}>
         Options
       </Text>
@@ -33,6 +33,7 @@ const LobbySelectOptions = props => {
         render={({ field }) => (
           <Box width={150}>
             <Select
+              variant="select.small"
               {...field}
               name={`questions[${questionNo}].type`}
               onChange={setOptionType}

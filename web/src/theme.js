@@ -420,6 +420,17 @@ export default {
     black: {
       cursor: "pointer",
       fontFamily: "button",
+      color: "white",
+      bg: "darkpurple",
+      borderStyle: "solid",
+      borderColor: "black",
+      borderRadius: 21,
+      borderWidth: 0,
+      p: 16
+    },
+    blackTag: {
+      cursor: "pointer",
+      fontFamily: "button",
       color: "darkyellow",
       bg: "#17141D",
       borderWidth: 1,
@@ -542,12 +553,12 @@ export default {
     textarea: {
       p: [10, 15],
       mt: [3, 3, 24],
-      mb: 2,
       minHeight: 100,
       borderColor: "gray",
       borderWidth: 1.5,
       borderRadius: 10,
       transition: "border-color 300ms",
+      fontFamily: "inherit",
       "&:focus": {
         borderColor: "darkyellow",
         transition: "border-color 300ms"
