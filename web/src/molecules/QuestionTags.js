@@ -1,6 +1,7 @@
 import React from "react";
 import { Flex, Button } from "rebass";
 
+// Store and fetch tags from server
 const tags = [
   { name: "Open", value: "open" },
   { name: "Players", value: "players" },
@@ -9,7 +10,8 @@ const tags = [
   { name: "Burning Bridges", value: "burn" },
   { name: "Weird", value: "weird" },
   { name: "Food", value: "food" },
-  { name: "Would You Rather", value: "wyr" }
+  { name: "Would You Rather", value: "wyr" },
+  { name: "Dev", value: "dev" }
 ];
 
 const QuestionTags = props => {
@@ -20,6 +22,9 @@ const QuestionTags = props => {
     const taggedQuestions = questionBank.filter(({ tags }) =>
       tags.includes(tag)
     );
+
+    if (taggedQuestions.length === 0) return;
+
     const { _id, text, type, options } = taggedQuestions[
       Math.floor(Math.random() * taggedQuestions.length)
     ];

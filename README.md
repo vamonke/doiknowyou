@@ -29,7 +29,12 @@ Social game to test how well you know your friends. Built with React and Socket.
 
 ```
 git subtree push --prefix server heroku-server master
+OR
+git push heroku-server `git subtree split --prefix server master`:master --force
+
 git subtree push --prefix web heroku-web master
+OR
+git push heroku-web `git subtree split --prefix web master`:master --force
 ```
 
 ### Admin Page
@@ -42,4 +47,4 @@ git subtree push --prefix web heroku-web master
 ### List of known bugs
 
 - Joining a game in progress directs user to lobby instead of game
-- Residuel options from previous question
+- Residual options from previous question

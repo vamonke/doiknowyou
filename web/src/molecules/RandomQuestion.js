@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "rebass";
 
 // Lobby generate random question
-const randomQuestion = props => {
+const RandomQuestion = props => {
   const { questionNo, questionBank, setFieldValue } = props;
 
   const generateQuestion = () => {
@@ -28,7 +28,7 @@ const randomQuestion = props => {
   );
 };
 
-randomQuestion.propTypes = {
+RandomQuestion.propTypes = {
   questionNo: PropTypes.number.isRequired,
   questionBank: PropTypes.arrayOf(
     PropTypes.shape({
@@ -41,4 +41,4 @@ randomQuestion.propTypes = {
   setFieldValue: PropTypes.func.isRequired
 };
 
-export default randomQuestion;
+export default RandomQuestion;

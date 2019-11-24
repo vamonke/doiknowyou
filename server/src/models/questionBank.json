@@ -1163,7 +1163,7 @@
     {
       "text": "iOS or Android?",
       "options": ["iOS", "Android"],
-      "tags": ["general", "tot"]
+      "tags": ["general", "tot", "dev"]
     },
     {
       "text": "Work hard or play hard?",
@@ -1236,8 +1236,8 @@
       "tags": ["general"]
     },
     {
-      "text": "Are you a morning bird or a night owl?",
-      "options": ["Morning bird", "Night owl"],
+      "text": "Are you a morning person or a night owl?",
+      "options": ["Morning person", "Night owl"],
       "tags": ["general", "tot"]
     },
     {
@@ -1279,6 +1279,116 @@
       "text": "What would be your ideal date?",
       "type": "open",
       "tags": ["general", "open"]
+    },
+    {
+      "text": "Tabs or Spaces?",
+      "options": ["Tabs", "Spaces"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Code editor of choice?",
+      "options": ["Atom", "IntelliJ", "Notepad++", "Sublime", "Vim", "VS Code", "Others"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Have you ever contributed to any open source projects?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "At what age did you write your first line of code?",
+      "options": ["Below 12", "12-16", "16-20", "20-24", "24-30", ">30"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Frontend or Backend?",
+      "options": ["Frontend", "Backend"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Which FANG company would you want work at?",
+      "options": ["Facebook", "Amazon", "Netflix", "Google", "None of them"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Favourite programming language?",
+      "type": "open",
+      "tags": ["dev"]
+    },
+    {
+      "text": "If you could work at any company in the world, which company would you choose?",
+      "type": "open",
+      "tags": ["dev"]
+    },
+    {
+      "text": "Angular, React or Vue?",
+      "options": ["Angular", "React", "Vue"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Windows, MacOS or Linux?",
+      "options": ["Windows", "MacOS", "Linux"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Do you listen to music while programming?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "How often do you visit Stack Overflow?",
+      "options": ["Multiple times per day", "Daily", "A few times per week", "Once per week or less", "Never visited Stack Overflow"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Pick 2 out of 3: Good company culture, Interesting work, High salary",
+      "options": ["Good culture & interesting work", "Good culture & high salary", "Interesting work & high salary"],
+      "tags": ["general", "dev"]
+    },
+    {
+      "text": "Have you ever worked at a startup?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Github, Gitlab, or Bitbucket?",
+      "options": ["Github", "Gitlab", "Bitbucket"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Laptop or desktop?",
+      "options": ["Laptop", "Desktop"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Do you have any tech-related stickers pasted on your laptop?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Do you have any tech company t-shirt/hoodie?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "How many cups of coffee do you drink per day?",
+      "options": ["0", "1", "2-3", ">3"],
+      "tags": ["general", "dev"]
+    },
+    {
+      "text": "How many monitors do you use at work?",
+      "options": ["0", "1", "2", "3", ">3"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Have you ever published a tech article on Medium?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Have you ever published a tech article on Medium?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
     }
   ]
 }

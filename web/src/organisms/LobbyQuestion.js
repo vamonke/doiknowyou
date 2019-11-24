@@ -32,7 +32,10 @@ const LobbyQuestion = props => {
     prev,
     next
   } = props;
-  const [showTags, setShowTags] = useState(true);
+  const [showTags, setShowTags] = useState(false);
+  const genericQuestions = questionBank.filter(({ tags }) =>
+    tags.includes("general")
+  );
 
   return (
     <>
@@ -46,7 +49,7 @@ const LobbyQuestion = props => {
             <Flex>
               <RandomQuestion
                 questionNo={questionNo}
-                questionBank={questionBank}
+                questionBank={genericQuestions}
                 setFieldValue={setFieldValue}
               />
               <IconButton
