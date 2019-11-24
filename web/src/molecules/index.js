@@ -10,6 +10,7 @@ export { default as OpenEndedAnswerForm } from "./OpenEndedAnswerForm";
 export {
   default as OpenEndedAnswerRecipient
 } from "./OpenEndedAnswerRecipient";
+export { default as QuestionTags } from "./QuestionTags";
 export { default as QuestionTimer } from "./QuestionTimer";
 export { default as QuestionText } from "./QuestionText";
 export { default as RandomQuestion } from "./RandomQuestion";

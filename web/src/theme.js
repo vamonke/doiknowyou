@@ -420,14 +420,32 @@ export default {
     black: {
       cursor: "pointer",
       fontFamily: "button",
-      color: "white",
-      bg: "darkpurple",
+      color: "darkyellow",
+      bg: "#17141D",
+      borderWidth: 1,
       borderStyle: "solid",
       borderColor: "black",
-      borderRadius: 21,
-      borderWidth: 0,
-      p: 16,
+      borderRadius: 10,
+      py: 2,
+      px: 3,
+      flexGrow: "2",
+      mx: 1,
+      mt: 2,
       outline: "none"
+    },
+    icon: {
+      ml: [2, 3],
+      p: 0,
+      background: "transparent",
+      borderWidth: "1.5px",
+      borderStyle: "solid",
+      borderColor: "lightgrey",
+      borderRadius: "10px",
+      height: 32,
+      width: 32,
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center"
     },
     tab: {
       display: "inline-block",
@@ -531,7 +549,7 @@ export default {
       borderRadius: 10,
       transition: "border-color 300ms",
       "&:focus": {
-        borderColor: "yellow",
+        borderColor: "darkyellow",
         transition: "border-color 300ms"
       },
       "&:disabled": {

@@ -11,9 +11,10 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [x] Room host: Set time limit, kick players and transfer host
 - [x] Rejoin game
 - [x] Time limit
+- [x] Admin page
+- [x] Question tags
 
 - [ ] Trial game
-- [x] Admin page
 - [ ] Edit name
 - [ ] SSM
 - [ ] Room logs
@@ -41,7 +42,4 @@ git subtree push --prefix web heroku-web master
 ### List of known bugs
 
 - Joining a game in progress directs user to lobby instead of game
-- Android users kicked from game due to inactivty 
-  - Mobile browsers kills certain processes to save battery
-  - Explore use of socket.io manager
 - Residuel options from previous question

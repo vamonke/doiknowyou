@@ -7,13 +7,24 @@ import { fetchQuestionBankAll } from "../redux/actions";
 import { toggleQuestion } from "../redux/admin";
 import { capitalize } from "../utils";
 
-const colorMapping = {
-  general: "gray",
-  food: "darkyellow",
-  NSFW: "red"
-};
+// const colorMapping = {
+//   general: "gray",
+//   food: "darkyellow",
+//   NSFW: "red"
+// };
 
-const tags = ["general", "food", "NSFW"];
+const tags = [
+  "general",
+  "food",
+  "NSFW",
+  "players",
+  "open",
+  "tot",
+  "wyr",
+  "burn",
+  "weird",
+  "sg"
+];
 
 const types = ["mcq", "yesno", "players", "open"];
 
@@ -70,11 +81,13 @@ const QuestionBankPage = ({ questionBank, dispatch }) => {
           key={tag}
           mr={2}
           mb={2}
-          bg={colorMapping[tag]}
+          bg="darkyellow"
         >
           {capitalize(tag)}
         </Button>
       ))}
+
+      <br />
 
       {types.map(type => (
         <Button
@@ -108,12 +121,7 @@ const QuestionBankPage = ({ questionBank, dispatch }) => {
                 {text}
               </Text>
               {tags.map(tag => (
-                <Text
-                  variant="tag.xsmall"
-                  key={tag}
-                  mt={1}
-                  bg={colorMapping[tag]}
-                >
+                <Text variant="tag.xsmall" key={tag} mt={1} bg="darkyellow">
                   {capitalize(tag)}
                 </Text>
               ))}

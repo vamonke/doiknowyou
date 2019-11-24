@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Flex, Box, Text } from "rebass";
 import { Textarea, Input } from "@rebass/forms";
 import { Field } from "formik";
 
+import { IconButton } from "../atoms";
+
 import {
   RandomQuestion,
   LobbySelectOptions,
   LobbyQuestionOptions,
-  LobbyPrevNext
+  LobbyPrevNext,
+  QuestionTags
 } from "../molecules";
 
 const placeholderMapping = [
@@ -29,21 +32,39 @@ const LobbyQuestion = props => {
     prev,
     next
   } = props;
+  const [showTags, setShowTags] = useState(true);
 
   return (
     <>
       <Box variant="orange">
         <Box variant="orange.card">
-          <Flex justifyContent="space-between" pt={[1, 1, 0]}>
+          <Flex justifyContent="space-between" alignItems="center">
             <Text fontWeight="medium" fontSize={3}>
-              {`Question ${questionNo + 1} of 3`}
+              {`Question ${questionNo + 1}`}
+              <Text display={["none", "inline"]}>{` of 3`}</Text>
             </Text>
-            <RandomQuestion
+            <Flex>
+              <RandomQuestion
+                questionNo={questionNo}
+                questionBank={questionBank}
+                setFieldValue={setFieldValue}
+              />
+              <IconButton
+                icon={showTags ? "chevron-up" : "chevron-down"}
+                onClick={() => {
+                  setShowTags(!showTags);
+                }}
+              />
+            </Flex>
+          </Flex>
+
+          {showTags && (
+            <QuestionTags
               questionNo={questionNo}
               questionBank={questionBank}
               setFieldValue={setFieldValue}
             />
-          </Flex>
+          )}
 
           <Box mx={-2}>
             <Field

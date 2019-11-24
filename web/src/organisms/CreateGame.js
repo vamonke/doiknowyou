@@ -62,7 +62,12 @@ const CreateGame = props => {
             </Box>
           </Flex> */}
 
-          <Flex mt={[3, 3, 24]} mx={[-1, -2]}>
+          <Flex
+            mt={[3, 3, 24]}
+            mx={[-1, -2]}
+            // pt={[3, 3, 24]}
+            // sx={{ borderTop: "1px solid #DDD" }}
+          >
             <Box width={1 / 2} px={[1, 2]}>
               <Button
                 variant="secondary"
