@@ -42,14 +42,17 @@ const lobbyEvents = (io, socket, common) => {
       );
     }
 
-    const player = await Player.ready(socket.player._id);
+    const { _id: playerId, roomId } = await Player.ready(socket.player._id);
     common.playerLog(
       "is ready - " + trimmedQuestions.length + " questions added"
     );
     common.gameLog("Update player ready");
-    io.to(player.roomId).emit("playerReady", player._id);
+    io.to(roomId).emit("playerReady", playerId);
 
-    startIfAllReady(player.roomId);
+    const room = await Room.findById(roomId);
+    if (room.status === "created") {
+      startIfAllReady(roomId);
+    }
   });
 
   // Lobby: Player not ready
@@ -57,12 +60,15 @@ const lobbyEvents = (io, socket, common) => {
     if (socket.missingPlayer()) return;
 
     await Question.removeByPlayerId(socket.player._id);
-    const player = await Player.notReady(socket.player._id);
+    const { _id: playerId, roomId } = await Player.notReady(socket.player._id);
     common.playerLog("is not ready");
     common.gameLog("Update player not ready");
-    io.to(player.roomId).emit("playerNotReady", player._id);
+    io.to(roomId).emit("playerNotReady", playerId);
 
-    startIfAllReady(player.roomId);
+    const room = await Room.findById(roomId);
+    if (room.status === "created") {
+      startIfAllReady(roomId);
+    }
   });
 
   Object.assign(common, { startIfAllReady });

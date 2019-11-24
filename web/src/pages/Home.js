@@ -61,8 +61,8 @@ const Home = () => {
               How to play
             </Heading>
             <Text variant="p">
-              Before starting the game, every player writes down up to 3
-              questions to add to the question pool.
+              Before starting the game, every player writes up to 3 questions to
+              add to the question pool.
             </Text>
             <Text variant="p">
               In each player&apos;s turn, he/she draws a random question and

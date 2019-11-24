@@ -46,5 +46,4 @@ git push heroku-web `git subtree split --prefix web master`:master --force
 
 ### List of known bugs
 
-- Joining a game in progress directs user to lobby instead of game
 - Residual options from previous question

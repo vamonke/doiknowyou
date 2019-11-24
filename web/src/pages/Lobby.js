@@ -69,7 +69,7 @@ const Lobby = props => {
         )}
       </Flex>
 
-      {status !== "created" && viewerIsReady ? (
+      {status !== "created" ? (
         <Countdown roomNo={roomNo} />
       ) : (
         <QuestionsForm
