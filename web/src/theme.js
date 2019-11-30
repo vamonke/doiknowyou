@@ -206,6 +206,9 @@ export default {
       borderWidth: 1,
       borderStyle: "solid",
       borderColor: "yellow"
+    },
+    link: {
+      color: "inherit"
     }
   },
   text: {

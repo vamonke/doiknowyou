@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Flex, Box, Heading, Text, Button } from "rebass";
 
 import { CreateGame, JoinGame } from "../organisms";
-import { Modal } from "../atoms";
+import { Modal, GithubLink } from "../atoms";
 
 import { leave } from "../redux/actions";
 
@@ -76,6 +76,7 @@ const Home = () => {
           </Text>
         </Box>
       </Box>
+      <GithubLink />
     </>
   );
 };
