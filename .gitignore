@@ -27,3 +27,5 @@ yarn-error.log*
 server/logs/*.log
 server/build
 web/.env
+
+.eslintrc.json
