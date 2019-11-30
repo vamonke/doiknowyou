@@ -58,13 +58,13 @@ export const hasEveryPlayerAnswered = async (
 export const findByQuestion = questionId =>
   Answer.find({ questionId }).select({ option: 1, playerId: 1 });
 
-export const insertOpen = async (answer, questionId, playerId) => {
-  // Add option to question
-  const option = await Question.addOption(answer, questionId);
-  // Insert answer
-  await create(option, questionId, playerId);
-  return option;
-};
+// export const insertOpen = async (answer, questionId, playerId) => {
+//   // Add option to question
+//   const option = await Question.addOption(answer, questionId);
+//   // Insert answer
+//   await create(option, questionId, playerId);
+//   return option;
+// };
 
 // export const getCorrectAnswers = (questionId, option, recipientId) => {
 //   return Answer.find(

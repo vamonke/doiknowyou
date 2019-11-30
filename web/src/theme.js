@@ -251,7 +251,7 @@ export default {
       fontSize: 2
     },
     correct: {
-      fontSize: 1,
+      fontSize: "10pt",
       letterSpacing: 1,
       borderRadius: 6,
       bg: "green",
@@ -259,7 +259,8 @@ export default {
       display: "inline-block",
       px: 1,
       py: 1,
-      mx: 1
+      ml: 2,
+      mb: "2px"
     },
     tag: {
       display: "inline-block",

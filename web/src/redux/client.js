@@ -75,7 +75,6 @@ export const leaveRoom = () => {
 
 // Lobby actions
 export const playerReady = questions => {
-  questions = JSON.parse(JSON.stringify(questions)); // TODO
   return dispatch => {
     dispatch(viewerReady({ questions }));
     socket.emit("ready", questions);

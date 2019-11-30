@@ -108,7 +108,7 @@ export const addOption = async (answer, id) => {
 export const getCurrentQuestionInRoom = roomId =>
   Question.findOne(
     { roomId, status: "asking" },
-    { correctAnswer: 1, recipientId: 1, type: 1 }
+    { correctAnswer: 1, recipientId: 1, type: 1, options: 1 }
   ).lean();
 
 export const getCurrentQuestionInRoomFull = roomId =>
@@ -124,7 +124,7 @@ export const setCorrectAnswer = (id, correctAnswer) =>
     }
   ).lean();
 
-export const openToRecipient = id => 
+export const openToRecipient = id =>
   Question.findByIdAndUpdate(
     id,
     { isClosed: true },

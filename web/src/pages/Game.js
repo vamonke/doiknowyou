@@ -42,6 +42,7 @@ const Game = props => {
 
   const [showResults, setShowResults] = useState(true);
   const lastQuestion = answeredQuestions[0] || {};
+  console.log(lastQuestion);
 
   useEffect(() => {
     console.log("useEffect: Show last question");

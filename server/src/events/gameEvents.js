@@ -143,7 +143,7 @@ const gameEvents = async (io, socket, common) => {
 
     const { _id: playerId, roomId } = socket.player;
     let currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
-    const { _id: questionId, recipientId, type } = currentQuestion;
+    const { _id: questionId, recipientId, type, options } = currentQuestion;
     const isRecipient = playerId === recipientId;
 
     if (isRecipient) {
@@ -153,12 +153,14 @@ const gameEvents = async (io, socket, common) => {
         questionId,
         answerArray
       );
-    } else {
-      if (type === "open" && !isRecipient) {
-        await Answer.insertOpen(answer, questionId, playerId);
-      } else {
-        await Answer.create(answer, questionId, playerId);
+    } else if (type === "open") {
+      let openEndedAnswer = options.findIndex(option => option === answer);
+      if (openEndedAnswer === -1) {
+        openEndedAnswer = await Question.addOption(answer, questionId);
       }
+      await Answer.create(openEndedAnswer, questionId, playerId);
+    } else {
+      await Answer.create(answer, questionId, playerId);
     }
 
     currentQuestion.roomId = roomId;

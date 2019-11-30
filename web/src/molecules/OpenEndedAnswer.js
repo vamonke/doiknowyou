@@ -7,7 +7,7 @@ const OpenEndedAnswer = ({ question, recipientName }) => {
 
   const waitingMsg =
     "Waiting for " +
-    (isClosed ? recipientName + " to choose" : "Waiting for other players");
+    (isClosed ? recipientName + " to choose" : "other players");
 
   return (
     <>

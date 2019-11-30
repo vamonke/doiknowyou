@@ -14,11 +14,12 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [x] Admin page
 - [x] Question tags
 
-- [ ] Trial game
-- [ ] Edit name
+- [ ] Feedback
 - [ ] SSM
+- [ ] Edit name
 - [ ] Room logs
 - [ ] Projection mode
+- [ ] Trial game
 
 ### To-Do
 - [x] Add logger
@@ -45,5 +46,3 @@ git push heroku-web `git subtree split --prefix web master`:master --force
 - [ ] CRUD question bank
 
 ### List of known bugs
-
-- Residual options from previous question

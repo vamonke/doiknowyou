@@ -14,7 +14,7 @@ const QuestionResults = ({ question, players, hide }) => {
   } = question;
   const { name: recipientName } =
     players.find(player => player._id === recipientId) || {};
-
+  console.log(options);
   const displayCorrect = () => {
     if (!correctAnswer || correctAnswer.length === 0) {
       return "-";
@@ -28,7 +28,9 @@ const QuestionResults = ({ question, players, hide }) => {
     return correctAnswers.map((answer, index) => (
       <div key={index}>
         {answer}
-        {correctAnswers.length - 1 !== index && <hr />}
+        {correctAnswers.length - 1 !== index && (
+          <hr style={{ borderColor: "#CCC" }} />
+        )}
       </div>
     ));
   };

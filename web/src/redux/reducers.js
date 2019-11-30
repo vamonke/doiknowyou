@@ -64,7 +64,9 @@ const reducers = (state = defaultState, { type, payload }) => {
 
     case e.SOCKET_PLAYER_ANSWERED_OPEN: {
       const { playerId, answer } = payload;
-      state.currentQuestion.options.push(answer);
+      if (!state.currentQuestion.options.includes(answer)) {
+        state.currentQuestion.options.push(answer);
+      }
       state.players[playerId].hasAnswered = true;
       return { ...state };
     }

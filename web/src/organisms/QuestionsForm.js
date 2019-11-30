@@ -112,14 +112,25 @@ const defaultQuestion = {
   options: ["", ""]
 };
 
-const trim = questions =>
-  questions.filter(
+const trim = questions => {
+  // Unique options
+  questions.forEach(question => {
+    if (question.options) {
+      question.options = [
+        ...new Set(question.options.map(option => option.trim()))
+      ];
+    }
+  });
+
+  return questions.filter(
     question =>
       question.text &&
       (question.type === "players" ||
         question.type === "open" ||
         question.options.filter(Boolean).length > 1)
   );
+};
+
 const formOptions = {
   mapPropsToValues: props => props,
   enableReinitialize: false,
