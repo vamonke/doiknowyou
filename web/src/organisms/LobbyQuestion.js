@@ -33,9 +33,9 @@ const LobbyQuestion = props => {
     next
   } = props;
   const [showTags, setShowTags] = useState(false);
-  const genericQuestions = questionBank.filter(({ tags }) =>
-    tags.includes("general")
-  );
+  const genericQuestions = questionBank
+    ? questionBank.filter(({ tags }) => tags.includes("general"))
+    : [];
 
   return (
     <>
