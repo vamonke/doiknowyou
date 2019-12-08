@@ -2,6 +2,8 @@ import * as Room from "../models/Room";
 import * as Player from "../models/Player";
 import * as RandomQuestion from "../models/RandomQuestion";
 
+export * from "./Admin";
+
 export const createGame = async playerName => {
   const room = await Room.create();
   const viewer = await Player.create(room._id, playerName);
@@ -25,7 +27,4 @@ export const joinGame = async (playerName, roomNo) => {
   return false;
 };
 
-export const toggleQuestion = RandomQuestion.toggleDisabled;
-export const populateQuestionBank = RandomQuestion.populate;
-export const getQuestionBankAll = RandomQuestion.getAll;
 export const getQuestionBank = RandomQuestion.getAllowed;

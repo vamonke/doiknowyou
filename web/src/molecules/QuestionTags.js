@@ -10,8 +10,8 @@ const tags = [
   { name: "Burning Bridges", value: "burn" },
   { name: "Weird", value: "weird" },
   { name: "Food", value: "food" },
-  { name: "Would You Rather", value: "wyr" },
-  { name: "Dev", value: "dev" }
+  { name: "Would You Rather", value: "wyr" }
+  // { name: "Dev", value: "dev" }
 ];
 
 const QuestionTags = props => {

@@ -1,4 +1,4 @@
-import { CREATE_GAME, JOIN_GAME, GET_QUESTION_BANK, RESET } from "./actions";
+import * as a from "./actions";
 import * as e from "./events";
 
 const defaultState = {
@@ -30,9 +30,9 @@ const defaultState = {
 
 const reducers = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case CREATE_GAME:
-    case JOIN_GAME:
-    case GET_QUESTION_BANK:
+    case a.CREATE_GAME:
+    case a.JOIN_GAME:
+    case a.GET_QUESTION_BANK:
     case e.VIEWER_READY:
     case e.SOCKET_GAME_START:
     case e.VIEWER_ANSWER:
@@ -43,6 +43,9 @@ const reducers = (state = defaultState, { type, payload }) => {
     case e.SOCKET_PLAYER_LIST:
     case e.SOCKET_DISCONNECTED:
     case e.SOCKET_RECONNECTED:
+    case a.GET_QUESTION_BANK_ALL:
+    case a.GET_ROOMS:
+    case a.GET_ROOM:
       return { ...state, ...payload };
 
     case e.SOCKET_PLAYER_READY:
@@ -111,7 +114,7 @@ const reducers = (state = defaultState, { type, payload }) => {
       state.room.hostId = payload;
       return { ...state };
 
-    case RESET:
+    case a.RESET:
       return defaultState;
 
     default:

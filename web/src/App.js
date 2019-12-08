@@ -19,6 +19,7 @@ const App = () => (
           <Admin.Layout>
             <Switch>
               <Route exact path="/admin/rooms" component={Admin.Rooms} />
+              <Route exact path="/admin/rooms/:id" component={Admin.Room} />
               <Route
                 exact
                 path="/admin/questionbank"

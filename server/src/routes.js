@@ -1,6 +1,6 @@
 import express from "express";
-import { createGame, joinGame, getQuestionBank, getQuestionBankAll } from "./controllers";
-import { toggleQuestion, populateQuestionBank } from "./controllers";
+import { createGame, joinGame, getQuestionBank } from "./controllers";
+import * as Admin from "./controllers/admin";
 const router = express.Router();
 
 // Admin
@@ -24,27 +24,43 @@ router.post("/api/game/join", async (req, res) => {
 });
 
 // Question Bank
-router.get("/api/questionbank/populate", (_, res) => {
-  populateQuestionBank();
-  res.json({ result: "ok" });
-});
-router.get("/api/questionbank/toggle/:id", async (req, res) => {
-  if (!req.params || !req.params.id) {
-    return res.json({ result: "Missing param: id" });
-  }
-
-  const question = await toggleQuestion(req.params.id);
-  res.json({ question });
-});
-
 router.get("/api/questionbank", async (_, res) => {
   const questionBank = await getQuestionBank();
   res.json({ questionBank });
 });
 
+// Admin
+router.get("/api/questionbank/populate", (_, res) => {
+  Admin.populateQuestionBank();
+  res.json({ result: "ok" });
+});
+
+router.get("/api/questionbank/toggle/:id", async (req, res) => {
+  if (!req.params || !req.params.id) {
+    return res.json({ result: "Missing param: id" });
+  }
+
+  const question = await Admin.toggleQuestion(req.params.id);
+  res.json({ question });
+});
+
 router.get("/api/questionbank/all", async (_, res) => {
-  const questionBank = await getQuestionBankAll();
+  const questionBank = await Admin.getQuestionBankAll();
   res.json({ questionBank });
 });
+
+router.get("/api/rooms", async (_, res) => {
+  const rooms = await Admin.getRooms();
+  res.json({ rooms });
+});
+
+router.get("/api/rooms/:id", async (req, res) => {
+  if (!req.params || !req.params.id) {
+    return res.json({ result: "Missing param: id" });
+  }
+  const room = await Admin.getRoom(req.params.id);
+  res.json({ room });
+});
+
 
 export default router;

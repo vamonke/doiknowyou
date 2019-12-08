@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
           <Box pt={2}>
             {Object.keys(routeMapping).map(key => {
               const href = "/admin/" + key;
-              const isActive = pathname === href;
+              const isActive = pathname.includes(href);
               return (
                 <Button
                   key={key}

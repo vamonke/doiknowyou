@@ -174,4 +174,7 @@ export const findAsked = roomId =>
 
 export const findById = id => Question.findById(id);
 
+export const findbyRoomId = roomId =>
+  Question.find({ roomId }).populate("answers", { option: 1, playerId: 1 });
+
 // export const deleteById = id => Question.findByIdAndDelete(id);

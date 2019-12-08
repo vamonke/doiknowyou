@@ -14,7 +14,10 @@ const schema = new Schema(
       enum: ["created", "started", "ended"],
       default: "created"
     },
-    hostId: String,
+    hostId: {
+      type: Schema.Types.ObjectId,
+      ref: "Player"
+    },
     timeLimit: {
       type: Number,
       default: 0
@@ -90,4 +93,12 @@ export const updateHost = (id, hostId) =>
   Room.findByIdAndUpdate(id, { hostId }, { new: true });
 
 export const getTimeLimit = id =>
-  Room.findById(id).select({ timeLimit: 1 }).lean();
+  Room.findById(id)
+    .select({ timeLimit: 1 })
+    .lean();
+
+export const getAll = () =>
+  Room.find({})
+    .sort({ createdAt: "desc" })
+    .populate("hostId", { name: 1, _id: 1 })
+    .lean();

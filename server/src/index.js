@@ -3,6 +3,9 @@ import http from "http";
 import socketIo from "socket.io";
 import cors from "cors";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import socketEvents from "./events";
 import routes from "./routes";
 
@@ -16,8 +19,7 @@ app.use(express.json());
 app.use("/", routes);
 
 const mongoose = require("mongoose");
-const MONGO_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/doiknowyou2";
+const MONGO_URI = process.env.MONGODB_URI;
 
 console.log("MONGO_URI:", MONGO_URI);
 

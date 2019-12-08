@@ -2,18 +2,18 @@ import axios from "axios";
 // import { push } from "react-router-redux";
 import { joinRoom, leaveRoom } from "./client";
 
+export * from "./admin";
+
 console.log("REACT_APP_SERVER_URL", process.env.REACT_APP_SERVER_URL);
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 
 const CREATE_GAME_API = "/api/game/create";
 const JOIN_GAME_API = "/api/game/join";
 const GET_QUESTION_BANK_API = "/api/questionbank";
-const GET_QUESTION_BANK_ALL_API = "/api/questionbank/all";
 
 export const CREATE_GAME = "CREATE_GAME";
 export const JOIN_GAME = "JOIN_GAME";
 export const GET_QUESTION_BANK = "GET_QUESTION_BANK";
-export const GET_QUESTION_BANK_ALL = "GET_QUESTION_BANK_ALL";
 export const RESET = "RESET";
 export const RESTART = "RESTART";
 
@@ -54,19 +54,6 @@ export const fetchQuestionBank = () => {
   return async dispatch => {
     try {
       const response = await axios.get(GET_QUESTION_BANK_API);
-      dispatch(loadQuestionBankSuccess({ ...response.data }));
-    } catch (error) {
-      // handle fail
-      console.error(error);
-    }
-  };
-};
-
-export const fetchQuestionBankAll = () => {
-  // dispatch fetch
-  return async dispatch => {
-    try {
-      const response = await axios.get(GET_QUESTION_BANK_ALL_API);
       dispatch(loadQuestionBankSuccess({ ...response.data }));
     } catch (error) {
       // handle fail
