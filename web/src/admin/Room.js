@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Card, Flex, Box, Heading, Text } from "rebass";
 import moment from "moment-timezone";
-import { Link } from "react-router-dom";
 
 import { fetchRoom } from "../redux/actions";
 
@@ -12,15 +11,15 @@ import { AnsweredQuestion } from "../organisms";
 const Room = ({ room, dispatch, match }) => {
   useEffect(() => {
     dispatch(fetchRoom(match.params.id));
-  }, [fetchRoom]);
+  }, [fetchRoom]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
-    _id,
+    // _id,
     status = "",
-    timeLimit,
+    // timeLimit,
     number,
     createdAt,
-    hostId,
+    // hostId,
     players,
     questions
   } = room;

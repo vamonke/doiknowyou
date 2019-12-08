@@ -29,7 +29,7 @@ const Rooms = ({ rooms = [], dispatch }) => {
         const {
           _id,
           status,
-          timeLimit,
+          // timeLimit,
           number,
           createdAt,
           hostId: host
