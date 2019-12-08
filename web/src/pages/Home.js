@@ -21,7 +21,7 @@ const Home = () => {
             Know
             <br />
             You
-            <Text color="yellow" ml={2} sx={{ display: "inline" }}>
+            <Text color="darkyellow" ml={2} sx={{ display: "inline" }}>
               ?
             </Text>
           </Heading>
