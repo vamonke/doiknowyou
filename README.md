@@ -21,11 +21,4 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [ ] Projection mode
 - [ ] Trial game
 
-### Admin Page
-
-- [ ] View current rooms
-- [ ] View room
-- [x] View question bank
-- [ ] CRUD question bank
-
 ### List of known bugs

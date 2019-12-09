@@ -2,7 +2,7 @@ import * as Room from "../models/Room";
 import * as Player from "../models/Player";
 import * as RandomQuestion from "../models/RandomQuestion";
 
-export * from "./Admin";
+export * from "./admin";
 
 export const createGame = async playerName => {
   const room = await Room.create();
