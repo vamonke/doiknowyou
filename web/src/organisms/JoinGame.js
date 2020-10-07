@@ -7,6 +7,7 @@ import { Input } from "@rebass/forms";
 
 import { RedirectToLobby } from "../molecules";
 import { joinGame } from "../redux/actions";
+import { trackSubmit, trackButton } from "../analytics";
 
 const JoinGame = props => {
   const {
@@ -60,7 +61,7 @@ const JoinGame = props => {
                   variant="secondary"
                   type="button"
                   width={1}
-                  onClick={cancel}
+                  onClick={trackButton(cancel)}
                 >
                   Cancel
                 </Button>
@@ -110,6 +111,7 @@ const formOptions = {
   validateOnChange: false,
   handleSubmit: (values, { setSubmitting, setFieldError }) => {
     const { joinGame, name, roomNo } = values;
+    trackSubmit("Join game");
     try {
       joinGame(roomNo, name);
     } catch (error) {

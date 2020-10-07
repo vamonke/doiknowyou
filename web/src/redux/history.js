@@ -1,3 +1,8 @@
 import { createBrowserHistory } from "history";
+import * as analytics from "../analytics";
 
-export default createBrowserHistory();
+const history = createBrowserHistory();
+
+analytics.setPageView(history);
+
+export default history;

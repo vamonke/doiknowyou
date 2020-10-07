@@ -7,6 +7,7 @@ import { withFormik } from "formik";
 
 import { RedirectToLobby } from "../molecules";
 import { createGame } from "../redux/actions";
+import { trackSubmit, trackButton } from "../analytics";
 
 const CreateGame = props => {
   const {
@@ -73,7 +74,7 @@ const CreateGame = props => {
                 variant="secondary"
                 type="button"
                 width={1}
-                onClick={cancel}
+                onClick={trackButton(cancel)}
               >
                 Cancel
               </Button>
@@ -109,6 +110,7 @@ const formOptions = {
   validateOnChange: false,
   handleSubmit: (values, { setSubmitting }) => {
     const { createGame, name } = values;
+    trackSubmit("Create game");
     try {
       createGame(name);
     } catch (error) {

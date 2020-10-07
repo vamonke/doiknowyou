@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
+import * as analytics from "./analytics";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -20,3 +21,5 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+analytics.initialize();

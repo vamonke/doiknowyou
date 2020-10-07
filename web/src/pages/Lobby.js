@@ -4,6 +4,7 @@ import { Flex, Button, Text } from "rebass";
 import Icon from "react-eva-icons";
 
 import { playerReady, playerNotReady } from "../redux/client";
+import * as analytics from "../analytics";
 
 import { QuestionsForm, Settings } from "../organisms";
 import { LobbyPlayerList, Countdown } from "../molecules";
@@ -14,6 +15,8 @@ const Lobby = props => {
   const { number: roomNo, hostId, status } = room;
   const { _id: viewerId, isReady: viewerIsReady, name: viewerName } = viewer;
   const isHost = hostId === viewerId || viewerName === "Varick";
+
+  analytics.setUserId(viewerId);
 
   const [showSettings, setShowSettings] = useState(false);
 

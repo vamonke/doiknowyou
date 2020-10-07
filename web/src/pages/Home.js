@@ -6,11 +6,14 @@ import { CreateGame, JoinGame } from "../organisms";
 import { Modal, GithubLink } from "../atoms";
 
 import { leave } from "../redux/actions";
+import { trackButton } from "../analytics";
 
 const Home = () => {
   document.title = "Do I know you?";
   const [mode, setMode] = useState("home");
-  const cancel = () => setMode("home");
+
+  const setModeAsHome = () => setMode("home");
+
   return (
     <>
       <Box variant="orange">
@@ -34,25 +37,31 @@ const Home = () => {
             {
               <Flex mx={[-1, -2]}>
                 <Box width={1 / 2} px={[1, 2]}>
-                  <Button width={1} onClick={() => setMode("create")}>
+                  <Button
+                    width={1}
+                    onClick={trackButton(() => setMode("create"))}
+                  >
                     Create Game
                   </Button>
                 </Box>
                 <Box width={1 / 2} px={[1, 2]}>
-                  <Button width={1} onClick={() => setMode("join")}>
+                  <Button
+                    width={1}
+                    onClick={trackButton(() => setMode("join"))}
+                  >
                     Join Game
                   </Button>
                 </Box>
               </Flex>
             }
             {
-              <Modal isOpen={mode === "create"} hide={() => setMode("home")}>
-                <CreateGame cancel={cancel} />
+              <Modal isOpen={mode === "create"} hide={setModeAsHome}>
+                <CreateGame cancel={setModeAsHome} />
               </Modal>
             }
             {
-              <Modal isOpen={mode === "join"} hide={() => setMode("home")}>
-                <JoinGame cancel={cancel} />
+              <Modal isOpen={mode === "join"} hide={setModeAsHome}>
+                <JoinGame cancel={setModeAsHome} />
               </Modal>
             }
           </Box>
