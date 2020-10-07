@@ -110,7 +110,7 @@ const formOptions = {
   validateOnChange: false,
   handleSubmit: (values, { setSubmitting }) => {
     const { createGame, name } = values;
-    trackSubmit("Create game");
+    trackSubmit("home", "CreateGame");
     try {
       createGame(name);
     } catch (error) {

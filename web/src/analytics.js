@@ -26,16 +26,14 @@ export const trackEvent = event => {
 export const trackButton = onClick => event => {
   trackEvent({
     category: "User",
-    action: "button",
-    value: event.target.textContent
+    action: `Clicked on ${event.target.textContent}`
   });
   onClick(event);
 };
 
-export const trackSubmit = formName => {
+export const trackSubmit = (category, formDisplayName) => {
   trackEvent({
-    category: "User",
-    action: "submit",
-    value: formName
+    category,
+    action: `Submitted form ${formDisplayName}`
   });
 };

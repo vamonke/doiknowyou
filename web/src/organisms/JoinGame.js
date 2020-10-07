@@ -111,7 +111,7 @@ const formOptions = {
   validateOnChange: false,
   handleSubmit: (values, { setSubmitting, setFieldError }) => {
     const { joinGame, name, roomNo } = values;
-    trackSubmit("Join game");
+    trackSubmit("home", "JoinGame");
     try {
       joinGame(roomNo, name);
     } catch (error) {
