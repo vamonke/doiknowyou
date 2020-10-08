@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Flex, Box, Heading, Text, Button } from "rebass";
+import Icon from "react-eva-icons";
 
 import { CreateGame, JoinGame } from "../organisms";
 import { Modal, GithubLink } from "../atoms";
@@ -24,10 +25,13 @@ const Home = () => {
             Know
             <br />
             You
-            <Text color="darkyellow" ml={2} sx={{ display: "inline" }}>
+            <Text color="yellow" ml={2} sx={{ display: "inline" }}>
               ?
             </Text>
           </Heading>
+          <Text mt={3}>
+            A game to test how well you really know your friends
+          </Text>
         </Box>
       </Box>
 
@@ -65,22 +69,30 @@ const Home = () => {
               </Modal>
             }
           </Box>
-          <Text lineHeight={["1.6em", "1.8em"]} textAlign="justify" pb={3}>
-            <Heading fontSize={3} pt={2} fontWeight="medium">
-              How to play
-            </Heading>
+          <Text lineHeight={["1.6em", "1.8em"]} pb={3}>
+            <Flex justifyContent="space-between" pt={2}>
+              <Heading fontSize={3} fontWeight="medium">
+                How to play
+              </Heading>
+              <Flex alignItems="center">
+                <Icon fill="darkpurple" name="people" size="medium" />
+                <Text ml={1} mt="-2px" as="span">
+                  2+ players
+                </Text>
+              </Flex>
+            </Flex>
             <Text variant="p">
               Before starting the game, every player writes up to 3 questions to
               add to the question pool.
             </Text>
             <Text variant="p">
-              In each player&apos;s turn, he/she draws a random question and
-              answers it in secret. Meanwhile, other players will try to guess
-              his/her answer. Whoever guesses correctly wins 1 point.
+              In the game, during your turn, a question is randomly drawn for
+              you. You'll answer the question honestly while other players try
+              to guess your answer. Whoever guesses correctly wins 1 point.
             </Text>
             <Text variant="p">
-              The game ends when the question pool is empty. The player with the
-              highest points wins the game.
+              The game ends when there are no remaining questions. The player
+              with the highest points wins the game.
             </Text>
           </Text>
         </Box>
