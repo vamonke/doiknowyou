@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Flex, Box, Heading, Text } from "rebass";
 import { Link } from "react-router-dom";
@@ -7,11 +7,36 @@ import moment from "moment-timezone";
 import { fetchRooms } from "../redux/actions";
 import { statusColorMapping } from "./utils";
 
+const ghostEmoji = (
+  <>
+    <span role="img" aria-label="ghost">
+      👻
+    </span>
+    No host
+  </>
+);
+
 const Rooms = ({ rooms = [], dispatch }) => {
-  if (!rooms || rooms.length <= 0) {
+  // if (!rooms || rooms.length <= 0) {
+  //   dispatch(fetchRooms());
+  //   return null;
+  // }
+
+  useEffect(() => {
     dispatch(fetchRooms());
-    return null;
-  }
+  }, [fetchRooms]);
+
+  const timestamp = createdAt => {
+    const timestamp = moment(createdAt);
+    return (
+      <Box>
+        <Text variant="tag.small" bg="darkpurple">
+          {timestamp.fromNow()}
+        </Text>
+        {timestamp.format("DD MMM h:mma")}
+      </Box>
+    );
+  };
 
   return (
     <>
@@ -32,21 +57,21 @@ const Rooms = ({ rooms = [], dispatch }) => {
           // timeLimit,
           number,
           createdAt,
-          hostId: host
+          host,
+          creator
         } = room;
         return (
           <Flex mt={2} key={_id} justifyContent="space-between" variant="row">
             <Box>
-              {moment(createdAt).format("DD-MMM-YY h:mma")}
-              <Text variant="tag.small" bg="darkpurple">
-                {number}
+              <Text variant="tag.small" bg="blue" mr={0}>
+                <Link to={`/admin/rooms/${_id}`}>#{number}</Link>
               </Text>
               <Text variant="tag.small" bg={statusColorMapping[status]}>
                 {status.toUpperCase()}
               </Text>
-              {host ? host.name : "No host"}
+              {host ? host.name : creator ? creator.name : ghostEmoji}
             </Box>
-            <Link to={`/admin/rooms/${_id}`}>{_id}</Link>
+            <Text>{timestamp(createdAt)}</Text>
           </Flex>
         );
       })}

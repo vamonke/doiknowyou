@@ -24,6 +24,10 @@ const schema = new Schema(
     },
     nextRoomNo: Number,
     createdAt: Date,
+    creatorId: {
+      type: Schema.Types.ObjectId,
+      ref: "Player"
+    },
     endedAt: Date
   },
   { versionKey: false }
@@ -68,7 +72,7 @@ export const findByNumber = roomNo => {
     });
 };
 
-export const getPlayers = Player.findByRoom;
+export const getPlayerCount = Player.findCountByRoom;
 
 export const isEveryPlayerReady = async id => {
   const players = await Player.findByRoom(id);
@@ -98,7 +102,32 @@ export const getTimeLimit = id =>
     .lean();
 
 export const getAll = () =>
-  Room.find({})
+  Room.aggregate()
     .sort({ createdAt: "desc" })
-    .populate("hostId", { name: 1, _id: 1 })
-    .lean();
+    .lookup({ from: 'players', localField: 'hostId', foreignField: '_id', as: 'host' })
+    .lookup({ from: 'players', localField: 'creatorId', foreignField: '_id', as: 'creator' })
+    .unwind({
+      path: "$host",
+      preserveNullAndEmptyArrays: true
+    })
+    .unwind({
+      path: "$creator",
+      preserveNullAndEmptyArrays: true
+    })
+    .project({
+      status: 1,
+      timeLimit: 1,
+      number: 1,
+      createdAt: 1,
+      'creator._id': 1,
+      'creator.name': 1,
+      'host._id': 1,
+      'host.name': 1,
+    })
+    ;
+  ;
+  // Room.find({})
+  //   .sort({ createdAt: "desc" })
+  //   .populate("hostId", { name: 1, _id: 1 })
+  //   .populate("creatorId", { name: 1, _id: 1 })
+  //   .lean();

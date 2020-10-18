@@ -27,23 +27,17 @@ const Room = ({ room, dispatch, match }) => {
   return (
     <>
       <Box variant="orange.card.small" maxWidth="none">
-        Room
+        <Flex justifyContent="space-between" alignItems="center">
+          Room #{number}
+          <Text variant="tag.small" m={0}>
+            {status.toUpperCase()}
+          </Text>
+        </Flex>
       </Box>
       <Card variant="card.bottom" maxWidth="none">
-        <Flex justifyContent="space-between" alignItems="baseline">
-          <Heading>
-            Room
-            <Text variant="tag.small" fontSize={3} bg="darkpurple">
-              {number}
-            </Text>
-            <Text variant="tag.small" fontSize={3} m={0}>
-              {status.toUpperCase()}
-            </Text>
-          </Heading>
-        </Flex>
-
-        <Text mt={3}>
-          Created on {moment(createdAt).format("dddd, D MMM YYYY [at] h:mma")}
+        Created on {moment(createdAt).format("dddd, D MMM YYYY [at] h:mma")}
+        <Text variant="tag.small" my={0} bg="grey">
+          {moment(createdAt).fromNow()}
         </Text>
       </Card>
 

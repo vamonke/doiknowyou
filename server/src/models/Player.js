@@ -34,6 +34,8 @@ export const findById = id => Player.findById(id).lean();
 export const findByRoom = roomId =>
   Player.find({ roomId }).select({ name: 1, isReady: 1, score: 1, disconnected: 1 });
 
+export const findCountByRoom = roomId => Player.count({ roomId });
+
 export const findIdsByRoom = roomId =>
   Player.find({ roomId }).select({ _id: 1 }).sort({ _id: 1 });
 

@@ -5,7 +5,7 @@ import { Input } from "@rebass/forms";
 
 import { fetchQuestionBankAll } from "../redux/actions";
 import { toggleQuestion } from "../redux/admin";
-import { capitalize } from "../utils";
+// import { capitalize } from "../utils";
 
 // const colorMapping = {
 //   general: "gray",
@@ -83,7 +83,7 @@ const QuestionBankPage = ({ questionBank, dispatch }) => {
           mb={2}
           bg="darkyellow"
         >
-          {capitalize(tag)}
+          {tag.toUpperCase()}
         </Button>
       ))}
 
@@ -98,7 +98,7 @@ const QuestionBankPage = ({ questionBank, dispatch }) => {
           mb={2}
           bg="blue"
         >
-          {type === "yesno" ? "Yes/No" : capitalize(type)}
+          {type === "yesno" ? "Yes/No" : type.toUpperCase()}
         </Button>
       ))}
 
@@ -122,7 +122,7 @@ const QuestionBankPage = ({ questionBank, dispatch }) => {
               </Text>
               {tags.map(tag => (
                 <Text variant="tag.xsmall" key={tag} mt={1} bg="darkyellow">
-                  {capitalize(tag)}
+                  {tag.toUpperCase()}
                 </Text>
               ))}
             </Box>
