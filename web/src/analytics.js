@@ -1,7 +1,19 @@
 import ReactGA from "react-ga";
+import { hotjar } from "react-hotjar";
 
-export const initialize = () => {
+const initializeGA = () => {
   ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID, { debug: false });
+  console.info("GA initialized");
+};
+
+const initializeHotjar = () => {
+  hotjar.initialize(process.env.REACT_APP_HOTJAR_ID);
+  console.info("HJ initialized");
+};
+
+export const initialize = {
+  ga: initializeGA,
+  hotjar: initializeHotjar
 };
 
 export const setPageView = history => {
