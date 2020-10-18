@@ -24,7 +24,7 @@ const Rooms = ({ rooms = [], dispatch }) => {
 
   useEffect(() => {
     dispatch(fetchRooms());
-  }, [fetchRooms]);
+  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const timestamp = createdAt => {
     const timestamp = moment(createdAt);

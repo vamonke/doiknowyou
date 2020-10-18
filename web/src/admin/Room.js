@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Card, Flex, Box, Heading, Text } from "rebass";
+import { Card, Flex, Box, Text } from "rebass";
 import moment from "moment-timezone";
 
 import { fetchRoom } from "../redux/actions";
@@ -11,7 +11,7 @@ import { AnsweredQuestion } from "../organisms";
 const Room = ({ room, dispatch, match }) => {
   useEffect(() => {
     dispatch(fetchRoom(match.params.id));
-  }, [fetchRoom]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
     // _id,
