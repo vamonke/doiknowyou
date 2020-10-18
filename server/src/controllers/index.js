@@ -8,6 +8,7 @@ export const createGame = async playerName => {
   const room = await Room.create();
   const viewer = await Player.create(room._id, playerName);
   room.hostId = viewer._id;
+  room.creatorId = viewer._id;
   await room.save();
   const res = { room, viewer };
   return res;
