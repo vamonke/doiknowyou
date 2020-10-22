@@ -13,8 +13,9 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [x] Time limit
 - [x] Admin page
 - [x] Question tags
+- [x] Feedback
 
-- [ ] Feedback
+- [ ] Share/Invite
 - [ ] SSM
 - [ ] Edit name
 - [ ] Room logs

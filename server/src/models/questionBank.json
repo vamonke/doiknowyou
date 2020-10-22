@@ -1216,8 +1216,8 @@
       "tags": ["general", "wyr", "deep"]
     },
     {
-      "text": "Would you rather lose all of your memories from birth to now or lose your ability to make new long-term memories?",
-      "options": ["Lose all of my memories from birth to now", "Lose my ability to make new long-term memories"],
+      "text": "Would you rather lose all of your current memories or lose your ability to make new long-term memories?",
+      "options": ["Lose all of my current memories", "Lose my ability to make new long-term memories"],
       "tags": ["general", "wyr", "deep"]
     },
     {

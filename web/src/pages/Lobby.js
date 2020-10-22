@@ -6,7 +6,7 @@ import Icon from "react-eva-icons";
 import { playerReady, playerNotReady } from "../redux/client";
 import * as analytics from "../analytics";
 
-import { QuestionsForm, Settings } from "../organisms";
+import { QuestionsForm, Settings, JoinGameCard } from "../organisms";
 import { LobbyPlayerList, Countdown } from "../molecules";
 import { Modal, HomeLink } from "../atoms";
 
@@ -20,9 +20,9 @@ const Lobby = props => {
 
   const [showSettings, setShowSettings] = useState(false);
 
-  // if (!viewerId || !roomId) {
-  //   return <JoinGameCard />;
-  // }
+  if (!viewerId || !roomNo) {
+    return <JoinGameCard />;
+  }
 
   // if (players.length > 0 && !players.find(player => player._id === viewerId)) {
   //   // Viewer not in player list
@@ -72,9 +72,7 @@ const Lobby = props => {
         )}
       </Flex>
 
-      {status !== "created" ? (
-        <Countdown roomNo={roomNo} />
-      ) : (
+      {status === "created" && (
         <QuestionsForm
           isReady={viewerIsReady}
           onReady={onReady}
@@ -83,6 +81,8 @@ const Lobby = props => {
           questions={questions}
         />
       )}
+
+      {status === "started" && <Countdown roomNo={roomNo} />}
 
       {players.length > 0 && (
         <LobbyPlayerList

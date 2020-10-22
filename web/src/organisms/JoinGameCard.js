@@ -9,7 +9,7 @@ import { HomeLink } from "../atoms";
 
 import { joinGame } from "../redux/actions";
 
-const JoinGame = props => {
+const JoinGameCard = props => {
   const {
     errors,
     handleChange,
@@ -136,4 +136,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(withRouter(withFormik(formOptions)(JoinGame)));
+)(withRouter(withFormik(formOptions)(JoinGameCard)));
