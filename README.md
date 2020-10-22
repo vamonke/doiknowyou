@@ -16,6 +16,7 @@ Social game to test how well you know your friends. Built with React and Socket.
 - [x] Feedback
 
 - [ ] Share/Invite
+- [ ] Host authentication
 - [ ] SSM
 - [ ] Edit name
 - [ ] Room logs

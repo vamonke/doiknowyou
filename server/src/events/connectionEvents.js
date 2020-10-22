@@ -11,6 +11,10 @@ const connectionEvents = (io, socket, common) => {
     common.players = await Player.findByRoom(roomId);
     common.gameLog("Update player list - " + common.players.length + " players");
     io.to(roomId).emit("updatePlayers", common.players);
+
+    const room = await Room.findById(roomId);
+    common.gameLog("Emit host - " + room.hostId);
+    io.to(roomId).emit("newHost", room.hostId);
   };
 
   const hydrateRoom = async roomId => {

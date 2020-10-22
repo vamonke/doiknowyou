@@ -14,7 +14,7 @@ const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
   const { number: roomNo, hostId, status } = room;
   const { _id: viewerId, isReady: viewerIsReady, name: viewerName } = viewer;
-  const isHost = hostId === viewerId || viewerName === "Varick";
+  const isHost = hostId === viewerId || viewerName === "Varick"; // ;)
 
   analytics.setUserId(viewerId);
 

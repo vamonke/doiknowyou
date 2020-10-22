@@ -56,21 +56,21 @@ export const create = () => {
 
 export const findById = id => Room.findById(id).lean();
 
-export const findByNumber = roomNo => {
-  return Room.findOne({ number: roomNo })
-    .exec()
-    .then(room => {
-      if (room) {
-        console.log("MongoDB: Room found - " + room.number);
-        return room;
-      }
-      console.log("MongoDB: Room not found - " + roomNo);
-      return false;
-    })
-    .catch(error => {
-      console.error(error);
-    });
-};
+export const findByNumber = roomNo => Room.findOne({ number: roomNo }).lean();
+// {
+// return Room.findOne({ number: roomNo })
+//   .then(room => {
+//     if (room) {
+//       console.log("MongoDB: Room found - " + room.number);
+//       return room;
+//     }
+//     console.log("MongoDB: Room not found - " + roomNo);
+//     return false;
+//   })
+//   .catch(error => {
+//     console.error(error);
+//   });
+// };
 
 export const getPlayerCount = Player.findCountByRoom;
 

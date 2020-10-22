@@ -41,20 +41,18 @@ const hostEvents = (io, socket, common) => {
     await Player.remove(playerId);
 
     const { player: { roomId } } = socket;
-    const room = await Room.findById(roomId);
+    let room = await Room.findById(roomId);
     if (room.status === "created") {
       await Question.removeByPlayerId(playerId);
       if (room.hostId === playerId) {
-        newHost(roomId, null);
+        room = newHost(roomId, null);
       }
     }
 
     common.gameLog("Kicked: " + playerId);
-    
+
     // Emit players
-    const players = await Player.findByRoom(roomId);
-    common.gameLog("Update players - " + players.length);
-    io.to(roomId).emit("updatePlayers", players);
+    common.emitPlayers(roomId);
 
     if (room.status === "created") {
       common.startIfAllReady(roomId);

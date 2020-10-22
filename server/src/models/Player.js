@@ -54,11 +54,12 @@ export const getNextRecipientId = async (roomId, currentRecipientId) => {
   if (currentRecipientId) {
     next = await Player.findOne({
       roomId,
+      disconnected: false,
       _id: { $gt: currentRecipientId }
     }, "_id", { sort: { _id: 1 } });
   }
   if (!next) {
-    next = await Player.findOne({ roomId }, "_id");
+    next = await Player.findOne({ roomId, disconnected: false }, "_id");
   }
   return next ? next._id : null;
 };

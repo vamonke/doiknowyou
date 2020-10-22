@@ -2,11 +2,13 @@ import ReactGA from "react-ga";
 import { hotjar } from "react-hotjar";
 
 const initializeGA = () => {
+  if (!process.env.REACT_APP_GA_TRACKING_ID) return;
   ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID, { debug: false });
   console.info("GA initialized");
 };
 
 const initializeHotjar = () => {
+  if (!process.env.REACT_APP_HOTJAR_ID) return;
   hotjar.initialize(process.env.REACT_APP_HOTJAR_ID);
   console.info("HJ initialized");
 };
