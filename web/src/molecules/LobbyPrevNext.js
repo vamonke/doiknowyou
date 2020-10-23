@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Flex, Box, Button } from "rebass";
+import { QUESTIONS_COUNT } from "../constants";
 
 // Lobby buttons
 const LobbyPrevNext = props => {
   const { questionNo, prev, next } = props;
   const firstQuestion = questionNo === 0;
-  const lastQuestion = questionNo === 2;
+  const lastQuestion = questionNo === QUESTIONS_COUNT - 1;
 
   return (
     <Flex

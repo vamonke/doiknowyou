@@ -5,6 +5,7 @@ import { Textarea, Input } from "@rebass/forms";
 import { Field } from "formik";
 
 import { IconButton } from "../atoms";
+import { QUESTIONS_COUNT } from "../constants";
 
 import {
   RandomQuestion,
@@ -44,7 +45,9 @@ const LobbyQuestion = props => {
           <Flex justifyContent="space-between" alignItems="center">
             <Text fontWeight="medium" fontSize={3}>
               {`Question ${questionNo + 1}`}
-              <Text display={["none", "inline"]}>{` of 3`}</Text>
+              <Text
+                display={["none", "inline"]}
+              >{` of ${QUESTIONS_COUNT}`}</Text>
             </Text>
             <Flex>
               <RandomQuestion

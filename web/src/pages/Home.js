@@ -5,6 +5,7 @@ import Icon from "react-eva-icons";
 
 import { CreateGame, JoinGame } from "../organisms";
 import { Modal, GithubLink } from "../atoms";
+import { QUESTIONS_COUNT } from "../constants";
 
 import { leave } from "../redux/actions";
 import { trackButton } from "../analytics";
@@ -82,8 +83,8 @@ const Home = () => {
               </Flex>
             </Flex>
             <Text variant="p">
-              Before starting the game, every player writes up to 3 questions to
-              add to the question pool.
+              Before starting the game, every player writes up to{" "}
+              {QUESTIONS_COUNT} questions to add to the question pool.
             </Text>
             <Text variant="p">
               In the game, during your turn, a question is randomly drawn for

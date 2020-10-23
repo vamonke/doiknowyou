@@ -6,7 +6,7 @@ import { Box } from "rebass";
 import { Waiting } from "../molecules";
 import LobbyQuestion from "./LobbyQuestion";
 
-const QUESTIONS_COUNT = 3;
+import { QUESTIONS_COUNT } from "../constants";
 
 // const variants = {
 //   enter: direction => ({
