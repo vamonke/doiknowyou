@@ -57,6 +57,7 @@ const CurrentQuestion = props => {
       <QuestionText
         round={round}
         text={text}
+        isRecipient={isRecipient}
         recipientName={recipientName}
         timer={timer}
       />
@@ -64,11 +65,11 @@ const CurrentQuestion = props => {
         <Box variant="card.bottom" pt={[2, 2, 2]} pb={[24, 24, 24, 4]}>
           {disabled && <Box variant="whiteOverlay" />}
 
-          {!isRecipient && (
-            <Text mt={3} mb={2} variant="subtitle">
-              Guess {recipientName}&apos;s answer
-            </Text>
-          )}
+          <Text mt={3} mb={2} variant="subtitle">
+            {isRecipient
+              ? "Answer honestly and let the other players guess your answer"
+              : `Guess ${recipientName}’s answer`}
+          </Text>
 
           {multiline ? (
             <Flex mt={2} mx={-2}>
@@ -114,12 +115,6 @@ const CurrentQuestion = props => {
                 </Button>
               </Box>
             ))
-          )}
-
-          {isRecipient && (
-            <Text mt={24} mb={[1, 1, 1, 0]} px={[1, 1, 0]} variant="subtitle">
-              Answer honestly and let the other players guess your answer
-            </Text>
           )}
         </Box>
       </Box>

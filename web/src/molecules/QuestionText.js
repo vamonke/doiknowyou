@@ -15,7 +15,7 @@ const floatLeft = {
   }
 };
 
-const QuestionText = ({ round, text, recipientName, timer }) => (
+const QuestionText = ({ round, text, recipientName, timer, isRecipient }) => (
   <Box variant="orange">
     <Box variant="orange.card" py={[24, 24, 4]} px={[4, 4, 4, 5]}>
       {timer && <QuestionTimer {...timer} />}
@@ -30,12 +30,14 @@ const QuestionText = ({ round, text, recipientName, timer }) => (
         </Text>
       )}
 
-      <Text my={[3, 24, 4]} fontSize={[3, 4, 4, 5]} fontWeight="medium">
+      <Text mt={[3, 24, 4]} fontSize={[3, 4, 4, 5]} fontWeight="medium">
         {text}
       </Text>
-      <Text fontSize={[3, 4]}>
-        {recipientName}: <Box variant="line"></Box>
-      </Text>
+      {!isRecipient && (
+        <Text mt={[3, 24, 4]} fontSize={[3, 4]}>
+          {recipientName}: <Box variant="line"></Box>
+        </Text>
+      )}
     </Box>
   </Box>
 );
