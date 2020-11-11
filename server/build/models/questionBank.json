@@ -1,0 +1,1394 @@
+{
+  "questionBank": [
+    {
+      "text": "Would you rather have a horrible job but retire comfortably in 10 years OR have your dream job but work until the day you die?",
+      "options": ["Horrible job for 10 years then retire", "Dream job til the day I die"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather die in 10 years with no regrets, or die in 50 years with many regrets?",
+      "options": ["Die in 10 years with no regrets", "Die in 50 years with many regrets?"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather never lose your phone again or never lose your wallet again?",
+      "options": ["Never lose your phone again", "Never lose your wallet again"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Which would you rather live in?",
+      "options": ["Beach house", "Cabin in the woods"],
+      "tags": ["general", "wyr", "tot"]
+    },
+    {
+      "text": "What type of house would you want to live in?",
+      "options": ["2-room HDB", "3-room HDB", "4-room HDB", "5-room HDB", "Landed property", "Condo"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "Would you rather spend 10 years with your soulmate only to have them die and you never love again, OR spend your life with someone nice you settled for?",
+      "options": ["10 years with your soulmate and never love again", "Settle for someone nice for life"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Favourite sports brand?",
+      "options": ["Adidas", "Nike", "Puma", "Under Amour", "Reebok", "New Balance"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If you could enjoy free unlimited access of 1 thing, what would it be?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Imagine you've won a $10M voucher to shop at any 1 company/brand of your choice. What company/brand would you pick?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Do you prefer a good book or a good movie?",
+      "options": ["Book", "Movie"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "Would you rather have three kids and no money, or no kids with $5,000,000?",
+      "options": ["Three kids and no money", "No kids with $5,000,000"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather know how you will die or when you will die?",
+      "options": ["How I will die", "When I will die"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Are you an extrovert or introvert?",
+      "options": ["Extrovert", "Introvert"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "What age do you think you'll get married?",
+      "options": ["Before 25", "26-27", "28-29",  "30-32", "After 32"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Are you confrontational?",
+      "options": ["Yes. FITE ME.",  "No. I'm a pussy."],
+      "tags": ["general"]
+    },
+    {
+      "text": "Would you rather love or be loved?",
+      "options": ["Love", "Be loved"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather have AIDS or no sex forever?",
+      "options": ["AIDS", "No sex forever"],
+      "disabled": true,
+      "tags": ["general", "NSFW"]
+    },
+    {
+      "text": "Have you ever done anything illegal?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you made someone cry before? (Excluding family members)",
+      "type": "yesno",
+      "disabled": true
+    },
+    {
+      "text": "When it comes to relationships, are you a settler or a reacher?",
+      "options": ["Settler", "Reacher"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "Will you ever consider becoming a househusband/housewife?",
+      "type": "yesno"
+    },
+    {
+      "text": "Which would be your go-to first date?",
+      "options": ["Dinner and a movie", "Picnic in the park", "Visit to a museum/gallery", "Brunch at a cafe"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Which do you consider the most important in a relationship?",
+      "options": ["Similar interests and hobbies", "Similar sense of humour", "Similar maturity level", "Similar background"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Which was the best phase in your life?",
+      "options": ["Primary School", "Secondary school", "Poly/JC", "NS", "Uni", "Working"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "Which was the worst phase in your life?",
+      "options": ["Primary School", "Secondary School", "Poly/JC", "Uni", "Working"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "Are you a dog or cat person?",
+      "options": ["Woof", "Meow"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "Which do you think is your biggest strength?",
+      "options": ["Compassion", "Positivity", "Humility", "Trustworthy"],
+      "tags": ["general", "deep"]
+    },
+    {
+      "text": "What type of people annoys you the most?",
+      "options": ["People who complain about the government on FB", "E-scooter riders that blast their techno music", "Insurance agents", "Aunties that humble-brag about their children"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "Which are you most guilty of?",
+      "options": ["Dishonesty", "Impatience", "Narcissism", "Jealousy"],
+      "tags": ["general", "deep"]
+    },
+    {
+      "text": "Which is the single most important value you would teach your children?",
+      "options": ["Gratitude", "Honesty", "Generosity", "Responsibility"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Which of the 7 sins do you identify with the most?",
+      "options": ["Lust", "Gluttony", "Greed", "Sloth", "Wrath", "Envy", "Pride"],
+      "tags": ["general", "deep"]
+    },
+    {
+      "text": "Favourite type of vacation?",
+      "options": ["Cultural", "Active", "Exotic", "Relaxed"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Which continent do you most want to visit?",
+      "options": ["North America", "South America", "Antarctica", "Europe", "Asia", "Africa", "Australia"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If you could travel to any country in the world, where would you go?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Choice of honeymoon?",
+      "options": ["Maldives", "Hawaii", "Paris", "Japan"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Where is your ideal honeymoon spot?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Pick your favourite activity",
+      "options": ["Watching a movie", "Exercising", "Playing video games", "Playing a musical instrument", "Reading/journaling"],
+      "tags": ["general"]
+    },
+    {
+      "text": "What activity makes you feel the happiest?",
+      "type": "open",
+      "tags": ["general", "open", "deep"]
+    },
+    {
+      "text": "Which is TV show do you like the most?",
+      "options": ["Friends", "Game of Thrones", "Running Man", "Master Chef"],
+      "tags": ["general"]
+    },
+    {
+      "text": "What is your favourite type of TV drama?",
+      "options": ["Korean", "American", "Hong Kong", "Mediacorp"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "What is your favourite TV show?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is your favourite food?",
+      "type": "open",
+      "tags": ["general", "open", "food"]
+    },
+    {
+      "text": "What is your favourite type of food?",
+      "type": "open",
+      "tags": ["general", "open", "food"]
+    },
+    {
+      "text": "What is your most hated food?",
+      "type": "open",
+      "tags": ["general", "open", "food"]
+    },
+    {
+      "text": "What is your favourite drink?",
+      "type": "open",
+      "tags": ["general", "open", "food"]
+    },
+    {
+      "text": "What is your favourite Disney movie?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Favourite movie genre?",
+      "options": ["Comedy", "Thriller", "Action", "Horror"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If given the choice, would you choose to be a male or female?",
+      "options": ["Male", "Female"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "What's your texting style?",
+      "options": ["Full sentences with correct grammar", "Multiple short messages", "I just txt as quickly as pssible whtevr", "I rarely text"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Which do you regret more?",
+      "options": ["Action", "Inaction"],
+      "tags": ["general", "deep"]
+    },
+    {
+      "text": "What's the biggest regret of your life?",
+      "type": "open",
+      "tags": ["general", "deep", "open"]
+    },
+    {
+      "text": "Which are you afraid of the most?",
+      "options": ["Horror movies", "Roller coasters and drop towers", "Bugs and insects"],
+      "tags": ["general"]
+    },
+    {
+      "text": "What is your love language?",
+      "options": ["Words of affirmation", "Quality time", "Gifts", "Acts of service", "Physical touch"],
+      "tags": ["general", "deep"]
+    },
+    {
+      "text": "Have you ever taken MC when you weren't sick?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you ever had detention?",
+      "options": ["Yes. I'm a badboi", "No. I love following rules"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Have you ever been drunk in public?",
+      "options": ["Yes *burp*", "No"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Have you ever been so drunk that you puked in public?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you ever dated more than one person at the same time?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you ever had a crush on a teacher?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you ever stayed friends with an ex?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you ever cheated in a test or exam?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you ever used a dating app?",
+      "type": "yesno"
+    },
+    {
+      "text": "Have you ever kissed someone of the same sex?",
+      "type": "yesno",
+      "disabled": true,
+      "tags": ["general", "NSFW"]
+    },
+    {
+      "text": "If you (or your partner) got pregnant before marriage, would you abort the baby?",
+      "type": "yesno"
+    },
+    {
+      "text": "Rate yourself from 1 to 10",
+      "options": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Who do you think is the most romantic?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the least romantic?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think will be the richest in future?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think does the craziest things?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is most likely to come out of the closet?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who would you go gay/lesbian for?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "If you had to slap someone's ass, whose ass would it be?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the most blur?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think has the lowest IQ?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think is the wisest?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the most mature?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the most immature?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think will be the last to get married?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think will be the first to get married?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the most wild?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the most suited to be a parent?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the least suited to be a parent?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who has zero filter between their brain and mouth?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think is a player?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think has the worst fasion sense?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think has the best fasion sense?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "If you were rescuing people from a burning building and you had to leave one person behind, who would it be?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think is the worst person to date?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who is the last person you would choose to date?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think is the best person to date?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Ideal partner?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "If you were stranded on a deserted island, who would you want to be stranded with?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "If you were stranded on a deserted island, who would you NOT want to be stranded with?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think is most likely to come out of the closet?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "If you were stranded on a deserted island and could only have 1 item, which would it be?",
+      "options": ["Your phone", "A book", "Poker cards", "A family photo"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If you were stranded on a deserted island and could only have 1 item, which would it be?",
+      "options": ["Fitness tracker watch", "Sunglasses and sunblock", "Toilet bowl", "Makeup kit with mirror", "Pillow and bolster"],
+      "tags": ["general", "weird"]
+    },
+    {
+      "text": "Would you ever go to a nude beach?",
+      "type": "yesno"
+    },
+    {
+      "text": "Dream wedding?",
+      "options": ["Hotel wedding", "Beach wedding", "Overseas wedding", "Casual gathering"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Ideal partner?",
+      "options": ["Quiet and intelligent", "Loud and outgoing"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Would you enter a long distance relationship?",
+      "type": "yesno"
+    },
+    {
+      "text": "Who do you think is the most innocent?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the least innocent?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "What is the last app you use on your phone before sleeping?",
+      "options": ["Facebook", "YouTube", "Instagram", "WhatsApp"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If your friend likes someone but you don't personally like that person, would you try to seperate them?",
+      "type": "yesno"
+    },
+    {
+      "text": "Who do you think has the highest alcohol tolerance?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think has the lowest alcohol tolerance?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Do you believe in abstinence? (No sex before marriage)",
+      "type": "yesno",
+      "disabled": true,
+      "tags": ["general", "NSFW"]
+    },
+    {
+      "text": "Would you rather betray a close friend or lose your partner?",
+      "options": ["Betray a close friend", "Lose my partner"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "How do you like your kopi?",
+      "options": ["Kopi", "Kopi Peng", "Kopi O", "Kopi C", "Kopi Kosong", "Kopi O Kosong"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "Kopi or teh?",
+      "options": ["Kopi", "Teh"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "Would you rather lick someone's armpits or have a mouthful of hair?",
+      "options": ["Lick armpits", "Mouthful of hair"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather date an introvert or extrovert?",
+      "options": ["Introvert", "Extrovert"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather cheat or be cheated on?",
+      "options": ["Cheat", "Be cheated on"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Who gave you the worst first impression?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who gave you the best first impression?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who is the most different from your first impression of them and now?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the rudest person here?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think is the most pleasant person here?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "If you had to, who here would you slap?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "How many kids will you want to have?",
+      "options": ["0", "1", "2", "3", "4", "5", "Soccer team"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Favourite fast food?",
+      "options": ["Macs", "KFC", "LJS", "Subway", "Pizza Hut"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "What is your favourite fast food?",
+      "type": "open",
+      "tags": ["general", "open", "food"]
+    },
+    {
+      "text": "Who do you think will most likely go bankrupt in the future?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "Who do you think will most likely get a divorce in the future?",
+      "type": "players",
+      "tags": ["general", "players", "burn"],
+      "disabled": true
+    },
+    {
+      "text": "Would you rather date a spoilt brat or an extremely lazy person?",
+      "options": ["Spoilt brat", "Extremely lazy person"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Favourite subject in school?",
+      "options": ["English", "Mother Tongue", "Math", "Science"],
+      "tags": ["general", "sg"]
+    },
+    {
+      "text": "Would you abort your baby if you knew he/she would be mentally disabled?",
+      "type": "yesno",
+      "tags": ["general", "deep"]
+    },
+    {
+      "text": "Would you rather eat chocolate-flavored shit or shit-flavored chocolate?",
+      "options": ["Chocolate-flavored shit", "Shit-flavored chocolate"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "McNuggets or McWings?",
+      "options": ["Nuggets", "Wings"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "Mala spicy level?",
+      "options": ["不辣", "小辣", "中辣", "大辣", "超辣"],
+      "tags": ["general", "sg", "food"]
+    },
+    {
+      "text": "Would you rather shit on someone you like or have someone you like shit on you?",
+      "options": ["Shit on someone", "Have someone shit on you"],
+      "tags": ["general", "weird", "wyr"]
+    },
+    {
+      "text": "Would you rather cheat and be caught, or be cheated on and never be told?",
+      "options": ["Cheat and be caught", "Be cheated on and never be told"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather wear someone else's dirty underwear or use their toothbrush?",
+      "options": ["Dirty underwear", "Toothbrush"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather be constantly itchy or constantly sticky?",
+      "options": ["Itchy", "Sticky"],
+      "tags": ["general", "weird", "wyr"]
+    },
+    {
+      "text": "Would you rather stay overseas for 5 years or not travel for 20 years?",
+      "options": ["Stay overseas for 5 years", "Not travel for 20 years"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather crap yourself once a year in public or every day in private?",
+      "options": ["Once a year in public", "Every day in private"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather fulfil your biggest wish or resolve your biggest regret?",
+      "options": ["Fulfil your biggest wish", "Resolve your biggest regret"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather be a feminine man or a masculine woman?",
+      "options": ["Feminine man", "Masculine woman"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather have an STD and never pass it on or have everyone think you have an STD?",
+      "options": ["Have an STD and never pass it on", "Have everyone think you have an STD"],
+      "tags": ["general", "NSFW", "wyr"]
+    },
+    {
+      "text": "Would you rather shout all the time or whisper all the time?",
+      "options": ["Shout", "Whisper"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather pay or get paid every time you have sex?",
+      "options": ["Pay", "Get paid"],
+      "disabled": true,
+      "tags": ["NSFW", "wyr"]
+    },
+    {
+      "text": "Would you rather be a homewrecker or be home wrecked?",
+      "options": ["Be a homewrecker", "Be home wrecked"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather never have to pee again or never have to shit again?",
+      "options": ["Never pee again", "Never shit again"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather see the texts your ex wrote about you or have them see the texts you wrote about them?",
+      "options": ["See your ex's texts", "Have them see your texts"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather eat a whole jar of mayo or a whole tub of butter?",
+      "options": ["Mayo", "Butter"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather pee every time you stand up or poop every time you sit down?",
+      "options": ["Pee every time you stand up", "Poop every time you sit down"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather be a genius that nobody believes or an idiot that everybody believes?",
+      "options": ["Genius that nobody believes", "Idiot that everybody believes"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather meet the love of your life knowing that they'll die in a year or never meet them?",
+      "options": ["Meet knowing that they'll die", "Never meet them"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather have the nice house in a bad neighborhood or a shitty house in a fancy neighborhood?",
+      "options": ["Nice house in a bad neighborhood", "Shitty house in a fancy neighborhood"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather live without music or without YouTube?",
+      "options": ["Without music", "Without YouTube"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather live your life over as the opposite gender or start your life over as a kid again?",
+      "options": ["As the opposite gender", "As a kid again"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather die by a zombie attack or a shark attack?",
+      "options": ["Zombie attack", "Shark attack"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Which would you rather have in your life?",
+      "options": ["Rewind button", "Pause button", "Fast-forward button"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather fight 100 duck sized horses, or 1 horse sized duck?",
+      "options": ["100 duck sized horses", "1 horse sized duck"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather be able to speak to animals or every language in the world?",
+      "options": ["Animals", "Every language in the world"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather die in a hot desert or in antarctica?",
+      "options": ["Desert", "Antarctica"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Winter or Summer?",
+      "options": ["Winter", "Summer"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "Would you rather never use social media again or never watch another movie or TV show?",
+      "options": ["Never use social media again", "Never watch another movie or TV show"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "For $1M, would you live on an island for a year, without any contact to the outside world?",
+      "type": "yesno"
+    },
+    {
+      "text": "Who do you think will most likely burn the kitchen down if they cook?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think is the worst cook?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "How many exes do you have?",
+      "options": ["0", "1", "2", "3", "4", "> 5"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Are you a foodie?",
+      "type": "yesno",
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "Milk tea with or without pearl?",
+      "options": ["With pearl", "No pearl"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "What super power would you want to have?",
+      "options": ["Read minds", "Be able to fly", "Super speed", "X-ray vision", "Invisibility"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Would you rather..?",
+      "options": ["Sneeze all the time", "Hiccups all the time", "Fart all the time", "Burp all the time"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "谁讲的华语最差？",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Would you rather marry one of your exes or marry a complete stranger?",
+      "options": ["Ex", "Stranger"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Ketchup or chilli?",
+      "options": ["Ketchup", "Chilli"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "French fries or potato chips?",
+      "options": ["French fries", "Potato chips"],
+      "tags": ["general", "food", "tot"]
+    },
+    {
+      "text": "Chicken wing or chicken drumlet?",
+      "options": ["Wings", "Drums"],
+      "tags": ["general", "food", "tot"]
+    },
+    {
+      "text": "Favourite Subway cookie?",
+      "options": ["Peanut Butter", "White Chip Macadamia Nut", "Oatmeal Raisin", "Raspberry Cheesecake", "Chocolate Chip", "Double Chocolate"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "Pancakes or waffles?",
+      "options": ["Pancakes", "Waffles"],
+      "tags": ["general", "food", "tot"]
+    },
+    {
+      "text": "Favourite McDonalds ice cream?",
+      "options": ["McFlurry", "Vanilla/Choco Cone", "Sundae"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "Favourite type of chocolate?",
+      "options": ["White chocolate", "Milk chocolate", "Dark chocolate"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "How many alarms do you set before sleeping?",
+      "options": ["No alarm. Wake up naturally", "Just 1. You snooze you lose", "5. Maybe 6, just in case"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If you had to lose weight, would you rather go on a diet or exercise regularly?",
+      "options": ["Diet", "Exercise"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Milk tea sugar level?",
+      "options": ["0%", "25%", "50%", "75%", "100%", "125%"],
+      "tags": ["general", "food", "sg"]
+    },
+    {
+      "text": "Would you rather be a tree or have to live in a tree for the rest of your life?",
+      "options": ["Be a tree", "Live in a tree"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather be a giant hamster or a tiny rhino?",
+      "options": ["Giant hamster", "Tiny rhino"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather be rich and ugly or poor and good-looking?",
+      "options": ["Rich and ugly", "Poor and good-looking"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather be fit but poor or rich but obese?",
+      "options": ["Fit but poor", "Rich but obese"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Would you rather give bad advice or take bad advice?",
+      "options": ["Give bad advice", "Take bad advice"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "Favourite type of meat?",
+      "options": ["Chicken", "Beef", "Pork", "Fish", "Vegetarian"],
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "Would you rather be born with an elephant trunk or a giraffe neck?",
+      "options": ["Elephant trunk", "Giraffe neck"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "What is #1 on your bucket list?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Which family member are you closest to?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "If you could be more like someone else, who would you choose?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "What is one object that holds the greatest value to you?",
+      "type": "open",
+      "tags": ["general", "open", "deep"]
+    },
+    {
+      "text": "If you win $5,000,000 tomorrow, what is the first thing you would do with the money?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is a relationship deal-breaker for you?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Finish this sentence: \"I wish I had someone to share...\"",
+      "type": "open",
+      "disabled": true
+    },
+    {
+      "text": "What is your favourite sport?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What superpower do you want?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is your dream job?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Have you ever had surgery?",
+      "type": "yesno",
+      "disabled": true
+    },
+    {
+      "text": "What would you do if you only had 24 hours left to live?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What was your childhood ambition?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What type of people do you find the most annoying?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "If you were to choose another course of study, what would you pick?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Have you ever cried from a movie or TV show?",
+      "type": "yesno"
+    },
+    {
+      "text": "Do you think you are good-looking?",
+      "options": ["Yes I am gorgeous", "Nah I'm humble"],
+      "tags": ["general"]
+    },
+    {
+      "text": "What is your #1 fear?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What makes you angry?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is your 'addiction'?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "How long do you usually take to get ready in the morning?",
+      "options": ["5 mins", "30 mins", "1 hour", "1.5 hours", "> 1.5 hours"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If you had unlimited money to start your own business, what would it be?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is your favourite day of the week?",
+      "options": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "tags": ["general"]
+    },
+    {
+      "text": "If you didn't have to sleep, what would you do with the extra time?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What hobby would you get into if time and money weren't an issue?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Complete this sentence: \"I would win 1st place at a ___ competition\"",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What movie title best describes your life?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is your most used emoji?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is something you will NEVER do again?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What are you most insecure about?",
+      "type": "open",
+      "tags": ["general", "open", "deep"]
+    },
+    {
+      "text": "Favourite Chris from the Marvel Cinematic Universe?",
+      "options": ["Chris Evans (Captain America)", "Chris Hemsworth (Thor)", "Chris Pratt (Star-Lord, Guardians of the Galaxy)"],
+      "tags": ["general"]
+    },
+    {
+      "text": "What is something that makes you feel good about yourself?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Would you rather sing or dance in front of a crowd?",
+      "options": ["Sing", "Dance"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "If you had to perform in a talent show, what would your talent be?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Who would be the first to die in a zombie apocalypse?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who could pull off the the bald look the best?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "Who do you think will die alone?",
+      "type": "players",
+      "tags": ["general", "players", "burn"]
+    },
+    {
+      "text": "If you could have any pet in the world, what animal would you pick?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Who would you pick to be your slave for 24 hours?",
+      "type": "players",
+      "tags": ["general", "players"]
+    },
+    {
+      "text": "If you could be any animal, what animal would you like to be?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is the single most important characteristic in your ideal partner?",
+      "type": "open",
+      "tags": ["general", "open", "deep"]
+    },
+    {
+      "text": "If you could only eat one thing for the rest of your life, what would it be?",
+      "type": "open",
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "Favourite bubble tea?",
+      "type": "open",
+      "tags": ["general", "food", "sg"]
+    },
+    {
+      "text": "What do you usually order at Macs?",
+      "type": "open",
+      "tags": ["general", "food"]
+    },
+    {
+      "text": "If you could pick up any language instantly, what language would you choose?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "If you immigrate to another country, where would you go?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What inscription do you want on your tombstone?",
+      "type": "open",
+      "tags": ["open", "deep"]
+    },
+    {
+      "text": "You have $100 to burn, all your friends are busy and you have the whole day to yourself, what do you do?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Netflix or YouTube?",
+      "options": ["Netflix", "YouTube"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "iOS or Android?",
+      "options": ["iOS", "Android"],
+      "tags": ["general", "tot", "dev"]
+    },
+    {
+      "text": "Work hard or play hard?",
+      "options": ["Work Hard", "Play Hard"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "What's worse: Laundry or Dishes?",
+      "options": ["Laundry", "Dishes"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "Money or Free Time?",
+      "options": ["Money", "Free Time"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "Iced Coffee or Hot Coffee?",
+      "options": ["Iced Coffee", "Hot Coffee"],
+      "tags": ["general", "tot", "food"]
+    },
+    {
+      "text": "Would you rather know how you die or when you die?",
+      "options": ["How I die", "When I die"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather have one nipple or two belly buttons?",
+      "options": ["One nipple", "Two belly buttons"],
+      "tags": ["general", "wyr", "weird"]
+    },
+    {
+      "text": "Would you rather be forced to kill one innocent person or five people who committed minor crimes?",
+      "options": ["Kill one innocent person", "Kill five people who committed minor crimes"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather work very hard at a rewarding job or hardly have to work at a job that isn't rewarding?",
+      "options": ["Work very hard at a rewarding job", "Hardly have to work at a job that isn't rewarding"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather..?",
+      "options": ["Fight for a cause I believe in, but doubt will succeed", "Fight for a cause that I only partially believe in but have a high chance of succeeding"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather know the uncomfortable truth of the world or believe a comforting lie?",
+      "options": ["Know the uncomfortable truth of the world", "Believe a comforting lie"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather lose all of your current memories or lose your ability to make new long-term memories?",
+      "options": ["Lose all of my current memories", "Lose my ability to make new long-term memories"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather be held in high regard by your parents or your friends?",
+      "options": ["Parents", "Friends"],
+      "tags": ["general", "wyr", "deep"]
+    },
+    {
+      "text": "Would you rather never get angry or never be envious?",
+      "options": ["Never get angry", "Never be envious"],
+      "tags": ["general", "wyr"]
+    },
+    {
+      "text": "If you could write a law that everyone must obey, what law would you write?",
+      "type": "open",
+      "tags": ["general"]
+    },
+    {
+      "text": "Are you a morning person or a night owl?",
+      "options": ["Morning person", "Night owl"],
+      "tags": ["general", "tot"]
+    },
+    {
+      "text": "What job would you be terrible at?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What skill would you like to master?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What age do you wish you could permanently be?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What is the most annoying question that people ask you?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "If all jobs had the same pay and hours, what job would you like to have?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "When people come to you for help, what do they usually want help with?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What could you give a 30min presentation on with absolutely no preparation?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "What would be your ideal date?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
+      "text": "Tabs or Spaces?",
+      "options": ["Tabs", "Spaces"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Code editor of choice?",
+      "options": ["Atom", "IntelliJ", "Notepad++", "Sublime", "Vim", "VS Code", "Others"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Have you ever contributed to any open source projects?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "At what age did you write your first line of code?",
+      "options": ["Below 12", "12-16", "16-20", "20-24", "24-30", ">30"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Frontend or Backend?",
+      "options": ["Frontend", "Backend"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Which FANG company would you want work at?",
+      "options": ["Facebook", "Amazon", "Netflix", "Google", "None of them"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Favourite programming language?",
+      "type": "open",
+      "tags": ["dev"]
+    },
+    {
+      "text": "If you could work at any company in the world, which company would you choose?",
+      "type": "open",
+      "tags": ["dev"]
+    },
+    {
+      "text": "Angular, React or Vue?",
+      "options": ["Angular", "React", "Vue"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Windows, MacOS or Linux?",
+      "options": ["Windows", "MacOS", "Linux"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Do you listen to music while programming?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "How often do you visit Stack Overflow?",
+      "options": ["Multiple times per day", "Daily", "A few times per week", "Once per week or less", "Never visited Stack Overflow"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Pick 2 out of 3: Good company culture, Interesting work, High salary",
+      "options": ["Good culture & interesting work", "Good culture & high salary", "Interesting work & high salary"],
+      "tags": ["general", "dev"]
+    },
+    {
+      "text": "Have you ever worked at a startup?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Github, Gitlab, or Bitbucket?",
+      "options": ["Github", "Gitlab", "Bitbucket"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Laptop or desktop?",
+      "options": ["Laptop", "Desktop"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Do you have any tech-related stickers pasted on your laptop?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Do you have any tech company t-shirt/hoodie?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "How many cups of coffee do you drink per day?",
+      "options": ["0", "1", "2-3", ">3"],
+      "tags": ["general", "dev"]
+    },
+    {
+      "text": "How many monitors do you use at work?",
+      "options": ["0", "1", "2", "3", ">3"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Have you ever published a tech article on Medium?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    },
+    {
+      "text": "Have you ever published a tech article on Medium?",
+      "options": ["Yes", "No"],
+      "tags": ["dev"]
+    }
+  ]
+}
