@@ -1,5 +1,6 @@
 import express from "express";
-import https from "https";
+// import https from "https";
+import http from "http";
 import fs from "fs";
 import socketIo from "socket.io";
 import cors from "cors";
@@ -11,13 +12,14 @@ import socketEvents from "./events";
 import routes from "./routes";
 
 const port = process.env.PORT || 3001;
-const options = {
-  key: fs.readFileSync(process.env.SERVER_KEY_FILE),
-  cert: fs.readFileSync(process.env.SERVER_CERT_FILE),
-};
+// const options = {
+//   key: fs.readFileSync(process.env.SERVER_KEY_FILE),
+//   cert: fs.readFileSync(process.env.SERVER_CERT_FILE),
+// };
 
 const app = express();
-const server = https.createServer(options, app);
+const server = http.createServer(app);
+// const server = https.createServer(options, app);
 const io = socketIo(server);
 
 app.use(cors());
