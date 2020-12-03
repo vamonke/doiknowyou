@@ -22,9 +22,12 @@ const JoinGameCard = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box variant="orange">
+      <Box variant="orange" justifyContent="center" fontWeight="medium">
+        <Text color="white" textAlign="center" fontSize={2}>
+          Do I Know You?
+        </Text>
         <Box variant="orange.card" py={[3, 3, 24, 24]} mt={[2, 2, 3, 4]}>
-          <Text fontWeight="medium" fontSize={4} px={2} pt={[1, 1, 0]}>
+          <Text fontSize={4} px={2} pt={[1, 1, 0]}>
             Room {values.roomNo}
           </Text>
         </Box>
