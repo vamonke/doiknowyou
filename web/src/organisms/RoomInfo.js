@@ -4,15 +4,19 @@ import { Flex, Box, Text, Button } from "rebass";
 import Icon from "react-eva-icons";
 
 import { capitalize } from "../utils";
+import { QUESTIONS_COUNT } from "../constants";
 
 const RoomInfo = props => {
   const {
     roomNo,
-    rounds = 3,
-    duration,
+    rounds = QUESTIONS_COUNT,
+    timeLimit = 0,
     showSettings,
     gameMode = "random"
   } = props;
+
+  const gameModeCapitalized = capitalize(gameMode);
+  const durationText = timeLimit > 0 ? `${timeLimit} sec` : "No limit";
 
   const settings = [
     {
@@ -24,14 +28,14 @@ const RoomInfo = props => {
     {
       icon: "question-mark",
       label: "Question type",
-      textDesktop: `${capitalize(gameMode)} questions`,
-      textMobile: capitalize(gameMode)
+      textDesktop: `${gameModeCapitalized} questions`,
+      textMobile: gameModeCapitalized
     },
     {
       icon: "clock-outline",
       label: "Guess time",
-      textDesktop: `${duration} sec`,
-      textMobile: `${duration} sec`
+      textDesktop: durationText,
+      textMobile: durationText
     }
   ];
 
@@ -122,7 +126,7 @@ const RoomInfo = props => {
 RoomInfo.propTypes = {
   roomNo: PropTypes.number.isRequired,
   playerCount: PropTypes.number.isRequired,
-  duration: PropTypes.number.isRequired,
+  timeLimit: PropTypes.number.isRequired,
   gameMode: PropTypes.string.isRequired
 };
 

@@ -28,7 +28,7 @@ const QuestionResults = ({ room, hide, dispatch }) => {
 
       <Box variant="modal.card">
         <Text fontWeight="medium" mb={3} mt={0}>
-          Question time limit
+          Guess time limit
         </Text>
 
         <Flex>

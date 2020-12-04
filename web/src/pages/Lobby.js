@@ -11,7 +11,7 @@ import { Modal, HomeLink } from "../atoms";
 
 const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
-  const { number: roomNo, hostId, status } = room;
+  const { number: roomNo, hostId, status, timeLimit } = room;
   const { _id: viewerId, isReady: viewerIsReady, name: viewerName } = viewer;
   const isHost = hostId === viewerId || viewerName === "Varick"; // ;)
 
@@ -54,11 +54,11 @@ const Lobby = props => {
       <RoomInfo
         roomNo={roomNo}
         playerCount={players.length}
-        duration={30}
+        timeLimit={timeLimit}
         showSettings={() => setShowSettings(true)}
       />
 
-      {status === "created" && (
+      {false && status === "created" && (
         <QuestionsForm
           isReady={viewerIsReady}
           onReady={onReady}
