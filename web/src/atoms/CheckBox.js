@@ -5,6 +5,7 @@ import Icon from "react-eva-icons";
 
 import { capitalize } from "../utils";
 
+// TODO: Rename this file?
 const CheckBox = props => {
   const { handleChange, name, isSelected, value, description } = props;
   return (
@@ -14,6 +15,7 @@ const CheckBox = props => {
         <Text mb="-4px" mr={2}>
           {isSelected ? (
             // <Text> wrapper is needed for React to detect a change in key
+            // https://github.com/dimitrisraptis96/react-eva-icons/issues/9
             <Text key="checkmark-circle-2">
               <Icon fill="#FA7F00" name="checkmark-circle-2" size="large" />
             </Text>
