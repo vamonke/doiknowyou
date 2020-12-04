@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Flex, Button, Text } from "rebass";
-import Icon from "react-eva-icons";
+import { Flex } from "rebass";
 
 import { playerReady, playerNotReady } from "../redux/client";
 import * as analytics from "../analytics";
 
-import { QuestionsForm, Settings, JoinGameCard } from "../organisms";
+import { QuestionsForm, Settings, JoinGameCard, RoomInfo } from "../organisms";
 import { LobbyPlayerList, Countdown } from "../molecules";
 import { Modal, HomeLink } from "../atoms";
 
@@ -44,33 +43,20 @@ const Lobby = props => {
       <Flex
         variant="orange"
         justifyContent="center"
-        alignItems="center"
-        px={[3, 3, 3]}
-        pb={1}
-        mb={-1}
+        fontWeight="medium"
+        color="white"
+        fontSize={2}
+        my={[0, -2]}
       >
-        <Text fontWeight="medium" color="white" fontSize={3}>
-          Room {roomNo}
-        </Text>
-        {isHost && (
-          <Button
-            ml={3}
-            variant="settings"
-            fontSize={2}
-            textDecoration="underline"
-            onClick={() => setShowSettings(true)}
-          >
-            <Icon
-              fill="#F7CF00"
-              name="settings-2-outline"
-              size="large" // small, medium, large, xlarge
-            />
-            <Text as="span" ml={2} pb={1}>
-              Settings
-            </Text>
-          </Button>
-        )}
+        Do I Know You?
       </Flex>
+
+      <RoomInfo
+        roomNo={roomNo}
+        playerCount={players.length}
+        duration={30}
+        showSettings={() => setShowSettings(true)}
+      />
 
       {status === "created" && (
         <QuestionsForm

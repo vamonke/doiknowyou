@@ -7,6 +7,12 @@ import { hostSettings } from "../redux/client";
 const durations = [0, 10, 20, 30];
 const borderRadius = ["21px 0 0 21px", 0, 0, "0 21px 21px 0"];
 
+const settingsMap = [
+  { label: "Questions per player", value: 3 },
+  { label: "Question Type", value: "Random" },
+  { label: "Time per question", value: 20 }
+];
+
 const QuestionResults = ({ room, hide, dispatch }) => {
   const { timeLimit = 0 } = room;
   const onClick = timeLimit => {
@@ -44,6 +50,19 @@ const QuestionResults = ({ room, hide, dispatch }) => {
             Excludes open-ended questions
           </Text>
         )}
+
+        {settingsMap.map(({ label, value }) => {
+          return (
+            <Flex
+              justifyContent="space-between"
+              alignItems="center"
+              variant="row"
+            >
+              <Text>{label}</Text>
+              <Text fontWeight="medium">{value}</Text>
+            </Flex>
+          );
+        })}
 
         <Button onClick={onHide} width={1} mt={24}>
           Done

@@ -5,7 +5,7 @@ export default {
     blue: "#07C",
     lightgray: "#E2E2E2",
     gray: "#BBB",
-    darkgray: "#666666",
+    darkgray: "#666",
     green: "#1ABC9C",
     darkpurple: "#2C2736",
     orange: "#FA7F00",
@@ -209,6 +209,11 @@ export default {
     },
     link: {
       color: "inherit"
+    },
+    icon: {
+      mb: -1,
+      display: "inline-block",
+      verticalAlign: "-0.4em"
     }
   },
   text: {

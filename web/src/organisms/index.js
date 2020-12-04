@@ -7,3 +7,4 @@ export { default as OpenEndedQuestion } from "./OpenEndedQuestion";
 export { default as QuestionResults } from "./QuestionResults";
 export { default as QuestionsForm } from "./QuestionsForm";
 export { default as Settings } from "./Settings";
+export { default as RoomInfo } from "./RoomInfo";

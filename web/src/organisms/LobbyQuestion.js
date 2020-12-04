@@ -40,7 +40,7 @@ const LobbyQuestion = props => {
 
   return (
     <>
-      <Box variant="orange">
+      <Box px={[2, 2, 3]}>
         <Box variant="orange.card">
           <Flex justifyContent="space-between" alignItems="center">
             <Text fontWeight="medium" fontSize={3}>
