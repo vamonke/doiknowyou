@@ -1,25 +1,46 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Flex, Box, Button, Text } from "rebass";
+import { Label, Select } from "@rebass/forms";
 
+import { CheckBox } from "../atoms";
 import { hostSettings } from "../redux/client";
 
-const durations = [0, 10, 20, 30];
-const borderRadius = ["21px 0 0 21px", 0, 0, "0 21px 21px 0"];
-
-const settingsMap = [
-  { label: "Questions per player", value: 3 },
-  { label: "Question Type", value: "Random" },
-  { label: "Time per question", value: 20 }
+const gameModes = [
+  {
+    value: "random",
+    description: "Questions are randomly generated"
+  },
+  {
+    value: "custom",
+    description: "Players write their own questions"
+  }
 ];
 
-const QuestionResults = ({ room, hide, dispatch }) => {
-  const { timeLimit = 0 } = room;
-  const onClick = timeLimit => {
-    const settings = { timeLimit };
-    dispatch(hostSettings(settings));
+const settingsMap = [
+  // { name: "gameMode", label: "Question Type", value: "Random" },
+  // {
+  //   name: "rounds",
+  //   label: "Rounds",
+  //   options: [1, 2, 3, 4, 5],
+  //   optionFormat: Number,
+  // },
+  {
+    name: "timeLimit",
+    label: "Guessing time",
+    options: [0, 10, 20, 30],
+    optionFormat: option => (option === 0 ? "No limit" : option + " sec")
+  }
+];
+
+const Settings = ({ room, hide, updateSettings }) => {
+  const onChange = formatter => e => {
+    const { name, value } = e.target;
+    const settings = { [name]: formatter(value) };
+    updateSettings(settings);
   };
-  const onHide = hide;
+
   return (
     <>
       <Box variant="orange.card.small">
@@ -28,43 +49,52 @@ const QuestionResults = ({ room, hide, dispatch }) => {
 
       <Box variant="modal.card">
         <Text fontWeight="medium" mb={3} mt={0}>
-          Guess time limit
+          Question type
         </Text>
 
-        <Flex>
-          {durations.map((duration, index) => (
-            <Button
-              key={index}
-              variant={timeLimit === duration ? "black" : "secondary"}
-              onClick={() => onClick(duration)}
-              sx={{ borderRadius: borderRadius[index] }}
-              flexGrow={1}
-            >
-              {duration === 0 ? "No limit" : duration + "s"}
-            </Button>
-          ))}
-        </Flex>
+        {gameModes.map(({ value, description }) => (
+          <CheckBox
+            key={value}
+            isSelected={room.gameMode === value}
+            handleChange={onChange(String)}
+            name="gameMode"
+            description={description}
+            value={value}
+          />
+        ))}
 
-        {timeLimit !== 0 && (
-          <Text textAlign="center" mt={3}>
-            Excludes open-ended questions
-          </Text>
-        )}
+        <Box variant="hr" mt={2} />
 
-        {settingsMap.map(({ label, value }) => {
+        {settingsMap.map(({ label, name, options, optionFormat }) => {
           return (
             <Flex
               justifyContent="space-between"
               alignItems="center"
-              variant="row"
+              // variant="row"
+              key={name}
             >
-              <Text>{label}</Text>
-              <Text fontWeight="medium">{value}</Text>
+              <Label htmlFor={name} fontWeight="medium">
+                {label}
+              </Label>
+              <Select
+                width={128}
+                name={name}
+                onChange={onChange(Number)}
+                defaultValue={room[name]}
+              >
+                {options.map(option => (
+                  <option key={option} value={option}>
+                    {optionFormat(option)}
+                  </option>
+                ))}
+              </Select>
             </Flex>
           );
         })}
 
-        <Button onClick={onHide} width={1} mt={24}>
+        <Box variant="hr" mb={0} />
+
+        <Button onClick={hide} width={1} mt={24}>
           Done
         </Button>
       </Box>
@@ -72,13 +102,19 @@ const QuestionResults = ({ room, hide, dispatch }) => {
   );
 };
 
-QuestionResults.propTypes = {
+Settings.propTypes = {
   isOpen: PropTypes.bool,
   room: PropTypes.shape({
     timeLimit: PropTypes.number
   }),
-  hide: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired
+  hide: PropTypes.func.isRequired
 };
 
-export default QuestionResults;
+const mapDispatchToProps = dispatch => ({
+  updateSettings: settings => dispatch(hostSettings(settings))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Settings);

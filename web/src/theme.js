@@ -127,6 +127,13 @@ export default {
         borderRadius: "0 0 30px 30px"
       }
     },
+    hr: {
+      my: 3,
+      borderWidth: 0,
+      borderBottomWidth: 1,
+      borderStyle: "solid",
+      borderColor: "lightgray"
+    },
     row: {
       py: 2,
       borderWidth: 0,
@@ -214,6 +221,59 @@ export default {
       mb: -1,
       display: "inline-block",
       verticalAlign: "-0.4em"
+    },
+    selectable: {
+      display: "inline-flex",
+      alignItems: "center",
+      bg: "transparent",
+      borderWidth: 1.5,
+      borderStyle: "solid",
+      borderColor: "gray",
+      borderRadius: 16,
+      pl: 12,
+      pr: 15,
+      py: "10px",
+      mt: 1,
+      mx: 2,
+      mb: 2,
+      outline: "none",
+      // "&::before": {
+      //   content: "'✔'",
+      //   display: "inline-block",
+      //   backgroundColor: "white",
+      //   border: "1px solid black",
+      //   color: "white",
+      //   width: 16,
+      //   height: 16,
+      //   fontSize: 0,
+      //   textAlign: "center",
+      //   verticalAlign: "text-bottom",
+      //   mr: 2
+      // },
+      "input:checked + &": {
+        borderColor: "orange"
+        // "&::before": {
+        //   backgroundColor: "black",
+        //   color: "white"
+        // }
+      },
+      block: {
+        display: "flex",
+        alignItems: "center",
+        bg: "transparent",
+        borderWidth: 1.5,
+        borderStyle: "solid",
+        borderColor: "gray",
+        borderRadius: 21,
+        outline: "none",
+        p: "12px",
+        mt: 0,
+        mx: 0,
+        mb: 3,
+        "input:checked + &": {
+          borderColor: "orange"
+        }
+      }
     }
   },
   text: {
@@ -301,42 +361,6 @@ export default {
         ml: 2,
         fontSize: "8pt",
         verticalAlign: 1
-      }
-    },
-    tagLarge: {
-      display: "inline-flex",
-      alignItems: "center",
-      bg: "transparent",
-      borderWidth: 1.5,
-      borderStyle: "solid",
-      borderColor: "gray",
-      borderRadius: 16,
-      pl: 12,
-      pr: 15,
-      py: "10px",
-      mt: 1,
-      mx: 2,
-      mb: 2,
-      outline: "none",
-      // "&::before": {
-      //   content: "'✔'",
-      //   display: "inline-block",
-      //   backgroundColor: "white",
-      //   border: "1px solid black",
-      //   color: "white",
-      //   width: 16,
-      //   height: 16,
-      //   fontSize: 0,
-      //   textAlign: "center",
-      //   verticalAlign: "text-bottom",
-      //   mr: 2
-      // },
-      "input:checked + &": {
-        borderColor: "orange"
-        // "&::before": {
-        //   backgroundColor: "black",
-        //   color: "white"
-        // }
       }
     },
     plus: {

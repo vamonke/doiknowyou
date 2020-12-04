@@ -87,8 +87,7 @@ export const playerNotReady = () => dispatch => {
 // Host actions
 export const hostSettings = settings => dispatch => {
   socket.emit("updateSettings", settings);
-  const { timeLimit } = settings;
-  const payload = { timeLimit };
+  const payload = settings;
   dispatch({ type: e.HOST_SETTING, payload });
 };
 export const kick = playerId => dispatch => {

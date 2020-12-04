@@ -10,12 +10,12 @@ const RoomInfo = props => {
   const {
     roomNo,
     rounds = QUESTIONS_COUNT,
-    timeLimit = 0,
+    timeLimit,
     showSettings,
-    gameMode = "random"
+    gameMode
   } = props;
 
-  const gameModeCapitalized = capitalize(gameMode);
+  const gameModeCapitalized = capitalize(gameMode) || "-";
   const durationText = timeLimit > 0 ? `${timeLimit} sec` : "No limit";
 
   const settings = [
@@ -80,8 +80,8 @@ const RoomInfo = props => {
           display={["none", "none", "none", "block"]}
         >
           <Flex py={3} justifyContent="space-between">
-            {settings.map(({ icon, textDesktop }) => (
-              <Box>
+            {settings.map(({ icon, textDesktop }, index) => (
+              <Box key={index}>
                 <Box variant="icon" mr={2}>
                   <Icon
                     fill="#F7B500"
@@ -101,7 +101,7 @@ const RoomInfo = props => {
         >
           <Flex py={3} justifyContent="space-around" alignItems="center">
             {settings.map(({ label, textMobile }, index) => (
-              <>
+              <React.Fragment key={index}>
                 {index !== 0 && (
                   <Box
                     height={32}
@@ -114,7 +114,7 @@ const RoomInfo = props => {
                   </Text>
                   <Text fontWeight="medium">{textMobile}</Text>
                 </Box>
-              </>
+              </React.Fragment>
             ))}
           </Flex>
         </Box>

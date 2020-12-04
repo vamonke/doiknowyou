@@ -11,7 +11,7 @@ import { Modal, HomeLink } from "../atoms";
 
 const Lobby = props => {
   const { room, viewer, players, questions, questionBank, dispatch } = props;
-  const { number: roomNo, hostId, status, timeLimit } = room;
+  const { number: roomNo, hostId, status, timeLimit, gameMode } = room;
   const { _id: viewerId, isReady: viewerIsReady, name: viewerName } = viewer;
   const isHost = hostId === viewerId || viewerName === "Varick"; // ;)
 
@@ -53,6 +53,7 @@ const Lobby = props => {
 
       <RoomInfo
         roomNo={roomNo}
+        gameMode={gameMode}
         playerCount={players.length}
         timeLimit={timeLimit}
         showSettings={() => setShowSettings(true)}
@@ -82,11 +83,7 @@ const Lobby = props => {
 
       {isHost && (
         <Modal isOpen={showSettings} hide={() => setShowSettings(false)}>
-          <Settings
-            room={room}
-            dispatch={dispatch}
-            hide={() => setShowSettings(false)}
-          />
+          <Settings room={room} hide={() => setShowSettings(false)} />
         </Modal>
       )}
 

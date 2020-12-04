@@ -1,3 +1,4 @@
+export { default as CheckBox } from "./CheckBox";
 export { default as Disconnected } from "./Disconnected";
 export { default as GithubLink } from "./GithubLink";
 export { default as HomeLink } from "./HomeLink";

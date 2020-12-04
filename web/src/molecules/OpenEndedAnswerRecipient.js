@@ -11,13 +11,12 @@ const RecipientForm = ({ options, onSubmit }) => (
     render={props => {
       const { handleSubmit, handleChange, values } = props;
       const disabled = !Object.values(values).some(Boolean);
-      console.log(values);
       return (
         <form onSubmit={handleSubmit}>
           {options.map((option, index) => (
             <Label key={index} sx={{ display: "inline-flex !important" }}>
               <Input type="checkbox" onChange={handleChange} name={index} />
-              <Text variant="tagLarge">
+              <Box variant="selectable">
                 {values[index] ? (
                   <Text as="span" mb="-4px" key="icon-check" mr={2}>
                     <Icon
@@ -36,7 +35,7 @@ const RecipientForm = ({ options, onSubmit }) => (
                   </Text>
                 )}
                 {option}
-              </Text>
+              </Box>
             </Label>
           ))}
           <Button type="submit" width={1} disabled={disabled} mt={3}>
