@@ -7,35 +7,35 @@ const schema = new Schema(
     type: {
       type: String,
       enum: ["mcq", "yesno", "players", "open"],
-      default: "mcq"
+      default: "mcq",
     },
     options: {
       type: [String],
-      default: []
+      default: [],
     },
-    number: Number,
+    number: Number, // TODO: rename this?
     roomId: String,
     authorId: String,
     round: Number,
     status: {
       type: String,
       enum: ["unasked", "asking", "asked"],
-      default: "unasked"
+      default: "unasked",
     },
     recipientId: String,
     correctAnswer: {
       type: [Number],
-      default: []
+      default: [],
     },
     answeredAt: Date,
     randomQuestionId: String,
     answers: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Answer"
-      }
+        ref: "Answer",
+      },
     ],
-    isClosed: Boolean
+    isClosed: Boolean,
   },
   { versionKey: false }
 );
@@ -52,23 +52,25 @@ export const createMany = (questions, authorId, roomId) => {
         number,
         roomId,
         authorId,
-        status: "unasked"
+        status: "unasked",
       };
       if (randomQuestionId) Object.assign(question, { randomQuestionId });
       return Question.findOneAndUpdate({ number, roomId, authorId }, question, {
-        upsert: true
+        upsert: true,
       });
     }
   );
   return Promise.all(promises);
 };
 
-export const removeByPlayerId = authorId => Question.deleteMany({ authorId });
+export const removeByPlayerId = (authorId) => Question.deleteMany({ authorId });
+
+export const removeByRoomId = (roomId) => Question.deleteMany({ roomId });
 
 export const draw = async (roomId, round, currentRecipientId) => {
   // randomly get unasked
   const unasked = await Question.aggregate([
-    [{ $match: { roomId, status: "unasked" } }, { $sample: { size: 1 } }]
+    [{ $match: { roomId, status: "unasked" } }, { $sample: { size: 1 } }],
   ]);
   // if has unasked
   if (unasked && unasked.length > 0) {
@@ -82,7 +84,7 @@ export const draw = async (roomId, round, currentRecipientId) => {
     const update = { status: "asking", recipientId, round };
     if (unasked[0].type === "players") {
       const players = await Player.findByRoom(roomId);
-      update.options = players.map(player => player.name);
+      update.options = players.map((player) => player.name);
     }
 
     // set question status, recipient, round
@@ -101,17 +103,17 @@ export const addOption = async (answer, id) => {
     { $push: { options: answer } },
     { new: true, lean: true }
   );
-  const optionIndex = question.options.findIndex(option => option === answer); // get answer index
+  const optionIndex = question.options.findIndex((option) => option === answer); // get answer index
   return optionIndex;
 };
 
-export const getCurrentQuestionInRoom = roomId =>
+export const getCurrentQuestionInRoom = (roomId) =>
   Question.findOne(
     { roomId, status: "asking" },
     { correctAnswer: 1, recipientId: 1, type: 1, options: 1 }
   ).lean();
 
-export const getCurrentQuestionInRoomFull = roomId =>
+export const getCurrentQuestionInRoomFull = (roomId) =>
   Question.findOne({ roomId, status: "asking" }).lean();
 
 export const setCorrectAnswer = (id, correctAnswer) =>
@@ -120,18 +122,18 @@ export const setCorrectAnswer = (id, correctAnswer) =>
     { correctAnswer },
     {
       new: true,
-      select: { correctAnswer: 1, recipientId: 1, type: 1 }
+      select: { correctAnswer: 1, recipientId: 1, type: 1 },
     }
   ).lean();
 
-export const openToRecipient = id =>
+export const openToRecipient = (id) =>
   Question.findByIdAndUpdate(
     id,
     { isClosed: true },
     {
       new: true,
       select: { isClosed: 1, options: 1, type: 1 },
-      lean: true
+      lean: true,
     }
   );
 
@@ -149,14 +151,14 @@ export const complete = (id, answers) =>
         status: 1,
         recipientId: 1,
         correctAnswer: 1,
-        answers: 1
-      }
+        answers: 1,
+      },
     }
   )
     .populate("answers", { option: 1, playerId: 1 })
     .lean();
 
-export const findAsked = roomId =>
+export const findAsked = (roomId) =>
   Question.find({ roomId, status: "asked" })
     .select({
       text: 1,
@@ -166,15 +168,15 @@ export const findAsked = roomId =>
       status: 1,
       recipientId: 1,
       correctAnswer: 1,
-      answers: 1
+      answers: 1,
     })
     .sort({ round: "desc" })
     .populate("answers", { option: 1, playerId: 1 })
     .lean();
 
-export const findById = id => Question.findById(id);
+export const findById = (id) => Question.findById(id);
 
-export const findbyRoomId = roomId =>
+export const findbyRoomId = (roomId) =>
   Question.find({ roomId }).populate("answers", { option: 1, playerId: 1 });
 
 // export const deleteById = id => Question.findByIdAndDelete(id);

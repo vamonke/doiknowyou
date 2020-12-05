@@ -12,11 +12,8 @@ const trim = questions =>
   );
 
 const lobbyEvents = (io, socket, common) => {
-  // Lobby: Start if all players are ready
-  const startIfAllReady = async roomId => {
-    const ready = await Room.isEveryPlayerReady(roomId);
-    if (!ready) return false;
-
+  // Lobby: Start
+  const startGame = async roomId => {
     const currentQuestion = await Question.draw(roomId, 1, null);
     const room = await Room.start(roomId);
     common.gameLog("Game start");
@@ -27,6 +24,13 @@ const lobbyEvents = (io, socket, common) => {
     } else {
       common.gameOver(roomId);
     }
+  }
+
+  // Lobby: Start if all players are ready
+  const startIfAllReady = async roomId => {
+    const ready = await Room.isEveryPlayerReady(roomId);
+    if (!ready) return false;
+    startGame(roomId);
   };
 
   // Lobby: Player ready
@@ -71,7 +75,7 @@ const lobbyEvents = (io, socket, common) => {
     }
   });
 
-  Object.assign(common, { startIfAllReady });
+  Object.assign(common, { startIfAllReady, startGame });
 };
 
 export default lobbyEvents;

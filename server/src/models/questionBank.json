@@ -101,7 +101,7 @@
       "tags": ["general", "tot"]
     },
     {
-      "text": "Will you ever consider becoming a househusband/housewife?",
+      "text": "Will you ever consider becoming a full-time homemaker?",
       "type": "yesno"
     },
     {
@@ -136,7 +136,8 @@
     },
     {
       "text": "What type of people annoys you the most?",
-      "options": ["People who complain about the government on FB", "E-scooter riders that blast their techno music", "Insurance agents", "Aunties that humble-brag about their children"],
+      "options": ["People from the Straits Times comment section", "E-scooter riders that blast their techno music", "Insurance agents", "Aunties that humble-brag about their children"],
+      "disabled": true,
       "tags": ["general", "sg"]
     },
     {
@@ -145,8 +146,13 @@
       "tags": ["general", "deep"]
     },
     {
-      "text": "Which is the single most important value you would teach your children?",
+      "text": "Which is the most important value you would teach your children?",
       "options": ["Gratitude", "Honesty", "Generosity", "Responsibility"],
+      "tags": ["general"]
+    },
+    {
+      "text": "Which is the most important value to you?",
+      "type": "open",
       "tags": ["general"]
     },
     {
@@ -235,6 +241,11 @@
       "tags": ["general"]
     },
     {
+      "text": "Favourite music artist?",
+      "type": "open",
+      "tags": ["general", "open"]
+    },
+    {
       "text": "If given the choice, would you choose to be a male or female?",
       "options": ["Male", "Female"],
       "tags": ["general", "tot"]
@@ -279,7 +290,7 @@
       "tags": ["general"]
     },
     {
-      "text": "Have you ever been so drunk that you puked in public?",
+      "text": "Have you ever threw up in public after drinking?",
       "type": "yesno"
     },
     {
@@ -440,11 +451,13 @@
     {
       "text": "Who do you think is the best person to date?",
       "type": "players",
+      "disabled": true,
       "tags": ["general", "players"]
     },
     {
       "text": "Ideal partner?",
       "type": "players",
+      "disabled": true,
       "tags": ["general", "players"]
     },
     {
@@ -506,7 +519,7 @@
       "tags": ["general"]
     },
     {
-      "text": "If your friend likes someone but you don't personally like that person, would you try to seperate them?",
+      "text": "If you don't personally like who your friend is dating, would you try to seperate them?",
       "type": "yesno"
     },
     {
@@ -622,7 +635,7 @@
       "tags": ["general", "sg"]
     },
     {
-      "text": "Would you abort your baby if you knew he/she would be mentally disabled?",
+      "text": "Would you abort your baby if you knew the baby would be mentally disabled?",
       "type": "yesno",
       "tags": ["general", "deep"]
     },
@@ -709,6 +722,7 @@
     },
     {
       "text": "Would you rather see the texts your ex wrote about you or have them see the texts you wrote about them?",
+      "disabled": true,
       "options": ["See your ex's texts", "Have them see your texts"],
       "tags": ["general", "wyr"]
     },
@@ -773,7 +787,7 @@
       "tags": ["general", "wyr"]
     },
     {
-      "text": "Winter or Summer?",
+      "text": "Winter or summer?",
       "options": ["Winter", "Summer"],
       "tags": ["general", "tot"]
     },
@@ -783,7 +797,7 @@
       "tags": ["general", "wyr"]
     },
     {
-      "text": "For $1M, would you live on an island for a year, without any contact to the outside world?",
+      "text": "For $1,000,000, would you live on an island for a year without any contact to the outside world?",
       "type": "yesno"
     },
     {
@@ -867,8 +881,8 @@
       "tags": ["general", "food"]
     },
     {
-      "text": "How many alarms do you set before sleeping?",
-      "options": ["No alarm. Wake up naturally", "Just 1. You snooze you lose", "5. Maybe 6, just in case"],
+      "text": "How many alarms do you set for the morning?",
+      "options": ["No alarm. Wake up naturally", "Just 1. You snooze you lose", "4. Maybe 5, just in case"],
       "tags": ["general"]
     },
     {
@@ -877,7 +891,7 @@
       "tags": ["general", "wyr"]
     },
     {
-      "text": "Milk tea sugar level?",
+      "text": "Bubble tea sugar level?",
       "options": ["0%", "25%", "50%", "75%", "100%", "125%"],
       "tags": ["general", "food", "sg"]
     },
@@ -1128,7 +1142,7 @@
     {
       "text": "Favourite bubble tea?",
       "type": "open",
-      "tags": ["general", "food", "sg"]
+      "tags": ["food", "sg"]
     },
     {
       "text": "What do you usually order at Macs?",
@@ -1151,7 +1165,7 @@
       "tags": ["open", "deep"]
     },
     {
-      "text": "You have $100 to burn, all your friends are busy and you have the whole day to yourself, what do you do?",
+      "text": "You have $100 to spend, all your friends are busy and you have the whole day to yourself, what do you do?",
       "type": "open",
       "tags": ["general", "open"]
     },
@@ -1171,13 +1185,13 @@
       "tags": ["general", "tot"]
     },
     {
-      "text": "What's worse: Laundry or Dishes?",
+      "text": "Which do you prefer doing: Laundry or Dishes?",
       "options": ["Laundry", "Dishes"],
       "tags": ["general", "tot"]
     },
     {
-      "text": "Money or Free Time?",
-      "options": ["Money", "Free Time"],
+      "text": "Money or Free time?",
+      "options": ["Money", "Free time"],
       "tags": ["general", "tot"]
     },
     {
@@ -1196,18 +1210,18 @@
       "tags": ["general", "wyr", "weird"]
     },
     {
-      "text": "Would you rather be forced to kill one innocent person or five people who committed minor crimes?",
+      "text": "Would you rather..?",
       "options": ["Kill one innocent person", "Kill five people who committed minor crimes"],
       "tags": ["general", "wyr", "deep"]
     },
     {
-      "text": "Would you rather work very hard at a rewarding job or hardly have to work at a job that isn't rewarding?",
+      "text": "Would you rather..?",
       "options": ["Work very hard at a rewarding job", "Hardly have to work at a job that isn't rewarding"],
       "tags": ["general", "wyr", "deep"]
     },
     {
-      "text": "Would you rather..?",
-      "options": ["Fight for a cause I believe in, but doubt will succeed", "Fight for a cause that I only partially believe in but have a high chance of succeeding"],
+      "text": "Would you rather fight for a cause that..?",
+      "options": ["I believe in but doubt will succeed", "I only partially believe in but is likely to succeed"],
       "tags": ["general", "wyr", "deep"]
     },
     {
@@ -1216,7 +1230,7 @@
       "tags": ["general", "wyr", "deep"]
     },
     {
-      "text": "Would you rather lose all of your current memories or lose your ability to make new long-term memories?",
+      "text": "Would you rather..?",
       "options": ["Lose all of my current memories", "Lose my ability to make new long-term memories"],
       "tags": ["general", "wyr", "deep"]
     },
@@ -1356,8 +1370,8 @@
       "tags": ["dev"]
     },
     {
-      "text": "Laptop or desktop?",
-      "options": ["Laptop", "Desktop"],
+      "text": "Phone, Laptop or desktop?",
+      "options": ["Phone", "Laptop", "Desktop"],
       "tags": ["dev"]
     },
     {
@@ -1381,12 +1395,7 @@
       "tags": ["dev"]
     },
     {
-      "text": "Have you ever published a tech article on Medium?",
-      "options": ["Yes", "No"],
-      "tags": ["dev"]
-    },
-    {
-      "text": "Have you ever published a tech article on Medium?",
+      "text": "Have you ever published an article on Medium?",
       "options": ["Yes", "No"],
       "tags": ["dev"]
     }

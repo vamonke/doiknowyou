@@ -1,7 +1,9 @@
 import * as Room from "../models/Room";
 import * as Player from "../models/Player";
 import * as Question from "../models/Question";
+import * as RandomQuestion from "../models/RandomQuestion";
 
+// TODO: Authenticate host by player id
 const hostEvents = (io, socket, common) => {
   const newHost = async (roomId, playerId) => {
     if (!playerId) {
@@ -21,7 +23,7 @@ const hostEvents = (io, socket, common) => {
 
     let room;
 
-    // Update time limit
+    // Host: Update time limit
     if (timeLimit || timeLimit === 0) {
       room = await Room.updateTimeLimit(roomId, timeLimit);
       common.gameLog("Updated question time limit - " + timeLimit);
@@ -39,6 +41,34 @@ const hostEvents = (io, socket, common) => {
     if (room) {
       io.to(roomId).emit("newSettings", { room });
     }
+  });
+
+  // Host: Start random game
+  socket.on("startRandomGame", async () => {
+    if (socket.missingPlayer()) return;
+
+    const { roomId, _id: playerId } = socket.player;
+    
+    // Remove any existing questions
+    await Question.removeByRoomId(roomId);
+    
+    // Select random questions
+    const rounds = 3; // TODO: Should come from db
+    const playerCount = await Room.getPlayerCount(roomId);
+    const questionCount = playerCount * rounds;
+    const randomQuestions = await RandomQuestion.getMany(questionCount);
+    console.log(randomQuestions);
+
+    // TODO: Map randomQuestionId to _id for each qn
+
+    // Insert questions to room
+    await Question.createMany(
+      randomQuestions,
+      playerId,
+      roomId
+    );
+
+    common.startGame(roomId);
   });
 
   // Host: Update settings

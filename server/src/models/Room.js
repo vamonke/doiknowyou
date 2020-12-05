@@ -77,7 +77,7 @@ export const findByNumber = roomNo => Room.findOne({ number: roomNo }).lean();
 //   });
 // };
 
-export const getPlayerCount = Player.findCountByRoom;
+export const getPlayerCount = Player.countByRoomId;
 
 export const isEveryPlayerReady = async id => {
   const players = await Player.findByRoom(id);

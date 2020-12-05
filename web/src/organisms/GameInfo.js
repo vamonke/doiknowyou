@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Flex, Box, Text, Button } from "rebass";
 import Icon from "react-eva-icons";
 
 import { capitalize } from "../utils";
 import { QUESTIONS_COUNT } from "../constants";
+import { startGame } from "../redux/client";
 
 const GameInfo = props => {
   const {
@@ -13,7 +15,8 @@ const GameInfo = props => {
     rounds = QUESTIONS_COUNT,
     timeLimit,
     showSettings,
-    gameMode
+    gameMode,
+    startGame
   } = props;
 
   const insufficientPlayers = playerCount < 2;
@@ -106,6 +109,7 @@ const GameInfo = props => {
             width={1}
             variant="primary"
             type="button"
+            onClick={startGame}
             disabled={insufficientPlayers}
           >
             Start game
@@ -129,4 +133,11 @@ GameInfo.propTypes = {
   gameMode: PropTypes.string.isRequired
 };
 
-export default GameInfo;
+const mapDispatchToProps = dispatch => ({
+  startGame: () => dispatch(startGame())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(GameInfo);

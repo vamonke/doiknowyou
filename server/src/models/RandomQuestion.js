@@ -7,24 +7,24 @@ const schema = new Schema(
     type: {
       type: String,
       enum: ["mcq", "yesno", "players", "open"],
-      default: "mcq"
+      default: "mcq",
     },
     options: {
       type: [String],
-      default: undefined
+      default: undefined,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     usage: {
       type: Number,
-      default: 0
+      default: 0,
     },
     tags: {
       type: [String],
-      default: ["general"]
-    }
+      default: ["general"],
+    },
   },
   { versionKey: false }
 );
@@ -34,27 +34,33 @@ const RandomQuestion = model("RandomQuestion", schema);
 export const populate = async () => {
   console.log("MongoDB: Emptying question bank");
   const deleted = await RandomQuestion.deleteMany({});
-  console.log("MongoDB: Removed", deleted.deletedCount , "questions");
-  
+  console.log("MongoDB: Removed", deleted.deletedCount, "questions");
+
   console.log("MongoDB: Populating question bank");
   for (const question of questionBank) {
     // console.log(question.text);
     await RandomQuestion.create(question);
   }
-  console.log("MongoDB: Inserted", questionBank.length , "questions");
+  console.log("MongoDB: Inserted", questionBank.length, "questions");
 };
 
-// export const getOne = RandomQuestion.aggregate.sample(1);
+// export const getOne = () => getMany(1);
+
+export const getMany = (count) =>
+  RandomQuestion.aggregate([
+    { $match: { disabled: false, tags: { $eq: "general", $ne: "burn" } } },
+  ]).sample(count);
 
 export const getAll = () => RandomQuestion.find();
 
-export const getAllowed = () => RandomQuestion.find({ disabled: { $ne: true } });
+export const getAllowed = () =>
+  RandomQuestion.find({ disabled: { $ne: true } });
 
-export const toggleDisabled = async id => {
+export const toggleDisabled = async (id) => {
   const randomQuestion = await RandomQuestion.findById(id);
   randomQuestion.disabled = !randomQuestion.disabled;
   await randomQuestion.save();
   return randomQuestion;
 };
 
-export const deleteById = id => RandomQuestion.findByIdAndDelete(id);
+export const deleteById = (id) => RandomQuestion.findByIdAndDelete(id);

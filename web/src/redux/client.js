@@ -100,6 +100,10 @@ export const makeHost = playerId => dispatch => {
   const payload = playerId;
   dispatch({ type: e.HOST_TRANSFER, payload });
 };
+export const startGame = () => dispatch => {
+  // Only for game mode random
+  socket.emit("startRandomGame");
+};
 
 // Game actions
 export const playerAnswer = answer => dispatch => {
