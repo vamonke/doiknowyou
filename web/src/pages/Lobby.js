@@ -77,6 +77,7 @@ const Lobby = props => {
           viewerId={viewerId}
           viewerIsHost={isHost}
           hostId={hostId}
+          gameMode={gameMode}
           dispatch={dispatch}
         />
       )}

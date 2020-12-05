@@ -8,6 +8,7 @@ import { QUESTIONS_COUNT } from "../constants";
 
 const RoomInfo = props => {
   const {
+    playerCount,
     roomNo,
     rounds = QUESTIONS_COUNT,
     timeLimit,
@@ -15,6 +16,7 @@ const RoomInfo = props => {
     gameMode
   } = props;
 
+  const insufficientPlayers = playerCount < 2;
   const gameModeCapitalized = capitalize(gameMode) || "-";
   const durationText = timeLimit > 0 ? `${timeLimit} sec` : "No limit";
 
@@ -23,19 +25,19 @@ const RoomInfo = props => {
       icon: "sync-outline",
       label: "Rounds",
       textDesktop: `${rounds} rounds`,
-      textMobile: rounds
+      text: rounds
     },
     {
       icon: "question-mark",
       label: "Question type",
       textDesktop: `${gameModeCapitalized} questions`,
-      textMobile: gameModeCapitalized
+      text: gameModeCapitalized
     },
     {
       icon: "clock-outline",
       label: "Guess time",
       textDesktop: durationText,
-      textMobile: durationText
+      text: durationText
     }
   ];
 
@@ -73,34 +75,14 @@ const RoomInfo = props => {
         </Box>
       </Box>
 
-      <Box px={[2, 2, 3]} mb={3}>
-        <Box
-          variant="card.bottom.small"
-          mb={0}
-          display={["none", "none", "none", "block"]}
-        >
-          <Flex py={3} justifyContent="space-between">
-            {settings.map(({ icon, textDesktop }, index) => (
-              <Box key={index}>
-                <Box variant="icon" mr={2}>
-                  <Icon
-                    fill="#F7B500"
-                    name={icon}
-                    size="large" // small, medium, large, xlarge
-                  />
-                </Box>
-                {textDesktop}
-              </Box>
-            ))}
-          </Flex>
-        </Box>
-        <Box
-          variant="card.bottom.small"
-          mb={0}
-          display={["block", "block", "block", "none"]}
-        >
-          <Flex py={3} justifyContent="space-around" alignItems="center">
-            {settings.map(({ label, textMobile }, index) => (
+      <Box px={[2, 2, 3]}>
+        <Box variant="card.bottom" mx={0} pt={[0, 0, 0, 0]}>
+          <Flex
+            my={[3, 3, 3, 24]}
+            justifyContent={["space-around", "space-around", "space-between"]}
+            alignItems="center"
+          >
+            {settings.map(({ label, text }, index) => (
               <React.Fragment key={index}>
                 {index !== 0 && (
                   <Box
@@ -112,11 +94,28 @@ const RoomInfo = props => {
                   <Text fontSize={0} pb={1}>
                     {label}
                   </Text>
-                  <Text fontWeight="medium">{textMobile}</Text>
+                  <Text fontWeight="medium">{text}</Text>
                 </Box>
               </React.Fragment>
             ))}
           </Flex>
+
+          {/* <Box mt={2} variant="hr" /> */}
+
+          <Button
+            width={1}
+            variant="primary"
+            type="button"
+            disabled={insufficientPlayers}
+          >
+            Start game
+          </Button>
+
+          {insufficientPlayers && (
+            <Text variant="subtitle" mt={3} textAlign="center">
+              More players needed
+            </Text>
+          )}
         </Box>
       </Box>
     </>

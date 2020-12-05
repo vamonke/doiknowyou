@@ -390,10 +390,12 @@ const buttons = {
     transition: "0.3s",
     "&:disabled": {
       bg: "grey",
+      background: "grey",
       borderColor: "grey"
     },
     "&:hover": {
       bg: "lightorange",
+      background: "lightorange",
       transition: "0.3s"
     }
   },

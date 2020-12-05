@@ -5,13 +5,9 @@ import { Select } from "@rebass/forms";
 
 import { kick, makeHost } from "../redux/client";
 
-const LobbyPlayerList = ({
-  players,
-  viewerId,
-  hostId,
-  viewerIsHost,
-  dispatch
-}) => {
+const LobbyPlayerList = props => {
+  const { players, viewerId, hostId, viewerIsHost, dispatch, gameMode } = props;
+
   const [managing, setManaging] = useState(false);
   const onChange = playerId => e => {
     const action = e.target.value;
@@ -21,6 +17,11 @@ const LobbyPlayerList = ({
       dispatch(makeHost(playerId));
     }
     setManaging(false);
+  };
+
+  const playerState = isReady => {
+    if (gameMode === "random") return "";
+    return isReady ? "Ready" : "Not Ready";
   };
 
   return (
@@ -69,12 +70,12 @@ const LobbyPlayerList = ({
                     name="playerAction"
                     onChange={onChange(playerId)}
                   >
-                    <option>{isReady ? "Ready" : "Not Ready"}</option>
+                    <option>{playerState(isReady)}</option>
                     <option value="kick">Kick</option>
                     <option value="host">Make host</option>
                   </Select>
                 ) : (
-                  <Box>{isReady ? "Ready" : "Not Ready"}</Box>
+                  playerState(isReady)
                 )}
               </Flex>
             </Box>
