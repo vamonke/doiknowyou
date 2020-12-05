@@ -51,15 +51,18 @@ const Lobby = props => {
         Do I Know You?
       </Flex>
 
-      <GameInfo
-        roomNo={roomNo}
-        gameMode={gameMode}
-        playerCount={players.length}
-        timeLimit={timeLimit}
-        showSettings={() => setShowSettings(true)}
-      />
+      {status === "created" && (
+        <GameInfo
+          roomNo={roomNo}
+          gameMode={gameMode}
+          playerCount={players.length}
+          timeLimit={timeLimit}
+          isHost={isHost}
+          showSettings={() => setShowSettings(true)}
+        />
+      )}
 
-      {false && status === "created" && (
+      {gameMode === "custom" && status === "created" && (
         <QuestionsForm
           isReady={viewerIsReady}
           onReady={onReady}
@@ -99,4 +102,5 @@ const mapStateToProps = (state = {}) => {
   return { ...state, players, viewer };
 };
 
+// TODO: Use mapToDispatch
 export default connect(mapStateToProps)(Lobby);

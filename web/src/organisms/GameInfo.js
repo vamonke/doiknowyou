@@ -16,12 +16,14 @@ const GameInfo = props => {
     timeLimit,
     showSettings,
     gameMode,
+    isHost,
     startGame
   } = props;
 
   const insufficientPlayers = playerCount < 2;
   const gameModeCapitalized = capitalize(gameMode) || "-";
   const durationText = timeLimit > 0 ? `${timeLimit} sec` : "No limit";
+  const showStartButton = isHost && gameMode === "random";
 
   const settings = [
     {
@@ -52,7 +54,7 @@ const GameInfo = props => {
             <Text fontWeight="medium" fontSize={3}>
               Room {roomNo}
             </Text>
-            {showSettings && (
+            {isHost && (
               <Button
                 type="button"
                 variant="link"
@@ -81,7 +83,7 @@ const GameInfo = props => {
       <Box px={[2, 2, 3]}>
         <Box variant="card.bottom" mx={0} pt={[0, 0, 0, 0]}>
           <Flex
-            my={[3, 3, 3, 24]}
+            mt={[3, 3, 3, 24]}
             justifyContent={["space-around", "space-around", "space-between"]}
             alignItems="center"
           >
@@ -105,15 +107,18 @@ const GameInfo = props => {
 
           {/* <Box mt={2} variant="hr" /> */}
 
-          <Button
-            width={1}
-            variant="primary"
-            type="button"
-            onClick={startGame}
-            disabled={insufficientPlayers}
-          >
-            Start game
-          </Button>
+          {showStartButton && (
+            <Button
+              mt={[3, 3, 3, 24]}
+              width={1}
+              variant="primary"
+              type="button"
+              onClick={startGame}
+              disabled={insufficientPlayers}
+            >
+              Start game
+            </Button>
+          )}
 
           {insufficientPlayers && (
             <Text variant="subtitle" mt={3} textAlign="center">
@@ -130,7 +135,11 @@ GameInfo.propTypes = {
   roomNo: PropTypes.number.isRequired,
   playerCount: PropTypes.number.isRequired,
   timeLimit: PropTypes.number.isRequired,
-  gameMode: PropTypes.string.isRequired
+  gameMode: PropTypes.string.isRequired,
+  playerCount: PropTypes.number.isRequired,
+  roomNo: PropTypes.number.isRequired,
+  rounds: PropTypes.number,
+  isHost: PropTypes.bool.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({

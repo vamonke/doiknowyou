@@ -19,18 +19,18 @@ const Countdown = ({ roomNo }) => {
   }, [seconds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Box>
+    <>
       <Box variant="orange">
-        <Box variant="orange.card.small">Ready</Box>
+        <Box variant="orange.card.small">Room {roomNo}</Box>
       </Box>
       <Box px={[0, 2, 3]} fontSize={4}>
         <Box variant="card.bottom">
-          <Box py={5} textAlign="center">
+          <Box py={[4, 3]} textAlign="center">
             Game starting in {seconds}
           </Box>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
