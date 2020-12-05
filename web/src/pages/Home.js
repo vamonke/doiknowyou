@@ -5,7 +5,7 @@ import Icon from "react-eva-icons";
 
 import { CreateGame, JoinGame } from "../organisms";
 import { Modal, GithubLink } from "../atoms";
-import { QUESTIONS_COUNT } from "../constants";
+// import { QUESTIONS_COUNT } from "../constants";
 
 import { leave } from "../redux/actions";
 import { trackButton } from "../analytics";
@@ -104,6 +104,7 @@ const Home = () => {
 };
 
 const mapDispatchToProps = dispatch => {
+  // TODO: use useEffect
   dispatch(leave());
   return {};
 };

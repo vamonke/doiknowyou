@@ -132,14 +132,12 @@ const GameInfo = props => {
 };
 
 GameInfo.propTypes = {
-  roomNo: PropTypes.number.isRequired,
-  playerCount: PropTypes.number.isRequired,
-  timeLimit: PropTypes.number.isRequired,
   gameMode: PropTypes.string.isRequired,
+  isHost: PropTypes.bool.isRequired,
   playerCount: PropTypes.number.isRequired,
   roomNo: PropTypes.number.isRequired,
   rounds: PropTypes.number,
-  isHost: PropTypes.bool.isRequired
+  timeLimit: PropTypes.number.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
