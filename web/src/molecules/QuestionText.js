@@ -22,11 +22,11 @@ const QuestionText = ({ round, text, recipientName, timer, isRecipient }) => (
 
       {timer ? (
         <Text as="span" {...floatLeft}>
-          Round {round}
+          Q{round}
         </Text>
       ) : (
         <Text color="yellow" fontSize={1}>
-          Round {round}
+          Q{round}
         </Text>
       )}
 

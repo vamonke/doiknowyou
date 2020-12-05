@@ -82,14 +82,14 @@ const Home = () => {
                 </Text>
               </Flex>
             </Flex>
-            <Text variant="p">
+            {/* <Text variant="p">
               Before starting the game, every player writes up to{" "}
               {QUESTIONS_COUNT} questions to add to the question pool.
-            </Text>
+            </Text> */}
             <Text variant="p">
-              In the game, during your turn, a question is randomly drawn for
-              you. You'll answer the question honestly while other players try
-              to guess your answer. Whoever guesses correctly wins 1 point.
+              In each round, a question is randomly drawn for one player. That
+              player answers honestly while other players try to guess the
+              answer. Whoever guesses correctly wins 1 point.
             </Text>
             <Text variant="p">
               The game ends when there are no remaining questions. The player
