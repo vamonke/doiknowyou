@@ -5,7 +5,7 @@ import { Flex } from "rebass";
 import { playerReady, playerNotReady } from "../redux/client";
 import * as analytics from "../analytics";
 
-import { QuestionsForm, Settings, JoinGameCard, RoomInfo } from "../organisms";
+import { QuestionsForm, Settings, JoinGameCard, GameInfo } from "../organisms";
 import { LobbyPlayerList, Countdown } from "../molecules";
 import { Modal, HomeLink } from "../atoms";
 
@@ -51,7 +51,7 @@ const Lobby = props => {
         Do I Know You?
       </Flex>
 
-      <RoomInfo
+      <GameInfo
         roomNo={roomNo}
         gameMode={gameMode}
         playerCount={players.length}

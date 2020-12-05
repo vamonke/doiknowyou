@@ -6,7 +6,7 @@ import Icon from "react-eva-icons";
 import { capitalize } from "../utils";
 import { QUESTIONS_COUNT } from "../constants";
 
-const RoomInfo = props => {
+const GameInfo = props => {
   const {
     playerCount,
     roomNo,
@@ -122,11 +122,11 @@ const RoomInfo = props => {
   );
 };
 
-RoomInfo.propTypes = {
+GameInfo.propTypes = {
   roomNo: PropTypes.number.isRequired,
   playerCount: PropTypes.number.isRequired,
   timeLimit: PropTypes.number.isRequired,
   gameMode: PropTypes.string.isRequired
 };
 
-export default RoomInfo;
+export default GameInfo;
