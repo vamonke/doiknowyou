@@ -16,12 +16,27 @@ const hostEvents = (io, socket, common) => {
   socket.on("updateSettings", async settings => {
     if (socket.missingPlayer()) return;
 
-    const { timeLimit } = settings;
+    const { timeLimit, gameMode } = settings;
     const { player: { roomId } } = socket;
 
-    if (settings.timeLimit || settings.timeLimit === 0) {
-      const room = await Room.updateTimeLimit(roomId, timeLimit);
+    let room;
+
+    // Update time limit
+    if (timeLimit || timeLimit === 0) {
+      room = await Room.updateTimeLimit(roomId, timeLimit);
       common.gameLog("Updated question time limit - " + timeLimit);
+      io.to(roomId).emit("newSettings", { room });
+    }
+
+    // Update game mode
+    if (gameMode) {
+      room = await Room.updateGameMode(roomId, gameMode);
+      common.gameLog("Updated game mode - " + gameMode);
+      io.to(roomId).emit("newSettings", { room });
+    }
+
+    // Emit updated settings
+    if (room) {
       io.to(roomId).emit("newSettings", { room });
     }
   });

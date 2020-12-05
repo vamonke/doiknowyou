@@ -22,6 +22,11 @@ const schema = new Schema(
       type: Number,
       default: 0
     },
+    gameMode: {
+      type: String,
+      enum: ["random", "custom"],
+      default: "random"
+    },
     nextRoomNo: Number,
     createdAt: Date,
     creatorId: {
@@ -92,6 +97,9 @@ export const gameOver = (id, nextRoomNo) =>
 
 export const updateTimeLimit = (id, timeLimit) =>
   Room.findByIdAndUpdate(id, { timeLimit }, { new: true });
+
+export const updateGameMode = (id, gameMode) =>
+  Room.findByIdAndUpdate(id, { gameMode }, { new: true });
 
 export const updateHost = (id, hostId) =>
   Room.findByIdAndUpdate(id, { hostId }, { new: true });
