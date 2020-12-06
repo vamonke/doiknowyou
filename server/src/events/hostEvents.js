@@ -53,7 +53,8 @@ const hostEvents = (io, socket, common) => {
     await Question.removeByRoomId(roomId);
     
     // Select random questions
-    const rounds = 3; // TODO: Should come from db
+    const QUESTIONS_COUNT = 2; // TODO: Should come from db
+    const rounds = QUESTIONS_COUNT;
     const playerCount = await Room.getPlayerCount(roomId);
     const questionCount = playerCount * rounds;
     const randomQuestions = await RandomQuestion.getMany(questionCount);

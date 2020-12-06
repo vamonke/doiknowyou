@@ -122,7 +122,7 @@ const GameInfo = props => {
 
           {insufficientPlayers && (
             <Text variant="subtitle" mt={3} textAlign="center">
-              More players needed
+              At least 2 players needed
             </Text>
           )}
         </Box>

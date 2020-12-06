@@ -88,8 +88,8 @@ const Home = () => {
             </Text> */}
             <Text variant="p">
               In each round, a question is randomly drawn for one player. That
-              player answers honestly while other players try to guess the
-              answer. Whoever guesses correctly wins 1 point.
+              player answers honestly while other players try to guess that
+              player's answer. Whoever guesses correctly wins 1 point.
             </Text>
             <Text variant="p">
               The game ends when there are no remaining questions. The player
