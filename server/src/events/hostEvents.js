@@ -58,9 +58,11 @@ const hostEvents = (io, socket, common) => {
     const playerCount = await Room.getPlayerCount(roomId);
     const questionCount = playerCount * rounds;
     const randomQuestions = await RandomQuestion.getMany(questionCount);
-    console.log(randomQuestions);
 
-    // TODO: Map randomQuestionId to _id for each qn
+    randomQuestions.forEach(question => {
+      question.randomQuestionId = question._id;
+      if (question.type === "yesno") question.options = ["Yes", "No"]
+    });
 
     // Insert questions to room
     await Question.createMany(
