@@ -26,6 +26,7 @@ const OpenEndedQuestion = props => {
         round={round}
         text={text}
         recipientName={recipient.name}
+        isRecipient={isRecipient}
         timer={timer}
       />
 
