@@ -17,10 +17,10 @@ const floatLeft = {
 
 const QuestionText = ({ round, text, recipientName, timer, isRecipient }) => (
   <Box variant="orange">
-    <Box variant="orange.card" py={[24, 24, 4]} px={[4, 4, 4, 5]}>
+    <Box variant="orange.card" py={4} px={[4, 4, 4, 5]}>
       {timer && <QuestionTimer {...timer} />}
 
-      {timer ? (
+      {/* {timer ? (
         <Text as="span" {...floatLeft}>
           Q{round}
         </Text>
@@ -28,16 +28,18 @@ const QuestionText = ({ round, text, recipientName, timer, isRecipient }) => (
         <Text color="yellow" fontSize={1}>
           Q{round}
         </Text>
-      )}
+      )} */}
 
-      <Text mt={[3, 24, 4]} fontSize={[3, 4, 4, 5]} fontWeight="medium">
+      <Text as="span" fontSize={2} color="grey">
+        {"Question for "}
+        <Text as="span" color="yellow" fontWeight="medium">
+          {recipientName} {isRecipient && "(You)"}
+        </Text>
+      </Text>
+
+      <Text mt={3} fontSize={[3, 4, 4, 5]} fontWeight="medium">
         {text}
       </Text>
-      {!isRecipient && (
-        <Text mt={[3, 24, 4]} fontSize={[3, 4]}>
-          {recipientName}: <Box variant="line"></Box>
-        </Text>
-      )}
     </Box>
   </Box>
 );

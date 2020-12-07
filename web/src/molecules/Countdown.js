@@ -21,7 +21,9 @@ const Countdown = ({ roomNo }) => {
   return (
     <>
       <Box variant="orange">
-        <Box variant="orange.card.small">Room {roomNo}</Box>
+        <Box variant="container">
+          <Box variant="card.top.xsmall">Room {roomNo}</Box>
+        </Box>
       </Box>
       <Box px={[0, 2, 3]} fontSize={4}>
         <Box variant="card.bottom">
