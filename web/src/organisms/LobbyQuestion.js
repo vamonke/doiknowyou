@@ -39,79 +39,76 @@ const LobbyQuestion = props => {
     : [];
 
   return (
-    <>
-      <Box px={[2, 2, 3]}>
-        <Box variant="orange.card">
-          <Flex justifyContent="space-between" alignItems="center">
-            <Text fontWeight="medium" fontSize={3}>
-              {`Question ${questionNo + 1}`}
-              <Text
-                display={["none", "inline"]}
-              >{` of ${QUESTIONS_COUNT}`}</Text>
-            </Text>
-            <Flex>
-              <RandomQuestion
-                questionNo={questionNo}
-                questionBank={genericQuestions}
-                setFieldValue={setFieldValue}
-              />
-              <IconButton
-                icon={showTags ? "chevron-up" : "chevron-down"}
-                onClick={() => {
-                  setShowTags(!showTags);
-                }}
-              />
-            </Flex>
+    <Box variant="container">
+      <Box variant="card.top.xsmall">
+        <Flex justifyContent="space-between" alignItems="center">
+          <Text fontWeight="medium">
+            {`Question ${questionNo + 1}`}
+            <Text display={["none", "inline"]}>{` of ${QUESTIONS_COUNT}`}</Text>
+          </Text>
+          <Flex>
+            <RandomQuestion
+              questionNo={questionNo}
+              questionBank={genericQuestions}
+              setFieldValue={setFieldValue}
+            />
+            <IconButton
+              icon={showTags ? "chevron-up" : "chevron-down"}
+              onClick={() => {
+                setShowTags(!showTags);
+              }}
+            />
           </Flex>
+        </Flex>
 
-          {showTags && (
-            <QuestionTags
-              questionNo={questionNo}
-              questionBank={questionBank}
-              setFieldValue={setFieldValue}
-            />
-          )}
+        {showTags && (
+          <QuestionTags
+            questionNo={questionNo}
+            questionBank={questionBank}
+            setFieldValue={setFieldValue}
+          />
+        )}
 
-          <Box mx={-2}>
-            <Field
-              name={`questions[${questionNo}].text`}
-              render={({ field }) => (
-                <Textarea
-                  {...field}
-                  sx={{ resize: "vertical" }}
-                  placeholder={placeholderMapping[questionNo]}
-                />
-              )}
-            />
-          </Box>
+        <Box mx={-2}>
+          <Field
+            name={`questions[${questionNo}].text`}
+            render={({ field }) => (
+              <Textarea
+                {...field}
+                sx={{ resize: "vertical" }}
+                placeholder={placeholderMapping[questionNo]}
+              />
+            )}
+          />
         </Box>
       </Box>
-      <Box px={[0, 2, 3]}>
-        <Box variant="card.bottom" pt={[0, 0, 0]} pb={[3, 3, 24, 28]}>
-          <Box py={3}>
-            <LobbySelectOptions
-              questionNo={questionNo}
-              handleChange={handleChange}
-              setFieldValue={setFieldValue}
-            />
-          </Box>
 
-          {options && (
-            <LobbyQuestionOptions options={options} questionNo={questionNo} />
-          )}
-
-          {type === "players" && (
-            <Input placeholder="Player names as options" disabled />
-          )}
-
-          {type === "open" && (
-            <Input placeholder="Open-ended (best answer selected)" disabled />
-          )}
-
-          <LobbyPrevNext questionNo={questionNo} prev={prev} next={next} />
+      <Box variant="card.bottom.xsmall">
+        <Box py={3}>
+          <LobbySelectOptions
+            questionNo={questionNo}
+            handleChange={handleChange}
+            setFieldValue={setFieldValue}
+          />
         </Box>
+
+        {options && (
+          <LobbyQuestionOptions options={options} questionNo={questionNo} />
+        )}
+
+        {type === "players" && (
+          <Input placeholder="Player names as options" disabled />
+        )}
+
+        {type === "open" && (
+          <Input placeholder="Open-ended (best answer selected)" disabled />
+        )}
+
+        <Box variant="hr" mb={24} />
+
+        <LobbyPrevNext questionNo={questionNo} prev={prev} next={next} />
       </Box>
-    </>
+    </Box>
   );
 };
 

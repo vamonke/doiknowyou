@@ -14,6 +14,9 @@ const LobbyQuestionOptions = props => {
     if (!options || options.length === 2) setRemovable(false);
   }, [options]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const showRemove = options.length > 2;
+  const justifyContent = showRemove && !removable ? "space-between" : "center";
+
   return (
     <FieldArray
       name={`questions[${questionNo}].options`}
@@ -49,7 +52,7 @@ const LobbyQuestionOptions = props => {
             );
           })}
 
-          <Flex justifyContent="center" mt={3}>
+          <Flex justifyContent={justifyContent} my={3}>
             {options.length > 2 && (
               <Button
                 variant="link"

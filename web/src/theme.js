@@ -616,7 +616,7 @@ const forms = {
   },
   textarea: {
     p: [10, 15],
-    mt: [3, 3, 24],
+    mt: 2,
     minHeight: 100,
     borderColor: "gray",
     borderWidth: 1.5,
