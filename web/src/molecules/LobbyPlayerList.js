@@ -25,8 +25,8 @@ const LobbyPlayerList = props => {
   };
 
   return (
-    <Box px={[2, 2, 3]}>
-      <Box variant="orange.card.small">
+    <Box variant="container">
+      <Box variant="card.top.xsmall">
         <Flex justifyContent="space-between">
           <Text>Players</Text>
           {viewerIsHost && (
@@ -43,7 +43,7 @@ const LobbyPlayerList = props => {
           )}
         </Flex>
       </Box>
-      <Box variant="card.bottom.small" pb={[3, 3]}>
+      <Box variant="card.bottom.xsmall">
         {players.map((player, index) => {
           const { _id: playerId, name, isReady, disconnected } = player;
           const isViewer = playerId === viewerId;

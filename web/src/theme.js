@@ -37,6 +37,12 @@ const theme = {
 };
 
 const variants = {
+  container: {
+    maxWidth: 540,
+    mx: "auto",
+    px: [2, 2, 3],
+    boxSizing: "content-box"
+  },
   card: {
     bg: "white",
     p: 3,
@@ -46,6 +52,19 @@ const variants = {
     overflow: "hidden",
     position: "relative",
     borderRadius: 20,
+    top: {
+      xsmall: {
+        mx: "auto",
+        bg: "darkpurple",
+        color: "white",
+        borderRadius: "20px 20px 0 0",
+        py: 3,
+        px: 24,
+        boxShadow: "large",
+        fontWeight: "medium",
+        fontSize: 2
+      }
+    },
     bottom: {
       maxWidth: 540,
       position: "relative",
@@ -64,6 +83,15 @@ const variants = {
         pb: 2,
         maxWidth: 540,
         mx: "auto",
+        mb: 4,
+        bg: "white",
+        color: "darkpurple",
+        borderRadius: "0 0 30px 30px",
+        boxShadow: "large"
+      },
+      xsmall: {
+        px: 24,
+        pb: 2,
         mb: 4,
         bg: "white",
         color: "darkpurple",
@@ -136,18 +164,15 @@ const variants = {
     borderColor: "lightgray"
   },
   row: {
-    py: 2,
     borderWidth: 0,
     borderBottomWidth: 1,
     borderStyle: "solid",
     borderColor: "lightgray",
     "> *": {
-      py: [12, 3],
-      px: [1, 0]
+      py: 3
     },
     "&:last-child": {
-      border: "none",
-      pb: 2
+      border: "none"
     }
   },
   cell: {
