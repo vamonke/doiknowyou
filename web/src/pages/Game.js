@@ -73,6 +73,7 @@ const Game = props => {
     Object.keys(currentQuestion).length > 1;
 
   const showTimer = timeLimit !== 0 && type !== "open";
+  const gameOver = status === "ended";
 
   const timer = showTimer && {
     timeLimit: timeLimit,
@@ -83,7 +84,7 @@ const Game = props => {
 
   return (
     <>
-      {status === "ended" && (
+      {gameOver && (
         <>
           <Box
             textAlign="center"
@@ -131,21 +132,19 @@ const Game = props => {
         </Box>
       )}
 
-      <Box px={[2, 2, 3]} mt={4}>
-        {players.length > 0 && status !== "ended" && (
-          <GamePlayerList
-            players={players}
-            viewer={viewer}
-            recipientId={recipientId}
-          />
-        )}
+      {players.length > 0 && !gameOver && (
+        <GamePlayerList
+          players={players}
+          viewer={viewer}
+          recipientId={recipientId}
+        />
+      )}
 
-        <Box mt={4} />
-
+      <Box variant="container">
         {answeredQuestions.length > 0 && (
-          <Box>
-            <Box variant="orange.card.small">Questions</Box>
-            <Box variant="card.bottom.small">
+          <>
+            <Box variant="card.top.xsmall">Questions</Box>
+            <Box variant="card.bottom.xsmall">
               {answeredQuestions.map((question, index) => (
                 <AnsweredQuestion
                   question={question}
@@ -154,13 +153,11 @@ const Game = props => {
                 />
               ))}
             </Box>
-          </Box>
+          </>
         )}
 
-        {status === "ended" && nextRoomNo && (
-          <Box mt={4} mx="auto" maxWidth="540px">
-            <Restart nextRoomNo={nextRoomNo} viewerName={viewerName} />
-          </Box>
+        {gameOver && nextRoomNo && (
+          <Restart nextRoomNo={nextRoomNo} viewerName={viewerName} />
         )}
       </Box>
 
