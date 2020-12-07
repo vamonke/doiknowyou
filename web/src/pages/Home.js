@@ -82,18 +82,17 @@ const Home = () => {
                 </Text>
               </Flex>
             </Flex>
-            {/* <Text variant="p">
-              Before starting the game, every player writes up to{" "}
-              {QUESTIONS_COUNT} questions to add to the question pool.
-            </Text> */}
             <Text variant="p">
-              In each round, a question is randomly drawn for one player. That
-              player answers honestly while other players try to guess that
-              player's answer. Whoever guesses correctly wins 1 point.
+              One person sits in the "the hot seat" each round and has to answer
+              a question about themself.
             </Text>
             <Text variant="p">
-              The game ends when there are no remaining questions. The player
-              with the highest points wins the game.
+              Meanwhile, the other players have to try to guess the answer of
+              the player in the hot seat.
+            </Text>
+            <Text variant="p">
+              Whoever guesses correctly wins 1 point. The player with the
+              highest points wins the game.
             </Text>
           </Text>
         </Box>

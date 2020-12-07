@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { withFormik, Field } from "formik";
 import { Flex, Box, Button, Text } from "rebass";
-import { Input } from "@rebass/forms";
+import { Input, Label } from "@rebass/forms";
 
 import { HomeLink } from "../atoms";
 
@@ -22,20 +22,28 @@ const JoinGameCard = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box variant="orange" justifyContent="center" fontWeight="medium">
-        <Text color="white" textAlign="center" fontSize={2}>
-          Do I Know You?
+      <Box variant="orange" justifyContent="center" pt={[0, 0, 0, 0]}>
+        <Text color="white" textAlign="center" fontSize={2} py={[3, 3, 3, 4]}>
+          Room {values.roomNo}
         </Text>
-        <Box variant="orange.card" py={[3, 3, 24, 24]} mt={[2, 2, 3, 4]}>
-          <Text fontSize={4} px={2} pt={[1, 1, 0]}>
-            Room {values.roomNo}
+        <Box variant="orange.card" py={[3, 3, 24]}>
+          <Text fontSize={4} pt={[1, 1, 0]} fontWeight="medium">
+            Do I Know You
+            <Text as="span" color="yellow">
+              {" "}
+              ?
+            </Text>
+          </Text>
+          <Text fontSize={2} pt={2}>
+            A game to test how well you really know your friends
           </Text>
         </Box>
       </Box>
       <Box px={[0, 2, 3]}>
         <Box variant="card.bottom" pt={3}>
+          <Label>Enter your name:</Label>
           <Input
-            mt={[1, 2, -1]}
+            mt={3}
             name="name"
             type="text"
             placeholder="Name"
