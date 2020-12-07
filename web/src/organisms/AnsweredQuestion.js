@@ -3,6 +3,7 @@ import { Flex, Box, Text } from "rebass";
 import Icon from "react-eva-icons";
 
 import { ResultsTable } from "../molecules";
+import { replaceWithName } from "../utils";
 
 const recipientAnswer = (recipientName, options, correctAnswer) => {
   let correct = "No answer selected";
@@ -48,40 +49,39 @@ const AnsweredQuestion = ({ question, players }) => {
     players.find(player => player._id === recipientId) || {};
 
   return (
-    <>
-      <Box variant="row">
-        <Flex sx={{ cursor: "pointer" }} onClick={() => setExpanded(!expanded)}>
-          <Box width="30px">Q{round}</Box>
-          <Box width="calc(100% - 60px)" px={2}>
-            {text}
-          </Box>
-          <Box width="30px" height={0} mt={-1}>
-            <div key={expanded ? "icon-up" : "icon-down"}>
-              <Icon
-                fill="orange"
-                name={expanded ? "chevron-up" : "chevron-down"}
-                size="xlarge"
-              />
-            </div>
-          </Box>
-        </Flex>
+    <Box variant="row">
+      <Flex sx={{ cursor: "pointer" }} onClick={() => setExpanded(!expanded)}>
+        {/* <Box width="30px">Q{round}</Box> */}
+        <Box width="calc(100% - 30px)">
+          {/* {text} */}
+          {replaceWithName(text, recipientName)}
+        </Box>
+        <Box height={0} width={30} mt={-1}>
+          <div key={expanded ? "icon-up" : "icon-down"}>
+            <Icon
+              fill="orange"
+              name={expanded ? "chevron-up" : "chevron-down"}
+              size="xlarge"
+            />
+          </div>
+        </Box>
+      </Flex>
 
-        {expanded && (
-          <Box pt={1} mt={2} pb={4} sx={{ borderTop: "1px solid #E2E2E2" }}>
-            {recipientAnswer(recipientName, options, correctAnswer)}
-            <Box mt={3}>
-              <ResultsTable
-                options={options}
-                answers={answers}
-                correctAnswer={correctAnswer}
-                players={players}
-                recipientId={recipientId}
-              />
-            </Box>
+      {expanded && (
+        <Box pt={1} mt={2} pb={4} sx={{ borderTop: "1px solid #E2E2E2" }}>
+          {recipientAnswer(recipientName, options, correctAnswer)}
+          <Box mt={3}>
+            <ResultsTable
+              options={options}
+              answers={answers}
+              correctAnswer={correctAnswer}
+              players={players}
+              recipientId={recipientId}
+            />
           </Box>
-        )}
-      </Box>
-    </>
+        </Box>
+      )}
+    </Box>
   );
 };
 
