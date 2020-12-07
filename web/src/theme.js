@@ -61,8 +61,7 @@ const variants = {
         py: 3,
         px: 24,
         boxShadow: "large",
-        fontWeight: "medium",
-        fontSize: 2
+        fontWeight: "medium"
       }
     },
     bottom: {

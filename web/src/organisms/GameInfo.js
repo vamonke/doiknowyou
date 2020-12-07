@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Flex, Box, Text, Button } from "rebass";
@@ -20,10 +20,15 @@ const GameInfo = props => {
     startGame
   } = props;
 
+  const [message, setMessage] = useState("");
+
   const insufficientPlayers = playerCount < 2;
   const gameModeCapitalized = capitalize(gameMode) || "-";
   const durationText = timeLimit > 0 ? `${timeLimit} sec` : "No limit";
   const showStartButton = isHost && gameMode === "random";
+
+  const showMessage = () => setMessage("At least 2 players needed");
+  const onClick = insufficientPlayers ? showMessage : startGame;
 
   const settings = [
     {
@@ -48,45 +53,41 @@ const GameInfo = props => {
 
   return (
     <>
-      <Box variant="orange">
-        <Box variant="orange.card.small">
-          <Flex justifyContent="space-between" alignItems="bottom">
-            <Text fontWeight="medium" fontSize={3}>
-              Room {roomNo}
-            </Text>
-            {isHost && (
-              <Button
-                type="button"
-                variant="link"
-                color="white"
-                fontSize={2}
-                onClick={showSettings}
-              >
-                <Box
-                  mb={-1}
-                  mr={[1, 1, 2]}
-                  sx={{ display: "inline-block", verticalAlign: "-0.4em" }}
+      <Box variant="orange" px={[0, 0, 0, 0]}>
+        <Box variant="container">
+          <Box variant="card.top.xsmall">
+            <Flex justifyContent="space-between" alignItems="bottom">
+              <Text fontWeight="medium">Room {roomNo}</Text>
+              {isHost && (
+                <Button
+                  type="button"
+                  variant="link"
+                  color="white"
+                  fontSize={2}
+                  onClick={showSettings}
                 >
-                  <Icon
-                    fill="#F7CF00"
-                    name="settings-2-outline"
-                    size="large" // small, medium, large, xlarge
-                  />
-                </Box>
-                Settings
-              </Button>
-            )}
-          </Flex>
+                  <Box
+                    mb={-1}
+                    mr={1}
+                    sx={{ display: "inline-block", verticalAlign: "-0.4em" }}
+                  >
+                    <Icon
+                      fill="#F7CF00"
+                      name="settings-2-outline"
+                      size="large" // small, medium, large, xlarge
+                    />
+                  </Box>
+                  Settings
+                </Button>
+              )}
+            </Flex>
+          </Box>
         </Box>
       </Box>
 
-      <Box px={[2, 2, 3]}>
-        <Box variant="card.bottom" mx={0} pt={[0, 0, 0, 0]}>
-          <Flex
-            mt={[3, 3, 3, 24]}
-            justifyContent={["space-around", "space-around", "space-between"]}
-            alignItems="center"
-          >
+      <Box variant="container">
+        <Box variant="card.bottom.xsmall">
+          <Flex py={3} justifyContent={"space-between"} alignItems="center">
             {settings.map(({ label, text }, index) => (
               <React.Fragment key={index}>
                 {index !== 0 && (
@@ -105,24 +106,29 @@ const GameInfo = props => {
             ))}
           </Flex>
 
-          {/* <Box mt={2} variant="hr" /> */}
-
           {showStartButton && (
             <Button
-              mt={[3, 3, 3, 24]}
+              mt={1}
+              mb={3}
               width={1}
               variant="primary"
               type="button"
-              onClick={startGame}
-              disabled={insufficientPlayers}
+              onClick={onClick}
+              // disabled={insufficientPlayers}
             >
               Start game
             </Button>
           )}
 
-          {insufficientPlayers && (
-            <Text variant="subtitle" mt={3} textAlign="center">
-              At least 2 players needed
+          {insufficientPlayers && message && (
+            <Text
+              variant="subtitle"
+              textAlign="center"
+              fontSize={1}
+              mt={-2}
+              mb={1}
+            >
+              {message}
             </Text>
           )}
         </Box>
