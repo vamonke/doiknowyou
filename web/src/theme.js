@@ -328,17 +328,17 @@ const text = {
     py: 2,
     px: 3,
     m: -3,
-    mb: 3
-  },
-  blackSmall: {
-    fontWeight: 400,
-    bg: "darkpurple",
-    color: "white",
-    py: 2,
-    px: 3,
-    fontSize: 2,
-    m: -3,
-    mb: 3
+    mb: 3,
+    small: {
+      fontWeight: 400,
+      bg: "darkpurple",
+      color: "white",
+      fontSize: 2,
+      py: 2,
+      px: 3,
+      m: -3,
+      mb: 3
+    }
   },
   subtitle: {
     fontStyle: "italic",

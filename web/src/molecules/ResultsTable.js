@@ -41,7 +41,7 @@ const ResultsTable = ({
       });
     }
   };
-  console.log(options);
+
   return (
     <Card p={0} pb={1} textAlign="center">
       <Flex variant="row" sx={{ bg: "darkpurple" }} color="white">

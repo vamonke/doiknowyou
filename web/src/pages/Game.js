@@ -42,7 +42,6 @@ const Game = props => {
 
   const [showResults, setShowResults] = useState(true);
   const lastQuestion = answeredQuestions[0] || {};
-  console.log(lastQuestion);
 
   useEffect(() => {
     console.log("useEffect: Show last question");
@@ -85,27 +84,15 @@ const Game = props => {
   return (
     <>
       {gameOver && (
-        <>
-          <Box
-            textAlign="center"
-            variant="orange"
-            fontWeight="medium"
-            color="white"
-            fontSize={3}
-            pb={1}
-            mb={-1}
-          >
-            Game over
-          </Box>
-          {players.length > 0 && (
-            <GamePlayerList
-              players={players}
-              viewer={viewer}
-              recipientId={recipientId}
-              gameOver={true}
-            />
-          )}
-        </>
+        <Box
+          textAlign="center"
+          variant="orange"
+          fontWeight="medium"
+          color="white"
+          fontSize={3}
+        >
+          Game over
+        </Box>
       )}
 
       {showCurrentQuestion && (
@@ -132,11 +119,12 @@ const Game = props => {
         </Box>
       )}
 
-      {players.length > 0 && !gameOver && (
+      {players.length > 0 && (
         <GamePlayerList
           players={players}
           viewer={viewer}
           recipientId={recipientId}
+          gameOver={gameOver}
         />
       )}
 

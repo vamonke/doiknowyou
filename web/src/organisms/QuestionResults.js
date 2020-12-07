@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Card, Text, Button } from "rebass";
 
 import { ResultsTable } from "../molecules";
+import { replaceWithName } from "../utils";
 
 const QuestionResults = ({ question, players, hide }) => {
   const {
@@ -14,7 +15,7 @@ const QuestionResults = ({ question, players, hide }) => {
   } = question;
   const { name: recipientName } =
     players.find(player => player._id === recipientId) || {};
-  console.log(options);
+
   const displayCorrect = () => {
     if (!correctAnswer || correctAnswer.length === 0) {
       return "-";
@@ -37,17 +38,19 @@ const QuestionResults = ({ question, players, hide }) => {
 
   return (
     <>
-      <Box variant="orange.card.small">
-        <Box variant="modal.header">{"Round " + round + " results"}</Box>
+      <Box variant="card.top.xsmall">
+        <Box variant="modal.header">Results</Box>
       </Box>
       <Box variant="modal.card" textAlign="center">
         <Text fontSize={2} mt={1} mb={3}>
-          {text}
+          {replaceWithName(text, recipientName)}
         </Text>
+
         <Card display="inline-block" minWidth={150} mb={3}>
-          <Text variant="blackSmall">{recipientName}:</Text>
+          <Text variant="black.small">{recipientName}:</Text>
           <Box fontSize={3}>{displayCorrect()}</Box>
         </Card>
+
         {options && options.length > 0 && (
           <ResultsTable
             options={options}
