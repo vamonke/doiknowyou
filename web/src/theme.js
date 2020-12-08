@@ -306,10 +306,8 @@ const text = {
   error: {
     borderWidth: 1,
     color: "red",
-    p: 12,
-    top: 0,
-    position: "absolute",
-    right: 0
+    mt: -2,
+    mb: 2
   },
   p: {
     mt: 3,

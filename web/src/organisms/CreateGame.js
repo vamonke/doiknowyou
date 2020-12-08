@@ -12,6 +12,7 @@ import { trackSubmit, trackButton } from "../analytics";
 const CreateGame = props => {
   const {
     errors,
+    asyncError,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -26,49 +27,24 @@ const CreateGame = props => {
       </Box>
       <Box variant="modal.card" pt={[3, 3, 24]}>
         <form onSubmit={handleSubmit}>
-          {/* <Text fontWeight="medium" pb={2}>
+          {/* <Label htmlFor="name" fontWeight="medium" pb={2}>
             Name
-          </Text> */}
-          <Box variant="relative">
-            <Input
-              name="name"
-              type="text"
-              placeholder="Name"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              autoFocus
-              variant={errors.name ? "error" : "input"}
-            />
-            {errors.name && <Text variant="error">{errors.name}</Text>}
-          </Box>
+          </Label> */}
+          <Input
+            name="name"
+            type="text"
+            placeholder="Enter your name"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            autoFocus
+            variant={errors.name ? "error" : "input"}
+          />
 
-          {/* <Flex justifyContent="space-between" mx={[-1, -2]}>
-            <Box width={1 / 2} px={[1, 2]}>
-              <Text fontWeight="medium" pb={2}>
-                Time limit
-              </Text>
-              <Select name="timeLimit">
-                <option value="0">No limit</option>
-                <option value="10">10s</option>
-              </Select>
-            </Box>
-            <Box width={1 / 2} px={[1, 2]}>
-              <Text fontWeight="medium" pb={2}>
-                Game format
-              </Text>
-              <Select name="theme">
-                <option value="default">Default</option>
-                <option value="trial">Trial</option>
-              </Select>
-            </Box>
-          </Flex> */}
+          {errors.name && <Text variant="error">{errors.name}</Text>}
 
-          <Flex
-            mt={[3, 3, 24]}
-            mx={[-1, -2]}
-            // pt={[3, 3, 24]}
-            // sx={{ borderTop: "1px solid #DDD" }}
-          >
+          {asyncError && <Text variant="error">{asyncError}</Text>}
+
+          <Flex mt={[3, 3, 24]} mx={[-1, -2]}>
             <Box width={1 / 2} px={[1, 2]}>
               <Button
                 variant="secondary"
@@ -108,26 +84,25 @@ const formOptions = {
   validate,
   validateOnBlur: false,
   validateOnChange: false,
-  handleSubmit: (values, { setSubmitting }) => {
+  handleSubmit: async (values, { setSubmitting }) => {
     const { createGame, name } = values;
     trackSubmit("home", "CreateGame");
-    try {
-      createGame(name);
-    } catch (error) {
-      console.log(error);
-      setSubmitting(false);
-    }
+    await createGame(name);
+    setSubmitting(false);
   },
   displayName: "CreateGame"
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createGame: name => dispatch(createGame(name))
-  };
+const mapStateToProps = state => {
+  const { createGameError } = state;
+  return { asyncError: createGameError };
 };
 
+const mapDispatchToProps = dispatch => ({
+  createGame: name => dispatch(createGame(name))
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withRouter(withFormik(formOptions)(CreateGame)));

@@ -25,7 +25,9 @@ const defaultState = {
   currentQuestion: {},
   answeredQuestions: [],
   answer: null,
-  disconnected: false
+  disconnected: false,
+  joinGameError: null,
+  createGameError: null
 };
 
 const reducers = (state = defaultState, { type, payload }) => {

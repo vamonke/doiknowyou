@@ -23,9 +23,19 @@ const createGameSuccess = payload => {
   return { type: CREATE_GAME, payload };
 };
 
+const createGameFail = error => {
+  const payload = { createGameError: error };
+  return { type: CREATE_GAME, payload };
+};
+
 const joinGameSuccess = payload => {
   joinRoom(payload.viewer);
   delete payload.viewer.isReady;
+  return { type: JOIN_GAME, payload };
+};
+
+const joinGameFail = error => {
+  const payload = { joinGameError: error };
   return { type: JOIN_GAME, payload };
 };
 
@@ -40,11 +50,17 @@ export const createGame = playerName => {
     try {
       dispatch(fetchQuestionBank());
       const response = await axios.post(CREATE_GAME_API, params);
-      dispatch(createGameSuccess({ ...response.data }));
-      return response.data.room.number;
+      if (response.data.error) {
+        const errorMessage = String(response.data.error);
+        dispatch(createGameFail(errorMessage));
+      } else {
+        dispatch(createGameSuccess(response.data));
+      }
     } catch (error) {
       // handle fail
       console.error(error);
+      const errorMessage = "Unable to create game :(";
+      dispatch(createGameFail(errorMessage));
     }
   };
 };
@@ -54,9 +70,9 @@ export const fetchQuestionBank = () => {
   return async dispatch => {
     try {
       const response = await axios.get(GET_QUESTION_BANK_API);
-      dispatch(loadQuestionBankSuccess({ ...response.data }));
+      dispatch(loadQuestionBankSuccess(response.data));
     } catch (error) {
-      // handle fail
+      // TODO: handle fail
       console.error(error);
     }
   };
@@ -71,10 +87,18 @@ export const joinGame = (roomNo, playerName) => {
   // dispatch fetch
   return async dispatch => {
     dispatch(fetchQuestionBank());
-    const response = await axios.post(JOIN_GAME_API, params);
-    dispatch(joinGameSuccess({ ...response.data }));
-    // dispatch(push(`/join/${response.data.room.number}`));
-    // return response.data.room.number;
+    try {
+      const response = await axios.post(JOIN_GAME_API, params);
+      if (response.data.error) {
+        const errorMessage = String(response.data.error);
+        dispatch(joinGameFail(errorMessage));
+      } else {
+        dispatch(joinGameSuccess(response.data));
+      }
+    } catch (error) {
+      const errorMessage = "Unable to join game :(";
+      dispatch(joinGameFail(errorMessage));
+    }
   };
 };
 

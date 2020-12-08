@@ -12,12 +12,19 @@ import { trackSubmit, trackButton } from "../analytics";
 const JoinGame = props => {
   const {
     errors,
+    asyncError,
     handleChange,
     handleBlur,
     handleSubmit,
     isSubmitting,
     cancel
   } = props;
+
+  const trim = onChange => e => {
+    // Keep only first 4 digits before passing to onChange handler
+    e.target.value = e.target.value.substring(0, 4);
+    return onChange(e);
+  };
 
   return (
     <>
@@ -26,33 +33,33 @@ const JoinGame = props => {
       </Box>
       <Box variant="modal.card" pt={[3, 3, 24]}>
         <form onSubmit={handleSubmit}>
-          <Box variant="relative">
-            <Input
-              name="name"
-              type="text"
-              placeholder="Name"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              autoFocus
-              variant={errors.name ? "error" : "input"}
-            />
-            {errors.name && <Text variant="error">{errors.name}</Text>}
-          </Box>
+          <Input
+            name="name"
+            type="text"
+            placeholder="Enter your name"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            autoFocus
+            variant={errors.name ? "error" : "input"}
+          />
+          {errors.name && <Text variant="error">{errors.name}</Text>}
 
-          <Box variant="relative">
-            <Field
-              name="roomNo"
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="number"
-                  placeholder="Room number"
-                  variant={errors.roomNo ? "error" : "input"}
-                />
-              )}
-            />
-            {errors.roomNo && <Text variant="error">{errors.roomNo}</Text>}
-          </Box>
+          <Field
+            name="roomNo"
+            render={({ field }) => (
+              <Input
+                {...field}
+                onChange={trim(field.onChange)}
+                type="number"
+                placeholder="Enter 4-digit room number"
+                variant={errors.roomNo || asyncError ? "error" : "input"}
+              />
+            )}
+          />
+
+          {errors.roomNo && <Text variant="error">{errors.roomNo}</Text>}
+
+          {asyncError && <Text variant="error">{asyncError}</Text>}
 
           <Flex mt={[3, 3, 24]} mx={[-1, -2]}>
             {cancel && (
@@ -109,26 +116,25 @@ const formOptions = {
   validate,
   validateOnBlur: false,
   validateOnChange: false,
-  handleSubmit: (values, { setSubmitting, setFieldError }) => {
+  handleSubmit: async (values, { setSubmitting }) => {
     const { joinGame, name, roomNo } = values;
     trackSubmit("home", "JoinGame");
-    try {
-      joinGame(roomNo, name);
-    } catch (error) {
-      setFieldError("roomNo", error.response.data.error);
-      setSubmitting(false);
-    }
+    await joinGame(roomNo, name);
+    setSubmitting(false);
   },
   displayName: "JoinGame"
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    joinGame: (roomNo, name) => dispatch(joinGame(roomNo, name))
-  };
+const mapStateToProps = state => {
+  const { joinGameError } = state;
+  return { asyncError: joinGameError };
 };
 
+const mapDispatchToProps = dispatch => ({
+  joinGame: (roomNo, name) => dispatch(joinGame(roomNo, name))
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withRouter(withFormik(formOptions)(JoinGame)));

@@ -10,17 +10,21 @@ router.get("/", (_, res) => {
 
 // New game
 router.post("/api/game/create", async (req, res) => {
-  const result = await createGame(req.body.playerName);
+  const { playerName } = req.body;
+  if (!playerName) return res.json({ error: "Missing name" });
+
+  const result = await createGame(playerName);
   res.json(result);
 });
 
 router.post("/api/game/join", async (req, res) => {
   const { playerName, roomNo } = req.body;
+  if (!playerName || !roomNo) return res.json({ error: "Missing fields" });
+
   const result = await joinGame(playerName, roomNo);
-  if (result) {
-    return res.json(result);
-  }
-  return res.status(404).json({ error: "Room not found" });
+  if (result) return res.json(result);
+
+  return res.json({ error: `Room ${roomNo} not found` });
 });
 
 // Question Bank
@@ -61,6 +65,5 @@ router.get("/api/rooms/:id", async (req, res) => {
   const room = await Admin.getRoom(req.params.id);
   res.json({ room });
 });
-
 
 export default router;
