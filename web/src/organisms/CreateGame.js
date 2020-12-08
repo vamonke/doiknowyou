@@ -84,11 +84,10 @@ const formOptions = {
   validate,
   validateOnBlur: false,
   validateOnChange: false,
-  handleSubmit: async (values, { setSubmitting }) => {
+  handleSubmit: (values, { setSubmitting }) => {
     const { createGame, name } = values;
     trackSubmit("home", "CreateGame");
-    await createGame(name);
-    setSubmitting(false);
+    createGame(name, () => setSubmitting(false));
   },
   displayName: "CreateGame"
 };
@@ -99,7 +98,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  createGame: name => dispatch(createGame(name))
+  createGame: (name, callback) => dispatch(createGame(name, callback))
 });
 
 export default connect(

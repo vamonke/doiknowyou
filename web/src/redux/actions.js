@@ -43,7 +43,8 @@ const loadQuestionBankSuccess = payload => {
   return { type: GET_QUESTION_BANK, payload };
 };
 
-export const createGame = playerName => {
+export const createGame = (playerName, callback) => {
+  // Callback is to setSubmitting to false for failure cases
   const params = { playerName };
   // dispatch fetch
   return async dispatch => {
@@ -53,6 +54,7 @@ export const createGame = playerName => {
       if (response.data.error) {
         const errorMessage = String(response.data.error);
         dispatch(createGameFail(errorMessage));
+        callback();
       } else {
         dispatch(createGameSuccess(response.data));
       }
@@ -61,6 +63,7 @@ export const createGame = playerName => {
       console.error(error);
       const errorMessage = "Unable to create game :(";
       dispatch(createGameFail(errorMessage));
+      callback();
     }
   };
 };
@@ -82,7 +85,8 @@ export const fetchQuestionBank = () => {
 //   await dispatch({ type: RESET });
 // };
 
-export const joinGame = (roomNo, playerName) => {
+export const joinGame = (roomNo, playerName, callback) => {
+  // Callback is to setSubmitting to false for failure cases
   const params = { roomNo, playerName };
   // dispatch fetch
   return async dispatch => {
@@ -92,12 +96,14 @@ export const joinGame = (roomNo, playerName) => {
       if (response.data.error) {
         const errorMessage = String(response.data.error);
         dispatch(joinGameFail(errorMessage));
+        callback();
       } else {
         dispatch(joinGameSuccess(response.data));
       }
     } catch (error) {
       const errorMessage = "Unable to join game :(";
       dispatch(joinGameFail(errorMessage));
+      callback();
     }
   };
 };

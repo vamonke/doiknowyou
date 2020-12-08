@@ -20,7 +20,7 @@ const JoinGame = props => {
     cancel
   } = props;
 
-  const trim = onChange => e => {
+  const trimValue = onChange => e => {
     // Keep only first 4 digits before passing to onChange handler
     e.target.value = e.target.value.substring(0, 4);
     return onChange(e);
@@ -49,7 +49,7 @@ const JoinGame = props => {
             render={({ field }) => (
               <Input
                 {...field}
-                onChange={trim(field.onChange)}
+                onChange={trimValue(field.onChange)}
                 type="number"
                 placeholder="Enter 4-digit room number"
                 variant={errors.roomNo || asyncError ? "error" : "input"}
@@ -116,11 +116,10 @@ const formOptions = {
   validate,
   validateOnBlur: false,
   validateOnChange: false,
-  handleSubmit: async (values, { setSubmitting }) => {
+  handleSubmit: (values, { setSubmitting }) => {
     const { joinGame, name, roomNo } = values;
     trackSubmit("home", "JoinGame");
-    await joinGame(roomNo, name);
-    setSubmitting(false);
+    joinGame(roomNo, name, () => setSubmitting(false));
   },
   displayName: "JoinGame"
 };
@@ -131,7 +130,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  joinGame: (roomNo, name) => dispatch(joinGame(roomNo, name))
+  joinGame: (roomNo, name, callback) =>
+    dispatch(joinGame(roomNo, name, callback))
 });
 
 export default connect(

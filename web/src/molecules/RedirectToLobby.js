@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-
 import history from "../redux/history";
 
 const RedirectToLobby = props => {
   const { room, viewer, players } = props;
   const { _id: viewerId } = viewer;
 
-  if (
-    viewer._id &&
-    room._id &&
-    players.length > 0 &&
-    players.find(player => player._id === viewerId)
-  ) {
-    console.log("Redirecting to lobby");
-    setTimeout(() => history.push(`/lobby/${room.number}`));
-  }
+  useEffect(() => {
+    const canEnter =
+      viewer._id &&
+      room._id &&
+      players.length > 0 &&
+      players.some(player => player._id === viewerId);
+
+    if (canEnter) {
+      console.log("Redirecting to lobby");
+      history.push(`/lobby/${room.number}`);
+    }
+  }, [viewer, room, players]);
 
   return <div className="loader-small" />;
 };
