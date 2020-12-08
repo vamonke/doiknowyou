@@ -4,14 +4,13 @@ import history from "../redux/history";
 
 const RedirectToLobby = props => {
   const { room, viewer, players } = props;
-  const { _id: viewerId } = viewer;
 
   useEffect(() => {
     const canEnter =
       viewer._id &&
       room._id &&
       players.length > 0 &&
-      players.some(player => player._id === viewerId);
+      players.some(player => player._id === viewer._id);
 
     if (canEnter) {
       console.log("Redirecting to lobby");

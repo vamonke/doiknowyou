@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { withFormik, Field } from "formik";
 import { Flex, Box, Button, Text } from "rebass";
-import { Input, Label } from "@rebass/forms";
+import { Input } from "@rebass/forms";
 
 import { HomeLink } from "../atoms";
 

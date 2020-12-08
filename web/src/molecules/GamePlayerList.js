@@ -16,7 +16,7 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
           {players.map((player, index) => {
             const { _id, score, name, hasAnswered } = player;
             const isViewer = _id === viewer._id;
-            const isRecipient = _id === recipientId;
+            // const isRecipient = _id === recipientId;
             return (
               <Flex key={index} justifyContent="space-between" variant="row">
                 <Box>

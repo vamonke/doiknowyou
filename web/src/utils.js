@@ -8,7 +8,7 @@ export const capitalize = (string = "") => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-const isUpperCase = character => character == character.toUpperCase();
+const isUpperCase = character => character === character.toUpperCase();
 
 export const replaceWithName = (text, recipientName) => {
   if (recipientName.includes("you")) return text;

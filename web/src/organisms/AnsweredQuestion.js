@@ -37,7 +37,7 @@ const AnsweredQuestion = ({ question, players }) => {
   const {
     options,
     answers,
-    round,
+    // round,
     correctAnswer,
     text,
     recipientId

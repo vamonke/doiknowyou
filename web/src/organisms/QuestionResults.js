@@ -8,7 +8,7 @@ const QuestionResults = ({ question, players, hide }) => {
   const {
     options,
     answers,
-    round,
+    // round,
     correctAnswer,
     text,
     recipientId
