@@ -11,7 +11,8 @@ export const capitalize = (string = "") => {
 const isUpperCase = character => character === character.toUpperCase();
 
 export const replaceWithName = (text, recipientName) => {
-  if (recipientName.includes("you")) return text;
+  if (!text) return "";
+  if (!recipientName || recipientName.includes("you")) return text;
   if (text.includes("yourself")) return text; // TODO: Use gender?
 
   // TODO: Make case insentive

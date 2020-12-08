@@ -59,7 +59,7 @@ const AnsweredQuestion = ({ question, players }) => {
         <Box height={0} width={30} mt={-1}>
           <div key={expanded ? "icon-up" : "icon-down"}>
             <Icon
-              fill="orange"
+              fill="#FA7F00"
               name={expanded ? "chevron-up" : "chevron-down"}
               size="xlarge"
             />

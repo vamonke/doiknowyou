@@ -65,14 +65,14 @@ const CurrentQuestion = props => {
         <Box variant="card.bottom" pt={[2, 2, 2]} pb={[24, 24, 24, 4]}>
           {disabled && <Box variant="whiteOverlay" />}
 
-          <Text mt={3} mb={2} variant="subtitle">
+          <Text mt={2} mb={1} variant="subtitle">
             {isRecipient
               ? "Answer honestly and let the other players guess your answer"
               : `Guess ${recipientName}’s answer`}
           </Text>
 
           {multiline ? (
-            <Flex mt={2} mx={-2}>
+            <Flex mt={1} mx={-2}>
               {options.map((option, index) => (
                 <Box
                   width={1 / 2}

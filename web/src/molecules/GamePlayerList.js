@@ -5,7 +5,11 @@ import { Box, Flex, Text } from "rebass";
 // TODO: Use new GameResults component when game is over
 const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
   <>
-    <Box variant={gameOver ? "orange" : ""} px={[0, 0]} pt={[3, 24]}>
+    <Box
+      variant={gameOver ? "orange" : ""}
+      pt={gameOver ? [3, 24] : 0}
+      px={[0, 0]}
+    >
       <Box variant="container">
         <Box variant="card.top.xsmall">Scoreboard</Box>
       </Box>
@@ -35,7 +39,9 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
                 {/* <Box width={3 / 12} textAlign="right">
                   {hasAnswered && "Done"}
                 </Box> */}
-                <Box>{score || "0"} points</Box>
+                <Box color="orange" fontWeight="medium">
+                  {score || "0"}
+                </Box>
               </Flex>
             );
           })}
