@@ -22,31 +22,37 @@ const JoinGameCard = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box variant="orange" justifyContent="center" pt={[0, 0, 0, 0]}>
-        <Text color="white" textAlign="center" fontSize={2} py={[3, 3, 3, 4]}>
-          Room {values.roomNo}
-        </Text>
-        <Box variant="orange.card" py={[3, 3, 24]}>
-          <Text fontSize={4} pt={[1, 1, 0]} fontWeight="medium">
-            Do I Know You
-            <Text as="span" color="yellow">
-              {" "}
-              ?
+      <Box
+        variant="orange"
+        justifyContent="center"
+        pt={[0, 0, 0, 0]}
+        px={[0, 0]}
+      >
+        <Box variant="container">
+          <Text color="white" textAlign="center" fontSize={2} py={[3, 3, 3, 4]}>
+            Room {values.roomNo}
+          </Text>
+          <Box variant="card.top.xsmall" py={[3, 3, 24]}>
+            <Text fontSize={4} pt={[1, 1, 0]} fontWeight="bold">
+              Do I Know You
+              <Text as="span" color="yellow">
+                {" "}
+                ?
+              </Text>
             </Text>
-          </Text>
-          <Text fontSize={2} pt={2}>
-            A game to test how well you really know your friends
-          </Text>
+            <Text pt={2} fontWeight="body">
+              A game to test how well you really know your friends
+            </Text>
+          </Box>
         </Box>
       </Box>
-      <Box px={[0, 2, 3]}>
-        <Box variant="card.bottom" pt={3}>
-          <Label>Enter your name:</Label>
+      <Box variant="container">
+        <Box variant="card.bottom.xsmall" pt={24}>
+          {/* <Label>Enter your name:</Label> */}
           <Input
-            mt={3}
             name="name"
             type="text"
-            placeholder="Name"
+            placeholder="Enter your name"
             onChange={handleChange}
             onBlur={handleBlur}
             autoFocus
@@ -82,7 +88,7 @@ const JoinGameCard = props => {
                 </Button>
               </Box>
             )}
-            <Box width={cancel ? 1 / 2 : 1} px={[1, 2]}>
+            <Box width={cancel ? 1 / 2 : 1} px={[1, 2]} mb={3}>
               <Button type="submit" width={1}>
                 {isSubmitting ? "-" : "Join Game"}
               </Button>
