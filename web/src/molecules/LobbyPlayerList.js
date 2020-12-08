@@ -2,13 +2,30 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, Text, Button } from "rebass";
 import { Select } from "@rebass/forms";
+import Icon from "react-eva-icons";
 
 import { kick, makeHost } from "../redux/client";
 
 const LobbyPlayerList = props => {
-  const { players, viewerId, hostId, viewerIsHost, dispatch, gameMode } = props;
+  const {
+    players,
+    viewerId,
+    hostId,
+    viewerIsHost,
+    dispatch,
+    gameMode
+    // roomNo,
+  } = props;
 
   const [managing, setManaging] = useState(false);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  const copyInviteLink = () => {
+    // Unsupported on IE but its k
+    navigator.clipboard.writeText(document.location);
+    setIsLinkCopied(true);
+  };
+
   const onChange = playerId => e => {
     const action = e.target.value;
     if (action === "kick") {
@@ -55,7 +72,7 @@ const LobbyPlayerList = props => {
                   <Text variant={isViewer ? "bold" : ""} display="inline">
                     {name}
                   </Text>
-                  {/* {isViewer && " (you)"*} */}
+                  {/* {isViewer && " (you)"} */}
                   {disconnected && (
                     <Text variant="tag.small" bg="gray">
                       Away
@@ -81,6 +98,31 @@ const LobbyPlayerList = props => {
             </Box>
           );
         })}
+        <Flex justifyContent="center">
+          <Button
+            type="button"
+            variant="link"
+            px={3}
+            py={2}
+            my={2}
+            color="orange"
+            // fontWeight="medium"
+            onClick={copyInviteLink}
+          >
+            {isLinkCopied ? (
+              <Box key="link-2-outline" mb={-1}>
+                <Icon fill="#FA7F00" name="link-2-outline" size="large" />
+              </Box>
+            ) : (
+              <Box key="person-add-outline" mb={-1}>
+                <Icon fill="#FA7F00" name="person-add-outline" size="large" />
+              </Box>
+            )}
+            <Text ml={2}>
+              {isLinkCopied ? "Invite link copied" : "Invite friends"}
+            </Text>
+          </Button>
+        </Flex>
       </Box>
     </Box>
   );

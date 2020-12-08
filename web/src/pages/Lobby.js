@@ -80,6 +80,7 @@ const Lobby = props => {
           viewerId={viewerId}
           viewerIsHost={isHost}
           hostId={hostId}
+          roomNo={roomNo}
           gameMode={gameMode}
           dispatch={dispatch}
         />

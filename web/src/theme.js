@@ -457,6 +457,7 @@ const buttons = {
   },
   link: {
     cursor: "pointer",
+    fontFamily: "button",
     color: "darkpurple",
     bg: "transparent",
     border: "none",
@@ -466,6 +467,7 @@ const buttons = {
     alignItems: "center"
   },
   settings: {
+    fontFamily: "button",
     cursor: "pointer",
     color: "white",
     bg: "darkpurple",
@@ -522,6 +524,7 @@ const buttons = {
     display: "inline-block",
     bg: "transparent",
     color: "white",
+    fontFamily: "button",
     borderRadius: "5px 5px 0 0",
     fontWeight: "medium",
     textDecoration: "none",
@@ -545,6 +548,7 @@ const buttons = {
   },
   selected: {
     cursor: "pointer",
+    fontFamily: "button",
     color: "white",
     bg: "transparent",
     borderWidth: 1.5,
@@ -559,17 +563,20 @@ const buttons = {
     cursor: "pointer",
     color: "darkpurple",
     bg: "white",
-    borderWidth: 1.5,
+    borderWidth: 2,
     borderStyle: "solid",
     borderColor: "orange",
     borderRadius: 16,
+    fontFamily: "button",
     p: 12,
     mt: 3,
     outline: "none"
   }
 };
 
-const input = {};
+const input = {
+  fontFamily: "button"
+};
 
 const forms = {
   input: {
