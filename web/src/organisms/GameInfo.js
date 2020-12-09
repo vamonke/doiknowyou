@@ -56,8 +56,8 @@ const GameInfo = props => {
       <Box variant="orange" px={[0, 0, 0, 0]}>
         <Box variant="container">
           <Box variant="card.top.xsmall">
-            <Flex justifyContent="space-between" alignItems="bottom">
-              <Text fontWeight="medium">Room {roomNo}</Text>
+            <Flex justifyContent="space-between" alignItems="center">
+              Room {roomNo}
               {isHost && (
                 <Button
                   type="button"

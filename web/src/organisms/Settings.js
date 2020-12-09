@@ -43,12 +43,10 @@ const Settings = ({ room, hide, updateSettings }) => {
 
   return (
     <>
-      <Box variant="orange.card.small">
-        <Box variant="modal.header">Game Settings</Box>
-      </Box>
+      <Box variant="card.top.xsmall">Game Settings</Box>
 
-      <Box variant="modal.card">
-        <Text fontWeight="medium" mb={3} mt={0}>
+      <Box variant="card.bottom.xsmall">
+        <Text fontWeight="medium" py={3}>
           Question type
         </Text>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
-import { Button, Text } from "rebass";
+import { Button } from "rebass";
 import { Input } from "@rebass/forms";
 
 const validate = values => (values.answer ? {} : { answer: true });

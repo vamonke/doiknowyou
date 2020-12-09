@@ -38,7 +38,7 @@ const LobbyPlayerList = props => {
     <Box variant="container">
       <Box variant="card.top.xsmall">
         <Flex justifyContent="space-between">
-          <Text>Players</Text>
+          Players
           {viewerIsHost && (
             <Button
               type="button"
