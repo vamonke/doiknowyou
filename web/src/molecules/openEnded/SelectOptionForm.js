@@ -19,7 +19,11 @@ const SelectOptionForm = ({ options, handleSubmit, writtenAnswer }) => {
       onSubmit={onSubmit}
       render={props => {
         const { handleSubmit, handleChange, values } = props;
-        const disabled = !Object.values(values).some(Boolean);
+        const noneSelected = !Object.values(values).some(Boolean);
+        const hasWritten = !!writtenAnswer;
+        const disabled = noneSelected && !hasWritten;
+        const noneAllowed = noneSelected && hasWritten;
+
         return (
           <form onSubmit={handleSubmit}>
             {options.map((option, index) => (
@@ -47,8 +51,15 @@ const SelectOptionForm = ({ options, handleSubmit, writtenAnswer }) => {
                 </Box>
               </Label>
             ))}
-            <Button type="submit" width={1} disabled={disabled} mt={3}>
-              Submit
+            <Button
+              type="submit"
+              width={1}
+              key={noneAllowed ? "outline" : "primary"}
+              variant={noneAllowed ? "outline" : "primary"}
+              disabled={disabled}
+              mt={3}
+            >
+              {noneAllowed ? "None of the above" : "Submit"}
             </Button>
           </form>
         );

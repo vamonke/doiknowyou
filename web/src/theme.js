@@ -3,7 +3,7 @@ const theme = {
   fontSizes: [12, 14, 16, 20, 24, 28, 32, 36, 48, 54],
   colors: {
     blue: "#07C",
-    lightgray: "#E2E2E2",
+    lightgray: "#DDD",
     gray: "#BBB",
     darkgray: "#666",
     green: "#1ABC9C",
@@ -411,9 +411,15 @@ const buttons = {
     outline: "none",
     transition: "0.3s",
     "&:disabled": {
-      bg: "grey",
-      background: "grey",
-      borderColor: "grey"
+      bg: "lightgray",
+      background: "#DDD",
+      borderColor: "lightgray",
+      cursor: "not-allowed",
+      transition: "0.3s",
+      "&:hover": {
+        bg: "gray",
+        borderColor: "gray"
+      }
     },
     "&:hover": {
       bg: "lightorange",
@@ -425,7 +431,7 @@ const buttons = {
     cursor: "pointer",
     fontFamily: "button",
     color: "white",
-    bg: "gray",
+    bg: "darkgray",
     borderStyle: "solid",
     borderColor: "black",
     borderRadius: 21,
@@ -434,7 +440,8 @@ const buttons = {
     outline: "none",
     "&:disabled": {
       bg: "grey",
-      borderColor: "grey"
+      borderColor: "grey",
+      cursor: "not-allowed"
     }
   },
   inField: {
@@ -571,6 +578,20 @@ const buttons = {
     p: 12,
     mt: 3,
     outline: "none"
+  },
+  outline: {
+    fontFamily: "button",
+    cursor: "pointer",
+    color: "orange",
+    bg: "white",
+    // boxShadow: "small",
+    borderWidth: 2,
+    borderStyle: "solid",
+    borderColor: "orange",
+    borderRadius: 21,
+    p: 14,
+    outline: "none",
+    transition: "0.3s"
   }
 };
 

@@ -21,6 +21,7 @@ const RecipientAnswerForm = ({ handleSubmit }) => (
             onBlur={handleBlur}
             value={values.answer}
             name="answer"
+            autoFocus
             placeholder="Enter your answer"
             mb={1}
           />
