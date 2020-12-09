@@ -91,7 +91,7 @@ const variants = {
       xsmall: {
         px: 24,
         pb: 24,
-        mb: 4,
+        mb: 24,
         bg: "white",
         color: "darkpurple",
         borderRadius: "0 0 30px 30px",

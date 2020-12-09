@@ -13,7 +13,6 @@ const isUpperCase = character => character === character.toUpperCase();
 export const replaceWithName = (text, recipientName) => {
   if (!text) return "";
   if (!recipientName || recipientName.includes("you")) return text;
-  if (text.includes("yourself")) return text; // TODO: Use gender?
 
   // TODO: Make case insentive
   const result = text
@@ -23,6 +22,7 @@ export const replaceWithName = (text, recipientName) => {
     .replaceAll("you have", `${recipientName} has`)
     .replaceAll("are you", `is ${recipientName}`)
     .replaceAll("you are", `${recipientName} is`)
+    .replaceAll("yourself", "themself") // TODO: Use gender?
     .replaceAll("your ", `${recipientName}'s `)
     .replaceAll("you", `${recipientName}`);
   return isUpperCase(text.charAt(0)) ? capitalize(result) : result;
