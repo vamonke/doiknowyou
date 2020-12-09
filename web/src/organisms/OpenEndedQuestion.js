@@ -3,7 +3,7 @@ import { Box, Text } from "rebass";
 
 import {
   QuestionText,
-  OpenEndedAnswer,
+  OpenEndedWaiting,
   OpenEndedAnswerForm,
   OpenEndedAnswerRecipient
 } from "../molecules";
@@ -49,7 +49,7 @@ const OpenEndedQuestion = props => {
 
           {!isRecipient &&
             (answer || isClosed ? (
-              <OpenEndedAnswer
+              <OpenEndedWaiting
                 question={question}
                 recipientName={recipient.name}
               />

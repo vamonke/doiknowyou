@@ -99,7 +99,7 @@ const QuestionsForm = props => {
           bg="white"
           sx={{ position: "relative", zIndex: 1 }}
         >
-          <LobbyPrevNext questionNo={currentQnNo} prev={prev} next={next} />
+          <QuestionPrevNext questionNo={currentQnNo} prev={prev} next={next} />
         </Box>
       )} */}
     </Box>

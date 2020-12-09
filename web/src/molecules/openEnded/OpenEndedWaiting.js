@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Text } from "rebass";
 
-const OpenEndedAnswer = ({ question, recipientName }) => {
+const OpenEndedWaiting = ({ question, recipientName }) => {
   const { isClosed, options } = question;
 
   const waitingMsg =
@@ -25,7 +25,7 @@ const OpenEndedAnswer = ({ question, recipientName }) => {
   );
 };
 
-OpenEndedAnswer.propTypes = {
+OpenEndedWaiting.propTypes = {
   question: PropTypes.shape({
     isClosed: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.string.isRequired)
@@ -33,4 +33,4 @@ OpenEndedAnswer.propTypes = {
   recipientName: PropTypes.string.isRequired
 };
 
-export default OpenEndedAnswer;
+export default OpenEndedWaiting;

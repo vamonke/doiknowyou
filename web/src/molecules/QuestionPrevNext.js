@@ -4,7 +4,7 @@ import { Flex, Box, Button } from "rebass";
 import { QUESTIONS_COUNT } from "../constants";
 
 // Lobby buttons
-const LobbyPrevNext = props => {
+const QuestionPrevNext = props => {
   const { questionNo, prev, next } = props;
   const firstQuestion = questionNo === 0;
   const lastQuestion = questionNo === QUESTIONS_COUNT - 1;
@@ -39,10 +39,10 @@ const LobbyPrevNext = props => {
   );
 };
 
-LobbyPrevNext.propTypes = {
+QuestionPrevNext.propTypes = {
   questionNo: PropTypes.number.isRequired,
   prev: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired
 };
 
-export default LobbyPrevNext;
+export default QuestionPrevNext;

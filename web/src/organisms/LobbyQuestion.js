@@ -11,7 +11,7 @@ import {
   RandomQuestion,
   LobbySelectOptions,
   LobbyQuestionOptions,
-  LobbyPrevNext,
+  QuestionPrevNext,
   QuestionTags
 } from "../molecules";
 
@@ -106,7 +106,7 @@ const LobbyQuestion = props => {
 
         <Box variant="hr" mb={24} />
 
-        <LobbyPrevNext questionNo={questionNo} prev={prev} next={next} />
+        <QuestionPrevNext questionNo={questionNo} prev={prev} next={next} />
       </Box>
     </Box>
   );
