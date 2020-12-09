@@ -103,6 +103,9 @@ const gameEvents = async (io, socket, common) => {
       questionId,
       recipientId
     );
+
+    console.log({ completed });
+
     if (!completed) return false;
 
     endQuestion(question);
@@ -147,24 +150,35 @@ const gameEvents = async (io, socket, common) => {
     const isRecipient = playerId === recipientId;
 
     if (isRecipient) {
+      // Convert answer to array of numbers
       let answerArray = Array.isArray(answer) ? answer : [answer];
+
+      // Big hacks time
+      if (type === "open") {
+        const writtenAnswerObj = answerArray.find(answer =>
+          typeof answer === 'object' && answer.hasOwnProperty("written")
+        );
+        if (writtenAnswerObj) {
+          const openEndedAnswer = await getOptionIndex(options, writtenAnswerObj.written, questionId);
+          answerArray = answerArray.filter(Number.isInteger)
+          answerArray.push(openEndedAnswer)
+        }
+      }
+
       answerArray = answerArray.map(Number);
       currentQuestion = await Question.setCorrectAnswer(
         questionId,
         answerArray
       );
     } else if (type === "open") {
-      let openEndedAnswer = options.findIndex(option => option === answer);
-      if (openEndedAnswer === -1) {
-        openEndedAnswer = await Question.addOption(answer, questionId);
-      }
+      const openEndedAnswer = await getOptionIndex(options, answer, questionId);
       await Answer.create(openEndedAnswer, questionId, playerId);
     } else {
       await Answer.create(answer, questionId, playerId);
     }
 
     currentQuestion.roomId = roomId;
-    common.playerLog("answer - " + answer);
+    common.playerLog("answer - " + JSON.stringify(answer));
 
     if (type === "open" && !isRecipient) {
       io.to(roomId).emit("openAnswer", { playerId, answer });
@@ -177,5 +191,13 @@ const gameEvents = async (io, socket, common) => {
 
   Object.assign(common, { startTimer, completeIfAllAnswered, gameOver });
 };
+
+const getOptionIndex = async (options, answer, questionId) => {
+  let openEndedAnswer = options.findIndex(option => option === answer);
+  if (openEndedAnswer === -1) {
+    openEndedAnswer = await Question.addOption(answer, questionId);
+  }
+  return openEndedAnswer;
+}
 
 export default gameEvents;

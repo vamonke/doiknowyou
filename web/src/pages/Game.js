@@ -58,8 +58,9 @@ const Game = props => {
     return <Disconnected />;
   }
 
-  const handleClick = index => {
-    dispatch(playerAnswer(index));
+  const handleClick = answer => {
+    // answer is an index or an array of indexes
+    dispatch(playerAnswer(answer));
   };
 
   const handleTimesUp = () => {

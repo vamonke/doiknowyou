@@ -35,7 +35,7 @@ const schema = new Schema(
         ref: "Answer",
       },
     ],
-    isClosed: Boolean,
+    isClosed: Boolean, // Open-ended question starts `open`, then becomes `closed`
   },
   { versionKey: false }
 );

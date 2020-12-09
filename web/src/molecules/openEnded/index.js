@@ -1,5 +1,4 @@
-export { default as OpenEndedWaiting } from "./OpenEndedWaiting";
-export { default as OpenEndedAnswerForm } from "./OpenEndedAnswerForm";
+export { default as OpenEndedAnswerPlayer } from "./OpenEndedAnswerPlayer";
 export {
   default as OpenEndedAnswerRecipient
 } from "./OpenEndedAnswerRecipient";

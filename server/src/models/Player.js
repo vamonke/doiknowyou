@@ -36,8 +36,7 @@ export const findByRoom = roomId =>
 
 export const countByRoomId = roomId => Player.countDocuments({ roomId });
 
-export const findIdsByRoom = roomId =>
-  Player.find({ roomId }).select({ _id: 1 }).sort({ _id: 1 });
+export const findIdsByRoom = roomId => Player.find({ roomId }).select({ _id: 1 });
 
 export const ready = id => Player.findByIdAndUpdate(id, { isReady: true });
 

@@ -4,9 +4,11 @@ import { Formik } from "formik";
 import { Button, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
+import PlayerWaiting from "./PlayerWaiting";
+
 const validate = values => (values.guess ? {} : { guess: true });
 
-const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) => (
+const PlayerAnswerForm = ({ handleSubmit, recipientName }) => (
   <Formik
     initialValues={{ guess: "" }}
     validate={validate}
@@ -23,10 +25,10 @@ const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) => (
             value={values.guess}
             name="guess"
             placeholder="Your guess"
-            {...(!dirty && { mb: 1 })}
+            mb={1}
           />
           {dirty && (
-            <Button type="submit" width={1}>
+            <Button type="submit" width={1} mt={3}>
               Submit
             </Button>
           )}
@@ -35,9 +37,15 @@ const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) => (
     }}
   />
 );
-OpenEndedAnswerForm.propTypes = {
+
+const OpenEndedAnswerPlayer = props => {
+  const component = props.hasAnswered ? PlayerWaiting : PlayerAnswerForm;
+  return component(props);
+};
+
+OpenEndedAnswerPlayer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   recipientName: PropTypes.string.isRequired
 };
 
-export default OpenEndedAnswerForm;
+export default OpenEndedAnswerPlayer;

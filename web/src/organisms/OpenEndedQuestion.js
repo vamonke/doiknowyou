@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, Text } from "rebass";
+import { Box } from "rebass";
 
 import {
   QuestionText,
-  OpenEndedWaiting,
-  OpenEndedAnswerForm,
+  OpenEndedAnswerPlayer,
   OpenEndedAnswerRecipient
 } from "../molecules";
 
@@ -34,32 +33,21 @@ const OpenEndedQuestion = props => {
         <Box variant="card.bottom.xsmall" py={24}>
           {disabled && <Box variant="whiteOverlay" />}
 
-          {isRecipient &&
-            (isClosed ? (
-              <OpenEndedAnswerRecipient
-                question={question}
-                handleSubmit={handleSubmit}
-                answer={answer}
-              />
-            ) : (
-              <Text px={[1, 1, 0]} variant="subtitle">
-                Waiting for other players to guess
-              </Text>
-            ))}
-
-          {!isRecipient &&
-            (answer || isClosed ? (
-              <OpenEndedWaiting
-                question={question}
-                recipientName={recipient.name}
-              />
-            ) : (
-              <OpenEndedAnswerForm
-                question={question}
-                handleSubmit={handleSubmit}
-                recipientName={recipient.name}
-              />
-            ))}
+          {isRecipient ? (
+            <OpenEndedAnswerRecipient
+              question={question}
+              handleSubmit={handleSubmit}
+              answer={answer}
+              isClosed={isClosed}
+            />
+          ) : (
+            <OpenEndedAnswerPlayer
+              hasAnswered={answer || isClosed}
+              question={question}
+              handleSubmit={handleSubmit}
+              recipientName={recipient.name}
+            />
+          )}
         </Box>
       </Box>
     </Box>

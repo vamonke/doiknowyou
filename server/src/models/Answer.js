@@ -36,22 +36,23 @@ export const hasEveryPlayerAnswered = async (
   questionId,
   recipientId
 ) => {
-  const playerIds = await Player.findIdsByRoom(roomId);
-  const answeredPlayerIds = await Answer.find(
+  let playerIds = await Player.findIdsByRoom(roomId);
+  let answeredPlayerIds = await Answer.find(
     { questionId },
-    { playerId: 1, _id: 0 },
-    { sort: { playerId: 1 } }
+    { playerId: 1, _id: 0 }
   );
 
+  playerIds = playerIds.map(({ _id }) => String(_id));
+  answeredPlayerIds = answeredPlayerIds.map(({ playerId }) => String(playerId));
+
   if (answeredPlayerIds.length < playerIds.length - 1) {
-    // number of answers and players match
+    // more players than answers (excluding recipient)
     return false;
   }
 
   const allAnswered = playerIds
-    .map(({ _id }) => _id.toString())
-    .filter(id => id !== recipientId)
-    .every((id, i) => id === answeredPlayerIds[i].playerId);
+    .filter(id => id !== recipientId) // Recipient has no answer
+    .every(id => answeredPlayerIds.includes(id));
   return allAnswered;
 };
 

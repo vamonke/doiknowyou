@@ -2,13 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Text } from "rebass";
 
-const OpenEndedWaiting = ({ question, recipientName }) => {
+const PlayerWaiting = ({ question, recipientName }) => {
   const { isClosed, options } = question;
-
-  const waitingMsg =
-    "Waiting for " +
-    (isClosed ? recipientName + " to choose" : "other players");
-
+  const waitingMsg = `Waiting for ${
+    isClosed ? `${recipientName} to choose` : "other players"
+  }`;
   return (
     <>
       <Text variant="subtitle">{waitingMsg}</Text>
@@ -25,7 +23,7 @@ const OpenEndedWaiting = ({ question, recipientName }) => {
   );
 };
 
-OpenEndedWaiting.propTypes = {
+PlayerWaiting.propTypes = {
   question: PropTypes.shape({
     isClosed: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.string.isRequired)
@@ -33,4 +31,4 @@ OpenEndedWaiting.propTypes = {
   recipientName: PropTypes.string.isRequired
 };
 
-export default OpenEndedWaiting;
+export default PlayerWaiting;
