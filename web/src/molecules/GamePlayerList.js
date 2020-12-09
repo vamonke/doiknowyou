@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, Text } from "rebass";
+import Icon from "react-eva-icons";
 
 // TODO: Use new GameResults component when game is over
 const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
@@ -20,13 +21,28 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
           {players.map((player, index) => {
             const { _id, score, name, hasAnswered } = player;
             const isViewer = _id === viewer._id;
+            const isDraw =
+              players[0] && players[1] && players[0].score === players[1].score;
+            const isWinner = !isDraw && score === players[0].score;
             // const isRecipient = _id === recipientId;
             return (
               <Flex key={index} justifyContent="space-between" variant="row">
                 <Box>
-                  <Text display="inline" variant={isViewer ? "bold" : ""}>
-                    {name}
-                  </Text>
+                  <Flex alignItems="center">
+                    <Text fontWeight={isViewer ? "medium" : "body"}>
+                      {name}
+                    </Text>
+                    {isWinner && (
+                      <Box mb={-1} ml={1} key="award-outline">
+                        <Icon
+                          fill="#F7B500"
+                          name="award-outline"
+                          size="large"
+                        />
+                      </Box>
+                    )}
+                    {isWinner && <Box color="orange">Winner</Box>}
+                  </Flex>
                   {/* {isViewer && " (you)"} */}
                   {/* {isRecipient && " (answering)"} */}
                   {/* {isRecipient && <Text variant="tag.small">Answering</Text>} */}
