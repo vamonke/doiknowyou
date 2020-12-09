@@ -10,7 +10,7 @@ const LobbyPrevNext = props => {
   const lastQuestion = questionNo === QUESTIONS_COUNT - 1;
 
   return (
-    <Flex mx={-2} mb={3}>
+    <Flex mx={-2}>
       {firstQuestion ? (
         <Box width={1} px={2}>
           <Button width={1} onClick={next}>

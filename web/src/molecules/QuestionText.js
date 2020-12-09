@@ -19,7 +19,7 @@ import { replaceWithName } from "../utils";
 
 const QuestionText = ({ round, text, recipientName, timer, isRecipient }) => (
   <Box variant="orange">
-    <Box variant="orange.card" py={4} px={[4, 4, 4, 5]}>
+    <Box variant="orange.card" py={[4, 4, 4, 4]} px={[4, 4, 4, 5]}>
       {timer && <QuestionTimer {...timer} />}
 
       {/* {timer ? (

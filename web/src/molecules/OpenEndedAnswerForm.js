@@ -15,11 +15,7 @@ const OpenEndedAnswerForm = ({ handleSubmit, recipientName }) => (
       const { handleSubmit, handleChange, handleBlur, values, dirty } = props;
       return (
         <form onSubmit={handleSubmit}>
-          <Text
-            pt={[3, 0]}
-            mt={[0, 0, -2]}
-            mb={3}
-          >{`Guess ${recipientName}'s answer`}</Text>
+          <Text mb={3}>{`Guess ${recipientName}'s answer`}</Text>
           <Input
             type="text"
             onChange={handleChange}

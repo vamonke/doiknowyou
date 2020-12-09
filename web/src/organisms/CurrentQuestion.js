@@ -61,18 +61,23 @@ const CurrentQuestion = props => {
         recipientName={recipientName}
         timer={timer}
       />
-      <Box px={[0, 2, 3]}>
-        <Box variant="card.bottom" pt={[2, 2, 2]} pb={[24, 24, 24, 4]}>
+      <Box variant="container">
+        <Box
+          variant="card.bottom.xsmall"
+          px={[20, 20, 20, 24]}
+          pb={[20, 20, 20, 24]}
+          pt={[3, 3, 3, 24]}
+        >
           {disabled && <Box variant="whiteOverlay" />}
 
-          <Text mt={2} mb={1} variant="subtitle">
+          <Text mb={[1, 1, 1, 2]} variant="subtitle">
             {isRecipient
               ? "Answer honestly and let the other players guess your answer"
               : `Guess ${recipientName}’s answer`}
           </Text>
 
           {multiline ? (
-            <Flex mt={1} mx={-2}>
+            <Flex mx={-2}>
               {options.map((option, index) => (
                 <Box
                   width={1 / 2}

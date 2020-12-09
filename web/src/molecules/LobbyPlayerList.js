@@ -53,7 +53,7 @@ const LobbyPlayerList = props => {
           )}
         </Flex>
       </Box>
-      <Box variant="card.bottom.xsmall">
+      <Box variant="card.bottom.xsmall" pb={1}>
         {players.map((player, index) => {
           const { _id: playerId, name, isReady, disconnected } = player;
           const isViewer = playerId === viewerId;

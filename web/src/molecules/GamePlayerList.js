@@ -15,7 +15,7 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
       </Box>
     </Box>
     <Box variant="container">
-      <Box variant="card.bottom.xsmall">
+      <Box variant="card.bottom.xsmall" pb={2}>
         <Box>
           {players.map((player, index) => {
             const { _id, score, name, hasAnswered } = player;

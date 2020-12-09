@@ -90,7 +90,7 @@ const variants = {
       },
       xsmall: {
         px: 24,
-        pb: 2,
+        pb: 24,
         mb: 4,
         bg: "white",
         color: "darkpurple",

@@ -16,7 +16,7 @@ import {
 } from "../molecules";
 
 const placeholderMapping = [
-  'Write a question to get to know other players (Hint: press "Random")',
+  'Write a question to get to know another player (Hint: press "Random")',
   "You can choose different types of answers for your question",
   "You can leave a question blank too!"
 ];

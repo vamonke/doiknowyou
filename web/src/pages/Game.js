@@ -132,7 +132,7 @@ const Game = props => {
         {answeredQuestions.length > 0 && (
           <>
             <Box variant="card.top.xsmall">Questions</Box>
-            <Box variant="card.bottom.xsmall">
+            <Box variant="card.bottom.xsmall" pb={2}>
               {answeredQuestions.map((question, index) => (
                 <AnsweredQuestion
                   question={question}

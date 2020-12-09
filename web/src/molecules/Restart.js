@@ -14,7 +14,7 @@ const Restart = ({ nextRoomNo, viewerName, dispatch }) => {
   };
   return (
     <Button width={1} onClick={onClick}>
-      Restart
+      New Game
     </Button>
   );
 };

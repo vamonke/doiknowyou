@@ -86,7 +86,7 @@ const GameInfo = props => {
       </Box>
 
       <Box variant="container">
-        <Box variant="card.bottom.xsmall">
+        <Box variant="card.bottom.xsmall" pb={1}>
           <Flex py={3} justifyContent={"space-between"} alignItems="center">
             {settings.map(({ label, text }, index) => (
               <React.Fragment key={index}>

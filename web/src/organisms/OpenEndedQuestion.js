@@ -30,8 +30,8 @@ const OpenEndedQuestion = props => {
         timer={timer}
       />
 
-      <Box px={[0, 2, 3]}>
-        <Box variant="card.bottom">
+      <Box variant="container">
+        <Box variant="card.bottom.xsmall" py={24}>
           {disabled && <Box variant="whiteOverlay" />}
 
           {isRecipient &&
@@ -42,12 +42,7 @@ const OpenEndedQuestion = props => {
                 answer={answer}
               />
             ) : (
-              <Text
-                pt={[24, 2, 2, 0]}
-                pb={[3, 2]}
-                px={[1, 1, 0]}
-                variant="subtitle"
-              >
+              <Text px={[1, 1, 0]} variant="subtitle">
                 Waiting for other players to guess
               </Text>
             ))}

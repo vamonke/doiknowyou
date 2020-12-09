@@ -71,7 +71,7 @@ const OpenEndedAnswerRecipient = props => {
 
   return (
     <>
-      <Box pt={[3, 0, 0, 0]} mb={3}>
+      <Box mb={3}>
         {options.length > 1
           ? "You may select more than 1 answer"
           : "Select an answer"}
