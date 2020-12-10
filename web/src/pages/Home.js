@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <>
-      <Box variant="orange">
+      <Box variant="gradient">
         <Box variant="orange.card">
           <Heading fontSize={[7, 7, 8, 9]} lineHeight="1em">
             Do I

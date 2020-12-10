@@ -41,12 +41,12 @@ const Lobby = props => {
   return (
     <>
       <Flex
-        variant="orange"
+        variant="gradient"
         justifyContent="center"
         fontWeight="medium"
         color="white"
-        fontSize={2}
-        my={[0, -2]}
+        fontSize={1}
+        py={3}
       >
         Do I Know You?
       </Flex>

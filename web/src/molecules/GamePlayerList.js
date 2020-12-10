@@ -34,7 +34,7 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
                       <Icon fill="#F7B500" name="award-outline" size="large" />
                     </Box>
                   )}
-                  {isWinner && <Box color="orange">Winner</Box>}
+                  {isWinner && <Box color="gradient">Winner</Box>}
                   {/* {isViewer && " (you)"} */}
                   {/* {isRecipient && " (answering)"} */}
                   {/* {isRecipient && <Text variant="tag.small">Answering</Text>} */}
@@ -47,7 +47,7 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
                 {/* <Box width={3 / 12} textAlign="right">
                   {hasAnswered && "Done"}
                 </Box> */}
-                <Box color="orange" fontWeight="medium">
+                <Box color="gradient" fontWeight="medium">
                   {score || "0"}
                 </Box>
               </Flex>

@@ -17,7 +17,7 @@ const Disconnected = ({ dispatch }) => {
 
   return loading ? null : (
     <Box textAlign="center">
-      <Box variant="orange">
+      <Box variant="gradient">
         <Box variant="orange.card" py={[3, 3, 24, 24]} mt={[2, 2, 3, 4]}>
           <Text fontWeight="medium" fontSize={4} px={2} pt={[1, 1, 0]}>
             Disconnected

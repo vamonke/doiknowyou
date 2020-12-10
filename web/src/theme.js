@@ -62,6 +62,27 @@ const variants = {
         px: 24,
         boxShadow: "large",
         fontWeight: "medium"
+      },
+      large: {
+        bg: "darkpurple",
+        color: "white",
+        borderRadius: "30px 30px 0 0",
+        position: "relative",
+        pt: [24, 24, 24, 4],
+        px: [24, 24, 4, 36],
+        pb: [3, 3, 3, 4],
+        boxShadow: "large"
+      },
+      small: {
+        bg: "darkpurple",
+        color: "white",
+        borderRadius: "30px 30px 0 0",
+        pb: 3,
+        pt: 20,
+        px: [24, 24, 24, 4],
+        boxShadow: "large",
+        fontWeight: "medium",
+        fontSize: 3
       }
     },
     bottom: {
@@ -99,35 +120,8 @@ const variants = {
       }
     }
   },
-  orange: {
-    background: "linear-gradient(90deg, rgba(240,152,25,1), rgba(255,81,47,1))",
-    pt: [3, 4],
-    px: [2, 2, 3],
-    card: {
-      maxWidth: 540,
-      mx: "auto",
-      bg: "darkpurple",
-      color: "white",
-      borderRadius: "30px 30px 0 0",
-      position: "relative",
-      pt: [24, 24, 24, 4],
-      px: [24, 24, 4, 36],
-      pb: [3, 3, 3, 4],
-      boxShadow: "large",
-      small: {
-        maxWidth: 540,
-        mx: "auto",
-        bg: "darkpurple",
-        color: "white",
-        borderRadius: "30px 30px 0 0",
-        pb: 3,
-        pt: 20,
-        px: [24, 24, 24, 4],
-        boxShadow: "large",
-        fontWeight: "medium",
-        fontSize: 3
-      }
-    }
+  gradient: {
+    background: "linear-gradient(90deg, rgba(240,152,25,1), rgba(255,81,47,1))"
   },
   modal: {
     position: "fixed",

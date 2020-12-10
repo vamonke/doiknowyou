@@ -84,17 +84,18 @@ const Game = props => {
 
   return (
     <>
-      {gameOver && (
+      {
         <Box
           textAlign="center"
-          variant="orange"
+          variant="gradient"
           fontWeight="medium"
           color="white"
           fontSize={3}
+          py={gameOver ? 4 : 3}
         >
-          Game over
+          {gameOver && "Game over"}
         </Box>
-      )}
+      }
 
       {showCurrentQuestion && (
         <Box>

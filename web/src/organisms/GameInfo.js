@@ -53,7 +53,7 @@ const GameInfo = props => {
 
   return (
     <>
-      <Box variant="orange" px={[0, 0, 0, 0]}>
+      <Box variant="gradient" px={[0, 0, 0, 0]}>
         <Box variant="container">
           <Box variant="card.top.xsmall">
             <Flex justifyContent="space-between" alignItems="center">

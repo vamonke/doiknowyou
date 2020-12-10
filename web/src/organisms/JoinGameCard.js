@@ -23,7 +23,7 @@ const JoinGameCard = props => {
   return (
     <form onSubmit={handleSubmit}>
       <Box
-        variant="orange"
+        variant="gradient"
         justifyContent="center"
         pt={[0, 0, 0, 0]}
         px={[0, 0]}
