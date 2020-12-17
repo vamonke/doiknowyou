@@ -22,12 +22,7 @@ const JoinGameCard = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box
-        variant="gradient"
-        justifyContent="center"
-        pt={[0, 0, 0, 0]}
-        px={[0, 0]}
-      >
+      <Box variant="gradient">
         <Box variant="container">
           <Text color="white" textAlign="center" fontSize={2} py={[3, 3, 3, 4]}>
             Room {values.roomNo}
@@ -88,7 +83,7 @@ const JoinGameCard = props => {
                 </Button>
               </Box>
             )}
-            <Box width={cancel ? 1 / 2 : 1} px={[1, 2]} mb={3}>
+            <Box width={cancel ? 1 / 2 : 1} px={[1, 2]}>
               <Button type="submit" width={1}>
                 {isSubmitting ? "-" : "Join Game"}
               </Button>

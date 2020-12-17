@@ -46,8 +46,8 @@ const OpenEndedAnswerRecipient = props => {
     <>
       <Text mb={3}>
         {options.length > 1
-          ? "You may select more than 1 answer"
-          : "Select an answer"}
+          ? "Which guess(es) are correct?"
+          : "Which guess is correct?"}
       </Text>
       <SelectOptionForm
         options={options}

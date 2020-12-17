@@ -19,33 +19,35 @@ import { replaceWithName } from "../utils";
 
 const QuestionText = ({ round, text, recipientName, timer, isRecipient }) => (
   <Box variant="gradient">
-    <Box variant="orange.card" py={[4, 4, 4, 4]} px={[4, 4, 4, 5]}>
-      {timer && <QuestionTimer {...timer} />}
+    <Box variant="container">
+      <Box variant="card.top.large" py={[4, 4, 4, 4]} px={[4, 4, 4, 5]}>
+        {timer && <QuestionTimer {...timer} />}
 
-      {/* {timer ? (
-        <Text as="span" {...floatLeft}>
-          Q{round}
-        </Text>
-      ) : (
-        <Text color="yellow" fontSize={1}>
-          Q{round}
-        </Text>
-      )} */}
-
-      {isRecipient ? (
-        <Text color="yellow">It's your turn to answer</Text>
-      ) : (
-        <Text as="span" fontSize={2} color="grey">
-          {"Hot seat: "}
-          <Text as="span" color="yellow" fontWeight="medium">
-            {recipientName} {isRecipient && "(You)"}
+        {/* {timer ? (
+          <Text as="span" {...floatLeft}>
+            Q{round}
           </Text>
-        </Text>
-      )}
+        ) : (
+          <Text color="yellow" fontSize={1}>
+            Q{round}
+          </Text>
+        )} */}
 
-      <Text mt={3} fontSize={[3, 4, 4, 5]} fontWeight="medium">
-        {isRecipient ? text : replaceWithName(text, recipientName)}
-      </Text>
+        {isRecipient ? (
+          <Text color="yellow">It's your turn to answer</Text>
+        ) : (
+          <Text as="span" fontSize={2} color="grey">
+            {"Hot seat: "}
+            <Text as="span" color="yellow" fontWeight="medium">
+              {recipientName} {isRecipient && "(You)"}
+            </Text>
+          </Text>
+        )}
+
+        <Text mt={3} fontSize={[3, 4, 4, 5]} fontWeight="medium">
+          {isRecipient ? text : replaceWithName(text, recipientName)}
+        </Text>
+      </Box>
     </Box>
   </Box>
 );

@@ -6,11 +6,7 @@ import Icon from "react-eva-icons";
 // TODO: Use new GameResults component when game is over
 const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
   <>
-    <Box
-      variant={gameOver ? "orange" : ""}
-      pt={gameOver ? [3, 24] : 0}
-      px={[0, 0]}
-    >
+    <Box variant={gameOver ? "gradient" : ""}>
       <Box variant="container">
         <Box variant="card.top.xsmall">Scoreboard</Box>
       </Box>
@@ -34,7 +30,7 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
                       <Icon fill="#F7B500" name="award-outline" size="large" />
                     </Box>
                   )}
-                  {isWinner && <Box color="gradient">Winner</Box>}
+                  {isWinner && <Box color="orange">Winner</Box>}
                   {/* {isViewer && " (you)"} */}
                   {/* {isRecipient && " (answering)"} */}
                   {/* {isRecipient && <Text variant="tag.small">Answering</Text>} */}
@@ -47,7 +43,7 @@ const GamePlayerList = ({ players, viewer, recipientId, gameOver = false }) => (
                 {/* <Box width={3 / 12} textAlign="right">
                   {hasAnswered && "Done"}
                 </Box> */}
-                <Box color="gradient" fontWeight="medium">
+                <Box color="orange" fontWeight="medium">
                   {score || "0"}
                 </Box>
               </Flex>

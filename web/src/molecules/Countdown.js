@@ -20,14 +20,14 @@ const Countdown = ({ roomNo }) => {
 
   return (
     <>
-      <Box variant="gradient" px={[0, 0]}>
+      <Box variant="gradient">
         <Box variant="container">
           <Box variant="card.top.xsmall">Room {roomNo}</Box>
         </Box>
       </Box>
       <Box variant="container">
-        <Box variant="card.bottom.xsmall">
-          <Box py={[4, 3]} textAlign="center" fontSize={4}>
+        <Box variant="card.bottom.xsmall" py={0}>
+          <Box py={4} textAlign="center" fontSize={4}>
             Game starting in {seconds}
           </Box>
         </Box>

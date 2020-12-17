@@ -26,7 +26,7 @@ const Room = ({ room, dispatch, match }) => {
 
   return (
     <>
-      <Box variant="orange.card.small" maxWidth="none">
+      <Box variant="card.top.xsmall" maxWidth="none">
         <Flex justifyContent="space-between" alignItems="center">
           Room #{number}
           <Text variant="tag.small" m={0}>
@@ -41,7 +41,7 @@ const Room = ({ room, dispatch, match }) => {
         </Text>
       </Card>
 
-      <Box variant="orange.card.small" maxWidth="none">
+      <Box variant="card.top.xsmall" maxWidth="none">
         Players
       </Box>
       <Card variant="card.bottom.small" maxWidth="none">
@@ -52,7 +52,7 @@ const Room = ({ room, dispatch, match }) => {
         )}
       </Card>
 
-      <Box variant="orange.card.small" maxWidth="none">
+      <Box variant="card.top.xsmall" maxWidth="none">
         Questions
       </Box>
       <Card variant="card.bottom.small" maxWidth="none">

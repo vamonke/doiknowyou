@@ -10,7 +10,13 @@ const CheckBox = props => {
   const { handleChange, name, isSelected, value, description } = props;
   return (
     <Label name={name}>
-      <Input type="radio" onChange={handleChange} name={name} value={value} />
+      <Input
+        type="radio"
+        onChange={handleChange}
+        name={name}
+        value={value}
+        defaultChecked={isSelected}
+      />
       <Box variant="selectable.block" mt={0} mx={0} mb={3} width={1}>
         <Text mb="-4px" mr={2}>
           {isSelected ? (

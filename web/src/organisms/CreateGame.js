@@ -22,7 +22,7 @@ const CreateGame = props => {
 
   return (
     <>
-      <Box variant="orange.card.small">
+      <Box variant="card.top.xsmall">
         <Box variant="modal.header">Create Game</Box>
       </Box>
       <Box variant="modal.card" pt={[3, 3, 24]}>

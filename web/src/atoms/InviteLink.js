@@ -44,7 +44,7 @@ const InviteLink = () => {
         px={3}
         py={2}
         my={2}
-        color="gradient"
+        color="orange"
         onClick={webShare}
       >
         {copied ? (

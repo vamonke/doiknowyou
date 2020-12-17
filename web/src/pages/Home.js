@@ -18,25 +18,27 @@ const Home = () => {
 
   return (
     <>
-      <Box variant="gradient">
-        <Box variant="orange.card">
-          <Heading fontSize={[7, 7, 8, 9]} lineHeight="1em">
-            Do I
-            <br />
-            Know
-            <br />
-            You
-            <Text color="yellow" ml={2} sx={{ display: "inline" }}>
-              ?
+      <Box variant="gradient" pt={[3, 4]}>
+        <Box variant="container">
+          <Box variant="card.top.large">
+            <Heading fontSize={[7, 7, 8, 9]} lineHeight="1em">
+              Do I
+              <br />
+              Know
+              <br />
+              You
+              <Text color="yellow" ml={2} sx={{ display: "inline" }}>
+                ?
+              </Text>
+            </Heading>
+            <Text mt={3}>
+              A game to test how well you really know your friends
             </Text>
-          </Heading>
-          <Text mt={3}>
-            A game to test how well you really know your friends
-          </Text>
+          </Box>
         </Box>
       </Box>
 
-      <Box px={[0, 2, 3]}>
+      <Box variant="container">
         <Box variant="card.bottom" pt={[0, 0]}>
           <Box mb={3} py={24} sx={{ borderBottom: "1px solid #DDD" }}>
             {

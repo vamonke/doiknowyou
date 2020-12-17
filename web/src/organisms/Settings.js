@@ -35,6 +35,7 @@ const settingsMap = [
 ];
 
 const Settings = ({ room, hide, updateSettings }) => {
+  console.log(room.gameMode);
   const onChange = formatter => e => {
     const { name, value } = e.target;
     const settings = { [name]: formatter(value) };
