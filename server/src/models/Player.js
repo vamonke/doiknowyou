@@ -46,6 +46,11 @@ export const remove = id => Player.findByIdAndDelete(id);
 
 export const disconnect = id => Player.findByIdAndUpdate(id, { disconnected: true });
 
+export const isDisconnected = async id => {
+  const player = await findById(id);
+  return player ? player.disconnected : true;
+};
+
 export const connected = id => Player.findByIdAndUpdate(id, { disconnected: false });
 
 export const getNextRecipientId = async (roomId, currentRecipientId) => {

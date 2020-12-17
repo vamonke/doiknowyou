@@ -23,7 +23,7 @@ export const joinGame = async (playerName, roomNo) => {
 
   const hostIsActive = await isHostActive(hostId);
   if (!hostIsActive) {
-    room = await setNewHost(roomId);
+    room = await setNewHost(roomId, null);
   }
 
   const res = { room, viewer };

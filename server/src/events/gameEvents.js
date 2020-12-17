@@ -104,8 +104,6 @@ const gameEvents = async (io, socket, common) => {
       recipientId
     );
 
-    console.log({ completed });
-
     if (!completed) return false;
 
     endQuestion(question);

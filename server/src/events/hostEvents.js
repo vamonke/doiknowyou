@@ -6,6 +6,7 @@ import * as RandomQuestion from "../models/RandomQuestion";
 // TODO: Authenticate host by player id
 const hostEvents = (io, socket, common) => {
   const newHost = async (roomId, playerId) => {
+    common.gameLog("Selecting new host..");
     if (!playerId) {
       playerId = await Player.getNextRecipientId(roomId);
     }
@@ -48,10 +49,10 @@ const hostEvents = (io, socket, common) => {
     if (socket.missingPlayer()) return;
 
     const { roomId, _id: playerId } = socket.player;
-    
+
     // Remove any existing questions
     await Question.removeByRoomId(roomId);
-    
+
     // Select random questions
     const QUESTIONS_COUNT = 2; // TODO: Should come from db
     const rounds = QUESTIONS_COUNT;
@@ -75,7 +76,7 @@ const hostEvents = (io, socket, common) => {
   });
 
   // Host: Update settings
-  socket.on("makeHost", async playerId => {
+  socket.on("makeHost", playerId => {
     if (socket.missingPlayer()) return;
 
     const { player: { roomId } } = socket;
@@ -83,28 +84,9 @@ const hostEvents = (io, socket, common) => {
   });
 
   // Host: Kick player
-  socket.on("kickPlayer", async playerId => {
+  socket.on("kickPlayer", playerId => {
     if (socket.missingPlayer()) return;
-
-    await Player.remove(playerId);
-
-    const { player: { roomId } } = socket;
-    let room = await Room.findById(roomId);
-    if (room.status === "created") {
-      await Question.removeByPlayerId(playerId);
-      if (room.hostId === playerId) {
-        room = newHost(roomId, null);
-      }
-    }
-
-    common.gameLog("Kicked: " + playerId);
-
-    // Emit players
-    common.emitPlayers(roomId);
-
-    if (room.status === "created") {
-      common.startIfAllReady(roomId);
-    }
+    common.removePlayer(playerId);
   });
 
   Object.assign(common, { newHost });

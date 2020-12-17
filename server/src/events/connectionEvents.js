@@ -6,10 +6,12 @@ import * as Answer from "../models/Answer";
 import { error, socketLog } from "../logger";
 
 const connectionEvents = (io, socket, common) => {
-  const emitPlayers = async roomId => {
+  const emitPlayers = async (roomId) => {
     // TODO: Cache
     common.players = await Player.findByRoom(roomId);
-    common.gameLog("Update player list - " + common.players.length + " players");
+    common.gameLog(
+      "Update player list - " + common.players.length + " players"
+    );
     io.to(roomId).emit("updatePlayers", common.players);
 
     const room = await Room.findById(roomId);
@@ -17,27 +19,27 @@ const connectionEvents = (io, socket, common) => {
     io.to(roomId).emit("newHost", room.hostId);
   };
 
-  const hydrateRoom = async roomId => {
+  const hydrateRoom = async (roomId) => {
     const room = await Room.findById(roomId);
     common.playerLog("room hydrated");
     socket.emit("hydrateRoom", room);
   };
 
-  const hydrateAnswers = async roomId => {
+  const hydrateAnswers = async (roomId) => {
     const currentQuestion = await Question.getCurrentQuestionInRoom(roomId);
     if (!currentQuestion) return;
     const answers = await Answer.findByQuestion(currentQuestion._id);
-    const answeredPlayers = answers.map(answer => answer.playerId);
+    const answeredPlayers = answers.map((answer) => answer.playerId);
     if (currentQuestion.correctAnswer)
       answeredPlayers.push(currentQuestion.recipientId);
     common.playerLog("answered hydrated - " + answeredPlayers.length);
     socket.emit("hydrateAnswers", answeredPlayers);
   };
 
-  const hydrateQuestions = async roomId => {
+  const hydrateQuestions = async (roomId) => {
     const promises = [
       Question.getCurrentQuestionInRoomFull(roomId),
-      Question.findAsked(roomId)
+      Question.findAsked(roomId),
     ];
     const [currentQuestion, answeredQuestions] = await Promise.all(promises);
     common.playerLog("questions hydrated");
@@ -55,7 +57,7 @@ const connectionEvents = (io, socket, common) => {
 
     if (room.status === "created") {
       await Question.removeByPlayerId(_id);
-      if (room.hostId === _id) {
+      if (String(room.hostId) === _id) {
         common.newHost(roomId, null);
       }
     }
@@ -83,15 +85,49 @@ const connectionEvents = (io, socket, common) => {
     common.playerLog("disconnected");
     emitPlayers(roomId);
 
-    if (room.status === "created") {
-      // await Question.removeByPlayerId(_id);
-      if (room.hostId === _id) {
-        common.newHost(roomId, null);
-      }
+    removePlayerIfInactive(_id);
+
+    if (String(room.hostId) === _id) {
+      common.newHost(roomId, null);
     }
   };
 
-  const hydrate = async roomId => {
+  const removePlayer = async (playerId) => {
+    await Player.remove(playerId);
+
+    const { player: { roomId } } = socket;
+    let room = await Room.findById(roomId);
+
+    console.log({ room, playerId });
+
+    if (String(room.hostId) === playerId) {
+      room = await common.newHost(roomId, null);
+    }
+
+    if (room.status === "created") {
+      await Question.removeByPlayerId(playerId);
+    }
+
+    common.gameLog("Removed player: " + playerId);
+
+    // Emit players
+    common.emitPlayers(roomId);
+
+    if (room.status === "created") {
+      common.startIfAllReady(roomId);
+    }
+  };
+
+  const removePlayerIfInactive = async (playerId) => {
+    const reconnectTime = 10 * 1000;
+    setTimeout(async () => {
+      const isDisconnected = await Player.isDisconnected(playerId);
+      common.playerLog(isDisconnected ? "is still disconnected" : "has reconnected");
+      if (isDisconnected) removePlayer(playerId);
+    }, reconnectTime);
+  };
+
+  const hydrate = async (roomId) => {
     common.playerLog("joined");
     hydrateRoom(roomId);
     emitPlayers(roomId);
@@ -102,7 +138,7 @@ const connectionEvents = (io, socket, common) => {
     }
   };
 
-  socket.on("join", async player => {
+  socket.on("join", async (player) => {
     socket.player = player;
     const { _id, roomId } = player;
     const socketInRoom = Object.prototype.hasOwnProperty.call(
@@ -128,7 +164,7 @@ const connectionEvents = (io, socket, common) => {
       return true;
     }
     const playerInRoom = common.players.some(
-      player => player._id.toString() === socket.player._id
+      (player) => player._id.toString() === socket.player._id
     );
 
     if (!playerInRoom) {
@@ -142,7 +178,7 @@ const connectionEvents = (io, socket, common) => {
   socket.on("leave", leaveRoom);
 
   socket.on("disconnect", async (reason) => {
-    // common.playerLog("disconnected due to " + reason);
+    common.playerLog("disconnected due to " + reason);
     if (!socket.player) return;
 
     const { name, roomId } = socket.player;
@@ -153,11 +189,11 @@ const connectionEvents = (io, socket, common) => {
     disconnect();
   });
 
-  socket.on('reconnect', (attemptNumber) => {
+  socket.on("reconnect", (attemptNumber) => {
     console.log("attemptNumber", attemptNumber);
   });
 
-  Object.assign(common, { emitPlayers });
+  Object.assign(common, { emitPlayers, removePlayer });
 };
 
 export default connectionEvents;
