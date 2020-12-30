@@ -13,7 +13,8 @@ const LobbyPlayerList = props => {
     hostId,
     viewerIsHost,
     dispatch,
-    gameMode
+    gameMode,
+    showInvite
     // roomNo,
   } = props;
 
@@ -91,7 +92,7 @@ const LobbyPlayerList = props => {
             </Box>
           );
         })}
-        <InviteLink />
+        {showInvite && <InviteLink />}
       </Box>
     </Box>
   );

@@ -83,6 +83,7 @@ const Lobby = props => {
           roomNo={roomNo}
           gameMode={gameMode}
           dispatch={dispatch}
+          showInvite={true}
         />
       )}
 
