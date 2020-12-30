@@ -8,6 +8,9 @@ const theme = {
     darkgray: "#666",
     green: "#1ABC9C",
     darkpurple: "#2C2736",
+    purple: "#7F00FF",
+    violet: "#5507E0",
+    lightpurple: "#8912FF",
     orange: "#FA7F00",
     lightorange: "#FF991A",
     yellow: "#F7CF00",
@@ -338,7 +341,7 @@ const text = {
   },
   correct: {
     fontSize: "10pt",
-    letterSpacing: 1,
+    // letterSpacing: 1,
     borderRadius: 6,
     bg: "green",
     color: "white",
@@ -416,8 +419,8 @@ const buttons = {
       }
     },
     "&:hover": {
-      bg: "lightorange",
-      background: "lightorange",
+      bg: "darkpurple",
+      background: "darkpurple",
       transition: "0.3s"
     }
   },
@@ -571,12 +574,38 @@ const buttons = {
     fontFamily: "button",
     p: 12,
     mt: 3,
-    outline: "none"
+    outline: "none",
+    black: {
+      cursor: "pointer",
+      color: "darkpurple",
+      bg: "white",
+      borderWidth: 2,
+      borderStyle: "solid",
+      borderColor: "darkpurple",
+      borderRadius: 16,
+      fontFamily: "button",
+      p: 12,
+      mt: 3,
+      outline: "none",
+      solid: {
+        cursor: "pointer",
+        color: "white",
+        bg: "darkpurple",
+        borderWidth: 2,
+        borderStyle: "solid",
+        borderColor: "darkpurple",
+        borderRadius: 16,
+        fontFamily: "button",
+        p: 12,
+        mt: 3,
+        outline: "none"
+      }
+    }
   },
   outline: {
     fontFamily: "button",
     cursor: "pointer",
-    color: "orange",
+    color: "purple",
     bg: "white",
     // boxShadow: "small",
     borderWidth: 2,
