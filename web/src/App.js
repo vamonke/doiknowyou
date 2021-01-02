@@ -7,8 +7,9 @@ import history from "./redux/history";
 
 import Home from "./pages/Home";
 import Lobby from "./pages/Lobby";
-import LobbyProject from "./pages/LobbyProject";
 import Game from "./pages/Game";
+import LobbyProject from "./pages/LobbyProject";
+import GameProject from "./pages/GameProject";
 import Restarting from "./pages/Restarting";
 import * as Admin from "./admin";
 
@@ -32,9 +33,10 @@ const App = () => (
         </Route>
 
         <Switch>
-          <Route exact path="/lobby/:roomNo/project" component={LobbyProject} />
           <Route exact path="/lobby/:roomNo" component={Lobby} />
           <Route exact path="/game/:roomNo" component={Game} />
+          <Route exact path="/lobby/:roomNo/project" component={LobbyProject} />
+          <Route exact path="/game/:roomNo/project" component={GameProject} />
           <Route exact path="/restart/:roomNo" component={Restarting} />
           <Route path="/" component={Home} />
         </Switch>
