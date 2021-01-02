@@ -1,6 +1,6 @@
 const theme = {
   breakpoints: ["21em", "24em", "32em", "52em", "64em"],
-  fontSizes: [12, 14, 16, 20, 24, 28, 32, 36, 48, 54],
+  fontSizes: [12, 14, 16, 20, 24, 28, 32, 36, 40, 48, 54],
   colors: {
     blue: "#07C",
     lightgray: "#DDD",
@@ -13,7 +13,7 @@ const theme = {
     lightpurple: "#8912FF",
     orange: "#FA7F00",
     lightorange: "#FF991A",
-    yellow: "#F7CF00",
+    yellow: "#FFCC00",
     darkyellow: "#F7B500",
     red: "#E74C3C"
   },
@@ -101,12 +101,10 @@ const variants = {
       pt: 0,
       boxShadow: "large",
       small: {
-        pt: [0, 0],
-        px: [3, 3, 24, 4],
-        pb: 2,
-        maxWidth: 540,
-        mx: "auto",
-        mb: 4,
+        px: 24,
+        pt: 24,
+        pb: 4,
+        mb: 24,
         bg: "white",
         color: "darkpurple",
         borderRadius: "0 0 30px 30px",
@@ -124,7 +122,7 @@ const variants = {
     }
   },
   gradient: {
-    background: "linear-gradient(90deg, rgba(240,152,25,1), rgba(255,81,47,1))"
+    background: "linear-gradient(-90deg, rgba(240,152,25,1), rgba(255,81,47,1))"
   },
   modal: {
     position: "fixed",
@@ -362,6 +360,17 @@ const text = {
     px: 3,
     py: 2,
     m: 1,
+    large: {
+      display: "inline-block",
+      bg: "darkyellow",
+      color: "white",
+      borderRadius: 24,
+      px: 24,
+      py: 3,
+      mr: 3,
+      fontSize: 5,
+      verticalAlign: 1
+    },
     small: {
       display: "inline",
       bg: "darkyellow",

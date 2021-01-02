@@ -30,6 +30,12 @@ export const joinGame = async (playerName, roomNo) => {
   return res;
 };
 
+export const projectGame = async (roomNo) => {
+  const room = await Room.findByNumber(roomNo);
+  if (!room) return false;
+  return { room };
+};
+
 const isHostActive = async hostId => {
   if (!hostId) return false;
   const host = await Player.findById(hostId);

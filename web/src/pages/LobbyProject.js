@@ -1,99 +1,116 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Flex, Box, Text, Heading } from "rebass";
-
-import { JoinGameCard, GameInfo } from "../organisms";
-import { LobbyPlayerList, Countdown } from "../molecules";
+import { Flex, Box, Text } from "rebass";
+import { joinAsProjector } from "../redux/actions";
 import QRCode from "qrcode.react";
 
 const Lobby = props => {
-  const { room, players } = props;
-  const { number: roomNo, hostId, status, timeLimit, gameMode } = room;
+  const { room, players, joinAsProjector } = props;
+  // const { hostId, status, timeLimit, gameMode } = room;
+  const roomNo = room.number || props.match.params.roomNo;
 
-  const inviteLink = document.location.href;
+  useEffect(() => {
+    joinAsProjector(roomNo);
+  }, [roomNo, joinAsProjector]);
 
-  if (!roomNo) {
-    return <JoinGameCard />;
-  }
+  const inviteLink = document.location.href.replace("/project", "");
+
+  // if (!roomNo) {
+  //   return <JoinGameCard />;
+  // }
 
   document.title = `Do I know you? #${roomNo}`;
 
   return (
-    <Flex variant="gradient">
-      <Box
-        width={1 / 2}
-        sx={{ bg: "darkpurple", height: "100vh" }}
-        color="white"
-      >
-        <Box variant="container" pt={6} px={[5, 5]}>
-          <Heading fontSize={8} lineHeight="1em">
-            Do I Know You
-            <Text color="darkyellow" ml={2} sx={{ display: "inline" }}>
-              ?
+    <Box>
+      <Box variant="gradient" pt={4} pb={96} mb={-60} color="white">
+        <Flex
+          variant="container"
+          maxWidth={1440}
+          justifyContent="space-between"
+        >
+          <Box>
+            <Text px={4}>
+              <Text fontWeight="bold" pt={2} pb={128} fontSize={5}>
+                Do I Know You{" "}
+                <Text color="yellow" sx={{ display: "inline" }}>
+                  ?
+                </Text>
+              </Text>
+              <Text fontSize={8}>
+                Go to{" "}
+                <Text as="span" fontWeight="bold">
+                  doiknowyou.io
+                </Text>{" "}
+                and join game{" "}
+                <Text as="span" fontWeight="bold">
+                  {roomNo}
+                </Text>
+              </Text>
+              <Text pt={3} fontSize={7}>
+                Or open your phone camera and scan the QR code
+              </Text>
             </Text>
-          </Heading>
-          {/* <Text mt={3}>
-            A game to test how well you really know your friends
-          </Text> */}
-          <Text lineHeight={["1.6em", "1.8em"]} pt={3}>
-            <Heading fontSize={3} fontWeight="body" color="darkyellow">
-              How to play
-            </Heading>
-            <Text variant="p">
-              One person sits in the "the hot seat" each round and has to answer
-              a question about themself.
-            </Text>
-            <Text variant="p">
-              Meanwhile, the other players have to try to guess the answer of
-              the player in the hot seat.
-            </Text>
-            <Text variant="p">
-              Whoever guesses correctly wins 1 point. The player with the
-              highest points wins the game.
-            </Text>
-          </Text>
-          <Heading
-            fontSize={3}
-            fontWeight="body"
-            color="darkyellow"
-            mt={4}
-            mb={3}
-          >
-            Players
-          </Heading>
-          {players.map(player => {
-            return <Text variant="tag">{player.name}</Text>;
-          })}
-        </Box>
-      </Box>
-
-      <Box width={1 / 2} textAlign="center" color="white">
-        <Box py={48} />
-        {/* {status === "created" && (
-          <GameInfo
-            roomNo={roomNo}
-            gameMode={gameMode}
-            playerCount={players.length}
-            timeLimit={timeLimit}
-          />
-        )} */}
-
-        <Text>Scan this QR code to join game.</Text>
-
-        <Flex justifyContent="center" py={3}>
-          <Box p={40} variant="card" sx={{ border: "none" }}>
-            <QRCode
-              value={inviteLink}
-              style={{ maxWidth: "100%", height: "auto", width: 400 }}
-              fgColor="#2C2736"
-              size={1024}
-            />
+          </Box>
+          <Box>
+            <Flex
+              justifyContent="flex-end"
+              alignItems="center"
+              sx={{ borderLeft: "0px solid white" }}
+              px={3}
+            >
+              <Box
+                variant="card"
+                sx={{ border: "none" }}
+                height={400}
+                width={400}
+                p={24}
+              >
+                <QRCode
+                  value={inviteLink}
+                  style={{ width: "100%", height: "auto" }}
+                  fgColor="#2C2736"
+                  size={1024}
+                />
+              </Box>
+            </Flex>
           </Box>
         </Flex>
-
-        <Text pb={3}>Or go to {inviteLink}</Text>
       </Box>
-    </Flex>
+      <Flex variant="container" maxWidth={1440}>
+        <Box width={1 / 2} px={3}>
+          <Box>
+            <Box variant="card.top.small">How to play</Box>
+            <Box variant="card.bottom.small" fontSize={3}>
+              <Text variant="p" mt={0}>
+                One person sits in the "the hot seat" each round and has to
+                answer a question about themself.
+              </Text>
+              <Text variant="p">
+                Meanwhile, the other players have to try to guess the answer of
+                the player in the hot seat.
+              </Text>
+              <Text variant="p">
+                Whoever guesses correctly wins 1 point. The player with the
+                highest points wins the game.
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+        <Box width={1 / 2} px={3}>
+          <Box variant="card.top.small">Players ({players.length})</Box>
+          <Box variant="card.bottom.small">
+            {players.map(player => {
+              return (
+                <Text key={player._id} variant="tag.large">
+                  {player.name}
+                </Text>
+              );
+            })}
+          </Box>
+        </Box>
+      </Flex>
+    </Box>
   );
 };
 
@@ -103,5 +120,12 @@ const mapStateToProps = (state = {}) => {
   return { ...state, players, viewer };
 };
 
+const mapDispatchToProps = dispatch => ({
+  joinAsProjector: roomNo => dispatch(joinAsProjector(roomNo))
+});
+
 // TODO: Use mapToDispatch
-export default connect(mapStateToProps)(Lobby);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Lobby);

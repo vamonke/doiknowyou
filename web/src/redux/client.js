@@ -46,6 +46,7 @@ const gameOverEvent = payload => {
   return { type: e.SOCKET_GAME_OVER, payload };
 };
 
+// Room actions
 export const joinRoom = viewer => {
   const { roomId } = viewer;
   if (!roomId) return;
@@ -71,6 +72,10 @@ export const rejoinRoom = viewer => {
 export const leaveRoom = () => {
   socket.emit("leave");
   socket.player = null;
+};
+export const projectRoom = roomId => {
+  if (!roomId) return;
+  socket.emit("join", { roomId, isProjector: true });
 };
 
 // Lobby actions

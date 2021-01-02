@@ -138,9 +138,25 @@ const connectionEvents = (io, socket, common) => {
     }
   };
 
+  const joinAsProjector = async (roomId) => {
+    socket.player = {
+      roomId,
+      isProjector: true,
+      name: "Projector",
+      _id: "Projector"
+    };
+    socket.join(roomId, async () => {
+      socketLog("Projector connected to room");
+      hydrate(roomId);
+    });
+  };
+
+  // Events
   socket.on("join", async (player) => {
     socket.player = player;
-    const { _id, roomId } = player;
+    const { _id, roomId, isProjector } = player;
+    if (isProjector) return joinAsProjector(roomId);
+
     const socketInRoom = Object.prototype.hasOwnProperty.call(
       socket.rooms,
       roomId

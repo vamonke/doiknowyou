@@ -48,6 +48,7 @@ const reducers = (state = defaultState, { type, payload }) => {
     case a.GET_QUESTION_BANK_ALL:
     case a.GET_ROOMS:
     case a.GET_ROOM:
+    case a.JOIN_AS_PROJECTOR:
       return { ...state, ...payload };
 
     case e.SOCKET_PLAYER_READY:

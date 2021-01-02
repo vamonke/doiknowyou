@@ -1,6 +1,6 @@
 import axios from "axios";
 // import { push } from "react-router-redux";
-import { joinRoom, leaveRoom } from "./client";
+import { joinRoom, leaveRoom, projectRoom } from "./client";
 
 export * from "./admin";
 
@@ -10,10 +10,12 @@ axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
 const CREATE_GAME_API = "/api/game/create";
 const JOIN_GAME_API = "/api/game/join";
 const GET_QUESTION_BANK_API = "/api/questionbank";
+const JOIN_AS_PROJECTOR_API = "/api/game/project";
 
 export const CREATE_GAME = "CREATE_GAME";
 export const JOIN_GAME = "JOIN_GAME";
 export const GET_QUESTION_BANK = "GET_QUESTION_BANK";
+export const JOIN_AS_PROJECTOR = "JOIN_AS_PROJECTER";
 export const RESET = "RESET";
 export const RESTART = "RESTART";
 
@@ -32,6 +34,11 @@ const joinGameSuccess = payload => {
   joinRoom(payload.viewer);
   delete payload.viewer.isReady;
   return { type: JOIN_GAME, payload };
+};
+
+const joinAsProjectorSuccess = payload => {
+  projectRoom(payload.room._id);
+  return { type: JOIN_AS_PROJECTOR, payload };
 };
 
 const joinGameFail = error => {
@@ -113,5 +120,23 @@ export const leave = () => {
     leaveRoom();
     console.log("Reset");
     dispatch({ type: RESET });
+  };
+};
+
+export const joinAsProjector = roomNo => {
+  // dispatch fetch
+  return async dispatch => {
+    try {
+      const params = { roomNo };
+      const response = await axios.post(JOIN_AS_PROJECTOR_API, params);
+      if (response.data.error) {
+        const errorMessage = String(response.data.error);
+        console.error(errorMessage);
+      } else {
+        dispatch(joinAsProjectorSuccess(response.data));
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 };

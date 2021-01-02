@@ -1,5 +1,5 @@
 import express from "express";
-import { createGame, joinGame, getQuestionBank } from "./controllers";
+import { createGame, joinGame, getQuestionBank, projectGame } from "./controllers";
 import * as Admin from "./controllers/admin";
 const router = express.Router();
 
@@ -22,6 +22,16 @@ router.post("/api/game/join", async (req, res) => {
   if (!playerName || !roomNo) return res.json({ error: "Missing fields" });
 
   const result = await joinGame(playerName, roomNo);
+  if (result) return res.json(result);
+
+  return res.json({ error: `Room ${roomNo} not found` });
+});
+
+router.post("/api/game/project", async (req, res) => {
+  const { roomNo } = req.body;
+  if (!roomNo) return res.json({ error: "Missing room number" });
+
+  const result = await projectGame(roomNo);
   if (result) return res.json(result);
 
   return res.json({ error: `Room ${roomNo} not found` });

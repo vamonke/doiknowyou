@@ -21,7 +21,7 @@ const Home = () => {
       <Box variant="gradient" pt={[3, 4]}>
         <Box variant="container">
           <Box variant="card.top.large">
-            <Heading fontSize={[7, 7, 8, 9]} lineHeight="1em">
+            <Heading fontSize={[7, 7, 9, 10]} lineHeight="1em">
               Do I
               <br />
               Know
